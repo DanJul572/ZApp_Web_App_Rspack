@@ -1,0 +1,68 @@
+import Box from '@mui/material/Box';
+
+import Confirm from '@/component/dialog/Confirm';
+import Table from '@/component/table';
+
+import TableFunction from '@/hook/TableFunction';
+import Translator from '@/hook/Translator';
+
+const ClassicView = (props) => {
+  const { t } = Translator();
+
+  const {
+    actions,
+    columnKey,
+    columns,
+    onClickRowAction,
+    onCLickToolbarAction,
+    onConfirm,
+    openConfirmDialog,
+    rowCount,
+    rows,
+    setAdvanceFilter,
+    setFilter,
+    setPage,
+    setSort,
+  } = TableFunction(props);
+
+  const { rowCustomAction, onClickRowCustomAction } = props;
+
+  return (
+    <Box>
+      <Table
+        action={actions}
+        columnKey={columnKey}
+        columns={columns}
+        enableAdvanceFilter={true}
+        enableColumnResizing={true}
+        enableExport={true}
+        enableFilter={true}
+        enableHiding={true}
+        enablePagination={true}
+        enableRowSelection={true}
+        enableSorting={true}
+        onAdvanceFilter={setAdvanceFilter}
+        onChangePage={setPage}
+        onClickRowAction={onClickRowAction}
+        onClickRowCustomAction={onClickRowCustomAction}
+        onClickToolbarAction={onCLickToolbarAction}
+        onFilter={setFilter}
+        onSort={setSort}
+        pageIndex={0}
+        rowCount={rowCount}
+        rowCustomAction={rowCustomAction}
+        rows={rows}
+      />
+      <Confirm
+        cancelButton={t('cancel')}
+        confirmButton={t('delete')}
+        onConfirm={onConfirm}
+        open={openConfirmDialog}
+        text={t('confirm_delete')}
+        title={t('delete_data')}
+      />
+    </Box>
+  );
+};
+
+export default ClassicView;

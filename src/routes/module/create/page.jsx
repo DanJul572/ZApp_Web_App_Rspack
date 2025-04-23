@@ -1,0 +1,118 @@
+import { useRouter } from 'react-router-dom';
+import { useState } from 'react';
+
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+
+import FieldForm from './FieldForm';
+import ModuleForm from './ModuleForm';
+
+import { useAlert } from '@/context/AlertProvider';
+import { useLoading } from '@/context/LoadingProvider';
+
+import Request from '@/hook/Request';
+import Translator from '@/hook/Translator';
+
+import { readJSONFile } from '@/helper/readFile';
+
+import Upload from '@/component/button/Upload';
+
+import CApiUrl from '@/constant/CApiUrl';
+import CTheme from '@/constant/CTheme';
+
+const Page = () => {
+  const { post } = Request();
+  const { t } = Translator();
+
+  const { back, push } = useRouter();
+  const { setLoading } = useLoading();
+  const { setAlert } = useAlert();
+
+  const [moduleName, setModuleName] = useState(null);
+  const [moduleLabel, setModuleLabel] = useState(null);
+  const [moduleDescription, setModuleDescription] = useState(null);
+  const [fieldRows, setFieldRows] = useState([]);
+
+  const onBack = () => {
+    back();
+  };
+
+  const onUpload = (event) => {
+    readJSONFile(event)
+      .then((json) => {
+        setModuleName(json.name);
+        setModuleLabel(json.label);
+        setModuleDescription(json.description);
+        setFieldRows(json.fields);
+        event.target.value = null;
+      })
+      .catch((error) => console.log(error));
+  };
+
+  const onSave = () => {
+    setLoading(true);
+
+    const fields = [...fieldRows].map((field) => {
+      delete field.id;
+      return field;
+    });
+
+    const data = {
+      name: moduleName,
+      label: moduleLabel,
+      description: moduleDescription,
+      fields: fields,
+    };
+
+    post(CApiUrl.module.create, data)
+      .then((res) => {
+        setAlert({
+          status: true,
+          type: 'success',
+          message: res,
+        });
+        push('/module');
+      })
+      .catch((err) => {
+        setAlert({
+          status: true,
+          type: 'error',
+          message: err,
+        });
+      })
+      .finally(() => setLoading(false));
+  };
+
+  return (
+    <Box>
+      <Box display="flex" justifyContent="flex-end" gap={1}>
+        <Button
+          variant="outlined"
+          size={CTheme.button.size.name}
+          onClick={onBack}
+        >
+          {t('back')}
+        </Button>
+        <Upload label={t('upload')} onUpload={onUpload} type=".json" />
+        <Button
+          variant="contained"
+          size={CTheme.button.size.name}
+          onClick={onSave}
+        >
+          {t('save')}
+        </Button>
+      </Box>
+      <ModuleForm
+        moduleDescription={moduleDescription}
+        moduleLabel={moduleLabel}
+        moduleName={moduleName}
+        setModuleDescription={setModuleDescription}
+        setModuleLabel={setModuleLabel}
+        setModuleName={setModuleName}
+      />
+      <FieldForm fieldRows={fieldRows} setFieldRows={setFieldRows} />
+    </Box>
+  );
+};
+
+export default Page;
