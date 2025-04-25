@@ -1,4 +1,4 @@
-import { useRouter, Link } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router';
 import { useState } from 'react';
 
 import { useLoading } from '@/context/LoadingProvider';
@@ -25,7 +25,7 @@ const Page = () => {
   const { post } = Request();
   const { t } = Translator();
 
-  const { push } = useRouter();
+  const navigate = useNavigate();
   const { setLoading } = useLoading();
   const { setToast } = useToast();
 
@@ -48,7 +48,7 @@ const Page = () => {
     post(CApiUrl.auth.register, body, false)
       .then(() => {
         setToast({ status: true, type: 'success', message: 'Success' });
-        push('/login');
+        navigate('/login');
       })
       .catch((err) => {
         setToast({ status: true, type: 'error', message: err });

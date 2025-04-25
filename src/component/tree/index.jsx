@@ -41,7 +41,9 @@ const Tree = (props) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [typingTimeout, setTypingTimeout] = useState(null);
 
-  const tree = localStorage.getItem('tree') ? JSON.parse(localStorage.getItem('tree')) : [];
+  const tree = localStorage.getItem('tree')
+    ? JSON.parse(localStorage.getItem('tree'))
+    : [];
 
   const treeProps = {};
   if (isSidebar) treeProps.expandedItems = expandedMenu;

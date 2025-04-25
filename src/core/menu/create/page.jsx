@@ -1,6 +1,6 @@
 import { useAlert } from '@/context/AlertProvider';
 import { useLoading } from '@/context/LoadingProvider';
-import { useRouter, useSearchParams } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router';
 import { useEffect, useState } from 'react';
 
 import { v4 as uuidv4 } from 'uuid';
@@ -38,7 +38,7 @@ const Page = () => {
   const { post, get } = Request();
   const { t } = Translator();
 
-  const { push, back } = useRouter();
+  const navigate = useNavigate();
   const searchParams = useSearchParams();
   const { setLoading } = useLoading();
   const { setAlert } = useAlert();
@@ -150,7 +150,7 @@ const Page = () => {
   };
 
   const onBack = () => {
-    back();
+    navigate(-1);
   };
 
   const onSave = () => {
@@ -170,7 +170,7 @@ const Page = () => {
     post(url, body)
       .then((res) => {
         setAlert({ status: true, type: 'success', message: res });
-        push('/menu');
+        navigate('/menu');
       })
       .catch((err) => {
         setAlert({ status: true, type: 'error', message: err });

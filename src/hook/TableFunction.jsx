@@ -1,4 +1,4 @@
-import { useRouter } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 import { useEffect, useState } from 'react';
 
 import { useAlert } from '@/context/AlertProvider';
@@ -14,7 +14,7 @@ const TableFunction = (props) => {
 
   const { post, get } = Request();
 
-  const { push } = useRouter();
+  const navigate = useNavigate();
   const { setAlert } = useAlert();
   const { setLoading } = useLoading();
 
@@ -118,7 +118,7 @@ const TableFunction = (props) => {
   };
 
   const onCLickToolbarAction = (action) => {
-    if (action.type === CActionType.insert.value) push(action.path);
+    if (action.type === CActionType.insert.value) navigate(action.path);
   };
 
   const onClickRowAction = (data) => {
@@ -126,7 +126,7 @@ const TableFunction = (props) => {
       setSelectedRow(data.row);
       setOpenConfirmDialog(true);
     } else if (data.action.type === CActionType.update.value) {
-      push(`${data.action.path}?${columnKey}=${data.row[columnKey]}`);
+      navigate(`${data.action.path}?${columnKey}=${data.row[columnKey]}`);
     }
   };
 

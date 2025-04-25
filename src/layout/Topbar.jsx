@@ -1,4 +1,4 @@
-import { useRouter } from 'react-router-dom';
+import { useRoutes } from 'react-router';
 
 import { useExpandedMenu } from '@/context/ExpandedMenuProvider';
 import { useLoading } from '@/context/LoadingProvider';
@@ -20,7 +20,7 @@ import CTheme from '@/constant/CTheme';
 const Topbar = () => {
   const { post } = Request();
 
-  const { push } = useRouter();
+  const { push } = useRoutes();
   const { setToast } = useToast();
   const { setLoading } = useLoading();
   const { setExpandedMenu } = useExpandedMenu();

@@ -1,10 +1,10 @@
-import { useRouter } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 
 const Redirect = () => {
-  const { push, back } = useRouter();
+  const navigate = useNavigate();
 
   const internal = (path) => {
-    return push(path);
+    return navigate(path);
   };
 
   const external = (path) => {
@@ -16,7 +16,7 @@ const Redirect = () => {
   };
 
   const prev = () => {
-    return back();
+    return navigate(-1);
   };
 
   return {

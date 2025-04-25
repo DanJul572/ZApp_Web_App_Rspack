@@ -1,4 +1,4 @@
-import { useRouter, Link } from 'react-router-dom';
+import { redirect, Link } from 'react-router';
 import { useState } from 'react';
 
 import { useExpandedMenu } from '@/context/ExpandedMenuProvider';
@@ -25,7 +25,6 @@ const Page = () => {
   const { post } = Request();
   const { t } = Translator();
 
-  const { push } = useRouter();
   const { setExpandedMenu } = useExpandedMenu();
   const { setLoading } = useLoading();
   const { setToast } = useToast();
@@ -42,7 +41,7 @@ const Page = () => {
       .then((res) => {
         localStorage.setItem('token', res.accessToken);
         setExpandedMenu([]);
-        push(res.afterLogin);
+        redirect(res.afterLogin);
       })
       .catch((err) => {
         setToast({ status: true, type: 'error', message: err });

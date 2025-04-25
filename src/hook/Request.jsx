@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { useRouter } from 'react-router-dom';
+import { redirect } from 'react-router';
 
 import auth from '../helper/auth';
 
@@ -11,11 +11,9 @@ const Request = () => {
     Accept: 'application/json',
   };
 
-  const { push } = useRouter();
-
   const forceRedirect = () => {
     auth.logout();
-    push('/login');
+    redirect('/login');
   };
 
   const get = (url, params, withAuth = true) => {

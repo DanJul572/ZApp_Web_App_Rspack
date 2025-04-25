@@ -1,4 +1,4 @@
-import { useRouter } from 'react-router-dom';
+import { useNavigate } from 'react-router';
 import { useState } from 'react';
 
 import Box from '@mui/material/Box';
@@ -24,7 +24,7 @@ const Page = () => {
   const { post } = Request();
   const { t } = Translator();
 
-  const { back, push } = useRouter();
+  const navigate = useNavigate();
   const { setLoading } = useLoading();
   const { setAlert } = useAlert();
 
@@ -34,7 +34,7 @@ const Page = () => {
   const [fieldRows, setFieldRows] = useState([]);
 
   const onBack = () => {
-    back();
+    navigate(-1);
   };
 
   const onUpload = (event) => {
@@ -71,7 +71,7 @@ const Page = () => {
           type: 'success',
           message: res,
         });
-        push('/module');
+        navigate('/module');
       })
       .catch((err) => {
         setAlert({

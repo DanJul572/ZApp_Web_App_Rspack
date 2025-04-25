@@ -1,4 +1,4 @@
-import { useRouter } from 'react-router-dom';
+import { useRoutes } from 'react-router';
 import { useEffect, useState } from 'react';
 
 import Box from '@mui/material/Box';
@@ -13,12 +13,14 @@ import CTheme from '@/constant/CTheme';
 import { grey } from '@mui/material/colors';
 
 const Sidebar = () => {
-  const { push } = useRouter();
+  const { push } = useRoutes();
   const { get } = Request();
 
   const [list, setList] = useState([]);
 
-  const tree = localStorage.getItem('tree') ? JSON.parse(localStorage.getItem('tree')) : [];
+  const tree = localStorage.getItem('tree')
+    ? JSON.parse(localStorage.getItem('tree'))
+    : [];
 
   const onClick = (menu) => {
     push(menu.url);

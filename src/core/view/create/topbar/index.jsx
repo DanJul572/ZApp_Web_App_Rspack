@@ -1,4 +1,4 @@
-import { useRouter } from 'react-router-dom';
+import { useRoutes } from 'react-router';
 import { useEffect, useState } from 'react';
 
 import { useLoading } from '@/context/LoadingProvider';
@@ -50,7 +50,7 @@ const TopBar = (props) => {
   const { get, post } = Request();
   const { t } = Translator();
 
-  const { push } = useRouter();
+  const { push } = useRoutes();
   const { setLoading } = useLoading();
   const { setToast } = useToast();
   const theme = useTheme();
