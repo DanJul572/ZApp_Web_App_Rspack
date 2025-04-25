@@ -1,4 +1,4 @@
-import { useRoutes } from 'react-router';
+import { useNavigate } from 'react-router';
 import { useEffect, useState } from 'react';
 
 import Box from '@mui/material/Box';
@@ -13,7 +13,7 @@ import CTheme from '@/constant/CTheme';
 import { grey } from '@mui/material/colors';
 
 const Sidebar = () => {
-  const { push } = useRoutes();
+  const navigate = useNavigate();
   const { get } = Request();
 
   const [list, setList] = useState([]);
@@ -23,13 +23,13 @@ const Sidebar = () => {
     : [];
 
   const onClick = (menu) => {
-    push(menu.url);
+    navigate(menu.url);
   };
 
   const onLoad = () => {
     get(CApiUrl.common.menu).then((res) => {
       setList(res.tree);
-      localStorage.setItem('tree', res.tree);
+      localStorage.setItem('tree', JSON.stringify(res.tree));
     });
   };
 

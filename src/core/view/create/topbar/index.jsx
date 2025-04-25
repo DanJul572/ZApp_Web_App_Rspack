@@ -1,4 +1,4 @@
-import { useRoutes } from 'react-router';
+import { useNavigate } from 'react-router';
 import { useEffect, useState } from 'react';
 
 import { useLoading } from '@/context/LoadingProvider';
@@ -50,7 +50,7 @@ const TopBar = (props) => {
   const { get, post } = Request();
   const { t } = Translator();
 
-  const { push } = useRoutes();
+  const navigate = useNavigate();
   const { setLoading } = useLoading();
   const { setToast } = useToast();
   const theme = useTheme();
@@ -203,7 +203,7 @@ const TopBar = (props) => {
             size={CTheme.button.size.name}
             sx={{ padding: 0 }}
             color="primary"
-            onClick={() => push('/view')}
+            onClick={() => navigate('/view')}
           >
             <ArrowBack
               fontSize={CTheme.font.size.name}

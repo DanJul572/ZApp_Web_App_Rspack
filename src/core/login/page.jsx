@@ -1,4 +1,4 @@
-import { redirect, Link } from 'react-router';
+import { Link, useNavigate, redirect } from 'react-router';
 import { useState } from 'react';
 
 import { useExpandedMenu } from '@/context/ExpandedMenuProvider';
@@ -22,6 +22,7 @@ import CTheme from '@/constant/CTheme';
 const Page = () => {
   const theme = createTheme(CTheme);
 
+  const navigate = useNavigate();
   const { post } = Request();
   const { t } = Translator();
 
@@ -41,7 +42,7 @@ const Page = () => {
       .then((res) => {
         localStorage.setItem('token', res.accessToken);
         setExpandedMenu([]);
-        redirect(res.afterLogin);
+        navigate('/module');
       })
       .catch((err) => {
         setToast({ status: true, type: 'error', message: err });

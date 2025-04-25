@@ -1,11 +1,13 @@
 import axios from 'axios';
-import { redirect } from 'react-router';
+import { useNavigate } from 'react-router';
 
-import auth from '../helper/auth';
+import auth from '@/helper/auth';
 
 import CApiUrl from '@/constant/CApiUrl';
 
 const Request = () => {
+  const navigate = useNavigate();
+
   const apiUrl = CApiUrl.base;
   const headers = {
     Accept: 'application/json',
@@ -13,7 +15,7 @@ const Request = () => {
 
   const forceRedirect = () => {
     auth.logout();
-    redirect('/login');
+    navigate('/login');
   };
 
   const get = (url, params, withAuth = true) => {

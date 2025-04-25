@@ -1,4 +1,4 @@
-import { useRoutes } from 'react-router';
+import { useNavigate } from 'react-router';
 
 import { useExpandedMenu } from '@/context/ExpandedMenuProvider';
 import { useLoading } from '@/context/LoadingProvider';
@@ -20,7 +20,7 @@ import CTheme from '@/constant/CTheme';
 const Topbar = () => {
   const { post } = Request();
 
-  const { push } = useRoutes();
+  const navigate = useNavigate();
   const { setToast } = useToast();
   const { setLoading } = useLoading();
   const { setExpandedMenu } = useExpandedMenu();
@@ -32,7 +32,7 @@ const Topbar = () => {
       .then(() => {
         auth.logout();
         setExpandedMenu([]);
-        push('/login');
+        navigate('/login');
       })
       .catch((err) => {
         setToast({
