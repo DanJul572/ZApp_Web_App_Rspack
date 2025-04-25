@@ -4,7 +4,7 @@ import { RouterProvider } from 'react-router';
 
 import routes from './routes';
 
-import Layout from '@/core/layout';
+import Layout from '@/page/layout';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
