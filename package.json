@@ -16,7 +16,10 @@
     "@emotion/styled": "^11.14.0",
     "@mui/icons-material": "^7.0.2",
     "@mui/material": "^7.0.2",
+    "@mui/x-charts": "^8.1.0",
+    "@mui/x-date-pickers": "^8.1.0",
     "@mui/x-tree-view": "8.0.0-beta.3",
+    "@uiw/react-textarea-code-editor": "^3.1.0",
     "axios": "^1.8.4",
     "dayjs": "^1.11.13",
     "export-to-csv": "^1.4.0",
@@ -24,11 +27,15 @@
     "jspdf": "^3.0.1",
     "jspdf-autotable": "^5.0.2",
     "material-react-table": "^3.2.1",
+    "mui-file-input": "^7.0.0",
+    "prop-types": "^15.8.1",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "react-querybuilder": "^8.5.0",
     "react-router": "^7.5.1",
-    "suneditor": "^2.47.5"
+    "suneditor": "^2.47.5",
+    "suneditor-react": "^3.6.1",
+    "uuid": "^11.1.0"
   },
   "devDependencies": {
     "@biomejs/biome": "^1.9.4",

@@ -73,6 +73,7 @@ const Tree = (props) => {
   };
 
   const clickParent = (menu) => {
+    // if menu is nested, this function called two times
     if (isSidebar) {
       if (!expandedMenu.includes(menu.id)) {
         setExpandedMenu([...expandedMenu, menu.id]);
@@ -94,7 +95,10 @@ const Tree = (props) => {
           key={menu.id}
           itemId={menu.id}
           label={menu.label}
-          onClick={() => clickParent(menu)}
+          onClick={(event) => {
+            event.stopPropagation();
+            clickParent(menu);
+          }}
         >
           {menu.child.map((child) => menuList(child))}
         </StyledTreeItem>
@@ -105,7 +109,10 @@ const Tree = (props) => {
           key={menu.id}
           itemId={menu.id}
           label={menu.label}
-          onClick={() => onChildClick(menu)}
+          onClick={(event) => {
+            event.stopPropagation();
+            onChildClick(menu);
+          }}
         />
       );
     }

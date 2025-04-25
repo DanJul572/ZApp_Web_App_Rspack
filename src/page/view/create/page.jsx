@@ -15,7 +15,7 @@ import Empty from '@/layout/Empty';
 import CApiUrl from '@/constant/CApiUrl';
 
 const Page = () => {
-  const searchParams = useSearchParams();
+  const [searchParams] = useSearchParams();
 
   const { get } = Request();
 

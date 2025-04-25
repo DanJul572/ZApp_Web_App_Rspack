@@ -1,6 +1,6 @@
+import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 
-import Main from '@/layout/Main';
 import ClassicView from '@/template/ClassicView';
 
 import CActionType from '@/constant/CActionType';
@@ -16,7 +16,7 @@ const Page = () => {
   ];
 
   return (
-    <Main>
+    <Box>
       <Typography
         fontSize={20}
         fontWeight="bold"
@@ -25,7 +25,7 @@ const Page = () => {
         Views
       </Typography>
       <ClassicView moduleID={CModuleID.modules} actions={actions} />
-    </Main>
+    </Box>
   );
 };
 

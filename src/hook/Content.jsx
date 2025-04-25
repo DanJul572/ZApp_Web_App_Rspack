@@ -39,7 +39,7 @@ const Content = (props) => {
     if (!isBuilder && params.id) {
       getContent();
     }
-  }, []);
+  }, [params.id]);
 
   return { content: content, page: page };
 };

@@ -39,7 +39,7 @@ const Page = () => {
   const { t } = Translator();
 
   const navigate = useNavigate();
-  const searchParams = useSearchParams();
+  const [searchParams] = useSearchParams();
   const { setLoading } = useLoading();
   const { setAlert } = useAlert();
 

@@ -14,6 +14,7 @@ const Interpreter = (props) => {
   const { isPreview, isBuilder, content, page, selected, setSelected } = props;
 
   const renderComponent = (component) => {
+    const id = component.id;
     const group = component.group.value;
     const type = component.type.value;
     const section = component.section;
@@ -34,7 +35,7 @@ const Interpreter = (props) => {
 
     if (group === CComponentGroupType.container.value) {
       return (
-        <Wraper {...wrapperProps}>
+        <Wraper key={id} {...wrapperProps}>
           <Container
             {...componentProps}
             renderComponent={renderComponent}
@@ -46,7 +47,7 @@ const Interpreter = (props) => {
 
     if (group === CComponentGroupType.fieldControl.value) {
       return (
-        <Wraper {...wrapperProps}>
+        <Wraper key={id} {...wrapperProps}>
           <FieldControl {...componentProps} />
         </Wraper>
       );
@@ -54,7 +55,7 @@ const Interpreter = (props) => {
 
     if (group === CComponentGroupType.visualElement.value) {
       return (
-        <Wraper {...wrapperProps}>
+        <Wraper key={id} {...wrapperProps}>
           <VisualElement {...componentProps} />
         </Wraper>
       );
@@ -62,7 +63,7 @@ const Interpreter = (props) => {
 
     if (group === CComponentGroupType.table.value) {
       return (
-        <Wraper {...wrapperProps}>
+        <Wraper key={id} {...wrapperProps}>
           <Table {...componentProps} />
         </Wraper>
       );
@@ -70,7 +71,7 @@ const Interpreter = (props) => {
 
     if (group === CComponentGroupType.chart.value) {
       return (
-        <Wraper {...wrapperProps}>
+        <Wraper key={id} {...wrapperProps}>
           <Chart {...componentProps} />
         </Wraper>
       );
@@ -78,7 +79,7 @@ const Interpreter = (props) => {
 
     if (group === CComponentGroupType.button.value) {
       return (
-        <Wraper {...wrapperProps}>
+        <Wraper key={id} {...wrapperProps}>
           <Button {...componentProps} />
         </Wraper>
       );

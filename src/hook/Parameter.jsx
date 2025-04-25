@@ -1,7 +1,7 @@
 import { useSearchParams } from 'react-router';
 
 const Parameter = () => {
-  const searchParams = useSearchParams();
+  const [searchParams] = useSearchParams();
 
   const get = (name) => {
     return searchParams.get(name);

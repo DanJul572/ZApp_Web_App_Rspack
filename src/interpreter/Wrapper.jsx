@@ -10,7 +10,12 @@ import CTheme from '@/constant/CTheme';
 const Wraper = ({ children, component, isBuilder, selected, setSelected }) => {
   const theme = useTheme();
 
-  if (!isBuilder) return <Box marginBottom={1}>{children}</Box>;
+  if (!isBuilder)
+    return (
+      <Box key={component.id} marginBottom={1}>
+        {children}
+      </Box>
+    );
   const selectedBorder =
     selected && component.id === selected.id ? CTheme.border.size.value : 0;
   return (

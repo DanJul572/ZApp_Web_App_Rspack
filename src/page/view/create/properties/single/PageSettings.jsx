@@ -1,4 +1,4 @@
-import Box from '@mui/system/Box';
+import Box from '@mui/material/Box';
 
 import ShortText from '@/component/input/ShortText';
 import OnLoad from './OnLoad';
