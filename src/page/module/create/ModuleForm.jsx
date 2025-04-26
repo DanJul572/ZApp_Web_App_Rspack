@@ -1,6 +1,5 @@
-import Box from '@mui/material/Box';
+import Card from '@mui/material/Card';
 import Grid from '@mui/material/Grid';
-import { grey } from '@mui/material/colors';
 
 import LongText from '@/component/input/LongText';
 import ShortText from '@/component/input/ShortText';
@@ -18,12 +17,11 @@ const ModuleForm = (props) => {
   } = props;
 
   return (
-    <Box
-      marginY={2}
-      border={CTheme.border.size.value}
-      padding={2}
-      borderRadius={1}
-      borderColor={grey[300]}
+    <Card
+      sx={{
+        padding: 2,
+        marginBlock: 1,
+      }}
     >
       <Grid container="true" spacing={2}>
         <Grid display="flex" flexDirection="column" gap={2} size={6}>
@@ -47,7 +45,7 @@ const ModuleForm = (props) => {
           />
         </Grid>
       </Grid>
-    </Box>
+    </Card>
   );
 };
 

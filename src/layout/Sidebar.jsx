@@ -2,6 +2,7 @@ import { useNavigate } from 'react-router';
 import { useEffect, useState } from 'react';
 
 import Box from '@mui/material/Box';
+import Card from '@mui/material/Card';
 import Typography from '@mui/material/Typography';
 
 import Request from '@/hook/Request';
@@ -42,10 +43,9 @@ const Sidebar = () => {
   }, []);
 
   return (
-    <Box
+    <Card
       sx={{
         borderColor: grey[300],
-        borderRight: CTheme.border.size.value,
         bottom: 0,
         left: 0,
         overflowY: 'auto',
@@ -68,7 +68,7 @@ const Sidebar = () => {
           <Typography>Menu is not found.</Typography>
         </Box>
       )}
-    </Box>
+    </Card>
   );
 };
 

@@ -40,6 +40,12 @@ const Page = () => {
   const getViewOptions = () => {
     get(CApiUrl.view.options, { moduleId: moduleId })
       .then((res) => {
+        if (res && res.length > 0) {
+          res.map((option) => {
+            option.label = `(${option.value}) - ${option.label}`;
+            return option;
+          });
+        }
         setviewOptions(res);
       })
       .catch((err) => {

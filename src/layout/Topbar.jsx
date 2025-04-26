@@ -51,12 +51,7 @@ const Topbar = () => {
       alignItems="center"
       padding={2}
     >
-      <Typography
-        variant="h6"
-        noWrap
-        component="div"
-        sx={{ color: CTheme.palette.primary.main }}
-      >
+      <Typography variant="h6" noWrap component="div" color="inherit">
         ZApp
       </Typography>
       <IconButton

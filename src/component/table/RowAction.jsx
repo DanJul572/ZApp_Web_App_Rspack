@@ -39,6 +39,7 @@ const RowAction = (props) => {
               row: row.original,
             })
           }
+          color="primary"
           size={CTheme.button.size.name}
         >
           <Edit fontSize={CTheme.font.size.name} />
@@ -52,6 +53,7 @@ const RowAction = (props) => {
               row: row.original,
             })
           }
+          color="primary"
           size={CTheme.button.size.name}
         >
           <Delete fontSize={CTheme.font.size.name} />
@@ -65,6 +67,7 @@ const RowAction = (props) => {
               row: row.original,
             })
           }
+          color="primary"
           size={CTheme.button.size.name}
         >
           <Info fontSize={CTheme.font.size.name} />
@@ -73,6 +76,7 @@ const RowAction = (props) => {
       {rowCustomAction.length > 0 && (
         <IconButton
           onClick={onClickCustomAction}
+          color="primary"
           size={CTheme.button.size.name}
         >
           <Menu fontSize={CTheme.font.size.name} />

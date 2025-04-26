@@ -145,7 +145,7 @@ const TableFunction = (props) => {
     if (!isBuilder) {
       getColumns();
     }
-  }, []);
+  }, [moduleID]);
 
   return {
     actions,

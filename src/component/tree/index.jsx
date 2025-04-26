@@ -2,14 +2,13 @@ import { forwardRef, useEffect, useState } from 'react';
 
 import { useTheme } from '@mui/material';
 import Box from '@mui/material/Box';
-import { alpha, styled } from '@mui/material/styles';
+import { styled } from '@mui/material/styles';
 
 import { SimpleTreeView } from '@mui/x-tree-view/SimpleTreeView';
 import { TreeItem, treeItemClasses } from '@mui/x-tree-view/TreeItem';
 
 import Folder from '@mui/icons-material/Folder';
 import FolderOpen from '@mui/icons-material/FolderOpen';
-import InsertDriveFileOutlined from '@mui/icons-material/InsertDriveFileOutlined';
 
 import { useExpandedMenu } from '@/context/ExpandedMenuProvider';
 
@@ -21,11 +20,6 @@ const CustomTreeItem = forwardRef((props, ref) => (
 CustomTreeItem.displayName = 'CustomTreeItem';
 
 const StyledTreeItem = styled(CustomTreeItem)(({ theme }) => ({
-  [`& .${treeItemClasses.groupTransition}`]: {
-    marginLeft: 10,
-    paddingLeft: 10,
-    borderLeft: `1px dashed ${alpha(theme.palette.text.primary, 0.4)}`,
-  },
   [`& .${treeItemClasses.label}`]: {
     fontSize: 15,
     color: theme.palette.text.primary,
@@ -126,15 +120,6 @@ const Tree = (props) => {
     return <FolderOpen {...props} sx={{ color: theme.palette.primary.main }} />;
   };
 
-  const EndIcon = (props) => {
-    return (
-      <InsertDriveFileOutlined
-        {...props}
-        sx={{ color: theme.palette.primary.main }}
-      />
-    );
-  };
-
   useEffect(() => {
     if (typingTimeout) {
       clearTimeout(typingTimeout);
@@ -162,7 +147,6 @@ const Tree = (props) => {
         slots={{
           expandIcon: ExpandIcon,
           collapseIcon: CollapseIcon,
-          endIcon: EndIcon,
         }}
         sx={{ overflowX: 'hidden', padding: 1 }}
         {...treeProps}

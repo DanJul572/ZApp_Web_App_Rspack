@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
 import Box from '@mui/material/Box';
+import Card from '@mui/material/Card';
 import Button from '@mui/material/Button';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
@@ -255,11 +256,7 @@ const Page = () => {
             onChange={setAfterLogin}
           />
         </Box>
-        <Box
-          border={CTheme.border.size.value}
-          borderColor={grey[300]}
-          borderRadius={1}
-        >
+        <Card>
           <Box padding={1}>
             <Tooltip arrow title="Move To Up">
               <IconButton
@@ -310,9 +307,9 @@ const Page = () => {
               </IconButton>
             </Tooltip>
           </Box>
-          <Divider sx={{ backgroundColor: grey[300] }} />
-          <Box padding={2} gap={2} display="flex">
-            <Box flex={1}>
+          <Divider sx={{ backgroundColor: CTheme.palette.primary.main }} />
+          <Box gap={2} display="flex">
+            <Box padding={1} flex={1}>
               <Tree
                 list={list}
                 onParentClick={onClick}
@@ -321,7 +318,13 @@ const Page = () => {
                 setList={setList}
               />
             </Box>
-            <Box display="flex" flexDirection="column" gap={2} flex={1}>
+            <Box
+              padding={2}
+              display="flex"
+              flexDirection="column"
+              gap={2}
+              flex={1}
+            >
               <ShortText
                 value={activeMenuLabel}
                 label="Label"
@@ -336,7 +339,7 @@ const Page = () => {
               />
             </Box>
           </Box>
-        </Box>
+        </Card>
       </Box>
     </Box>
   );
