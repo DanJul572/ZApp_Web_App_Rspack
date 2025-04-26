@@ -1,4 +1,4 @@
-import { Link, useNavigate, redirect } from 'react-router';
+import { Link, useNavigate } from 'react-router';
 import { useState } from 'react';
 
 import { useExpandedMenu } from '@/context/ExpandedMenuProvider';
@@ -7,6 +7,7 @@ import { useToast } from '@/context/ToastProvider';
 
 import { createTheme } from '@mui/material';
 import Box from '@mui/material/Box';
+import Card from '@mui/material/Card';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 
@@ -61,14 +62,13 @@ const Page = () => {
       right={0}
       top={0}
     >
-      <Box
-        border={CTheme.border.size.value}
-        borderColor={CTheme.palette.primary.main}
-        borderRadius={2}
-        display="flex"
-        flexDirection="column"
-        padding={2}
-        width={450}
+      <Card
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          padding: 2,
+          width: 450,
+        }}
       >
         <Box marginBottom={3} display="flex" flexDirection="column" gap={1}>
           <ShortText
@@ -102,7 +102,7 @@ const Page = () => {
             </Link>
           </Typography>
         </Box>
-      </Box>
+      </Card>
     </Box>
   );
 };
