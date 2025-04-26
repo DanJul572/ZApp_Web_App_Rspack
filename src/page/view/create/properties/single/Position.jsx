@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -90,7 +90,11 @@ const Position = (props) => {
             <ShortTextOutlined fontSize={CTheme.font.size.name} />
           </IconButton>
         </Box>
-        <Dialog open={open} onClose={() => setOpen(false)}>
+        <Dialog
+          aria-hidden={open ? 'false' : 'true'}
+          onClose={() => setOpen(false)}
+          open={open}
+        >
           <DialogTitle>Position</DialogTitle>
           <DialogContent>
             <Box display="flex" flexDirection="column" gap={1} paddingY={1}>
@@ -111,6 +115,7 @@ const Position = (props) => {
           </DialogContent>
           <DialogActions>
             <Button
+              aria-hidden={open ? 'false' : 'true'}
               onClick={() => setOpen(false)}
               variant="outlined"
               size={CTheme.button.size.name}
@@ -118,6 +123,7 @@ const Position = (props) => {
               {t('cancel')}
             </Button>
             <Button
+              aria-hidden={open ? 'false' : 'true'}
               onClick={onMove}
               variant="contained"
               size={CTheme.button.size.name}
