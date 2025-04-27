@@ -3,15 +3,15 @@ import { createBrowserRouter } from 'react-router';
 import EmptyLayout from '@/layout/Empty';
 import MainLayout from '@/layout/Main';
 
-import LoginPage from '@/page/login/page';
-import MainPage from '@/page/main/page';
-import CreateMenuPage from '@/page/menu/create/page';
-import MenuPage from '@/page/menu/page';
-import CreateModulePage from '@/page/module/create/page';
-import ModulePage from '@/page/module/page';
-import WelcomePage from '@/page/page';
-import CreateViewPage from '@/page/view/create/page';
-import ViewPage from '@/page/view/page';
+import WelcomePage from '@/page';
+import LoginPage from '@/page/login';
+import MainPage from '@/page/main';
+import MenuPage from '@/page/menu';
+import CreateMenuPage from '@/page/menu/create';
+import ModulePage from '@/page/module';
+import CreateModulePage from '@/page/module/create';
+import ViewPage from '@/page/view';
+import CreateViewPage from '@/page/view/create';
 
 const routes = createBrowserRouter([
   {
