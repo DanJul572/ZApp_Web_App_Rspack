@@ -1,29 +1,28 @@
-import { fixupConfigRules } from '@eslint/compat';
 import js from '@eslint/js';
 import reactHooks from 'eslint-plugin-react-hooks';
-import reactJsx from 'eslint-plugin-react/configs/jsx-runtime.js';
-import react from 'eslint-plugin-react/configs/recommended.js';
 import globals from 'globals';
 
 export default [
-  { languageOptions: { globals: globals.browser } },
-  js.configs.recommended,
-  ...fixupConfigRules([
-    {
-      ...react,
-      settings: {
-        react: { version: 'detect' },
+  { ignores: ['dist'] },
+  {
+    files: ['**/*.{js,jsx}'],
+    languageOptions: {
+      ecmaVersion: 2020,
+      globals: globals.browser,
+      parserOptions: {
+        ecmaVersion: 'latest',
+        ecmaFeatures: { jsx: true },
+        sourceType: 'module',
       },
     },
-    reactJsx,
-  ]),
-  {
     plugins: {
       'react-hooks': reactHooks,
     },
     rules: {
+      ...js.configs.recommended.rules,
       ...reactHooks.configs.recommended.rules,
+      'no-unused-vars': ['error', { varsIgnorePattern: '^[A-Z_]' }],
+      'react-hooks/exhaustive-deps': 'off',
     },
   },
-  { ignores: ['dist/'] },
 ];

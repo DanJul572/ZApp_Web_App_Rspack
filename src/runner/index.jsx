@@ -8,10 +8,8 @@ const Runner = (props) => {
 
   const ZApp = Caller();
 
-  // eslint-disable-next-line no-unused-vars
   const ZBuilder = Builder();
 
-  // eslint-disable-next-line no-unused-vars
   const ZSQL = (id, isOne = false, obj = null) => {
     if (!isBuilder) {
       const result = Script({ id }).val;

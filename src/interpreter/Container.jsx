@@ -66,7 +66,7 @@ const Container = (props) => {
       const defaultSize = 12 / (section.length > 0 ? section.length : 1);
       return (
         <Grid container>
-          {section?.map((childs) => (
+          {section?.map((childs, index) => (
             <Grid
               size={
                 columnSize.length > 0
