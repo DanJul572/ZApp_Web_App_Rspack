@@ -4,8 +4,9 @@ import { grey } from '@mui/material/colors';
 const Card = (props) => {
   const { color, flex, display, children, padding, border } = props;
 
-  const justifyContent =
-    display && display.horizontal ? display.horizontal.value : 'flex-start';
+  const justifyContent = display?.horizontal
+    ? display.horizontal.value
+    : 'flex-start';
 
   const comProps = {};
   if (flex) {

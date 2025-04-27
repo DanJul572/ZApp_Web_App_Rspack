@@ -14,7 +14,7 @@ import { validator } from '@/helper/validator';
 import CDateTimeFormat from '@/constant/CDateTimeFormat';
 import CTheme from '@/constant/CTheme';
 
-const Date = (props) => {
+const DateField = (props) => {
   const { label, onChange, value, rules, name, group, disabled } = props;
 
   const { setError, clearError } = useContext(ErrorContext);
@@ -56,4 +56,4 @@ const Date = (props) => {
   );
 };
 
-export default Date;
+export default DateField;

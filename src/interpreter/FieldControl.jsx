@@ -1,12 +1,12 @@
 import Checkbox from '@/component/input/Checkbox';
 import Code from '@/component/input/Code';
-import Date from '@/component/input/Date';
+import DateField from '@/component/input/DateField';
 import Datetime from '@/component/input/Datetime';
 
 import Dropdown from '@/component/input/Dropdown';
 import File from '@/component/input/File';
 import LongText from '@/component/input/LongText';
-import Number from '@/component/input/Number';
+import NumberField from '@/component/input/NumberField';
 import Password from '@/component/input/Password';
 import Radio from '@/component/input/Radio';
 import Ratings from '@/component/input/Ratings';
@@ -32,7 +32,7 @@ const FieldControl = (props) => {
 
   const name = properties.name;
   const color = properties.color ? properties.color.name : 'primary';
-  const disabled = !Boolean(name) || Boolean(getValues(properties.disable));
+  const disabled = !name || Boolean(getValues(properties.disable));
   const label = getValues(properties.label);
   const hidden = getValues(properties.hidden);
   const multiple = getValues(properties.multiple);
@@ -64,7 +64,7 @@ const FieldControl = (props) => {
       }
 
       if (type === CInputType.number.value) {
-        return <Number {...comProps} />;
+        return <NumberField {...comProps} />;
       }
 
       if (type === CInputType.toggle.value) {
@@ -77,7 +77,7 @@ const FieldControl = (props) => {
       }
 
       if (type === CInputType.date.value) {
-        return <Date {...comProps} />;
+        return <DateField {...comProps} />;
       }
 
       if (type === CInputType.time.value) {

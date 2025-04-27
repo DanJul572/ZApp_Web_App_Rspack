@@ -11,7 +11,7 @@ import CInputType from '@/constant/CInputType';
 
 import Confirm from '@/component/dialog/Confirm';
 import Dropdown from '@/component/input/Dropdown';
-import Number from '@/component/input/Number';
+import NumberField from '@/component/input/NumberField';
 import ShortText from '@/component/input/ShortText';
 import Toggle from '@/component/input/Toggle';
 import Table from '@/component/table';
@@ -396,7 +396,11 @@ const FieldForm = (props) => {
               options={inputTypeOptions}
               value={inputType}
             />
-            <Number label="Sequence" value={sequence} onChange={setSequence} />
+            <NumberField
+              label="Sequence"
+              value={sequence}
+              onChange={setSequence}
+            />
           </Box>
           {fieldSettingsComponent()}
         </Box>

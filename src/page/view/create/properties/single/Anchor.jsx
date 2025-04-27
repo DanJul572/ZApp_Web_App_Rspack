@@ -41,7 +41,7 @@ const Anchor = (props) => {
       type === CContainerType.drawer.value
     )
       return true;
-    else return false;
+    return false;
   };
 
   const isActive = (value) => Boolean(anchor === value);
@@ -56,7 +56,8 @@ const Anchor = (props) => {
           }}
         />
       );
-    } else if (value === 'top') {
+    }
+    if (value === 'top') {
       return (
         <ArrowDropUp
           sx={{
@@ -65,7 +66,8 @@ const Anchor = (props) => {
           }}
         />
       );
-    } else if (value === 'right') {
+    }
+    if (value === 'right') {
       return (
         <ArrowRight
           sx={{
@@ -74,16 +76,15 @@ const Anchor = (props) => {
           }}
         />
       );
-    } else {
-      return (
-        <ArrowDropDown
-          sx={{
-            fontSize: 15,
-            color: isActive(value) ? primaryColor : fontColor,
-          }}
-        />
-      );
     }
+    return (
+      <ArrowDropDown
+        sx={{
+          fontSize: 15,
+          color: isActive(value) ? primaryColor : fontColor,
+        }}
+      />
+    );
   };
 
   const item = (anchor, index) => {

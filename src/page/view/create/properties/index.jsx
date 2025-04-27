@@ -215,31 +215,31 @@ const Properties = (props) => {
                 deleteComponent={deleteComponent}
                 setSelected={setSelected}
               />
-              {CProperties.CShortTextFormProperties.map((property, index) => {
+              {CProperties.CShortTextFormProperties.map((property) => {
                 return (
                   <ShortTextForm
                     {...compProps}
-                    key={index}
+                    key={property.name}
                     label={property.label}
                     name={property.name}
                   />
                 );
               })}
-              {CProperties.CCodeFormProperties.map((property, index) => {
+              {CProperties.CCodeFormProperties.map((property) => {
                 return (
                   <CodeForm
                     {...compProps}
-                    key={index}
+                    key={property.name}
                     label={property.label}
                     name={property.name}
                   />
                 );
               })}
-              {CProperties.CToggleCodeFormProperties.map((property, index) => {
+              {CProperties.CToggleCodeFormProperties.map((property) => {
                 return (
                   <ToggleCodeFormProperties
                     {...compProps}
-                    key={index}
+                    key={property.name}
                     label={property.label}
                     name={property.name}
                   />

@@ -13,9 +13,9 @@ const Drawer = (props) => {
 
   const drawerSize = {};
   if (anchor && (anchor === 'top' || anchor === 'bottom')) {
-    drawerSize.height = parseInt(size) || 750;
+    drawerSize.height = Number.parseInt(size) || 750;
   } else {
-    drawerSize.width = parseInt(size) || 750;
+    drawerSize.width = Number.parseInt(size) || 750;
   }
 
   return (

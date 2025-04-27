@@ -49,7 +49,8 @@ const Tree = (props) => {
         const keyword = label.toLowerCase();
         if (menu.includes(keyword)) {
           return true;
-        } else if (obj.child) {
+        }
+        if (obj.child) {
           obj.child = filterRecursive(obj.child, label);
           return obj.child.length > 0;
         }
@@ -97,19 +98,18 @@ const Tree = (props) => {
           {menu.child.map((child) => menuList(child))}
         </StyledTreeItem>
       );
-    } else {
-      return (
-        <StyledTreeItem
-          key={menu.id}
-          itemId={menu.id}
-          label={menu.label}
-          onClick={(event) => {
-            event.stopPropagation();
-            onChildClick(menu);
-          }}
-        />
-      );
     }
+    return (
+      <StyledTreeItem
+        key={menu.id}
+        itemId={menu.id}
+        label={menu.label}
+        onClick={(event) => {
+          event.stopPropagation();
+          onChildClick(menu);
+        }}
+      />
+    );
   };
 
   const ExpandIcon = (props) => {

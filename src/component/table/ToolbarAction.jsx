@@ -38,9 +38,9 @@ const ToolbarAction = (props) => {
           {t('add_new_data')}
         </Button>
       )}
-      {toolbarCustomAction.map((action, index) => (
+      {toolbarCustomAction.map((action) => (
         <Button
-          key={index}
+          key={action.type}
           onClick={() => onClickToolbarAction(action)}
           variant="contained"
           size={CTheme.button.size.name}

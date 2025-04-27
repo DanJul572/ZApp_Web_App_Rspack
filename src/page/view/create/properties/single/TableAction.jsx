@@ -126,7 +126,7 @@ const TableAction = (props) => {
                       sx={{ padding: 0 }}
                       size={CTheme.button.size.name}
                       onClick={() => setOpen(getValue(action))}
-                      disabled={!Boolean(checkAction(action))}
+                      disabled={!checkAction(action)}
                     >
                       <InsertLink fontSize={CTheme.font.size.name} />
                     </IconButton>

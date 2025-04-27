@@ -14,11 +14,11 @@ const Group = (props) => {
     <ButtonGroup variant={variant || 'contained'}>
       {items &&
         items.length > 0 &&
-        items.map((item, index) => {
+        items.map((item) => {
           return (
             <Button
               color={color || 'primary'}
-              key={index}
+              key={item.value}
               onClick={() => handleClick(item)}
               size={size || 'small'}
             >

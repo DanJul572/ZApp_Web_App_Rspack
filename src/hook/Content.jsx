@@ -1,5 +1,5 @@
-import { useParams } from 'react-router';
 import { useEffect, useState } from 'react';
+import { useParams } from 'react-router';
 
 import Request from './Request';
 import Translator from './Translator';

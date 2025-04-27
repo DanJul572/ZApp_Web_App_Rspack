@@ -18,7 +18,7 @@ const Page = (props) => {
 
   useEffect(() => {
     if (!isBuilder && !isPreview) {
-      if (page && page.onLoad) {
+      if (page?.onLoad) {
         runFunction(page.onLoad);
       }
     }

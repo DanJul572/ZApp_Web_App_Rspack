@@ -1,6 +1,6 @@
-import SunEditor from 'suneditor-react';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
+import SunEditor from 'suneditor-react';
 
 import CTheme from '@/constant/CTheme';
 

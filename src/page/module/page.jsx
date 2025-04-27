@@ -51,13 +51,13 @@ const Page = () => {
     get(CApiUrl.field.rows, param)
       .then((res) => {
         const reformatModule = { ...module };
-        delete reformatModule.createdAt;
-        delete reformatModule.updatedAt;
+        reformatModule.createdAt = undefined;
+        reformatModule.updatedAt = undefined;
         reformatModule.fields = res
           .filter((field) => field.id)
           .map((field) => {
-            delete field.createdAt;
-            delete field.updatedAt;
+            field.createdAt = undefined;
+            field.updatedAt = undefined;
 
             return field;
           });

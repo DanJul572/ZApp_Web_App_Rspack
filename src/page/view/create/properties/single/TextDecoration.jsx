@@ -54,7 +54,8 @@ const TextDecoration = (props) => {
           }}
         />
       );
-    } else if (value === 'italic') {
+    }
+    if (value === 'italic') {
       return (
         <FormatItalic
           sx={{
@@ -63,16 +64,15 @@ const TextDecoration = (props) => {
           }}
         />
       );
-    } else {
-      return (
-        <FormatUnderlined
-          sx={{
-            fontSize: 15,
-            color: isActive(value) ? primaryColor : fontColor,
-          }}
-        />
-      );
     }
+    return (
+      <FormatUnderlined
+        sx={{
+          fontSize: 15,
+          color: isActive(value) ? primaryColor : fontColor,
+        }}
+      />
+    );
   };
 
   const element = (decoration, index) => {
@@ -106,7 +106,7 @@ const TextDecoration = (props) => {
       group === CComponentGroupType.visualElement.value
     )
       return true;
-    else return false;
+    return false;
   };
 
   useEffect(() => {

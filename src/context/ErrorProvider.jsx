@@ -18,7 +18,7 @@ export default function ErrorProvider({ children }) {
   const clearError = (group, name) => {
     setErrors((prevErrors) => {
       const updatedErrors = { ...prevErrors };
-      if (updatedErrors[group] && updatedErrors[group][name]) {
+      if (updatedErrors[group]?.[name]) {
         delete updatedErrors[group][name];
         if (Object.keys(updatedErrors[group]).length === 0) {
           delete updatedErrors[group];
@@ -29,10 +29,12 @@ export default function ErrorProvider({ children }) {
   };
 
   const groupError = (groups) => {
-    for (let index = 0; index < groups.length; index++) {
-      const group = groups[index];
-      return errors[group] && Object.keys(errors[group]).length ? true : false;
+    for (const group of groups) {
+      if (errors[group] && Object.keys(errors[group]).length) {
+        return true;
+      }
     }
+    return false;
   };
 
   return (

@@ -32,7 +32,7 @@ const Flex = (props) => {
       type === CContainerType.card.value
     )
       return true;
-    else return false;
+    return false;
   };
 
   useEffect(() => {

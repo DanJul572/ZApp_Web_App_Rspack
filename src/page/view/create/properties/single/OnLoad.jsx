@@ -33,7 +33,7 @@ const OnLoad = (props) => {
   };
 
   useEffect(() => {
-    if (page && page.onLoad) setOnLoad(page.onLoad);
+    if (page?.onLoad) setOnLoad(page.onLoad);
   }, [page]);
 
   return (

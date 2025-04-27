@@ -9,7 +9,7 @@ import { validator } from '@/helper/validator';
 
 import CTheme from '@/constant/CTheme';
 
-const Number = (props) => {
+const NumberField = (props) => {
   const { label, onChange, value, rows, rules, name, group, disabled } = props;
 
   const { setError, clearError } = useContext(ErrorContext);
@@ -40,4 +40,4 @@ const Number = (props) => {
   );
 };
 
-export default Number;
+export default NumberField;

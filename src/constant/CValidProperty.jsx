@@ -68,9 +68,6 @@ const CValidProperty = {
     [CComponentGroupType.button.value]: true,
     [CComponentGroupType.fieldControl.value]: true,
   },
-  hidden: {
-    [CComponentGroupType.fieldControl.value]: [CInputType.dropdown.value],
-  },
   loop: {
     [CComponentGroupType.visualElement.value]: [CVisualElement.text.value],
   },

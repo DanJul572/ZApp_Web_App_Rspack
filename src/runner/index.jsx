@@ -19,12 +19,10 @@ const Runner = (props) => {
         return result && result.length > 0
           ? result[0][obj].toString()
           : ZApp.Translator.t('empty_content');
-      } else {
-        return result;
       }
-    } else {
-      return ZApp.Translator.t('empty_content');
+      return result;
     }
+    return ZApp.Translator.t('empty_content');
   };
 
   // eslint-disable-next-line no-unused-vars
@@ -44,9 +42,8 @@ const Runner = (props) => {
       if (typeof data === 'object') {
         if (!data.isBind) return data.value;
         return data.value ? eval(data.value) : null;
-      } else {
-        return data ? eval(data) : null;
       }
+      return data ? eval(data) : null;
     } catch (error) {
       console.log(`Error : ${error.message}`);
     }

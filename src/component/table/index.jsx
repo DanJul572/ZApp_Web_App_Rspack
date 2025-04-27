@@ -82,15 +82,11 @@ const Table = (props) => {
     pagination: pagination,
   };
 
-  const isSupportAddAction = action.find(
+  const isSupportAddAction = !!action.find(
     (item) => item.type === CActionType.insert.value,
-  )
-    ? true
-    : false;
+  );
   const isSupportRowAction =
-    action.filter((item) => item.type !== CActionType.insert.value).length > 0
-      ? true
-      : false;
+    action.filter((item) => item.type !== CActionType.insert.value).length > 0;
 
   const muiBottomToolbarProps =
     !enablePagination && !onChangePage ? { style: { display: 'none' } } : false;
@@ -101,9 +97,8 @@ const Table = (props) => {
     column.Cell = function OrderItems({ cell }) {
       if (column.type !== CInputType.file.value) {
         return dataDisplay(column.type, cell.getValue());
-      } else {
-        return <Download label={cell.getValue()} />;
       }
+      return <Download label={cell.getValue()} />;
     };
     if (column.footer) column.Footer = () => columnFooter(column.footer);
     return column;

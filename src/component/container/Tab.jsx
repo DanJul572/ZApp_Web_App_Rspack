@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 
 import PropTypes from 'prop-types';
 
@@ -66,19 +67,18 @@ const Tab = (props) => {
           </Tabs>
         </Box>
       );
-    } else {
-      return (
-        <Typography fontSize={CTheme.font.size.value}>
-          Label is not valid.
-        </Typography>
-      );
     }
+    return (
+      <Typography fontSize={CTheme.font.size.value}>
+        Label is not valid.
+      </Typography>
+    );
   };
 
   const content = () => {
     if (items && items.length > 0) {
       return items.map((item, index) => (
-        <CustomTabPanel key={index} value={value} index={index}>
+        <CustomTabPanel key={uuidv4()} value={value} index={index}>
           {render(item, index)}
         </CustomTabPanel>
       ));

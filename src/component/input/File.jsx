@@ -47,9 +47,8 @@ const File = (props) => {
           const updatedFiles = [...prevFiles];
           updatedFiles[existingFileIndex] = newFile;
           return updatedFiles;
-        } else {
-          return [...prevFiles, newFile];
         }
+        return [...prevFiles, newFile];
       });
       if (onChange) {
         onChange(id);
@@ -104,7 +103,7 @@ const File = (props) => {
           multiple={false}
           onChange={handleChange}
           size={CTheme.field.size.name}
-          value={fileContent && fileContent.file ? fileContent.file : null}
+          value={fileContent?.file ? fileContent.file : null}
           clearIconButtonProps={{
             title: t('delete'),
             children: <Close fontSize={CTheme.font.size.name} />,

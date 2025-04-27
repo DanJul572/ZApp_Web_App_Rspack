@@ -22,8 +22,8 @@ const List = (props) => {
     <Dialog open={open} onClose={onClose}>
       <DialogContent sx={{ width: '20rem', padding: 0 }}>
         <MuiList>
-          {items.map((item, index) => (
-            <ListItem key={index} disablePadding>
+          {items.map((item) => (
+            <ListItem key={item.value} disablePadding>
               <ListItemButton onClick={() => select(item)}>
                 <ListItemText primary={item.label} />
               </ListItemButton>

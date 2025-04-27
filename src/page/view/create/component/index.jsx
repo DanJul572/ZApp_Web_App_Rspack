@@ -130,9 +130,9 @@ const Component = (props) => {
     if (!componentList.length) return;
 
     const collapse = {};
-    componentList.forEach((group) => {
+    for (const group of componentList) {
       collapse[group.value] = false;
-    });
+    }
 
     setOpen(collapse);
   }, [componentList]);
@@ -160,8 +160,8 @@ const Component = (props) => {
       />
       <Box paddingTop={2}>
         {componentList.length > 0 &&
-          componentList.map((group, index) => (
-            <List key={index} disablePadding>
+          componentList.map((group) => (
+            <List key={group.value} disablePadding>
               <ListItemButton
                 onClick={() => handleCollapse(group.value)}
                 sx={{ display: 'flex', justifyContent: 'space-between' }}
@@ -189,9 +189,9 @@ const Component = (props) => {
               </ListItemButton>
               <Collapse in={open[group.value]}>
                 <List disablePadding>
-                  {group.components.map((component, index) => (
+                  {group.components.map((component) => (
                     <ListItemButton
-                      key={index}
+                      key={component.value}
                       onClick={() =>
                         handleSelected(groupTypeValue(group), component)
                       }

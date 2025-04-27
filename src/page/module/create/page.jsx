@@ -1,5 +1,5 @@
-import { useNavigate } from 'react-router';
 import { useState } from 'react';
+import { useNavigate } from 'react-router';
 
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -53,7 +53,7 @@ const Page = () => {
     setLoading(true);
 
     const fields = [...fieldRows].map((field) => {
-      delete field.id;
+      field.id = undefined;
       return field;
     });
 

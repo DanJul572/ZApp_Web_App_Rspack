@@ -63,9 +63,9 @@ const Process = () => {
         rowId: id,
       })
         .then((res) => {
-          delete res.createdAt;
-          delete res.updatedAt;
-          delete res[key];
+          res.createdAt = undefined;
+          res.updatedAt = undefined;
+          res[key] = undefined;
 
           ZApp.Vars.setAll(res);
           ZApp.Comp.set('tempData', res);

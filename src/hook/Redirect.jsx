@@ -8,7 +8,7 @@ const Redirect = () => {
   };
 
   const external = (path) => {
-    return (window.location.href = path);
+    window.location.href = path;
   };
 
   const externalNewTab = (path) => {

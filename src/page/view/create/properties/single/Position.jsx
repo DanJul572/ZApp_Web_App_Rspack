@@ -11,7 +11,7 @@ import Typography from '@mui/material/Typography';
 
 import ShortTextOutlined from '@mui/icons-material/ShortTextOutlined';
 
-import Number from '@/component/input/Number';
+import NumberField from '@/component/input/NumberField';
 import ShortText from '@/component/input/ShortText';
 
 import Translator from '@/hook/Translator';
@@ -30,8 +30,8 @@ const Position = (props) => {
   const [open, setOpen] = useState(false);
 
   const changePosition = (content) => {
-    const rowIndexInt = parseInt(rowIndex);
-    const columnIndexInt = parseInt(columnIndex);
+    const rowIndexInt = Number.parseInt(rowIndex);
+    const columnIndexInt = Number.parseInt(columnIndex);
 
     if (!containerID) {
       content.splice(rowIndexInt, 0, selected);
@@ -104,12 +104,16 @@ const Position = (props) => {
                 onChange={setContainerID}
               />
               <Box display="flex" gap={1}>
-                <Number
+                <NumberField
                   label="Column"
                   value={columnIndex}
                   onChange={setColumnIndex}
                 />
-                <Number label="Row" value={rowIndex} onChange={setRowIndex} />
+                <NumberField
+                  label="Row"
+                  value={rowIndex}
+                  onChange={setRowIndex}
+                />
               </Box>
             </Box>
           </DialogContent>

@@ -16,7 +16,7 @@ const Button = (props) => {
   const { runFunction, getValues } = Runner({ isBuilder });
 
   const displayValue = (type) => {
-    return properties.display && properties.display[type]
+    return properties.display?.[type]
       ? properties.display[type].value
       : 'flex-start';
   };

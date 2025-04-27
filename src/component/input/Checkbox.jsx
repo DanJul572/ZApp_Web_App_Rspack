@@ -10,7 +10,7 @@ import CTheme from '@/constant/CTheme';
 const Checkbox = (props) => {
   const { value, label, options, disabled, onChange } = props;
 
-  const values = value && value.length ? value.split('|') : [];
+  const values = value?.length ? value.split('|') : [];
 
   const setValues = (val) => {
     const deleteIndex = values.findIndex((value) => value === val);
@@ -20,7 +20,7 @@ const Checkbox = (props) => {
   };
 
   const checked = (val) => {
-    return values.find((value) => value === val) ? true : false;
+    return !!values.find((value) => value === val);
   };
 
   const renderOptions = () => {
@@ -28,9 +28,9 @@ const Checkbox = (props) => {
 
     return (
       <FormGroup row>
-        {options.map((option, index) => (
+        {options.map((option) => (
           <FormControlLabel
-            key={index}
+            key={option.value}
             control={
               <MuiCheckbox
                 checked={checked(option.value)}

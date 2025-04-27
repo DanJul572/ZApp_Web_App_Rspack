@@ -77,12 +77,12 @@ const Display = (props) => {
     const type = selected.type.value;
 
     if (group === CComponentGroupType.button.value) return true;
-    else if (
+    if (
       group === CComponentGroupType.container.value &&
       type === CContainerType.card.value
     )
       return true;
-    else return false;
+    return false;
   };
 
   const isActive = (value) =>
@@ -102,7 +102,7 @@ const Display = (props) => {
           }}
         />
       );
-    else if (value.name === 'horizontalCenter')
+    if (value.name === 'horizontalCenter')
       return (
         <AlignHorizontalCenter
           sx={{
@@ -111,15 +111,15 @@ const Display = (props) => {
           }}
         />
       );
-    else
-      return (
-        <AlignHorizontalRight
-          sx={{
-            fontSize: 15,
-            color: isActive(value) ? primaryColor : fontColor,
-          }}
-        />
-      );
+
+    return (
+      <AlignHorizontalRight
+        sx={{
+          fontSize: 15,
+          color: isActive(value) ? primaryColor : fontColor,
+        }}
+      />
+    );
     /*
         else if (value.name === 'top')
             return <AlignVerticalTop sx={{fontSize: 15, color: isActive(value) ? primaryColor : fontColor}} />;

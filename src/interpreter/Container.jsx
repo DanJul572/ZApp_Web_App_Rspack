@@ -1,5 +1,6 @@
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
+import { v4 as uuidv4 } from 'uuid';
 
 import Card from '@/component/container/Card';
 import Collapse from '@/component/container/Collapse';
@@ -24,13 +25,13 @@ const Container = (props) => {
   const { t } = Translator();
 
   const anchor = properties.anchor;
-  const border = parseInt(properties.border);
+  const border = Number.parseInt(properties.border);
   const color = properties.color ? properties.color.value : null;
   const display = properties.display;
   const flex = Boolean(properties.flex);
   const label = getValues(properties.label);
   const open = getValues(properties.open);
-  const padding = parseInt(properties.padding);
+  const padding = Number.parseInt(properties.padding);
   const size = properties.size;
   const viewID = properties.viewID;
 
@@ -65,19 +66,18 @@ const Container = (props) => {
       const defaultSize = 12 / (section.length > 0 ? section.length : 1);
       return (
         <Grid container>
-          {section &&
-            section.map((childs, index) => (
-              <Grid
-                size={
-                  columnSize.length > 0
-                    ? parseInt(columnSize[index])
-                    : defaultSize
-                }
-                key={index}
-              >
-                {childs.map(renderComponent)}
-              </Grid>
-            ))}
+          {section?.map((childs) => (
+            <Grid
+              size={
+                columnSize.length > 0
+                  ? Number.parseInt(columnSize[index])
+                  : defaultSize
+              }
+              key={uuidv4()}
+            >
+              {childs.map(renderComponent)}
+            </Grid>
+          ))}
         </Grid>
       );
     }
@@ -101,15 +101,14 @@ const Container = (props) => {
               section.map((childs) => childs.map(renderComponent))}
           </Card>
         );
-      } else {
-        return (
-          <Drawer anchor={anchor} open={Boolean(open)} size={size}>
-            {section &&
-              section.length > 0 &&
-              section.map((childs) => childs.map(renderComponent))}
-          </Drawer>
-        );
       }
+      return (
+        <Drawer anchor={anchor} open={Boolean(open)} size={size}>
+          {section &&
+            section.length > 0 &&
+            section.map((childs) => childs.map(renderComponent))}
+        </Drawer>
+      );
     }
 
     if (type === CContainerType.tab.value) {

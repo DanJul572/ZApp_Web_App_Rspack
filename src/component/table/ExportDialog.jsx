@@ -62,17 +62,17 @@ const ExportDialog = (props) => {
       body: tableData,
     });
 
-    doc.save(`Data.pdf`);
+    doc.save('Data.pdf');
   };
 
   const exportAsCSV = (rows) => {
     const rowData = rows.map((row) => {
       const updatedRow = { ...row.original };
-      Object.keys(updatedRow).forEach((key) => {
+      for (const key of Object.keys(updatedRow)) {
         if (!tableHeaders.map((c) => c.id).includes(key)) {
-          delete updatedRow[key];
+          updatedRow[key] = undefined;
         }
-      });
+      }
       return updatedRow;
     });
     const csv = generateCsv(csvConfig)(rowData);

@@ -1,23 +1,23 @@
 import CActionType from '@/constant/CActionType';
 
 const required = (value) => {
-  return !value ? true : false;
+  return !value;
 };
 
 const specialCharacter = (value) => {
-  return value.match(/[^a-zA-Z0-9]+/) ? true : false;
+  return !!value.match(/[^a-zA-Z0-9]+/);
 };
 
 const startNumeric = (value) => {
-  return value.match(/^[0-9]/) ? true : false;
+  return !!value.match(/^[0-9]/);
 };
 
 const fieldName = (value) => {
-  return !value.match(/^[a-zA-Z][a-zA-Z0-9_]*$/) ? true : false;
+  return !value.match(/^[a-zA-Z][a-zA-Z0-9_]*$/);
 };
 
 const same = (items, value) => {
-  return items.find((item) => item === value) ? true : false;
+  return !!items.find((item) => item === value);
 };
 
 const generateValidation = (action, key, value, rule) => {
@@ -27,8 +27,7 @@ const generateValidation = (action, key, value, rule) => {
   if (action === 1 && !matchValue) return `${rule}|${key}:(${value})`;
 
   let newRule = '';
-  const values =
-    (matchValue && matchValue[1].split(',').map((value) => value.trim())) || [];
+  const values = matchValue?.[1].split(',').map((value) => value.trim()) || [];
 
   if (action === CActionType.insert.value) {
     values.push(value);
@@ -55,14 +54,14 @@ const generateValidation = (action, key, value, rule) => {
 const validator = (rules, value) => {
   if (!rules) return false;
 
-  rules = rules.split('|');
+  const rulesSplited = rules.split('|');
   const error = {
     status: false,
     message: '',
   };
 
-  for (let index = 0; index < rules.length; index++) {
-    const rule = rules[index];
+  for (let index = 0; index < rulesSplited.length; index++) {
+    const rule = rulesSplited[index];
 
     if (!rule) continue;
 

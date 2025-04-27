@@ -15,9 +15,9 @@ const Radio = (props) => {
 
     return (
       <RadioGroup row>
-        {options.map((option, index) => (
+        {options.map((option) => (
           <FormControlLabel
-            key={index}
+            key={option.value}
             value={option.value}
             control={
               <MuiRadio

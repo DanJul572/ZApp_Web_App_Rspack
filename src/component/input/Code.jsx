@@ -36,13 +36,13 @@ const Code = (props) => {
       <Typography fontSize={CTheme.font.size.value}>{label}</Typography>
       {withOptions && (
         <Stack direction="row" spacing={1} marginY={1}>
-          {languages.map((language, index) => {
+          {languages.map((language) => {
             return (
               <Chip
                 color={
                   activeLanguange === language.value ? 'primary' : 'default'
                 }
-                key={index}
+                key={language.value}
                 label={language.label}
                 onClick={() => setActiveLanguange(language.value)}
                 size={CTheme.button.size.name}

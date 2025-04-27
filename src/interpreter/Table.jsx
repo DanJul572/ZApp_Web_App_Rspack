@@ -69,7 +69,8 @@ const Table = (props) => {
           {t('empty_content')}
         </Typography>
       );
-    } else if (type === CTableType.table.value && moduleID) {
+    }
+    if (type === CTableType.table.value && moduleID) {
       return (
         <Box>
           <ZTable
