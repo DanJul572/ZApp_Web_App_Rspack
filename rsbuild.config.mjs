@@ -7,5 +7,8 @@ export default defineConfig({
     alias: {
       '@': './src',
     },
+    define: {
+      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV),
+    },
   },
 });
