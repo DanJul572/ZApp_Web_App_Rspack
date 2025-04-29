@@ -22,6 +22,7 @@ import {
   generateContent,
   generateInvalidContent,
 } from '@/helper/generateContent';
+import { decrypt, encrypt } from '@/helper/encryption';
 
 import Upload from '@/component/button/Upload';
 import Confirm from '@/component/dialog/Confirm';
@@ -105,7 +106,7 @@ const TopBar = (props) => {
       moduleId: CModuleID.views,
       data: {
         moduleId: moduleId,
-        content: JSON.stringify(content),
+        content: encrypt(content),
         label: label,
         page: JSON.stringify(page),
       },
@@ -133,7 +134,8 @@ const TopBar = (props) => {
 
     get(CApiUrl.common.detail, param)
       .then((res) => {
-        setContent(res.content);
+        const contentDecrypted = decrypt(res.content);
+        setContent(contentDecrypted);
         setLabel(res.label);
         setPage(res.page);
       })

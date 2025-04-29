@@ -7,6 +7,8 @@ import Translator from './Translator';
 import CApiUrl from '@/constant/CApiUrl';
 import CModuleID from '@/constant/CModuleID';
 
+import { decrypt } from '@/helper/encryption';
+
 const Content = (props) => {
   const { isBuilder } = props;
   const params = useParams();
@@ -22,7 +24,7 @@ const Content = (props) => {
     get(CApiUrl.common.detail, param)
       .then((res) => {
         if (res) {
-          const content = res.content;
+          const content = decrypt(res.content);
           const page = res.page;
           setContent(content);
           setPage(page);
