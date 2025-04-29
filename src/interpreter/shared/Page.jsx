@@ -27,7 +27,7 @@ const Page = (props) => {
       comp.removeAll();
       setFile([]);
     };
-  }, []);
+  }, [page]);
 
   return children;
 };

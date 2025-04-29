@@ -25,7 +25,7 @@ const Content = (props) => {
       .then((res) => {
         if (res) {
           const content = decrypt(res.content);
-          const page = res.page;
+          const page = res.page ? decrypt(res.page) : null;
           setContent(content);
           setPage(page);
         } else {

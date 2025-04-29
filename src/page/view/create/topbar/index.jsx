@@ -18,11 +18,11 @@ import Request from '@/hook/Request';
 import Translator from '@/hook/Translator';
 
 import { downloadJsonFile } from '@/helper/downloadFile';
+import { decrypt, encrypt } from '@/helper/encryption';
 import {
   generateContent,
   generateInvalidContent,
 } from '@/helper/generateContent';
-import { decrypt, encrypt } from '@/helper/encryption';
 
 import Upload from '@/component/button/Upload';
 import Confirm from '@/component/dialog/Confirm';
@@ -108,7 +108,7 @@ const TopBar = (props) => {
         moduleId: moduleId,
         content: encrypt(content),
         label: label,
-        page: JSON.stringify(page),
+        page: encrypt(page),
       },
     };
 
@@ -134,10 +134,11 @@ const TopBar = (props) => {
 
     get(CApiUrl.common.detail, param)
       .then((res) => {
-        const contentDecrypted = decrypt(res.content);
-        setContent(contentDecrypted);
+        const content = decrypt(res.content);
+        const page = res.page ? decrypt(res.page) : null;
+        setContent(content);
+        setPage(page);
         setLabel(res.label);
-        setPage(res.page);
       })
       .catch((err) => {
         setToast({ status: true, type: 'error', message: err });
