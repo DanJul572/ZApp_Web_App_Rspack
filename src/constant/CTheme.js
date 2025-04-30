@@ -1,30 +1,30 @@
 const theme = {
   palette: {
-    mode: 'light',
+    mode: process.env.THEME || 'dark',
     primary: {
-      light: '#1769aa',
-      main: '#2196f3',
-      dark: '#4dabf5',
+      light: '#D32F2F',
+      main: '#B00020',
+      dark: '#7F0014',
     },
     secondary: {
-      light: '#f3e5f5',
-      main: '#ce93d8',
-      dark: '#ab47bc',
+      light: '#D1A3A4',
+      main: '#9E4D4F',
+      dark: '#5E1F21',
     },
     error: {
-      light: '#e57373',
-      main: '#f44336',
-      dark: '#d32f2f',
+      light: '#EF5350',
+      main: '#D32F2F',
+      dark: '#B71C1C',
     },
     info: {
-      light: '#4fc3f7',
-      main: '#29b6f6',
-      dark: '#0288d1',
+      light: '#7986CB',
+      main: '#3F51B5',
+      dark: '#303F9F',
     },
     success: {
-      light: '#81c784',
-      main: '#66bb6a',
-      dark: '#388e3c',
+      light: '#81C784',
+      main: '#43A047',
+      dark: '#2E7D32',
     },
   },
   font: {

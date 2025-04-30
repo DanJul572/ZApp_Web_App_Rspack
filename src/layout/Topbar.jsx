@@ -46,10 +46,13 @@ const Topbar = () => {
 
   return (
     <Box
-      display="flex"
-      justifyContent="space-between"
-      alignItems="center"
-      padding={2}
+      sx={{
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        padding: 2,
+        backgroundColor: CTheme.palette.primary.main,
+      }}
     >
       <Typography variant="h6" noWrap component="div" color="inherit">
         ZApp
