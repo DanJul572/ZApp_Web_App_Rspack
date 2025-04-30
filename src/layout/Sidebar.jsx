@@ -55,18 +55,14 @@ const Sidebar = () => {
         width: 300,
       }}
     >
-      {list.length > 0 && (
-        <Tree
-          onChildClick={onClick}
-          list={list}
-          isSidebar={true}
-          setList={setList}
-        />
-      )}
+      <Tree
+        onChildClick={onClick}
+        list={list}
+        isSidebar={true}
+        setList={setList}
+      />
       {list.length <= 0 && (
-        <Box paddingX={1} textAlign="center">
-          <Typography>Menu is not found.</Typography>
-        </Box>
+        <Typography align="center">Menu is not found.</Typography>
       )}
     </Card>
   );
