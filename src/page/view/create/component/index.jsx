@@ -72,8 +72,9 @@ const Component = (props) => {
     component.id = uuidv4();
     component.properties = {};
 
-    if (group.value === CComponentGroupType.container.value)
+    if (group.value === CComponentGroupType.container.value) {
       component.section = [];
+    }
 
     setSelected(component);
     setContent([...content, component]);
