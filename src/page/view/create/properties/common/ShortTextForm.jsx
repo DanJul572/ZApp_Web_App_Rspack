@@ -58,7 +58,11 @@ const ShortTextForm = (props) => {
             <ShortTextOutlined fontSize={CTheme.font.size.name} />
           </IconButton>
         </Box>
-        <Dialog open={open} onClose={() => setOpen(false)}>
+        <Dialog
+          open={open}
+          onClose={() => setOpen(false)}
+          aria-hidden={open ? 'false' : 'true'}
+        >
           <DialogContent>
             <Box>
               <ShortText label={label} value={value} onChange={setValue} />

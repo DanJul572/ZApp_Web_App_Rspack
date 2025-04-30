@@ -19,7 +19,7 @@ const List = (props) => {
   };
 
   return (
-    <Dialog open={open} onClose={onClose}>
+    <Dialog open={open} onClose={onClose} aria-hidden={open ? 'false' : 'true'}>
       <DialogContent sx={{ width: '20rem', padding: 0 }}>
         <MuiList>
           {items.map((item) => (

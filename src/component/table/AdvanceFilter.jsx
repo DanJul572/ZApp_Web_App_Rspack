@@ -78,7 +78,10 @@ const AdvanceFilter = (props) => {
   }, [columns]);
 
   return (
-    <Dialog open={openAdvanceFilterDialog}>
+    <Dialog
+      open={openAdvanceFilterDialog}
+      aria-hidden={open ? 'false' : 'true'}
+    >
       <DialogContent>
         <QueryBuilder
           fields={fields}

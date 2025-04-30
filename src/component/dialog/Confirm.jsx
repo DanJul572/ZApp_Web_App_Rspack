@@ -11,7 +11,11 @@ const Confirm = (props) => {
   const { open, title, text, confirmButton, cancelButton, onConfirm } = props;
 
   return (
-    <Dialog open={open} onClose={() => onConfirm(false)}>
+    <Dialog
+      open={open}
+      onClose={() => onConfirm(false)}
+      aria-hidden={open ? 'false' : 'true'}
+    >
       <DialogTitle>{title}</DialogTitle>
       <DialogContent>
         <DialogContentText>{text}</DialogContentText>

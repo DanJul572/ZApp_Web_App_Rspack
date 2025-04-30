@@ -48,7 +48,11 @@ const OnLoad = (props) => {
           <InsertLink fontSize={CTheme.font.size.name} />
         </IconButton>
       </Box>
-      <Dialog open={open} onClose={() => setOpen(false)}>
+      <Dialog
+        open={open}
+        onClose={() => setOpen(false)}
+        aria-hidden={open ? 'false' : 'true'}
+      >
         <DialogTitle>On Load</DialogTitle>
         <DialogContent>
           <Box width={500}>

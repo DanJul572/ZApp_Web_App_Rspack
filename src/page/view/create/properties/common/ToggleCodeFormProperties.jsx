@@ -104,7 +104,11 @@ const ToggleCodeFormProperties = (props) => {
             </IconButton>
           </Box>
         </Tooltip>
-        <Dialog open={open} onClose={() => setOpen(false)}>
+        <Dialog
+          open={open}
+          onClose={() => setOpen(false)}
+          aria-hidden={open ? 'false' : 'true'}
+        >
           <DialogTitle>{label}</DialogTitle>
           <DialogContent>
             <Box width={500} paddingY={1}>

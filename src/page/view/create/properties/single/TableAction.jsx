@@ -136,7 +136,11 @@ const TableAction = (props) => {
             })}
           </Box>
         </Box>
-        <Dialog open={Boolean(open)} onClose={() => setOpen(false)}>
+        <Dialog
+          open={Boolean(open)}
+          onClose={() => setOpen(false)}
+          aria-hidden={open ? 'false' : 'true'}
+        >
           <DialogTitle>{open.label}</DialogTitle>
           <DialogContent>
             <Box width={500}>

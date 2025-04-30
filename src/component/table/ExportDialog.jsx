@@ -99,7 +99,7 @@ const ExportDialog = (props) => {
   };
 
   return (
-    <Dialog open={openExportDialog}>
+    <Dialog open={openExportDialog} aria-hidden={open ? 'false' : 'true'}>
       <DialogContent
         sx={{
           width: '20rem',
