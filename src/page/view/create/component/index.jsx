@@ -5,11 +5,11 @@ import { v4 as uuidv4 } from 'uuid';
 import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
 import Box from '@mui/material/Box';
+import Card from '@mui/material/Card';
 import Collapse from '@mui/material/Collapse';
 import List from '@mui/material/List';
 import ListItemButton from '@mui/material/ListItemButton';
 import Typography from '@mui/material/Typography';
-import { grey } from '@mui/material/colors';
 
 import BarChart from '@mui/icons-material/BarChart';
 import ShortTextOutlined from '@mui/icons-material/ShortTextOutlined';
@@ -143,16 +143,17 @@ const Component = (props) => {
   }, []);
 
   return (
-    <Box
-      borderRight={CTheme.border.size.value}
-      borderColor={grey[300]}
-      bottom={0}
-      left={0}
-      marginTop={8}
-      overflow="auto"
-      position="fixed"
-      top={0}
-      width={350}
+    <Card
+      sx={{
+        borderRadius: 0,
+        bottom: 0,
+        left: 0,
+        marginTop: 8,
+        overflow: 'auto',
+        position: 'fixed',
+        top: 0,
+        width: 350,
+      }}
     >
       <ViewList
         viewId={viewId}
@@ -210,7 +211,7 @@ const Component = (props) => {
             </List>
           ))}
       </Box>
-    </Box>
+    </Card>
   );
 };
 

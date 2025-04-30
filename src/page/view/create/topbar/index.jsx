@@ -8,9 +8,9 @@ import ArrowBack from '@mui/icons-material/ArrowBack';
 import { useTheme } from '@mui/material';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
+import Card from '@mui/material/Card';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
-import { grey } from '@mui/material/colors';
 
 import { readJSONFile } from '@/helper/readFile';
 
@@ -185,20 +185,19 @@ const TopBar = (props) => {
 
   return (
     <Box>
-      <Box
+      <Card
         sx={{
-          position: 'fixed',
-          display: 'flex',
           alignItems: 'center',
-          justifyContent: 'space-between',
-          padding: 2,
-          borderBottom: CTheme.border.size.value,
-          borderColor: grey[300],
-          zIndex: 2,
-          top: 0,
-          right: 0,
-          left: 0,
           backgroundColor: theme.palette.background.default,
+          borderRadius: 0,
+          display: 'flex',
+          justifyContent: 'space-between',
+          left: 0,
+          padding: 2,
+          position: 'fixed',
+          right: 0,
+          top: 0,
+          zIndex: 2,
         }}
       >
         <Box display="flex" alignItems="center" gap={1}>
@@ -218,62 +217,52 @@ const TopBar = (props) => {
           </Typography>
         </Box>
         <Box display="flex" gap={1}>
-          <Box
-            display="flex"
-            gap={1}
-            borderRight={hasContent ? CTheme.border.size.value : 0}
-            borderColor={grey[300]}
-            paddingRight={1}
-          >
-            <Upload label={t('upload')} onUpload={onUpload} type=".json" />
-            {hasContent && (
-              <Button
-                variant="outlined"
-                size={CTheme.button.size.name}
-                onClick={onDownload}
-              >
-                {t('download')}
-              </Button>
-            )}
+          <Upload label={t('upload')} onUpload={onUpload} type=".json" />
+          {hasContent && (
             <Button
               variant="outlined"
               size={CTheme.button.size.name}
-              onClick={() => setOpenGenerateDialog(true)}
+              onClick={onDownload}
             >
-              {t('generate')}
+              {t('download')}
             </Button>
-          </Box>
-          <Box display="flex" gap={1}>
-            {hasContent && (
-              <Button
-                variant="outlined"
-                size={CTheme.button.size.name}
-                onClick={onPreview}
-              >
-                {t('preview')}
-              </Button>
-            )}
-            {viewId && (
-              <Button
-                variant="contained"
-                size={CTheme.button.size.name}
-                onClick={setOpenConfirmDialog}
-              >
-                {t('delete')}
-              </Button>
-            )}
-            {hasContent && (
-              <Button
-                variant="contained"
-                size={CTheme.button.size.name}
-                onClick={onSave}
-              >
-                {t('save')}
-              </Button>
-            )}
-          </Box>
+          )}
+          <Button
+            variant="outlined"
+            size={CTheme.button.size.name}
+            onClick={() => setOpenGenerateDialog(true)}
+          >
+            {t('generate')}
+          </Button>
+          {hasContent && (
+            <Button
+              variant="outlined"
+              size={CTheme.button.size.name}
+              onClick={onPreview}
+            >
+              {t('preview')}
+            </Button>
+          )}
+          {viewId && (
+            <Button
+              variant="contained"
+              size={CTheme.button.size.name}
+              onClick={setOpenConfirmDialog}
+            >
+              {t('delete')}
+            </Button>
+          )}
+          {hasContent && (
+            <Button
+              variant="contained"
+              size={CTheme.button.size.name}
+              onClick={onSave}
+            >
+              {t('save')}
+            </Button>
+          )}
         </Box>
-      </Box>
+      </Card>
       <Confirm
         cancelButton={t('cancel')}
         confirmButton={t('delete')}

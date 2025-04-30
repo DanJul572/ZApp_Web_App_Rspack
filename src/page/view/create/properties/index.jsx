@@ -3,9 +3,9 @@ import { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
 import Box from '@mui/material/Box';
+import Card from '@mui/material/Card';
 import Tab from '@mui/material/Tab';
 import Tabs from '@mui/material/Tabs';
-import { grey } from '@mui/material/colors';
 
 import Anchor from './single/Anchor';
 import Color from './single/Color';
@@ -167,16 +167,17 @@ const Properties = (props) => {
   };
 
   return (
-    <Box
-      borderLeft={CTheme.border.size.value}
-      borderColor={grey[300]}
-      bottom={0}
-      marginTop={8}
-      overflow="auto"
-      position="fixed"
-      right={0}
-      top={0}
-      width={350}
+    <Card
+      sx={{
+        borderRadius: 0,
+        bottom: 0,
+        marginTop: 8,
+        overflow: 'auto',
+        position: 'fixed',
+        right: 0,
+        top: 0,
+        width: 350,
+      }}
     >
       {activeNavigation === navigationType.content && (
         <Box sx={{ width: '100%' }}>
@@ -255,7 +256,7 @@ const Properties = (props) => {
           </CustomTabPanel>
         </Box>
       )}
-    </Box>
+    </Card>
   );
 };
 
