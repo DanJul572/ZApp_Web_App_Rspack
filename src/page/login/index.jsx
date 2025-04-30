@@ -43,7 +43,7 @@ const Page = () => {
       .then((res) => {
         localStorage.setItem('token', res.accessToken);
         setExpandedMenu([]);
-        navigate('/module');
+        navigate(res.afterLogin);
       })
       .catch((err) => {
         setToast({ status: true, type: 'error', message: err });

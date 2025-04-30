@@ -11,7 +11,6 @@ import Card from '@mui/material/Card';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
-import { grey } from '@mui/material/colors';
 
 import CreateNewFolder from '@mui/icons-material/CreateNewFolder';
 import Delete from '@mui/icons-material/Delete';
@@ -208,38 +207,28 @@ const Page = () => {
   return (
     <Box>
       <Box display="flex" justifyContent="flex-end" gap={1}>
-        <Box
-          borderRight={1}
-          borderColor={grey[300]}
-          paddingRight={1}
-          display="flex"
-          gap={1}
+        <Upload label={t('upload')} onUpload={onUpload} type=".json" />
+        <Button
+          variant="outlined"
+          size={CTheme.button.size.name}
+          onClick={onDownload}
         >
-          <Upload label={t('upload')} onUpload={onUpload} type=".json" />
-          <Button
-            variant="outlined"
-            size={CTheme.button.size.name}
-            onClick={onDownload}
-          >
-            {t('download')}
-          </Button>
-        </Box>
-        <Box display="flex" gap={1}>
-          <Button
-            variant="outlined"
-            size={CTheme.button.size.name}
-            onClick={onBack}
-          >
-            {t('back')}
-          </Button>
-          <Button
-            variant="contained"
-            size={CTheme.button.size.name}
-            onClick={onSave}
-          >
-            {t('save')}
-          </Button>
-        </Box>
+          {t('download')}
+        </Button>
+        <Button
+          variant="outlined"
+          size={CTheme.button.size.name}
+          onClick={onBack}
+        >
+          {t('back')}
+        </Button>
+        <Button
+          variant="contained"
+          size={CTheme.button.size.name}
+          onClick={onSave}
+        >
+          {t('save')}
+        </Button>
       </Box>
       <Box>
         <Box gap={2} display="flex" flexDirection="column" marginBottom={2}>
