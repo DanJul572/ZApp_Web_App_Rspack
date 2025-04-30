@@ -186,9 +186,10 @@ const TopBar = (props) => {
   return (
     <Box>
       <Card
+        elevation={1}
         sx={{
           alignItems: 'center',
-          backgroundColor: theme.palette.background.default,
+          backgroundColor: theme.palette.background.paper,
           borderRadius: 0,
           display: 'flex',
           justifyContent: 'space-between',
@@ -198,6 +199,7 @@ const TopBar = (props) => {
           right: 0,
           top: 0,
           zIndex: 2,
+          boxShadow: 'none'
         }}
       >
         <Box display="flex" alignItems="center" gap={1}>
