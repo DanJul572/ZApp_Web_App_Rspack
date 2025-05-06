@@ -38,8 +38,8 @@ const Button = (props) => {
   };
   const onClick = properties.onClick;
 
-  const iconName = properties.icon.name;
-  const iconIsRight = properties.icon.isRight;
+  const iconName = properties.icon?.name;
+  const iconIsRight = properties.icon?.isRight;
   let IconButton = null;
   if (iconName) {
     IconButton = Icon[iconName];
