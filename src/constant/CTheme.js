@@ -2,9 +2,9 @@ const theme = {
   palette: {
     mode: process.env.THEME || 'light',
     primary: {
-      light: '#A8D5BA',
-      main: '#4CAF50',
-      dark: '#2E7D32',
+      light: '#B39DDB',
+      main: '#673AB7',
+      dark: '#4527A0',
     },
     secondary: {
       light: '#D2E8D4',
