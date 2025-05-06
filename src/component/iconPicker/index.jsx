@@ -1,18 +1,12 @@
-import * as Icon from '@mui/icons-material';
-
 import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
 
+import * as Icon from '@/component/icons';
+
 const IconPicker = (props) => {
-  const { onSelect } = props;
-  const iconNames = Object.keys(Icon).filter((iconName) => {
-    return (
-      !iconName.includes('Outlined') &&
-      !iconName.includes('Rounded') &&
-      !iconName.includes('TwoTone') &&
-      !iconName.includes('Sharp')
-    );
-  });
+  const { active, onSelect } = props;
+
+  const iconNames = Object.keys(Icon);
 
   return (
     <Box
@@ -24,7 +18,11 @@ const IconPicker = (props) => {
       {iconNames.map((iconName) => {
         const IconComponent = Icon[iconName];
         return (
-          <IconButton key={iconName} onClick={() => onSelect(iconName)}>
+          <IconButton
+            color={active === iconName ? 'primary' : 'inherit'}
+            key={iconName}
+            onClick={() => onSelect(iconName)}
+          >
             <IconComponent />
           </IconButton>
         );

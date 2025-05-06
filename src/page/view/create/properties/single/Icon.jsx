@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -8,24 +8,39 @@ import Modal from '@mui/material/Modal';
 import IconPicker from '@/component/iconPicker';
 
 import CButtonType from '@/constant/CButtonType';
+import CComponentGroupType from '@/constant/CComponentGroupType';
 
 const Icon = (props) => {
   const { content, selected, editComponent, setContent } = props;
 
   const [open, setOpen] = useState(false);
+  const [active, setActive] = useState(null);
 
   const onApply = (icon) => {
-    const newContent = editComponent('icon', icon, content);
+    const newIcon = active && active === icon ? null : icon;
+    const newContent = editComponent('icon', newIcon, content);
     setContent([...newContent]);
+    setActive(newIcon);
   };
 
   const validComponent = () => {
-    if (!selected || selected.type.value !== CButtonType.button.value) {
+    if (!selected) {
       return false;
     }
 
-    return true;
+    if (
+      selected.group.value === CComponentGroupType.button.value &&
+      selected.type.value === CButtonType.button.value
+    ) {
+      return true;
+    }
+
+    return false;
   };
+
+  useEffect(() => {
+    if (selected) setActive(selected.properties.icon || null);
+  }, [selected]);
 
   return (
     validComponent() && (
@@ -47,12 +62,11 @@ const Icon = (props) => {
           <Card
             sx={{
               padding: 2,
-              overflowBlock: 'scroll',
               width: 567,
               height: 550,
             }}
           >
-            <IconPicker onSelect={onApply} />
+            <IconPicker active={active} onSelect={onApply} />
           </Card>
         </Modal>
       </Box>

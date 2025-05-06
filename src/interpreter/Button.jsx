@@ -1,10 +1,11 @@
-import * as Icon from '@mui/icons-material';
 import Box from '@mui/material/Box';
 import Link from '@mui/material/Link';
 
 import MuiButton from '@/alias/MuiButton';
 
 import Group from '@/component/button/Group';
+
+import * as Icon from '@/component/icons';
 
 import CButtonType from '@/constant/CButtonType';
 import CTheme from '@/constant/CTheme';
