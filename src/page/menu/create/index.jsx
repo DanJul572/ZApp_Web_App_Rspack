@@ -11,6 +11,7 @@ import Card from '@mui/material/Card';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
+import Typography from '@mui/material/Typography';
 
 import CreateNewFolder from '@mui/icons-material/CreateNewFolder';
 import Delete from '@mui/icons-material/Delete';
@@ -19,6 +20,7 @@ import KeyboardArrowUp from '@mui/icons-material/KeyboardArrowUp';
 import NoteAdd from '@mui/icons-material/NoteAdd';
 
 import Upload from '@/component/button/Upload';
+import IconPicker from '@/component/iconPicker';
 import Dropdown from '@/component/input/Dropdown';
 import ShortText from '@/component/input/ShortText';
 import Tree from '@/component/tree';
@@ -47,27 +49,32 @@ const Page = () => {
   const [roleId, setRoleId] = useState(null);
   const [afterLogin, setAfterLogin] = useState(null);
   const [list, setList] = useState([]);
-  const [activeMenuId, setActiveMenuId] = useState(null);
-  const [activeMenuLabel, setActiveMenuLabel] = useState(null);
-  const [activeMenuUrl, setActiveMenuUrl] = useState(null);
+  const [activeMenu, setActiveMenu] = useState({
+    id: null,
+    label: null,
+    url: null,
+    icon: null,
+  });
 
   const id = searchParams.get('id');
   const actionType = { add: 1, edit: 2, delete: 3, up: 4, down: 5 };
 
   const generateNewMenu = () => {
-    return { id: uuidv4(), label: 'New Item', url: '' };
+    return { id: uuidv4(), label: 'New Item', url: '', icon: null };
   };
 
   const changeMenuItem = (menu, type, itemParam = null) => {
-    if (activeMenuId) {
+    if (activeMenu.id) {
       for (let x = 0; x < menu.length; x++) {
         const item = menu[x];
-        if (item.id === activeMenuId) {
+        if (item.id === activeMenu.id) {
           const newItem = {
-            id: activeMenuId,
-            label: activeMenuLabel,
-            url: activeMenuUrl,
+            id: activeMenu.id,
+            label: activeMenu.label,
+            url: activeMenu.url,
+            icon: activeMenu.icon,
           };
+          console.log('newItem', newItem);
           if (item.child && item.child.length > 0) {
             newItem.child = item.child;
           }
@@ -117,10 +124,15 @@ const Page = () => {
       .finally(() => setLoading(false));
   };
 
+  const changeMenuValue = (key, value) => {
+    setActiveMenu((prev) => ({
+      ...prev,
+      [key]: value,
+    }));
+  };
+
   const onClick = (menu) => {
-    setActiveMenuId(menu.id);
-    setActiveMenuLabel(menu.label);
-    setActiveMenuUrl(menu.url);
+    setActiveMenu(menu);
   };
 
   const onEdit = () => {
@@ -315,17 +327,24 @@ const Page = () => {
               flex={1}
             >
               <ShortText
-                value={activeMenuLabel}
+                value={activeMenu.label}
                 label="Label"
-                onChange={setActiveMenuLabel}
+                onChange={(value) => changeMenuValue('label', value)}
                 onBlur={onEdit}
               />
               <ShortText
-                value={activeMenuUrl}
+                value={activeMenu.url}
                 label="URL"
-                onChange={setActiveMenuUrl}
+                onChange={(value) => changeMenuValue('url', value)}
                 onBlur={onEdit}
               />
+              <Box>
+                <Typography fontSize={CTheme.font.size.value}>Icon</Typography>
+                <IconPicker
+                  onSelect={(value) => changeMenuValue('icon', value)}
+                  onBlur={onEdit}
+                />
+              </Box>
             </Box>
           </Box>
         </Card>

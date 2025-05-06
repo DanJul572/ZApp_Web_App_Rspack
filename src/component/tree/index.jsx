@@ -11,6 +11,8 @@ import { TreeItem, treeItemClasses } from '@mui/x-tree-view/TreeItem';
 import Folder from '@mui/icons-material/Folder';
 import FolderOpen from '@mui/icons-material/FolderOpen';
 
+import * as Icon from '@/component/icons';
+
 import { useExpandedMenu } from '@/context/ExpandedMenuProvider';
 
 import ShortText from '../input/ShortText';
@@ -103,6 +105,8 @@ const Tree = (props) => {
   };
 
   const menuList = (menu) => {
+    const SelectedIcon = Icon[menu.icon];
+
     if (menu.child) {
       return (
         <StyledTreeItem
@@ -118,11 +122,17 @@ const Tree = (props) => {
         </StyledTreeItem>
       );
     }
+
     return (
       <StyledTreeItem
         key={menu.id}
         itemId={menu.id}
         label={menu.label}
+        slots={{
+          endIcon: menu.icon
+            ? () => <SelectedIcon sx={{ color: theme.palette.primary.main }} />
+            : null,
+        }}
         onClick={(event) => {
           event.stopPropagation();
           onChildClick(menu);
