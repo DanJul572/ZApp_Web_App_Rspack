@@ -1,4 +1,5 @@
 import { forwardRef, useEffect, useState } from 'react';
+import { useLocation } from 'react-router';
 
 import { useTheme } from '@mui/material';
 import Box from '@mui/material/Box';
@@ -30,9 +31,12 @@ const Tree = (props) => {
   const { onChildClick, onParentClick, list, isSidebar, setList } = props;
 
   const theme = useTheme();
+  const location = useLocation();
+
   const { expandedMenu, setExpandedMenu } = useExpandedMenu();
 
   const [searchTerm, setSearchTerm] = useState('');
+  const [selectedItems, setSelectedItems] = useState([]);
   const [typingTimeout, setTypingTimeout] = useState(null);
 
   const tree = localStorage.getItem('tree')
@@ -40,7 +44,23 @@ const Tree = (props) => {
     : [];
 
   const treeProps = {};
-  if (isSidebar) treeProps.expandedItems = expandedMenu;
+  if (isSidebar) {
+    treeProps.expandedItems = expandedMenu;
+  }
+
+  const findPathToItem = (items, pathname, path = []) => {
+    for (const item of items) {
+      const currentPath = [...path, item];
+      if (item.url === pathname) {
+        return currentPath;
+      }
+      if (item.child) {
+        const result = findPathToItem(item.child, pathname, currentPath);
+        if (result) return result;
+      }
+    }
+    return null;
+  };
 
   const filterMenusByLabel = (arr, label) => {
     const filterRecursive = (arr, label) => {
@@ -68,7 +88,6 @@ const Tree = (props) => {
   };
 
   const clickParent = (menu) => {
-    // if menu is nested, this function called two times
     if (isSidebar) {
       if (!expandedMenu.includes(menu.id)) {
         setExpandedMenu([...expandedMenu, menu.id]);
@@ -131,6 +150,17 @@ const Tree = (props) => {
     );
   }, [searchTerm]);
 
+  useEffect(() => {
+    const matchedPath = findPathToItem(tree, location.pathname);
+    if (matchedPath) {
+      const ids = matchedPath.map((item) => item.id);
+      setSelectedItems([ids.at(-1)]);
+      if (isSidebar) {
+        setExpandedMenu(ids.slice(0, -1));
+      }
+    }
+  }, [location.pathname]);
+
   return (
     <Box>
       {isSidebar && (
@@ -148,6 +178,7 @@ const Tree = (props) => {
           expandIcon: ExpandIcon,
           collapseIcon: CollapseIcon,
         }}
+        selectedItems={selectedItems}
         sx={{ overflowX: 'hidden', padding: 1 }}
         {...treeProps}
       >
