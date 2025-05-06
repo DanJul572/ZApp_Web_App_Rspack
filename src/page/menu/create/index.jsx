@@ -54,6 +54,7 @@ const Page = () => {
     label: null,
     url: null,
     icon: null,
+    child: [],
   });
 
   const id = searchParams.get('id');
@@ -74,7 +75,6 @@ const Page = () => {
             url: activeMenu.url,
             icon: activeMenu.icon,
           };
-          console.log('newItem', newItem);
           if (item.child && item.child.length > 0) {
             newItem.child = item.child;
           }
@@ -338,14 +338,18 @@ const Page = () => {
                 onChange={(value) => changeMenuValue('url', value)}
                 onBlur={onEdit}
               />
-              <Box>
-                <Typography fontSize={CTheme.font.size.value}>Icon</Typography>
-                <IconPicker
-                  active={activeMenu.icon}
-                  onSelect={(value) => changeMenuValue('icon', value)}
-                  onBlur={onEdit}
-                />
-              </Box>
+              {!activeMenu.child?.length && (
+                <Box>
+                  <Typography fontSize={CTheme.font.size.value}>
+                    Icon
+                  </Typography>
+                  <IconPicker
+                    active={activeMenu.icon}
+                    onSelect={(value) => changeMenuValue('icon', value)}
+                    onBlur={onEdit}
+                  />
+                </Box>
+              )}
             </Box>
           </Box>
         </Card>

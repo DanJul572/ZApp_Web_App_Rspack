@@ -40,10 +40,8 @@ const Button = (props) => {
 
   const iconName = properties.icon?.name;
   const iconIsRight = properties.icon?.isRight;
-  let IconButton = null;
-  if (iconName) {
-    IconButton = Icon[iconName];
-  }
+  const EndIcon = iconName && iconIsRight ? Icon[iconName] : null;
+  const StartIcon = iconName && !iconIsRight ? Icon[iconName] : null;
 
   const click = () => {
     if (!isBuilder) {
@@ -63,8 +61,8 @@ const Button = (props) => {
               variant="contained"
               disabled={Boolean(disable)}
               color={color}
-              endIcon={iconName && iconIsRight ? <IconButton /> : null}
-              startIcon={iconName && !iconIsRight ? <IconButton /> : null}
+              endIcon={EndIcon ? <EndIcon /> : null}
+              startIcon={StartIcon ? <StartIcon /> : null}
             >
               {label || CButtonType.button.label}
             </MuiButton>

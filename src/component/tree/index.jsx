@@ -100,7 +100,12 @@ const Tree = (props) => {
     }
 
     if (onParentClick) {
-      onParentClick({ id: menu.id, label: menu.label, url: menu.url });
+      onParentClick({
+        id: menu.id,
+        label: menu.label,
+        url: menu.url,
+        child: menu.child,
+      });
     }
   };
 
