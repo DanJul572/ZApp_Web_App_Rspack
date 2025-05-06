@@ -341,6 +341,7 @@ const Page = () => {
               <Box>
                 <Typography fontSize={CTheme.font.size.value}>Icon</Typography>
                 <IconPicker
+                  active={activeMenu.icon}
                   onSelect={(value) => changeMenuValue('icon', value)}
                   onBlur={onEdit}
                 />
