@@ -38,10 +38,11 @@ const Button = (props) => {
   };
   const onClick = properties.onClick;
 
-  const icon = properties.icon;
+  const iconName = properties.icon.name;
+  const iconIsRight = properties.icon.isRight;
   let IconButton = null;
-  if (icon) {
-    IconButton = Icon[icon];
+  if (iconName) {
+    IconButton = Icon[iconName];
   }
 
   const click = () => {
@@ -62,7 +63,8 @@ const Button = (props) => {
               variant="contained"
               disabled={Boolean(disable)}
               color={color}
-              startIcon={icon ? <IconButton /> : null}
+              endIcon={iconName && iconIsRight ? <IconButton /> : null}
+              startIcon={iconName && !iconIsRight ? <IconButton /> : null}
             >
               {label || CButtonType.button.label}
             </MuiButton>

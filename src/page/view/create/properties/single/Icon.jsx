@@ -6,6 +6,7 @@ import Card from '@mui/material/Card';
 import Modal from '@mui/material/Modal';
 
 import IconPicker from '@/component/iconPicker';
+import Toggle from '@/component/input/Toggle';
 
 import CButtonType from '@/constant/CButtonType';
 import CComponentGroupType from '@/constant/CComponentGroupType';
@@ -14,13 +15,24 @@ const Icon = (props) => {
   const { content, selected, editComponent, setContent } = props;
 
   const [open, setOpen] = useState(false);
-  const [active, setActive] = useState(null);
+  const [active, setActive] = useState({
+    name: null,
+    isRight: false,
+  });
 
-  const onApply = (icon) => {
-    const newIcon = active && active === icon ? null : icon;
+  const updateIcon = (updatedFields) => {
+    const newIcon = { ...active, ...updatedFields };
     const newContent = editComponent('icon', newIcon, content);
     setContent([...newContent]);
     setActive(newIcon);
+  };
+
+  const onSelectIcon = (icon) => {
+    updateIcon({ name: active?.name === icon ? null : icon });
+  };
+
+  const onChagePosition = () => {
+    updateIcon({ isRight: !active.isRight });
   };
 
   const validComponent = () => {
@@ -39,7 +51,14 @@ const Icon = (props) => {
   };
 
   useEffect(() => {
-    if (selected) setActive(selected.properties.icon || null);
+    if (selected) {
+      setActive(
+        selected.properties.icon || {
+          name: null,
+          isRight: false,
+        },
+      );
+    }
   }, [selected]);
 
   return (
@@ -64,9 +83,17 @@ const Icon = (props) => {
               padding: 2,
               width: 567,
               height: 550,
+              display: 'flex',
+              flexDirection: 'column',
+              gap: 1,
             }}
           >
-            <IconPicker active={active} onSelect={onApply} />
+            <Toggle
+              label="On The Right"
+              onChange={onChagePosition}
+              value={active.isRight}
+            />
+            <IconPicker active={active.name} onSelect={onSelectIcon} />
           </Card>
         </Modal>
       </Box>
