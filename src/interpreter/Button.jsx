@@ -1,3 +1,4 @@
+import * as Icon from '@mui/icons-material';
 import Box from '@mui/material/Box';
 import Link from '@mui/material/Link';
 
@@ -36,6 +37,12 @@ const Button = (props) => {
   };
   const onClick = properties.onClick;
 
+  const icon = properties.icon;
+  let IconButton = null;
+  if (icon) {
+    IconButton = Icon[icon];
+  }
+
   const click = () => {
     if (!isBuilder) {
       runFunction(onClick);
@@ -54,6 +61,7 @@ const Button = (props) => {
               variant="contained"
               disabled={Boolean(disable)}
               color={color}
+              startIcon={icon ? <IconButton /> : null}
             >
               {label || CButtonType.button.label}
             </MuiButton>

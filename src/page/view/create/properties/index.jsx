@@ -12,6 +12,7 @@ import Color from './single/Color';
 import Delete from './single/Delete';
 import Display from './single/Display';
 import Flex from './single/Flex';
+import Icon from './single/Icon';
 import Identity from './single/Identity';
 import PageSettings from './single/PageSettings';
 import Position from './single/Position';
@@ -252,6 +253,7 @@ const Properties = (props) => {
               <Anchor {...compProps} />
               <Color {...compProps} />
               <TableAction {...compProps} />
+              <Icon {...compProps} />
             </Box>
           </CustomTabPanel>
         </Box>
