@@ -182,6 +182,7 @@ const Page = () => {
     post(url, body)
       .then((res) => {
         setAlert({ status: true, type: 'success', message: res });
+        localStorage.setItem('tree', JSON.stringify(list));
         navigate('/menu');
       })
       .catch((err) => {
