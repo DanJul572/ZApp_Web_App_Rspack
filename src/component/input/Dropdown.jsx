@@ -1,3 +1,4 @@
+import { useQuery } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
 
 import Autocomplete from '@mui/material/Autocomplete';
@@ -17,13 +18,18 @@ const Dropdown = (props) => {
   const { get } = Request();
 
   const [newValue, setNewValue] = useState(!multiple ? null : []);
-  const [newOptions, setNewOptions] = useState([]);
 
-  const getOptions = () => {
-    get(CApiUrl.common.options, { id: id }, false).then((res) => {
-      setNewOptions(res);
-    });
-  };
+  const { data: newOptions = [], isLoading } = useQuery({
+    queryKey: ['dropdown-options', id],
+    queryFn: async () => {
+      if (id) {
+        const res = await get(CApiUrl.common.options, { id: id }, false);
+        return res || [];
+      }
+      return options || [];
+    },
+    enabled: !!id || options,
+  });
 
   const handleChange = (e, param) => {
     if (!multiple) {
@@ -33,14 +39,6 @@ const Dropdown = (props) => {
       onChange(selectedValues);
     }
   };
-
-  useEffect(() => {
-    if (id) {
-      getOptions();
-    } else {
-      setNewOptions(options || []);
-    }
-  }, [options]);
 
   useEffect(() => {
     let val = null;
@@ -53,7 +51,7 @@ const Dropdown = (props) => {
       );
     }
     setNewValue(val);
-  }, [newOptions, value]);
+  }, [newOptions, value, multiple]);
 
   const renderInput = (params) => {
     return (
@@ -79,7 +77,7 @@ const Dropdown = (props) => {
         isOptionEqualToValue={(option, value) => option.value === value.value}
         multiple={multiple}
         onChange={handleChange}
-        options={newOptions.length ? newOptions : []}
+        options={isLoading ? [] : newOptions}
         renderInput={(params) => renderInput(params)}
         renderOption={(props, option) => renderOptions(props, option)}
         size={CTheme.field.size.name}

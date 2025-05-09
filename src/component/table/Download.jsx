@@ -1,12 +1,12 @@
+import FileDownload from '@mui/icons-material/FileDownload';
 import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
 
-import FileDownload from '@mui/icons-material/FileDownload';
-
-import Request from '@/hook/Request';
+import { useMutation } from '@tanstack/react-query';
 
 import { downloadFileFromBuffer } from '@/helper/downloadFile';
 import { extractFileNames } from '@/helper/readFile';
+import Request from '@/hook/Request';
 
 import CApiUrl from '@/constant/CApiUrl';
 import CTheme from '@/constant/CTheme';
@@ -14,25 +14,29 @@ import CTheme from '@/constant/CTheme';
 const Download = ({ label }) => {
   const { get } = Request();
 
-  const onDownload = () => {
-    get(CApiUrl.file.download, { name: label })
-      .then((res) => {
-        const bufferFormat = new Uint8Array(res.data.data);
-        downloadFileFromBuffer(
-          bufferFormat,
-          extractFileNames(label),
-          res.data.type,
-        );
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
+  const downloadMutation = useMutation({
+    mutationFn: async () => {
+      const res = await get(CApiUrl.file.download, { name: label });
+      const bufferFormat = new Uint8Array(res.data.data);
+      downloadFileFromBuffer(
+        bufferFormat,
+        extractFileNames(label),
+        res.data.type,
+      );
+    },
+    onError: (error) => {
+      console.error('Download failed:', error);
+    },
+  });
 
   return (
     <Box display="flex" alignItems="center">
       {label && (
-        <IconButton onClick={onDownload} size={CTheme.button.size.name}>
+        <IconButton
+          onClick={() => downloadMutation.mutate()}
+          size={CTheme.button.size.name}
+          disabled={downloadMutation.isPending}
+        >
           <FileDownload />
         </IconButton>
       )}
