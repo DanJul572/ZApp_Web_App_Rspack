@@ -16,7 +16,6 @@ const Content = ({ isBuilder }) => {
 
   const fetchContent = async () => {
     const param = { moduleId: CModuleID.views, rowId: params.id };
-    console.log('kesini ?', param);
     const res = await get(CApiUrl.common.detail, param);
     if (res) {
       return {
