@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useQuery } from '@tanstack/react-query';
 import { useParams } from 'react-router';
 
 import Request from './Request';
@@ -9,41 +9,38 @@ import CModuleID from '@/constant/CModuleID';
 
 import { decrypt } from '@/helper/encryption';
 
-const Content = (props) => {
-  const { isBuilder } = props;
+const Content = ({ isBuilder }) => {
   const params = useParams();
-
   const { get } = Request();
   const { t } = Translator();
 
-  const [content, setContent] = useState(null);
-  const [page, setPage] = useState(null);
-
-  const getContent = () => {
+  const fetchContent = async () => {
     const param = { moduleId: CModuleID.views, rowId: params.id };
-    get(CApiUrl.common.detail, param)
-      .then((res) => {
-        if (res) {
-          const content = decrypt(res.content);
-          const page = res.page ? decrypt(res.page) : null;
-          setContent(content);
-          setPage(page);
-        } else {
-          setContent(t('empty_content'));
-        }
-      })
-      .catch((err) => {
-        setContent(err);
-      });
+    const res = await get(CApiUrl.common.detail, param);
+    if (res) {
+      return {
+        content: decrypt(res.content),
+        page: res.page ? decrypt(res.page) : null,
+      };
+    }
+    return {
+      content: t('empty_content'),
+      page: null,
+    };
   };
 
-  useEffect(() => {
-    if (!isBuilder && params.id) {
-      getContent();
-    }
-  }, [params.id]);
+  const { data, error, isLoading } = useQuery({
+    queryKey: ['content', params.id],
+    queryFn: fetchContent,
+    enabled: !isBuilder && !!params.id,
+  });
 
-  return { content: content, page: page };
+  return {
+    content: data?.content ?? null,
+    page: data?.page ?? null,
+    isLoading,
+    error,
+  };
 };
 
 export default Content;

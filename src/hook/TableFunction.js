@@ -1,4 +1,5 @@
-import { useEffect, useState } from 'react';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useMemo, useState } from 'react';
 import { useNavigate } from 'react-router';
 
 import { useAlert } from '@/context/AlertProvider';
@@ -15,106 +16,90 @@ const TableFunction = (props) => {
   const { post, get } = Request();
 
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
+
   const { setAlert } = useAlert();
   const { setLoading } = useLoading();
 
-  const [columns, setColumns] = useState([]);
   const [page, setPage] = useState(1);
   const [advanceFilter, setAdvanceFilter] = useState(null);
   const [filter, setFilter] = useState([]);
   const [sort, setSort] = useState([]);
-  const [rows, setRows] = useState([]);
-  const [rowCount, setRowCount] = useState(0);
-  const [columnKey, setColumnKey] = useState(null);
   const [selectedRow, setSelectedRow] = useState(null);
   const [openConfirmDialog, setOpenConfirmDialog] = useState(false);
 
-  const getColumns = () => {
-    setLoading(true);
+  const { data: columns = [], isLoading: isLoadingColumns } = useQuery({
+    queryKey: ['columns', moduleID],
+    queryFn: () => get(CApiUrl.common.columns, { id: moduleID }),
+    enabled: !isBuilder,
+    onError: (err) => {
+      setAlert({
+        status: true,
+        type: 'error',
+        message: err.toString(),
+      });
+    },
+  });
 
-    const param = {
-      id: moduleID,
-    };
+  const columnKey = useMemo(() => {
+    return columns.find((col) => col.identity)?.accessorKey ?? null;
+  }, [columns]);
 
-    get(CApiUrl.common.columns, param)
-      .then((res) => {
-        const columnKey = res.find((column) => column.identity);
-        setColumnKey(columnKey.accessorKey);
-        setColumns(res);
-      })
-      .catch((err) => {
+  const { data: rowsData = { rows: [], count: 0 }, isLoading: isLoadingRows } =
+    useQuery({
+      queryKey: ['rows', moduleID, page, filter, sort, advanceFilter],
+      queryFn: () =>
+        post(CApiUrl.common.rows, {
+          id: moduleID,
+          page,
+          filter,
+          sort,
+          advanceFilter,
+          defaultFilter: defaultFilter || [],
+        }),
+      enabled: columns.length > 0,
+      onError: (err) => {
         setAlert({
           status: true,
           type: 'error',
-          message: err,
+          message: err.toString(),
         });
-      })
-      .finally(() => {
-        setLoading(false);
+      },
+    });
+
+  const deleteMutation = useMutation({
+    mutationFn: () => {
+      const action = actions.find(
+        (action) => action.type === CActionType.delete.value,
+      );
+      const url = action?.api || CApiUrl.common.delete;
+      return post(url, {
+        moduleId: moduleID,
+        id: selectedRow[columnKey],
       });
-  };
-
-  const getRows = () => {
-    setLoading(true);
-
-    const body = {
-      id: moduleID,
-      page: page,
-      advanceFilter: advanceFilter,
-      filter: filter,
-      sort: sort,
-      defaultFilter: defaultFilter || [],
-    };
-
-    post(CApiUrl.common.rows, body)
-      .then((res) => {
-        setRows(res.rows);
-        setRowCount(res.count);
-      })
-      .catch((err) => {
-        setAlert({
-          status: true,
-          type: 'error',
-          message: err,
-        });
-      })
-      .finally(() => {
-        setLoading(false);
+    },
+    onSuccess: (res) => {
+      setAlert({
+        status: true,
+        type: 'success',
+        message: res,
       });
-  };
+      queryClient.invalidateQueries(['rows', moduleID]);
+    },
+    onError: (err) => {
+      setAlert({
+        status: true,
+        type: 'error',
+        message: err.toString(),
+      });
+    },
+  });
 
   const onDelete = () => {
     setLoading(true);
-
-    const body = {
-      moduleId: moduleID,
-      id: selectedRow[columnKey],
-    };
-
-    const action = actions.find(
-      (action) => action.type === CActionType.delete.value,
-    );
-    const url = action.api || CApiUrl.common.delete;
-
-    post(url, body)
-      .then((res) => {
-        setAlert({
-          status: true,
-          type: 'success',
-          message: res,
-        });
-        getRows();
-      })
-      .catch((err) => {
-        setAlert({
-          status: true,
-          type: 'error',
-          message: err,
-        });
-      })
-      .finally(() => {
-        setLoading(false);
-      });
+    deleteMutation.mutate(undefined, {
+      onSettled: () => setLoading(false),
+    });
   };
 
   const onCLickToolbarAction = (action) => {
@@ -135,18 +120,6 @@ const TableFunction = (props) => {
     setOpenConfirmDialog(false);
   };
 
-  useEffect(() => {
-    if (columns && columns.length > 0) {
-      getRows();
-    }
-  }, [columns, page, filter, sort, advanceFilter]);
-
-  useEffect(() => {
-    if (!isBuilder) {
-      getColumns();
-    }
-  }, [moduleID]);
-
   return {
     actions,
     columns,
@@ -155,14 +128,15 @@ const TableFunction = (props) => {
     onCLickToolbarAction,
     onConfirm,
     openConfirmDialog,
-    rowCount,
-    rows,
+    rowCount: rowsData.count,
+    rows: rowsData.rows,
     setAdvanceFilter,
     setFilter,
     setOpenConfirmDialog,
     setPage,
     setSelectedRow,
     setSort,
+    isLoading: isLoadingColumns || isLoadingRows || deleteMutation.isLoading,
   };
 };
 

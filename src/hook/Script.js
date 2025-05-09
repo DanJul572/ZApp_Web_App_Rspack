@@ -1,34 +1,25 @@
-import { useEffect, useState } from 'react';
-
+import { useQuery } from '@tanstack/react-query';
 import Request from './Request';
 
 import CApiUrl from '@/constant/CApiUrl';
 
-const Script = (props) => {
-  const { id } = props;
-
+const Script = ({ id }) => {
   const { get } = Request();
 
-  const [val, setVal] = useState(null);
-
-  const getVal = () => {
-    if (id) {
-      get(CApiUrl.script.run, { id })
-        .then((res) => {
-          setVal(res);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    }
-  };
-
-  useEffect(() => {
-    getVal();
-  }, [id]);
+  const {
+    data: val,
+    isPending,
+    error,
+  } = useQuery({
+    queryKey: ['script-run', id],
+    queryFn: () => get(CApiUrl.script.run, { id }),
+    enabled: !!id,
+  });
 
   return {
     val,
+    isPending,
+    error,
   };
 };
 
