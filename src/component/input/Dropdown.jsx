@@ -41,7 +41,7 @@ const Dropdown = (props) => {
   };
 
   useEffect(() => {
-    let val = null;
+    let val;
     if (!multiple) {
       val = value ? newOptions.find((option) => option.value === value) : null;
     } else {
