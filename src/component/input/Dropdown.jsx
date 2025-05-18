@@ -28,7 +28,7 @@ const Dropdown = (props) => {
       }
       return options || [];
     },
-    enabled: !!id || options,
+    enabled: !!id || !!options,
   });
 
   const handleChange = (e, param) => {
