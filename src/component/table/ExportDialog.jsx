@@ -25,7 +25,7 @@ const ExportDialog = (props) => {
     { value: 'current', label: 'Current' },
     { value: 'all', label: 'All' },
   ];
-  const extentionType = [
+  const extensionType = [
     { value: '.csv', label: 'CSV' },
     { value: '.pdf', label: 'PDF' },
   ];
@@ -45,11 +45,11 @@ const ExportDialog = (props) => {
     });
 
   const [exportSelectionType, setExportSelectionType] = useState(null);
-  const [exportExtentionType, setExportExtentionType] = useState(null);
+  const [exportExtentionType, setexportExtentionType] = useState(null);
 
   const closeDialog = () => {
     setExportSelectionType(null);
-    setExportExtentionType(null);
+    setexportExtentionType(null);
     setOpenExportDialog(false);
   };
 
@@ -89,7 +89,7 @@ const ExportDialog = (props) => {
       rows = table.getPrePaginationRowModel().rows;
     }
 
-    if (exportExtentionType === extentionType[0].value) {
+    if (exportExtentionType === extensionType[0].value) {
       exportAsCSV(rows);
     } else {
       exportAsPDF(rows);
@@ -110,6 +110,7 @@ const ExportDialog = (props) => {
         }}
       >
         <Dropdown
+          key='selection'
           label="Selection"
           options={rowType}
           onChange={setExportSelectionType}
@@ -117,9 +118,10 @@ const ExportDialog = (props) => {
           size={CTheme.button.size.name}
         />
         <Dropdown
+          key='extension'
           label="Extention"
-          options={extentionType}
-          onChange={setExportExtentionType}
+          options={extensionType}
+          onChange={setexportExtentionType}
           value={exportExtentionType}
           size={CTheme.button.size.name}
         />

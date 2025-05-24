@@ -201,20 +201,27 @@ const Table = (props) => {
   });
 
   useEffect(() => {
-    if (enablePagination && onChangePage)
+    if (enablePagination && onChangePage) {
       onChangePage(pagination.pageIndex + 1);
+    }
   }, [pagination.pageIndex, pagination.pageSize]);
 
   useEffect(() => {
-    if (enableFilter && onFilter) onFilter(columnFilters);
+    if (enableFilter && onFilter) {
+      onFilter(columnFilters);
+    }
   }, [columnFilters]);
 
   useEffect(() => {
-    if (enableSorting && onSort) onSort(sorting);
+    if (enableSorting && onSort) {
+      onSort(sorting);
+    }
   }, [sorting]);
 
   useEffect(() => {
-    if (enableRowSelection && onSelect) onSelect(Object.keys(rowSelection));
+    if (enableRowSelection && onSelect) {
+      onSelect(Object.keys(rowSelection));
+    }
   }, [rowSelection]);
 
   return (
