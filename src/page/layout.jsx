@@ -1,5 +1,5 @@
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Suspense } from 'react';
-import { QueryClientProvider, QueryClient } from '@tanstack/react-query';
 
 import 'suneditor/dist/css/suneditor.min.css';
 import 'react-querybuilder/dist/query-builder.css';

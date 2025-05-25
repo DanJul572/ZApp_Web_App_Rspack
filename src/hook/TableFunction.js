@@ -1,6 +1,6 @@
+import { useQuery } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
-import { useQuery } from '@tanstack/react-query';
 
 import { useAlert } from '@/context/AlertProvider';
 import { useLoading } from '@/context/LoadingProvider';
