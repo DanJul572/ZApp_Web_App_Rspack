@@ -8,7 +8,7 @@ const CDateTimeFormat = {
     value: 'YYYY-MM-DDT00:00:00',
   },
   datetime: {
-    display: 'DD/MM/YYYY HH:mm:ss',
+    display: 'DD MMM YYYY HH:mm:ss',
     value: 'YYYY-MM-DDTHH:mm:ss',
   },
 };
