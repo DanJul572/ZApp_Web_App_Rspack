@@ -110,7 +110,7 @@ const ExportDialog = (props) => {
         }}
       >
         <Dropdown
-          key='selection'
+          key="selection"
           label="Selection"
           options={rowType}
           onChange={setExportSelectionType}
@@ -118,7 +118,7 @@ const ExportDialog = (props) => {
           size={CTheme.button.size.name}
         />
         <Dropdown
-          key='extension'
+          key="extension"
           label="Extention"
           options={extensionType}
           onChange={setexportExtentionType}

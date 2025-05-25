@@ -87,7 +87,6 @@ const Table = (props) => {
   );
   const isSupportRowAction =
     action.filter((item) => item.type !== CActionType.insert.value).length > 0;
-
   const muiBottomToolbarProps =
     !enablePagination && !onChangePage ? { style: { display: 'none' } } : false;
   const muiTableContainerProps = { sx: { maxHeight: '500px' } };
@@ -100,7 +99,9 @@ const Table = (props) => {
       }
       return <Download label={cell.getValue()} />;
     };
-    if (column.footer) column.Footer = () => columnFooter(column.footer);
+    if (column.footer) {
+      column.Footer = () => columnFooter(column.footer);
+    }
     return column;
   });
 
