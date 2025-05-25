@@ -1,4 +1,4 @@
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useEffect } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
 import { MuiFileInput } from 'mui-file-input';
@@ -30,22 +30,6 @@ const File = (props) => {
 
   const fileContent =
     file && file.length > 0 ? file.find((file) => file.name === name) : null;
-
-  const { isLoading } = useQuery({
-    queryKey: ['download-file', value],
-    queryFn: async () => {
-      const res = await get(CApiUrl.file.download, { name: value });
-      return res ? getFileFromBuffer(res) : null;
-    },
-    enabled: !!value,
-  });
-
-  const downloadMutation = useMutation({
-    mutationFn: (fileContent) => downloadFile(fileContent.file),
-    onError: (err) => {
-      console.log('Download failed:', err);
-    },
-  });
 
   const handleChange = (file) => {
     if (file) {
@@ -88,10 +72,26 @@ const File = (props) => {
   };
 
   const handleDownload = () => {
-    if (fileContent) {
-      downloadMutation.mutate(fileContent);
-    }
+    downloadFile(fileContent.file);
   };
+
+  const getFile = () => {
+    get(CApiUrl.file.download, { name: value })
+      .then((res) => {
+        if (res) {
+          handleChange(getFileFromBuffer(res));
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  useEffect(() => {
+    if (value) {
+      getFile();
+    }
+  }, [value]);
 
   return (
     <Box display="flex" alignItems="center">
@@ -111,11 +111,7 @@ const File = (props) => {
         />
       </Box>
       {fileContent && (
-        <IconButton
-          size={CTheme.button.size.name}
-          onClick={handleDownload}
-          disabled={isLoading}
-        >
+        <IconButton size={CTheme.button.size.name} onClick={handleDownload}>
           <Download />
         </IconButton>
       )}

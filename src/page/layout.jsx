@@ -1,4 +1,3 @@
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Suspense } from 'react';
 
 import 'suneditor/dist/css/suneditor.min.css';
@@ -18,28 +17,24 @@ export const metadata = {
   description: 'Cretae your app without code',
 };
 
-const queryClient = new QueryClient();
-
 export default function Layout({ children }) {
   return (
     <Suspense>
-      <QueryClientProvider client={queryClient}>
-        <ErrorProvider>
-          <LoadingProvider>
-            <AlertProvider>
-              <ToastProvider>
-                <VarsProvider>
-                  <FileProvider>
-                    <ComponentProvider>
-                      <ExpandedMenuProvider>{children}</ExpandedMenuProvider>
-                    </ComponentProvider>
-                  </FileProvider>
-                </VarsProvider>
-              </ToastProvider>
-            </AlertProvider>
-          </LoadingProvider>
-        </ErrorProvider>
-      </QueryClientProvider>
+      <ErrorProvider>
+        <LoadingProvider>
+          <AlertProvider>
+            <ToastProvider>
+              <VarsProvider>
+                <FileProvider>
+                  <ComponentProvider>
+                    <ExpandedMenuProvider>{children}</ExpandedMenuProvider>
+                  </ComponentProvider>
+                </FileProvider>
+              </VarsProvider>
+            </ToastProvider>
+          </AlertProvider>
+        </LoadingProvider>
+      </ErrorProvider>
     </Suspense>
   );
 }
