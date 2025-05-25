@@ -1,4 +1,5 @@
 import { Suspense } from 'react';
+import { QueryClientProvider, QueryClient } from '@tanstack/react-query';
 
 import 'suneditor/dist/css/suneditor.min.css';
 import 'react-querybuilder/dist/query-builder.css';
@@ -12,6 +13,8 @@ import { LoadingProvider } from '@/context/LoadingProvider';
 import { ToastProvider } from '@/context/ToastProvider';
 import { VarsProvider } from '@/context/VarsProvider';
 
+const queryClient = new QueryClient();
+
 export const metadata = {
   title: 'ZApp',
   description: 'Cretae your app without code',
@@ -20,21 +23,23 @@ export const metadata = {
 export default function Layout({ children }) {
   return (
     <Suspense>
-      <ErrorProvider>
-        <LoadingProvider>
-          <AlertProvider>
-            <ToastProvider>
-              <VarsProvider>
-                <FileProvider>
-                  <ComponentProvider>
-                    <ExpandedMenuProvider>{children}</ExpandedMenuProvider>
-                  </ComponentProvider>
-                </FileProvider>
-              </VarsProvider>
-            </ToastProvider>
-          </AlertProvider>
-        </LoadingProvider>
-      </ErrorProvider>
+      <QueryClientProvider client={queryClient}>
+        <ErrorProvider>
+          <LoadingProvider>
+            <AlertProvider>
+              <ToastProvider>
+                <VarsProvider>
+                  <FileProvider>
+                    <ComponentProvider>
+                      <ExpandedMenuProvider>{children}</ExpandedMenuProvider>
+                    </ComponentProvider>
+                  </FileProvider>
+                </VarsProvider>
+              </ToastProvider>
+            </AlertProvider>
+          </LoadingProvider>
+        </ErrorProvider>
+      </QueryClientProvider>
     </Suspense>
   );
 }
