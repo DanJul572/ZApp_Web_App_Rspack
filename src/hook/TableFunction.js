@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
+import { useQuery } from '@tanstack/react-query';
 
 import { useAlert } from '@/context/AlertProvider';
 import { useLoading } from '@/context/LoadingProvider';
@@ -18,41 +19,31 @@ const TableFunction = (props) => {
   const { setAlert } = useAlert();
   const { setLoading } = useLoading();
 
-  const [columns, setColumns] = useState([]);
   const [page, setPage] = useState(1);
   const [advanceFilter, setAdvanceFilter] = useState(null);
   const [filter, setFilter] = useState([]);
   const [sort, setSort] = useState([]);
   const [rows, setRows] = useState([]);
   const [rowCount, setRowCount] = useState(0);
-  const [columnKey, setColumnKey] = useState(null);
   const [selectedRow, setSelectedRow] = useState(null);
   const [openConfirmDialog, setOpenConfirmDialog] = useState(false);
 
-  const getColumns = () => {
-    setLoading(true);
-
-    const param = {
+  const getColumns = async () => {
+    return await get(CApiUrl.common.columns, {
       id: moduleID,
-    };
-
-    get(CApiUrl.common.columns, param)
-      .then((res) => {
-        const columnKey = res.find((column) => column.identity);
-        setColumnKey(columnKey.accessorKey);
-        setColumns(res);
-      })
-      .catch((err) => {
-        setAlert({
-          status: true,
-          type: 'error',
-          message: err,
-        });
-      })
-      .finally(() => {
-        setLoading(false);
-      });
+    });
   };
+
+  const { data: columns } = useQuery({
+    queryKey: ['table-columns', moduleID],
+    queryFn: getColumns,
+    enabled: !!moduleID && !isBuilder,
+  });
+
+  let columnKey = null;
+  if (columns && !!columns.length) {
+    columnKey = columns.find((column) => column.identity);
+  }
 
   const getRows = () => {
     setLoading(true);
@@ -140,12 +131,6 @@ const TableFunction = (props) => {
       getRows();
     }
   }, [columns, page, filter, sort, advanceFilter]);
-
-  useEffect(() => {
-    if (!isBuilder) {
-      getColumns();
-    }
-  }, [moduleID]);
 
   return {
     actions,
