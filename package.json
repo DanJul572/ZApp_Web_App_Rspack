@@ -20,7 +20,7 @@
     "@mui/x-charts": "^8.4.0",
     "@mui/x-date-pickers": "^8.4.0",
     "@mui/x-tree-view": "8.4.0",
-    "@tanstack/react-query": "^5.77.0",
+    "@tanstack/react-query": "^5.77.1",
     "@uiw/react-textarea-code-editor": "^3.1.1",
     "axios": "^1.9.0",
     "crypto-js": "^4.2.0",
@@ -35,7 +35,7 @@
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "react-querybuilder": "^8.7.0",
-    "react-router": "^7.6.0",
+    "react-router": "^7.6.1",
     "suneditor": "^2.47.5",
     "suneditor-react": "^3.6.1",
     "uuid": "^11.1.0"
@@ -50,7 +50,7 @@
     "eslint": "^9.27.0",
     "eslint-plugin-react": "^7.37.5",
     "eslint-plugin-react-hooks": "^5.2.0",
-    "globals": "^16.1.0",
+    "globals": "^16.2.0",
     "prettier": "^3.5.3"
   },
   "packageManager": "pnpm@10.11.0"
