@@ -1,5 +1,6 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useSearchParams } from 'react-router';
+import { useQuery } from '@tanstack/react-query';
 
 import Box from '@mui/material/Box';
 
@@ -35,33 +36,28 @@ const Page = () => {
   const [page, setPage] = useState(null);
   const [selected, setSelected] = useState(null);
   const [viewId, setViewId] = useState(null);
-  const [viewOptions, setviewOptions] = useState(null);
 
-  const getViewOptions = () => {
-    get(CApiUrl.view.options, { moduleId: moduleId })
-      .then((res) => {
-        if (res && res.length > 0) {
-          res.map((option) => {
-            option.label = `(${option.value}) - ${option.label}`;
-            return option;
-          });
-        }
-        setviewOptions(res);
-      })
-      .catch((err) => {
-        console.log(err);
+  const getViewOptions = async () => {
+    const response = await get(CApiUrl.view.options, { moduleId: moduleId });
+    if (response && response.length > 0) {
+      return response.map((option) => {
+        option.label = `(${option.value}) - ${option.label}`;
+        return option;
       });
+    }
+    return [];
   };
 
-  useEffect(() => {
-    getViewOptions();
-  }, []);
+  const { data: viewOptions, refetch } = useQuery({
+    queryKey: ['view-options'],
+    queryFn: getViewOptions,
+  });
 
   return (
     <Empty>
       <TopBar
         content={content}
-        getViewOptions={getViewOptions}
+        getViewOptions={refetch}
         label={label}
         moduleId={moduleId}
         page={page}

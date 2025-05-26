@@ -42,7 +42,7 @@ const TableFunction = (props) => {
 
   let columnKey = null;
   if (columns && !!columns.length) {
-    columnKey = columns.find((column) => column.identity);
+    columnKey = columns.find((column) => column.identity)?.id;
   }
 
   const getRows = () => {
@@ -109,15 +109,21 @@ const TableFunction = (props) => {
   };
 
   const onCLickToolbarAction = (action) => {
-    if (action.type === CActionType.insert.value) navigate(action.path);
+    if (action.type === CActionType.insert.value) {
+      navigate(action.path);
+    }
   };
 
   const onClickRowAction = (data) => {
     if (data.action.type === CActionType.delete.value) {
       setSelectedRow(data.row);
-      setOpenConfirmDialog(true);
-    } else if (data.action.type === CActionType.update.value) {
-      navigate(`${data.action.path}?${columnKey}=${data.row[columnKey]}`);
+      return setOpenConfirmDialog(true);
+    }
+
+    if (data.action.type === CActionType.update.value) {
+      return navigate(
+        `${data.action.path}?${columnKey}=${data.row[columnKey]}`,
+      );
     }
   };
 
