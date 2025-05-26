@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router';
 
 import { useAlert } from '@/context/AlertProvider';
@@ -14,7 +14,6 @@ const TableFunction = (props) => {
   const { moduleID, actions, isBuilder, defaultFilter } = props;
 
   const { post, get } = Request();
-
   const navigate = useNavigate();
   const { setAlert } = useAlert();
   const { setLoading } = useLoading();
@@ -23,89 +22,84 @@ const TableFunction = (props) => {
   const [advanceFilter, setAdvanceFilter] = useState(null);
   const [filter, setFilter] = useState([]);
   const [sort, setSort] = useState([]);
-  const [rows, setRows] = useState([]);
-  const [rowCount, setRowCount] = useState(0);
   const [selectedRow, setSelectedRow] = useState(null);
   const [openConfirmDialog, setOpenConfirmDialog] = useState(false);
 
   const getColumns = async () => {
-    return await get(CApiUrl.common.columns, {
-      id: moduleID,
-    });
+    return await get(CApiUrl.common.columns, { id: moduleID });
   };
 
-  const { data: columns } = useQuery({
+  const { data: columns, isLoading: isColumnsLoading } = useQuery({
     queryKey: ['table-columns', moduleID],
     queryFn: getColumns,
     enabled: !!moduleID && !isBuilder,
   });
 
   let columnKey = null;
-  if (columns && !!columns.length) {
-    columnKey = columns.find((column) => column.identity)?.id;
+  if (columns?.length) {
+    columnKey = columns.find((col) => col.identity)?.id;
   }
 
-  const getRows = () => {
-    setLoading(true);
-
+  const fetchRows = async () => {
     const body = {
       id: moduleID,
-      page: page,
-      advanceFilter: advanceFilter,
-      filter: filter,
-      sort: sort,
+      page,
+      advanceFilter,
+      filter,
+      sort,
       defaultFilter: defaultFilter || [],
     };
-
-    post(CApiUrl.common.rows, body)
-      .then((res) => {
-        setRows(res.rows);
-        setRowCount(res.count);
-      })
-      .catch((err) => {
-        setAlert({
-          status: true,
-          type: 'error',
-          message: err,
-        });
-      })
-      .finally(() => {
-        setLoading(false);
-      });
+    return await post(CApiUrl.common.rows, body);
   };
+
+  const {
+    data: rowsData,
+    isLoading: isRowsLoading,
+    refetch: refetchRows,
+  } = useQuery({
+    queryKey: [
+      'table-rows',
+      moduleID,
+      page,
+      filter,
+      sort,
+      advanceFilter,
+      defaultFilter,
+    ],
+    queryFn: fetchRows,
+    enabled: !!moduleID && !!columns && columns.length > 0,
+    onError: (err) => {
+      setAlert({
+        status: true,
+        type: 'error',
+        message: err.message || err,
+      });
+    },
+  });
+
+  const isLoading = isColumnsLoading || isRowsLoading;
+
+  const rows = rowsData?.rows || [];
+  const rowCount = rowsData?.count || 0;
 
   const onDelete = () => {
     setLoading(true);
-
     const body = {
       moduleId: moduleID,
       id: selectedRow[columnKey],
     };
-
-    const action = actions.find(
-      (action) => action.type === CActionType.delete.value,
-    );
-    const url = action.api || CApiUrl.common.delete;
+    const action = actions.find((a) => a.type === CActionType.delete.value);
+    const url = action?.api || CApiUrl.common.delete;
 
     post(url, body)
       .then((res) => {
-        setAlert({
-          status: true,
-          type: 'success',
-          message: res,
-        });
-        getRows();
+        setAlert({ status: true, type: 'success', message: res });
+        refetchRows();
       })
       .catch((err) => {
-        setAlert({
-          status: true,
-          type: 'error',
-          message: err,
-        });
+        setAlert({ status: true, type: 'error', message: err });
       })
-      .finally(() => {
-        setLoading(false);
-      });
+      .finally(() => setLoading(false));
   };
 
   const onCLickToolbarAction = (action) => {
@@ -117,26 +111,19 @@ const TableFunction = (props) => {
   const onClickRowAction = (data) => {
     if (data.action.type === CActionType.delete.value) {
       setSelectedRow(data.row);
-      return setOpenConfirmDialog(true);
+      setOpenConfirmDialog(true);
     }
-
     if (data.action.type === CActionType.update.value) {
-      return navigate(
-        `${data.action.path}?${columnKey}=${data.row[columnKey]}`,
-      );
+      navigate(`${data.action.path}?${columnKey}=${data.row[columnKey]}`);
     }
   };
 
   const onConfirm = (confirm) => {
-    if (confirm) onDelete();
+    if (confirm) {
+      onDelete();
+    }
     setOpenConfirmDialog(false);
   };
-
-  useEffect(() => {
-    if (columns && columns.length > 0) {
-      getRows();
-    }
-  }, [columns, page, filter, sort, advanceFilter]);
 
   return {
     actions,
@@ -154,6 +141,7 @@ const TableFunction = (props) => {
     setPage,
     setSelectedRow,
     setSort,
+    isLoading,
   };
 };
 
