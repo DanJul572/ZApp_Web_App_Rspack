@@ -9,6 +9,8 @@ import DialogTitle from '@mui/material/DialogTitle';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 
+import ArrowDropDown from '@mui/icons-material/ArrowDropDown';
+import ArrowDropUp from '@mui/icons-material/ArrowDropUp';
 import ShortTextOutlined from '@mui/icons-material/ShortTextOutlined';
 
 import NumberField from '@/component/input/NumberField';
@@ -57,13 +59,48 @@ const Position = (props) => {
     return content;
   };
 
-  const onMove = () => {
+  const changePositionWithArrow = (arr, selectedId, direction) => {
+    const index = arr.findIndex((item) => item.id === selectedId);
+
+    if (index !== -1) {
+      if (direction === 'up' && index > 0) {
+        [arr[index - 1], arr[index]] = [arr[index], arr[index - 1]];
+      } else if (direction === 'down' && index < arr.length - 1) {
+        [arr[index + 1], arr[index]] = [arr[index], arr[index + 1]];
+      }
+      return true;
+    }
+
+    for (const item of arr) {
+      if (item.section) {
+        for (const section of item.section) {
+          if (changePositionWithArrow(section, selectedId, direction))
+            return true;
+        }
+      }
+    }
+
+    return false;
+  };
+
+  const onApply = () => {
     let newContent = deleteComponent(content);
     newContent = changePosition(newContent);
 
     setContent([...newContent]);
     setSelected(null);
     setOpen(false);
+  };
+
+  const onClickArrow = (direction) => {
+    if (!selected) return;
+
+    const selectedId = selected.id;
+    const newContent = [...content];
+
+    if (changePositionWithArrow(newContent, selectedId, direction)) {
+      setContent(newContent);
+    }
   };
 
   useEffect(() => {
@@ -82,13 +119,29 @@ const Position = (props) => {
           alignItems="center"
         >
           <Typography fontSize={CTheme.font.size.value}>Position</Typography>
-          <IconButton
-            sx={{ padding: 0 }}
-            size={CTheme.button.size.name}
-            onClick={() => setOpen(true)}
-          >
-            <ShortTextOutlined fontSize={CTheme.font.size.name} />
-          </IconButton>
+          <Box>
+            <IconButton
+              sx={{ padding: 0 }}
+              size={CTheme.button.size.name}
+              onClick={() => onClickArrow('up')}
+            >
+              <ArrowDropUp fontSize={CTheme.font.size.name} />
+            </IconButton>
+            <IconButton
+              sx={{ padding: 0 }}
+              size={CTheme.button.size.name}
+              onClick={() => onClickArrow('down')}
+            >
+              <ArrowDropDown fontSize={CTheme.font.size.name} />
+            </IconButton>
+            <IconButton
+              sx={{ padding: 0 }}
+              size={CTheme.button.size.name}
+              onClick={() => setOpen(true)}
+            >
+              <ShortTextOutlined fontSize={CTheme.font.size.name} />
+            </IconButton>
+          </Box>
         </Box>
         <Dialog
           aria-hidden={open ? 'false' : 'true'}
@@ -128,7 +181,7 @@ const Position = (props) => {
             </Button>
             <Button
               aria-hidden={open ? 'false' : 'true'}
-              onClick={onMove}
+              onClick={onApply}
               variant="contained"
               size={CTheme.button.size.name}
             >

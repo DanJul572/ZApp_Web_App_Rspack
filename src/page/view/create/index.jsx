@@ -1,6 +1,6 @@
+import { useQuery } from '@tanstack/react-query';
 import { useState } from 'react';
 import { useSearchParams } from 'react-router';
-import { useQuery } from '@tanstack/react-query';
 
 import Box from '@mui/material/Box';
 
