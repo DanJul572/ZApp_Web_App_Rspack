@@ -48,7 +48,7 @@ const Page = () => {
   const [label, setLabel] = useState(null);
   const [roleId, setRoleId] = useState(null);
   const [afterLogin, setAfterLogin] = useState(null);
-  const [list, setList] = useState([]);
+  const [tree, setTree] = useState([]);
   const [activeMenu, setActiveMenu] = useState({
     id: null,
     label: null,
@@ -115,7 +115,7 @@ const Page = () => {
       .then((res) => {
         setLabel(res.label);
         setRoleId(res.roleId);
-        setList(res.tree);
+        setTree(res.tree);
         setAfterLogin(res.afterLogin);
       })
       .catch((err) => {
@@ -136,29 +136,36 @@ const Page = () => {
   };
 
   const onEdit = () => {
-    const result = changeMenuItem([...list], actionType.edit);
-    setList(result);
+    const result = changeMenuItem([...tree], actionType.edit);
+    setTree(result);
   };
 
   const onAddRootMenu = () => {
     const menu = generateNewMenu();
-    setList([...list, menu]);
+    setTree([...tree, menu]);
   };
 
   const onAdd = () => {
     const menu = generateNewMenu();
-    const result = changeMenuItem([...list], actionType.add, menu);
-    setList(result);
+    const result = changeMenuItem([...tree], actionType.add, menu);
+    setTree(result);
   };
 
   const onDelete = () => {
-    const result = changeMenuItem([...list], actionType.delete);
-    setList(result);
+    const result = changeMenuItem([...tree], actionType.delete);
+    setActiveMenu({
+      id: null,
+      label: null,
+      url: null,
+      icon: null,
+      child: [],
+    });
+    setTree(result);
   };
 
   const onMove = (type) => {
-    const result = changeMenuItem([...list], type);
-    setList(result);
+    const result = changeMenuItem([...tree], type);
+    setTree(result);
   };
 
   const onBack = () => {
@@ -171,18 +178,20 @@ const Page = () => {
       moduleId: CModuleID.menus,
       data: {
         label: label,
-        tree: JSON.stringify(list),
+        tree: JSON.stringify(tree),
         roleId: roleId,
         afterLogin: afterLogin,
       },
     };
 
-    if (id) body.rowId = id;
+    if (id) {
+      body.rowId = id;
+    }
 
     post(url, body)
       .then((res) => {
         setAlert({ status: true, type: 'success', message: res });
-        localStorage.setItem('tree', JSON.stringify(list));
+        localStorage.setItem('tree', JSON.stringify(tree));
         navigate('/menu');
       })
       .catch((err) => {
@@ -196,7 +205,7 @@ const Page = () => {
       label: label,
       roleId: roleId,
       afterLogin: afterLogin,
-      list: list,
+      tree: tree,
     };
     downloadJsonFile(menu, label);
   };
@@ -207,7 +216,7 @@ const Page = () => {
         setLabel(json.label);
         setRoleId(json.roleId);
         setAfterLogin(json.afterLogin);
-        setList(json.list);
+        setTree(json.tree);
         event.target.value = null;
       })
       .catch((error) => console.log(error));
@@ -313,11 +322,11 @@ const Page = () => {
           <Box gap={2} display="flex">
             <Box padding={1} flex={1}>
               <Tree
-                list={list}
+                tree={tree}
                 onParentClick={onClick}
                 onChildClick={onClick}
                 isSidebar={false}
-                setList={setList}
+                setTree={setTree}
               />
             </Box>
             <Box

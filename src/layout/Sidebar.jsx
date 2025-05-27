@@ -17,9 +17,9 @@ const Sidebar = () => {
   const navigate = useNavigate();
   const { get } = Request();
 
-  const [list, setList] = useState([]);
+  const [tree, setTree] = useState([]);
 
-  const tree = localStorage.getItem('tree')
+  const treeJSON = localStorage.getItem('tree')
     ? JSON.parse(localStorage.getItem('tree'))
     : [];
 
@@ -29,14 +29,14 @@ const Sidebar = () => {
 
   const onLoad = () => {
     get(CApiUrl.common.menu).then((res) => {
-      setList(res.tree);
+      setTree(res.tree);
       localStorage.setItem('tree', JSON.stringify(res.tree));
     });
   };
 
   useEffect(() => {
     if (tree.length > 0) {
-      setList(tree);
+      setTree(treeJSON);
     } else {
       onLoad();
     }
@@ -57,11 +57,11 @@ const Sidebar = () => {
     >
       <Tree
         onChildClick={onClick}
-        list={list}
+        tree={tree}
         isSidebar={true}
-        setList={setList}
+        setTree={setTree}
       />
-      {list.length <= 0 && (
+      {tree.length <= 0 && (
         <Typography align="center">Menu is not found.</Typography>
       )}
     </Card>

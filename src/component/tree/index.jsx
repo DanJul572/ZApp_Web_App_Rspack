@@ -30,7 +30,7 @@ const StyledTreeItem = styled(CustomTreeItem)(({ theme }) => ({
 }));
 
 const Tree = (props) => {
-  const { onChildClick, onParentClick, list, isSidebar, setList } = props;
+  const { onChildClick, onParentClick, tree, isSidebar, setTree } = props;
 
   const theme = useTheme();
   const location = useLocation();
@@ -41,7 +41,7 @@ const Tree = (props) => {
   const [selectedItems, setSelectedItems] = useState([]);
   const [typingTimeout, setTypingTimeout] = useState(null);
 
-  const tree = localStorage.getItem('tree')
+  const treeJSON = localStorage.getItem('tree')
     ? JSON.parse(localStorage.getItem('tree'))
     : [];
 
@@ -84,8 +84,8 @@ const Tree = (props) => {
 
   const search = (value) => {
     if (tree.length > 0) {
-      const newList = filterMenusByLabel(tree, value);
-      setList(newList);
+      const newTree = filterMenusByLabel(treeJSON, value);
+      setTree(newTree);
     }
   };
 
@@ -109,7 +109,7 @@ const Tree = (props) => {
     }
   };
 
-  const menuList = (menu) => {
+  const treeMenu = (menu) => {
     const SelectedIcon = Icon[menu.icon];
 
     if (menu.child) {
@@ -123,7 +123,7 @@ const Tree = (props) => {
             clickParent(menu);
           }}
         >
-          {menu.child.map((child) => menuList(child))}
+          {menu.child.map((child) => treeMenu(child))}
         </StyledTreeItem>
       );
     }
@@ -197,7 +197,7 @@ const Tree = (props) => {
         sx={{ overflowX: 'hidden', padding: 1 }}
         {...treeProps}
       >
-        {list && list.length > 0 && list.map((menu) => menuList(menu))}
+        {tree && tree.length > 0 && tree.map((menu) => treeMenu(menu))}
       </SimpleTreeView>
     </Box>
   );
