@@ -112,8 +112,7 @@ const TableFunction = (props) => {
     if (data.action.type === CActionType.delete.value) {
       setSelectedRow(data.row);
       setOpenConfirmDialog(true);
-    }
-    if (data.action.type === CActionType.update.value) {
+    } else if (data.action.type === CActionType.update.value) {
       navigate(`${data.action.path}?${columnKey}=${data.row[columnKey]}`);
     }
   };

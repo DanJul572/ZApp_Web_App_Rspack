@@ -1,9 +1,9 @@
 const CFieldID = {
   menus: {
-    roleId: 35,
+    roleId: 48,
   },
   users: {
-    roleId: 40,
+    roleId: 62,
   },
 };
 
