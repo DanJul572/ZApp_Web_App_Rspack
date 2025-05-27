@@ -35,7 +35,7 @@ const Sidebar = () => {
   };
 
   useEffect(() => {
-    if (tree.length > 0) {
+    if (treeJSON.length > 0) {
       setTree(treeJSON);
     } else {
       onLoad();
