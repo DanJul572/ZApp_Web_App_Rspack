@@ -9,7 +9,7 @@ export default defineConfig({
       plugins: [new Dotenv()],
     },
   },
-  source: {
+  resolve: {
     alias: {
       '@': './src',
     },

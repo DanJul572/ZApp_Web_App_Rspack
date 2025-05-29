@@ -7,7 +7,7 @@ import Toolbar from '@mui/material/Toolbar';
 
 import { ThemeProvider, createTheme } from '@mui/material';
 
-import Loading from '@/component/loading';
+import FullCoverLoader from '@/component/loading/fullCoverLoader';
 import Toast from '@/component/toast';
 
 import CTheme from '@/constant/CTheme';
@@ -20,7 +20,7 @@ export default function Main({ children }) {
 
   return (
     <ThemeProvider theme={theme}>
-      <Loading />
+      <FullCoverLoader />
       <Toast />
       <Box sx={{ display: 'flex' }}>
         <CssBaseline />

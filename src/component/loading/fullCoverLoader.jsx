@@ -3,7 +3,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 
 import { useLoading } from '@/context/LoadingProvider';
 
-const Loading = () => {
+const FullCoverLoader = () => {
   const { loading } = useLoading();
 
   return (
@@ -20,4 +20,4 @@ const Loading = () => {
   );
 };
 
-export default Loading;
+export default FullCoverLoader;

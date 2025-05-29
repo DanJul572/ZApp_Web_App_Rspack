@@ -1,6 +1,7 @@
 import Box from '@mui/material/Box';
 
 import Confirm from '@/component/dialog/Confirm';
+import ContentLoader from '@/component/loading/contentLoader';
 import Table from '@/component/table';
 
 import TableFunction from '@/hook/TableFunction';
@@ -13,6 +14,8 @@ const ClassicView = (props) => {
     actions,
     columnKey,
     columns,
+    isColumnsLoading,
+    isRowsLoading,
     onClickRowAction,
     onCLickToolbarAction,
     onConfirm,
@@ -26,6 +29,10 @@ const ClassicView = (props) => {
   } = TableFunction(props);
 
   const { rowCustomAction, onClickRowCustomAction } = props;
+
+  if (isColumnsLoading) {
+    return <ContentLoader />;
+  }
 
   return (
     <Box>
@@ -41,6 +48,7 @@ const ClassicView = (props) => {
         enablePagination={true}
         enableRowSelection={true}
         enableSorting={true}
+        isLoading={isRowsLoading}
         onAdvanceFilter={setAdvanceFilter}
         onChangePage={setPage}
         onClickRowAction={onClickRowAction}

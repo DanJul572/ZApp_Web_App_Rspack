@@ -77,8 +77,6 @@ const TableFunction = (props) => {
     },
   });
 
-  const isLoading = isColumnsLoading || isRowsLoading;
-
   const rows = rowsData?.rows || [];
   const rowCount = rowsData?.count || 0;
 
@@ -126,8 +124,10 @@ const TableFunction = (props) => {
 
   return {
     actions,
-    columns,
     columnKey,
+    columns,
+    isColumnsLoading,
+    isRowsLoading,
     onClickRowAction,
     onCLickToolbarAction,
     onConfirm,
@@ -140,7 +140,6 @@ const TableFunction = (props) => {
     setPage,
     setSelectedRow,
     setSort,
-    isLoading,
   };
 };
 
