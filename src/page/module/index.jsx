@@ -36,6 +36,7 @@ const Page = () => {
   const rowCustomAction = [
     {
       type: 6,
+      value: 6,
       label: t('download'),
     },
   ];

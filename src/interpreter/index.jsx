@@ -9,9 +9,22 @@ import VisualElement from './VisualElement';
 import Wraper from './Wrapper';
 
 import Page from './shared/Page';
+import ContentLoader from '@/component/loading/contentLoader';
 
 const Interpreter = (props) => {
-  const { isPreview, isBuilder, content, page, selected, setSelected } = props;
+  const {
+    isPreview,
+    isBuilder,
+    isLoading,
+    content,
+    page,
+    selected,
+    setSelected,
+  } = props;
+
+  if (isLoading) {
+    return <ContentLoader />;
+  }
 
   const renderComponent = (component) => {
     const id = component.id;
