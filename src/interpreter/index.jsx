@@ -8,8 +8,8 @@ import Table from './Table';
 import VisualElement from './VisualElement';
 import Wraper from './Wrapper';
 
-import Page from './shared/Page';
 import ContentLoader from '@/component/loading/contentLoader';
+import Page from './shared/Page';
 
 const Interpreter = (props) => {
   const {

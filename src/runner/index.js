@@ -7,20 +7,16 @@ const Runner = (props) => {
   const { isBuilder } = props;
 
   const ZApp = Caller();
-
   const ZBuilder = Builder();
-
   const ZSQL = (id, isOne = false, obj = null) => {
     if (!isBuilder) {
       const result = Script({ id }).val;
       if (isOne) {
-        return result && result.length > 0
-          ? result[0][obj].toString()
-          : ZApp.Translator.t('empty_content');
+        return result && result.length > 0 ? result[0][obj].toString() : null;
       }
       return result;
     }
-    return ZApp.Translator.t('empty_content');
+    return null;
   };
 
   // eslint-disable-next-line no-unused-vars

@@ -48,7 +48,11 @@ const Page = () => {
     return [];
   };
 
-  const { data: viewOptions, refetch } = useQuery({
+  const {
+    data: viewOptions,
+    refetch,
+    isViewListLoading,
+  } = useQuery({
     queryKey: ['view-options'],
     queryFn: getViewOptions,
   });
@@ -76,6 +80,7 @@ const Page = () => {
           setViewId={setViewId}
           viewId={viewId}
           viewOptions={viewOptions}
+          isViewListLoading={isViewListLoading}
         />
         <Box marginX={45} marginTop={8} paddingTop={1}>
           <Content

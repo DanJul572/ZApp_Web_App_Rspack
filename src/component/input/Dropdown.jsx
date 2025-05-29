@@ -23,7 +23,7 @@ const Dropdown = (props) => {
     return await get(CApiUrl.common.options, { id: id }, false);
   };
 
-  const { data: requestOptions } = useQuery({
+  const { data: requestOptions, isLoading } = useQuery({
     queryKey: ['dropdown-options', id],
     queryFn: getOptions,
     enabled: !!id && !options,
@@ -72,10 +72,14 @@ const Dropdown = (props) => {
     );
   };
 
+  if (isLoading) {
+    return <Typography>Loading...</Typography>;
+  }
+
   return (
     <Box>
       <Autocomplete
-        disabled={disabled}
+        disabled={disabled || isLoading}
         isOptionEqualToValue={(option, value) => option.value === value.value}
         multiple={multiple}
         onChange={handleChange}

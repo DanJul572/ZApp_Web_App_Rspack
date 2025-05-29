@@ -8,7 +8,12 @@ const Preview = (props) => {
   return (
     <FullScreen open={open} setOpen={setOpen}>
       {content && open && (
-        <Interpreter isPreview={true} content={content} page={page} />
+        <Interpreter
+          isBuilder={false}
+          isPreview={true}
+          content={content}
+          page={page}
+        />
       )}
     </FullScreen>
   );

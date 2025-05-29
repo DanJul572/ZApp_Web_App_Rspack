@@ -30,8 +30,15 @@ import CVisualElement from '@/constant/CVisualElementType';
 import ViewList from '../views';
 
 const Component = (props) => {
-  const { viewId, content, setContent, setSelected, setViewId, viewOptions } =
-    props;
+  const {
+    viewId,
+    content,
+    setContent,
+    setSelected,
+    setViewId,
+    viewOptions,
+    isViewListLoading,
+  } = props;
 
   const [componentList, setComponentList] = useState([]);
   const [open, setOpen] = useState({});
@@ -155,11 +162,16 @@ const Component = (props) => {
         width: 350,
       }}
     >
-      <ViewList
-        viewId={viewId}
-        setViewId={setViewId}
-        viewOptions={viewOptions}
-      />
+      {isViewListLoading && (
+        <Typography sx={{ marginLeft: 2, marginTop: 2 }}>Loading...</Typography>
+      )}
+      {!isViewListLoading && (
+        <ViewList
+          viewId={viewId}
+          setViewId={setViewId}
+          viewOptions={viewOptions}
+        />
+      )}
       <Box paddingTop={2}>
         {componentList.length > 0 &&
           componentList.map((group) => (
