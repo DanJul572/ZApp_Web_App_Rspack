@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
 
 import { useAlert } from '@/context/AlertProvider';
@@ -24,21 +24,17 @@ const TableFunction = (props) => {
   const [sort, setSort] = useState([]);
   const [selectedRow, setSelectedRow] = useState(null);
   const [openConfirmDialog, setOpenConfirmDialog] = useState(false);
+  const [columnKey, setColumnKey] = useState(null);
 
   const getColumns = async () => {
     return await get(CApiUrl.common.columns, { id: moduleID });
   };
 
-  const { data: columns, isLoading: isColumnsLoading } = useQuery({
+  const { data: columns = [], isLoading: isColumnsLoading } = useQuery({
     queryKey: ['table-columns', moduleID],
     queryFn: getColumns,
     enabled: !!moduleID && !isBuilder,
   });
-
-  let columnKey = null;
-  if (columns?.length) {
-    columnKey = columns.find((col) => col.identity)?.id;
-  }
 
   const fetchRows = async () => {
     const body = {
@@ -121,6 +117,12 @@ const TableFunction = (props) => {
     }
     setOpenConfirmDialog(false);
   };
+
+  useEffect(() => {
+    if (columns.length) {
+      setColumnKey(columns.find((col) => col.identity).id);
+    }
+  }, [columns]);
 
   return {
     actions,

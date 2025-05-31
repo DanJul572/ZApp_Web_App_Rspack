@@ -12,7 +12,6 @@ const ClassicView = (props) => {
 
   const {
     actions,
-    columnKey,
     columns,
     isColumnsLoading,
     isRowsLoading,
@@ -33,6 +32,8 @@ const ClassicView = (props) => {
   if (isColumnsLoading) {
     return <ContentLoader />;
   }
+
+  const columnKey = columns.find((col) => col.identity)?.id;
 
   return (
     <Box>
