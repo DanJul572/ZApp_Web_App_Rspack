@@ -34,6 +34,7 @@ const Content = ({ isBuilder }) => {
     queryFn: fetchContent,
     enabled: !isBuilder && !!params.id,
     retry: 0,
+    refetchOnMount: false,
   });
 
   return {
