@@ -34,6 +34,7 @@ const TableFunction = (props) => {
     queryKey: ['table-columns', moduleID],
     queryFn: getColumns,
     enabled: !!moduleID && !isBuilder,
+    retry: 0,
   });
 
   const fetchRows = async () => {
@@ -52,6 +53,8 @@ const TableFunction = (props) => {
     data: rowsData,
     isLoading: isRowsLoading,
     refetch: refetchRows,
+    isError: rowIsError,
+    error: rowError,
   } = useQuery({
     queryKey: [
       'table-rows',
@@ -64,13 +67,7 @@ const TableFunction = (props) => {
     ],
     queryFn: fetchRows,
     enabled: !!moduleID && !!columns && columns.length > 0,
-    onError: (err) => {
-      setAlert({
-        status: true,
-        type: 'error',
-        message: err.message || err,
-      });
-    },
+    retry: 0,
   });
 
   const rows = rowsData?.rows || [];
@@ -123,6 +120,16 @@ const TableFunction = (props) => {
       setColumnKey(columns.find((col) => col.identity).id);
     }
   }, [columns]);
+
+  useEffect(() => {
+    if (rowIsError) {
+      setAlert({
+        status: true,
+        type: 'error',
+        message: rowError,
+      });
+    }
+  }, [rowIsError]);
 
   return {
     actions,

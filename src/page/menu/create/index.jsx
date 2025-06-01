@@ -1,5 +1,5 @@
 import { useAlert } from '@/context/AlertProvider';
-import { useLoading } from '@/context/LoadingProvider';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router';
 
@@ -23,6 +23,7 @@ import Upload from '@/component/button/Upload';
 import IconPicker from '@/component/iconPicker';
 import Dropdown from '@/component/input/Dropdown';
 import ShortText from '@/component/input/ShortText';
+import ContentLoader from '@/component/loading/contentLoader';
 import Tree from '@/component/tree';
 
 import CApiUrl from '@/constant/CApiUrl';
@@ -42,11 +43,10 @@ const Page = () => {
 
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
-  const { setLoading } = useLoading();
   const { setAlert } = useAlert();
 
   const [label, setLabel] = useState(null);
-  const [roleId, setRoleId] = useState(null);
+  const [roleId, setRoleId] = useState([]);
   const [afterLogin, setAfterLogin] = useState(null);
   const [tree, setTree] = useState([]);
   const [activeMenu, setActiveMenu] = useState({
@@ -59,6 +59,30 @@ const Page = () => {
 
   const id = searchParams.get('id');
   const actionType = { add: 1, edit: 2, delete: 3, up: 4, down: 5 };
+
+  const onLoad = async () => {
+    const body = { moduleId: CModuleID.menus, rowId: id };
+    return await get(CApiUrl.common.detail, body);
+  };
+
+  const onSave = async () => {
+    const url = id ? CApiUrl.common.update : CApiUrl.common.create;
+    const body = {
+      moduleId: CModuleID.menus,
+      data: {
+        label: label,
+        tree: JSON.stringify(tree),
+        roleId: roleId,
+        afterLogin: afterLogin,
+      },
+    };
+
+    if (id) {
+      body.rowId = id;
+    }
+
+    return post(url, body);
+  };
 
   const generateNewMenu = () => {
     return { id: uuidv4(), label: 'New Item', url: '', icon: null };
@@ -104,24 +128,6 @@ const Page = () => {
       }
     }
     return menu;
-  };
-
-  const onLoad = () => {
-    setLoading(true);
-
-    const body = { moduleId: CModuleID.menus, rowId: id };
-
-    get(CApiUrl.common.detail, body)
-      .then((res) => {
-        setLabel(res.label);
-        setRoleId(res.roleId);
-        setTree(res.tree);
-        setAfterLogin(res.afterLogin);
-      })
-      .catch((err) => {
-        setAlert({ status: true, type: 'error', message: err });
-      })
-      .finally(() => setLoading(false));
   };
 
   const changeMenuValue = (key, value) => {
@@ -172,34 +178,6 @@ const Page = () => {
     navigate(-1);
   };
 
-  const onSave = () => {
-    const url = id ? CApiUrl.common.update : CApiUrl.common.create;
-    const body = {
-      moduleId: CModuleID.menus,
-      data: {
-        label: label,
-        tree: JSON.stringify(tree),
-        roleId: roleId,
-        afterLogin: afterLogin,
-      },
-    };
-
-    if (id) {
-      body.rowId = id;
-    }
-
-    post(url, body)
-      .then((res) => {
-        setAlert({ status: true, type: 'success', message: res });
-        localStorage.setItem('tree', JSON.stringify(tree));
-        navigate('/menu');
-      })
-      .catch((err) => {
-        setAlert({ status: true, type: 'error', message: err });
-      })
-      .finally(() => setLoading(false));
-  };
-
   const onDownload = () => {
     const menu = {
       label: label,
@@ -222,9 +200,48 @@ const Page = () => {
       .catch((error) => console.log(error));
   };
 
+  const {
+    data: treeResponse,
+    isLoading: treeLoading,
+    error: treeError,
+    isError: treeIsError,
+  } = useQuery({
+    queryKey: ['tree-menu'],
+    queryFn: onLoad,
+    enabled: !!id,
+    retry: 0,
+  });
+
+  const mutation = useMutation({
+    mutationFn: onSave,
+    onSuccess: (res) => {
+      setAlert({ status: true, type: 'success', message: res });
+      localStorage.setItem('tree', JSON.stringify(tree));
+      navigate('/menu');
+    },
+    onError: (err) => {
+      setAlert({ status: true, type: 'error', message: err });
+    },
+  });
+
   useEffect(() => {
-    if (id) onLoad();
-  }, []);
+    if (treeResponse) {
+      setLabel(treeResponse.label);
+      setRoleId(treeResponse.roleId);
+      setTree(treeResponse.tree);
+      setAfterLogin(treeResponse.afterLogin);
+    }
+  }, [treeResponse]);
+
+  useEffect(() => {
+    if (treeIsError) {
+      setAlert({ status: true, type: 'error', message: treeError });
+    }
+  }, [treeIsError]);
+
+  if (treeLoading) {
+    return <ContentLoader />;
+  }
 
   return (
     <Box>
@@ -247,7 +264,8 @@ const Page = () => {
         <Button
           variant="contained"
           size={CTheme.button.size.name}
-          onClick={onSave}
+          loading={mutation.isPending}
+          onClick={mutation.mutate}
         >
           {t('save')}
         </Button>

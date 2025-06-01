@@ -55,6 +55,7 @@ const Page = () => {
   } = useQuery({
     queryKey: ['view-options'],
     queryFn: getViewOptions,
+    retry: 0,
   });
 
   return (

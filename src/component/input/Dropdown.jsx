@@ -27,6 +27,7 @@ const Dropdown = (props) => {
     queryKey: ['dropdown-options', id],
     queryFn: getOptions,
     enabled: !!id && !options,
+    retry: 0,
   });
 
   const finalOptions = options || requestOptions;
@@ -52,8 +53,10 @@ const Dropdown = (props) => {
   };
 
   useEffect(() => {
-    setNewValue(getNewValue());
-  }, [value]);
+    if (finalOptions) {
+      setNewValue(getNewValue());
+    }
+  }, [value, finalOptions]);
 
   const renderInput = (params) => {
     return (

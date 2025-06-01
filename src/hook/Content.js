@@ -33,6 +33,7 @@ const Content = ({ isBuilder }) => {
     queryKey: ['view-json-content', params.id],
     queryFn: fetchContent,
     enabled: !isBuilder && !!params.id,
+    retry: 0,
   });
 
   return {

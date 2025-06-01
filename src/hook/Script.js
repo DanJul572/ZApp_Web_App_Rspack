@@ -14,6 +14,7 @@ const Script = ({ id }) => {
     queryKey: ['script-run', id],
     queryFn: () => get(CApiUrl.script.run, { id }),
     enabled: !!id,
+    retry: 0,
   });
 
   return {
