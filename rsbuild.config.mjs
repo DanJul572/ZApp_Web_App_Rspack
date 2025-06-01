@@ -4,6 +4,9 @@ import Dotenv from 'dotenv-webpack';
 
 export default defineConfig({
   plugins: [pluginReact()],
+  html: {
+    title: process.env.APP_NAME,
+  },
   tools: {
     rspack: {
       plugins: [new Dotenv()],

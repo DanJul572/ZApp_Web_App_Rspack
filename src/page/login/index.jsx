@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router';
+import { useMutation } from '@tanstack/react-query';
 
 import { useExpandedMenu } from '@/context/ExpandedMenuProvider';
-import { useLoading } from '@/context/LoadingProvider';
 import { useToast } from '@/context/ToastProvider';
 
 import { createTheme } from '@mui/material';
@@ -28,28 +28,28 @@ const Page = () => {
   const { t } = Translator();
 
   const { setExpandedMenu } = useExpandedMenu();
-  const { setLoading } = useLoading();
   const { setToast } = useToast();
 
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
 
-  const onLogin = () => {
-    setLoading(true);
-
+  const onLogin = async () => {
     const body = { email: email, password: password };
-
-    post(CApiUrl.auth.login, body, false)
-      .then((res) => {
-        localStorage.setItem('token', res.accessToken);
-        setExpandedMenu([]);
-        navigate(res.afterLogin);
-      })
-      .catch((err) => {
-        setToast({ status: true, type: 'error', message: err });
-      })
-      .finally(() => setLoading(false));
+    return await post(CApiUrl.auth.login, body, false);
   };
+
+  const mutation = useMutation({
+    mutationKey: ['submit-login'],
+    mutationFn: onLogin,
+    onSuccess: (res) => {
+      localStorage.setItem('token', res.accessToken);
+      setExpandedMenu([]);
+      navigate(res.afterLogin);
+    },
+    onError: (err) => {
+      setToast({ status: true, type: 'error', message: err });
+    },
+  });
 
   return (
     <Box
@@ -86,7 +86,8 @@ const Page = () => {
         </Box>
         <Button
           variant="contained"
-          onClick={onLogin}
+          onClick={mutation.mutate}
+          loading={mutation.isPending}
           size={CTheme.button.size.name}
         >
           {t('login')}
