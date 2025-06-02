@@ -1,3 +1,4 @@
+import { useQuery } from '@tanstack/react-query';
 import { useEffect } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -75,23 +76,30 @@ const File = (props) => {
     downloadFile(fileContent.file);
   };
 
-  const getFile = () => {
-    get(CApiUrl.file.download, { name: value })
-      .then((res) => {
-        if (res) {
-          handleChange(getFileFromBuffer(res));
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+  const getFile = async () => {
+    return await get(CApiUrl.file.download, { name: value });
   };
 
+  const { data, isLoading, error, isError } = useQuery({
+    queryKey: ['file-input', value],
+    queryFn: getFile,
+    enabled: !!value,
+    retry: 0,
+  });
+
   useEffect(() => {
-    if (value) {
-      getFile();
+    if (data) {
+      handleChange(getFileFromBuffer(data));
     }
-  }, [value]);
+  }, [data]);
+
+  if (isLoading) {
+    return <Typography>Loading...</Typography>;
+  }
+
+  if (isError) {
+    return <Typography>{error.message}</Typography>;
+  }
 
   return (
     <Box display="flex" alignItems="center">
