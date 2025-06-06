@@ -14,11 +14,7 @@ const Pie = (props) => {
 
   const renderChart = () => {
     if (!values || !values.length)
-      return (
-        <Typography fontSize={CTheme.font.size.value} fontWeight="bold">
-          {t('empty_content')}
-        </Typography>
-      );
+      return <Typography fontWeight="bold">{t('empty_content')}</Typography>;
 
     return (
       <PieChart

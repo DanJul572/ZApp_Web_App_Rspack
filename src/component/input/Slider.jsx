@@ -16,7 +16,7 @@ const Slider = (props) => {
 
   return (
     <Box>
-      <Typography fontSize={CTheme.font.size.value}>{label}</Typography>
+      <Typography>{label}</Typography>
       <Box padding={1}>
         <MuiSlider
           color={color || 'primary'}

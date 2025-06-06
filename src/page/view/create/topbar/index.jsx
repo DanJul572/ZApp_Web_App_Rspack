@@ -204,15 +204,11 @@ const TopBar = (props) => {
       >
         <Box display="flex" alignItems="center" gap={1}>
           <IconButton
-            size={CTheme.button.size.name}
             sx={{ padding: 0 }}
             color="primary"
             onClick={() => navigate('/view')}
           >
-            <ArrowBack
-              fontSize={CTheme.font.size.name}
-              sx={{ color: theme.palette.primary.main }}
-            />
+            <ArrowBack sx={{ color: theme.palette.primary.main }} />
           </IconButton>
           <Typography sx={{ fontWeight: 'bold' }}>
             {t('view_builder')}
@@ -221,45 +217,28 @@ const TopBar = (props) => {
         <Box display="flex" gap={1}>
           <Upload label={t('upload')} onUpload={onUpload} type=".json" />
           {hasContent && (
-            <Button
-              variant="outlined"
-              size={CTheme.button.size.name}
-              onClick={onDownload}
-            >
+            <Button variant="outlined" onClick={onDownload}>
               {t('download')}
             </Button>
           )}
           <Button
             variant="outlined"
-            size={CTheme.button.size.name}
             onClick={() => setOpenGenerateDialog(true)}
           >
             {t('generate')}
           </Button>
           {hasContent && (
-            <Button
-              variant="outlined"
-              size={CTheme.button.size.name}
-              onClick={onPreview}
-            >
+            <Button variant="outlined" onClick={onPreview}>
               {t('preview')}
             </Button>
           )}
           {viewId && (
-            <Button
-              variant="contained"
-              size={CTheme.button.size.name}
-              onClick={setOpenConfirmDialog}
-            >
+            <Button variant="contained" onClick={setOpenConfirmDialog}>
               {t('delete')}
             </Button>
           )}
           {hasContent && (
-            <Button
-              variant="contained"
-              size={CTheme.button.size.name}
-              onClick={onSave}
-            >
+            <Button variant="contained" onClick={onSave}>
               {t('save')}
             </Button>
           )}

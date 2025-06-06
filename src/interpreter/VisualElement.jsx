@@ -40,7 +40,7 @@ const VisualElement = (props) => {
   const color = properties.color
     ? properties.color.value
     : theme.palette.text.primary;
-  const size = Number.parseInt(properties.size) || CTheme.font.size.value;
+  const size = Number.parseInt(properties.size) || 12;
   const bold = properties.textDecoration?.bold ? 'bold' : 'normal';
   const italic = properties.textDecoration?.italic ? 'italic' : 'normal';
   const underline = properties.textDecoration?.underline ? 'underline' : 'none';
@@ -60,11 +60,7 @@ const VisualElement = (props) => {
       };
       if (loop && Array.isArray(loop)) {
         if (isBuilder) {
-          return (
-            <Typography fontSize={CTheme.font.size.value}>
-              {t('empty_content')}
-            </Typography>
-          );
+          return <Typography>{t('empty_content')}</Typography>;
         }
         return (
           <MapLoop

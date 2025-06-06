@@ -14,11 +14,7 @@ const Line = (props) => {
 
   const renderChart = () => {
     if (!labels || !labels.length || !values || !values.length)
-      return (
-        <Typography fontSize={CTheme.font.size.value} fontWeight="bold">
-          {t('empty_content')}
-        </Typography>
-      );
+      return <Typography fontWeight="bold">{t('empty_content')}</Typography>;
 
     return (
       <LineChart

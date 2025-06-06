@@ -61,7 +61,7 @@ const Dropdown = (props) => {
   const renderInput = (params) => {
     return (
       <Box>
-        <Typography fontSize={CTheme.font.size.value}>{label}</Typography>
+        <Typography>{label}</Typography>
         <TextField {...params} />
       </Box>
     );
@@ -89,7 +89,6 @@ const Dropdown = (props) => {
         options={finalOptions?.length ? finalOptions : []}
         renderInput={(params) => renderInput(params)}
         renderOption={(props, option) => renderOptions(props, option)}
-        size={CTheme.field.size.name}
         value={newValue}
       />
     </Box>

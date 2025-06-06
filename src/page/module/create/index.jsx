@@ -86,19 +86,11 @@ const Page = () => {
   return (
     <Box>
       <Box display="flex" justifyContent="flex-end" gap={1}>
-        <Button
-          variant="outlined"
-          size={CTheme.button.size.name}
-          onClick={onBack}
-        >
+        <Button variant="outlined" onClick={onBack}>
           {t('back')}
         </Button>
         <Upload label={t('upload')} onUpload={onUpload} type=".json" />
-        <Button
-          variant="contained"
-          size={CTheme.button.size.name}
-          onClick={onSave}
-        >
+        <Button variant="contained" onClick={onSave}>
           {t('save')}
         </Button>
       </Box>

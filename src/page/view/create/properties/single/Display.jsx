@@ -133,7 +133,6 @@ const Display = (props) => {
     return (
       <Box
         key={index}
-        border={CTheme.border.size.value}
         borderRadius={1}
         borderColor={isActive(display) ? primaryColor : fontColor}
         width={25}
@@ -162,7 +161,7 @@ const Display = (props) => {
   return (
     validComponent() && (
       <Box paddingX={2}>
-        <Typography fontSize={CTheme.font.size.value}>Display</Typography>
+        <Typography>Display</Typography>
         <Box
           marginTop={1}
           display="flex"

@@ -21,18 +21,10 @@ const Confirm = (props) => {
         <DialogContentText>{text}</DialogContentText>
       </DialogContent>
       <DialogActions>
-        <Button
-          onClick={() => onConfirm(false)}
-          variant="outlined"
-          size={CTheme.button.size.name}
-        >
+        <Button onClick={() => onConfirm(false)} variant="outlined">
           {cancelButton}
         </Button>
-        <Button
-          onClick={() => onConfirm(true)}
-          variant="contained"
-          size={CTheme.button.size.name}
-        >
+        <Button onClick={() => onConfirm(true)} variant="contained">
           {confirmButton}
         </Button>
       </DialogActions>

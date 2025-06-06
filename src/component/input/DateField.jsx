@@ -34,7 +34,7 @@ const DateField = (props) => {
 
   return (
     <Box>
-      <Typography fontSize={CTheme.font.size.value}>{label}</Typography>
+      <Typography>{label}</Typography>
       <LocalizationProvider dateAdapter={AdapterDayjs}>
         <DatePicker
           value={value ? dayjs(value) : null}
@@ -47,7 +47,6 @@ const DateField = (props) => {
               error: error.status,
               fullWidth: true,
               helperText: error.message,
-              size: CTheme.field.size.name,
             },
           }}
         />

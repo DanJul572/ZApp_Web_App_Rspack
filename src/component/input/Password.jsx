@@ -52,7 +52,7 @@ const Password = (props) => {
 
   return (
     <FormControl variant="outlined" fullWidth>
-      <Typography fontSize={CTheme.font.size.value}>{label}</Typography>
+      <Typography>{label}</Typography>
       <OutlinedInput
         autoComplete="on"
         disabled={disabled}
@@ -71,7 +71,6 @@ const Password = (props) => {
         name={name || 'password'}
         onBlur={blur}
         onChange={change}
-        size={CTheme.field.size.name}
         type={showPassword ? 'text' : 'password'}
         value={value || ''}
         variant="outlined"

@@ -57,7 +57,6 @@ const Button = (props) => {
             <MuiButton
               fullWidth={fullWidth}
               onClick={click}
-              size={CTheme.button.size.name}
               variant="contained"
               disabled={Boolean(disable)}
               color={color}

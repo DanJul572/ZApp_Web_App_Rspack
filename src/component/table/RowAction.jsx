@@ -40,9 +40,8 @@ const RowAction = (props) => {
             })
           }
           color="primary"
-          size={CTheme.button.size.name}
         >
-          <Edit fontSize={CTheme.font.size.name} />
+          <Edit />
         </IconButton>
       )}
       {isSupportRowAction && findAction('delete') && (
@@ -54,9 +53,8 @@ const RowAction = (props) => {
             })
           }
           color="primary"
-          size={CTheme.button.size.name}
         >
-          <Delete fontSize={CTheme.font.size.name} />
+          <Delete />
         </IconButton>
       )}
       {isSupportRowAction && findAction('detail') && (
@@ -68,18 +66,13 @@ const RowAction = (props) => {
             })
           }
           color="primary"
-          size={CTheme.button.size.name}
         >
-          <Info fontSize={CTheme.font.size.name} />
+          <Info />
         </IconButton>
       )}
       {rowCustomAction.length > 0 && (
-        <IconButton
-          onClick={onClickCustomAction}
-          color="primary"
-          size={CTheme.button.size.name}
-        >
-          <Menu fontSize={CTheme.font.size.name} />
+        <IconButton onClick={onClickCustomAction} color="primary">
+          <Menu />
         </IconButton>
       )}
     </Box>

@@ -24,11 +24,9 @@ const Radio = (props) => {
                 checked={value === option.value}
                 disabled={disabled}
                 onChange={(e) => onChange(e.target.value)}
-                size={CTheme.field.size.name}
               />
             }
             label={option.label}
-            slotProps={{ typography: { fontSize: CTheme.font.size.value } }}
           />
         ))}
       </RadioGroup>
@@ -37,7 +35,7 @@ const Radio = (props) => {
 
   return (
     <Box>
-      <Typography fontSize={CTheme.font.size.value}>{label}</Typography>
+      <Typography>{label}</Typography>
       {renderOptions()}
     </Box>
   );

@@ -91,7 +91,6 @@ const Anchor = (props) => {
     return (
       <Box
         key={index}
-        border={CTheme.border.size.value}
         borderRadius={1}
         borderColor={isActive(anchor) ? primaryColor : fontColor}
         width={25}
@@ -118,7 +117,7 @@ const Anchor = (props) => {
   return (
     validComponent() && (
       <Box paddingX={2}>
-        <Typography fontSize={CTheme.font.size.value}>Anchor</Typography>
+        <Typography>Anchor</Typography>
         <Box
           marginTop={1}
           display="flex"

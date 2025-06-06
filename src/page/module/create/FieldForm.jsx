@@ -326,7 +326,6 @@ const FieldForm = (props) => {
     return (
       <Box
         marginY={2}
-        border={CTheme.border.size.value}
         padding={2}
         borderRadius={1}
         borderColor={grey[300]}
@@ -368,18 +367,10 @@ const FieldForm = (props) => {
             gap={2}
             marginBottom={2}
           >
-            <Button
-              variant="contained"
-              size={CTheme.button.size.name}
-              onClick={onSave}
-            >
+            <Button variant="contained" onClick={onSave}>
               {t('add')}
             </Button>
-            <Button
-              onClick={() => setOpenFieldForm(false)}
-              size={CTheme.button.size.name}
-              variant="outlined"
-            >
+            <Button onClick={() => setOpenFieldForm(false)} variant="outlined">
               {t('cancel')}
             </Button>
           </Box>

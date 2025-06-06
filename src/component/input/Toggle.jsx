@@ -9,13 +9,12 @@ const Toggle = (props) => {
 
   return (
     <Box>
-      <Typography fontSize={CTheme.font.size.value}>{label}</Typography>
+      <Typography>{label}</Typography>
       <Switch
         checked={Boolean(value)}
         value={Boolean(value)}
         onChange={() => onChange(!value)}
         disabled={disabled}
-        size={CTheme.field.size.name}
       />
     </Box>
   );

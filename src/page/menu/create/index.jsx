@@ -247,23 +247,14 @@ const Page = () => {
     <Box>
       <Box display="flex" justifyContent="flex-end" gap={1}>
         <Upload label={t('upload')} onUpload={onUpload} type=".json" />
-        <Button
-          variant="outlined"
-          size={CTheme.button.size.name}
-          onClick={onDownload}
-        >
+        <Button variant="outlined" onClick={onDownload}>
           {t('download')}
         </Button>
-        <Button
-          variant="outlined"
-          size={CTheme.button.size.name}
-          onClick={onBack}
-        >
+        <Button variant="outlined" onClick={onBack}>
           {t('back')}
         </Button>
         <Button
           variant="contained"
-          size={CTheme.button.size.name}
           loading={mutation.isPending}
           onClick={mutation.mutate}
         >
@@ -288,51 +279,35 @@ const Page = () => {
         <Card>
           <Box padding={1}>
             <Tooltip arrow title="Move To Up">
-              <IconButton
-                size={CTheme.button.size.name}
-                color="primary"
-                onClick={() => onMove(actionType.up)}
-              >
-                <KeyboardArrowUp fontSize={CTheme.font.size.name} />
+              <IconButton color="primary" onClick={() => onMove(actionType.up)}>
+                <KeyboardArrowUp />
               </IconButton>
             </Tooltip>
             <Tooltip arrow title="Move To Down">
               <IconButton
-                size={CTheme.button.size.name}
                 color="primary"
                 onClick={() => onMove(actionType.down)}
               >
-                <KeyboardArrowDown fontSize={CTheme.font.size.name} />
+                <KeyboardArrowDown />
               </IconButton>
             </Tooltip>
             <Tooltip arrow title="Add Root Menu">
               <IconButton
-                size={CTheme.button.size.name}
                 color="primary"
                 variant="outlined"
                 onClick={onAddRootMenu}
               >
-                <CreateNewFolder fontSize={CTheme.font.size.name} />
+                <CreateNewFolder />
               </IconButton>
             </Tooltip>
             <Tooltip arrow title="Add Sub Menu">
-              <IconButton
-                size={CTheme.button.size.name}
-                color="primary"
-                variant="outlined"
-                onClick={onAdd}
-              >
-                <NoteAdd fontSize={CTheme.font.size.name} />
+              <IconButton color="primary" variant="outlined" onClick={onAdd}>
+                <NoteAdd />
               </IconButton>
             </Tooltip>
             <Tooltip arrow title="Delete">
-              <IconButton
-                size={CTheme.button.size.name}
-                color="primary"
-                variant="outlined"
-                onClick={onDelete}
-              >
-                <Delete fontSize={CTheme.font.size.name} />
+              <IconButton color="primary" variant="outlined" onClick={onDelete}>
+                <Delete />
               </IconButton>
             </Tooltip>
           </Box>
@@ -368,9 +343,7 @@ const Page = () => {
               />
               {!activeMenu.child?.length && (
                 <Box>
-                  <Typography fontSize={CTheme.font.size.value}>
-                    Icon
-                  </Typography>
+                  <Typography>Icon</Typography>
                   <IconPicker
                     active={activeMenu.icon}
                     onSelect={(value) => changeMenuValue('icon', value)}

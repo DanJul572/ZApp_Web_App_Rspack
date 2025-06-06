@@ -16,8 +16,7 @@ const Wraper = ({ children, component, isBuilder, selected, setSelected }) => {
         {children}
       </Box>
     );
-  const selectedBorder =
-    selected && component.id === selected.id ? CTheme.border.size.value : 0;
+  const selectedBorder = selected && component.id === selected.id ? 12 : 0;
   return (
     <Box
       border={selectedBorder}
@@ -29,12 +28,8 @@ const Wraper = ({ children, component, isBuilder, selected, setSelected }) => {
     >
       {children}
       <Tooltip arrow title={component.type.label} placement="left">
-        <IconButton
-          onClick={() => setSelected(component)}
-          size={CTheme.button.size.name}
-          sx={{ padding: 0 }}
-        >
-          <MoreHoriz fontSize={CTheme.font.size.name} />
+        <IconButton onClick={() => setSelected(component)} sx={{ padding: 0 }}>
+          <MoreHoriz />
         </IconButton>
       </Tooltip>
     </Box>

@@ -32,7 +32,7 @@ const Download = ({ label }) => {
   return (
     <Box display="flex" alignItems="center">
       {label && (
-        <IconButton onClick={onDownload} size={CTheme.button.size.name}>
+        <IconButton onClick={onDownload}>
           <FileDownload />
         </IconButton>
       )}

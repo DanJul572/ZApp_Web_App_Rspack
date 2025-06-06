@@ -1,0 +1,26 @@
+:root {
+  /* Primary */
+  --mui-palette-primary-light: #66bb6a;
+  --mui-palette-primary-main: #4caf50;
+  --mui-palette-primary-dark: #388e3c;
+
+  /* Secondary */
+  --mui-palette-secondary-light: #d2e8d4;
+  --mui-palette-secondary-main: #81c784;
+  --mui-palette-secondary-dark: #519657;
+
+  /* Error */
+  --mui-palette-error-light: #ef9a9a;
+  --mui-palette-error-main: #f44336;
+  --mui-palette-error-dark: #d32f2f;
+
+  /* Info */
+  --mui-palette-info-light: #aedff7;
+  --mui-palette-info-main: #4fc3f7;
+  --mui-palette-info-dark: #0288d1;
+
+  /* Success */
+  --mui-palette-success-light: #c8e6c9;
+  --mui-palette-success-main: #66bb6a;
+  --mui-palette-success-dark: #388e3c;
+}

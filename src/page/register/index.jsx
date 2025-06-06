@@ -120,7 +120,7 @@ const Page = () => {
           {t('signin')}
         </Button>
         <Box display="flex" justifyContent="flex-end" marginTop={2}>
-          <Typography fontSize={CTheme.font.size.value}>
+          <Typography>
             Have An Account?{' '}
             <Link to="/login" style={{ color: theme.palette.primary.main }}>
               Login

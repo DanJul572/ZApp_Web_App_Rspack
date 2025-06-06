@@ -64,11 +64,7 @@ const Table = (props) => {
 
   const content = () => {
     if (isBuilder) {
-      return (
-        <Typography fontSize={CTheme.font.size.value} textAlign="center">
-          {t('empty_content')}
-        </Typography>
-      );
+      return <Typography textAlign="center">{t('empty_content')}</Typography>;
     }
     if (type === CTableType.table.value && moduleID) {
       return (

@@ -79,7 +79,6 @@ const TextDecoration = (props) => {
     return (
       <Box
         key={index}
-        border={CTheme.border.size.value}
         borderRadius={1}
         borderColor={isActive(decoration) ? primaryColor : fontColor}
         width={25}

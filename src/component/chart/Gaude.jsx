@@ -14,7 +14,6 @@ const Gauge = (props) => {
       endAngle={120}
       sx={{
         [`& .${gaugeClasses.valueText}`]: {
-          fontSize: CTheme.font.size.value,
           transform: 'translate(0px, 0px)',
         },
       }}

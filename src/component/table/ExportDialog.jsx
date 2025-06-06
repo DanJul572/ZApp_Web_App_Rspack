@@ -115,7 +115,6 @@ const ExportDialog = (props) => {
           options={rowType}
           onChange={setExportSelectionType}
           value={exportSelectionType}
-          size={CTheme.button.size.name}
         />
         <Dropdown
           key="extension"
@@ -123,18 +122,11 @@ const ExportDialog = (props) => {
           options={extensionType}
           onChange={setexportExtentionType}
           value={exportExtentionType}
-          size={CTheme.button.size.name}
         />
       </DialogContent>
       <DialogActions>
-        <Button size={CTheme.button.size.name} onClick={closeDialog}>
-          {t('cancel')}
-        </Button>
-        <Button
-          size={CTheme.button.size.name}
-          onClick={handleExportRows}
-          variant="contained"
-        >
+        <Button onClick={closeDialog}>{t('cancel')}</Button>
+        <Button onClick={handleExportRows} variant="contained">
           {t('download')}
         </Button>
       </DialogActions>

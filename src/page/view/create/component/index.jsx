@@ -108,30 +108,26 @@ const Component = (props) => {
 
   const icon = (type) => {
     if (type === CComponentGroupType.button.value) {
-      return <SmartButton fontSize={CTheme.font.size.name} color="primary" />;
+      return <SmartButton color="primary" />;
     }
 
     if (type === CComponentGroupType.container.value) {
-      return (
-        <SpaceDashboard fontSize={CTheme.font.size.name} color="primary" />
-      );
+      return <SpaceDashboard color="primary" />;
     }
 
     if (type === CComponentGroupType.chart.value) {
-      return <BarChart fontSize={CTheme.font.size.name} color="primary" />;
+      return <BarChart color="primary" />;
     }
 
     if (type === CComponentGroupType.fieldControl.value) {
-      return (
-        <ShortTextOutlined fontSize={CTheme.font.size.name} color="primary" />
-      );
+      return <ShortTextOutlined color="primary" />;
     }
 
     if (type === CComponentGroupType.table.value) {
-      return <TableChart fontSize={CTheme.font.size.name} color="primary" />;
+      return <TableChart color="primary" />;
     }
 
-    return <TextFields fontSize={CTheme.font.size.name} color="primary" />;
+    return <TextFields color="primary" />;
   };
 
   useEffect(() => {
@@ -182,23 +178,12 @@ const Component = (props) => {
               >
                 <Box display="flex" gap={1} alignItems="center">
                   {icon(group.value)}
-                  <Typography
-                    fontSize={CTheme.font.size.value}
-                    fontWeight="bold"
-                  >
-                    {group.label}
-                  </Typography>
+                  <Typography fontWeight="bold">{group.label}</Typography>
                 </Box>
                 {open[group.value] ? (
-                  <ExpandLess
-                    fontSize={CTheme.font.size.name}
-                    color="primary"
-                  />
+                  <ExpandLess color="primary" />
                 ) : (
-                  <ExpandMore
-                    fontSize={CTheme.font.size.name}
-                    color="primary"
-                  />
+                  <ExpandMore color="primary" />
                 )}
               </ListItemButton>
               <Collapse in={open[group.value]}>
@@ -210,10 +195,7 @@ const Component = (props) => {
                         handleSelected(groupTypeValue(group), component)
                       }
                     >
-                      <Typography
-                        fontSize={CTheme.font.size.value}
-                        sx={{ marginLeft: 1 }}
-                      >
+                      <Typography sx={{ marginLeft: 1 }}>
                         {component.label}
                       </Typography>
                     </ListItemButton>

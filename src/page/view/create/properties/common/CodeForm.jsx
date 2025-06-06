@@ -49,13 +49,9 @@ const CodeForm = (props) => {
           justifyContent="space-between"
           alignItems="center"
         >
-          <Typography fontSize={CTheme.font.size.value}>{label}</Typography>
-          <IconButton
-            sx={{ padding: 0 }}
-            size={CTheme.button.size.name}
-            onClick={() => setOpen(true)}
-          >
-            <InsertLink fontSize={CTheme.font.size.name} />
+          <Typography>{label}</Typography>
+          <IconButton sx={{ padding: 0 }} onClick={() => setOpen(true)}>
+            <InsertLink />
           </IconButton>
         </Box>
         <Dialog
@@ -70,18 +66,10 @@ const CodeForm = (props) => {
             </Box>
           </DialogContent>
           <DialogActions>
-            <Button
-              onClick={() => setOpen(false)}
-              variant="outlined"
-              size={CTheme.button.size.name}
-            >
+            <Button onClick={() => setOpen(false)} variant="outlined">
               {t('cancel')}
             </Button>
-            <Button
-              onClick={onApply}
-              variant="contained"
-              size={CTheme.button.size.name}
-            >
+            <Button onClick={onApply} variant="contained">
               {t('apply')}
             </Button>
           </DialogActions>

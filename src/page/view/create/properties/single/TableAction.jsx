@@ -102,9 +102,7 @@ const TableAction = (props) => {
     validComponent() && (
       <Box>
         <Box paddingX={2}>
-          <Typography fontSize={CTheme.font.size.value} marginBottom={1}>
-            Actions
-          </Typography>
+          <Typography marginBottom={1}>Actions</Typography>
           <Divider />
           <Box>
             {actions.map((action) => {
@@ -124,11 +122,10 @@ const TableAction = (props) => {
                   {action.type !== CActionType.delete.value && (
                     <IconButton
                       sx={{ padding: 0 }}
-                      size={CTheme.button.size.name}
                       onClick={() => setOpen(getValue(action))}
                       disabled={!checkAction(action)}
                     >
-                      <InsertLink fontSize={CTheme.font.size.name} />
+                      <InsertLink />
                     </IconButton>
                   )}
                 </Box>
@@ -148,18 +145,10 @@ const TableAction = (props) => {
             </Box>
           </DialogContent>
           <DialogActions>
-            <Button
-              onClick={() => setOpen(false)}
-              variant="outlined"
-              size={CTheme.button.size.name}
-            >
+            <Button onClick={() => setOpen(false)} variant="outlined">
               {t('cancel')}
             </Button>
-            <Button
-              onClick={applyOnClick}
-              variant="contained"
-              size={CTheme.button.size.name}
-            >
+            <Button onClick={applyOnClick} variant="contained">
               {t('apply')}
             </Button>
           </DialogActions>

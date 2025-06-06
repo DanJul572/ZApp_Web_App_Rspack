@@ -104,22 +104,21 @@ const File = (props) => {
   return (
     <Box display="flex" alignItems="center">
       <Box width="100%">
-        <Typography fontSize={CTheme.font.size.value}>{label}</Typography>
+        <Typography>{label}</Typography>
         <MuiFileInput
           disabled={disabled}
           fullWidth
           multiple={false}
           onChange={handleChange}
-          size={CTheme.field.size.name}
           value={fileContent?.file ? fileContent.file : null}
           clearIconButtonProps={{
             title: t('delete'),
-            children: <Close fontSize={CTheme.font.size.name} />,
+            children: <Close />,
           }}
         />
       </Box>
       {fileContent && (
-        <IconButton size={CTheme.button.size.name} onClick={handleDownload}>
+        <IconButton onClick={handleDownload}>
           <Download />
         </IconButton>
       )}

@@ -35,12 +35,10 @@ const Checkbox = (props) => {
               <MuiCheckbox
                 checked={checked(option.value)}
                 value={option.value}
-                size={CTheme.field.size.name}
                 onChange={(e) => setValues(e.target.value)}
                 disabled={disabled}
               />
             }
-            slotProps={{ typography: { fontSize: CTheme.font.size.value } }}
             label={option.label}
           />
         ))}
@@ -50,7 +48,7 @@ const Checkbox = (props) => {
 
   return (
     <Box>
-      <Typography fontSize={CTheme.font.size.value}>{label}</Typography>
+      <Typography>{label}</Typography>
       {renderOptions()}
     </Box>
   );

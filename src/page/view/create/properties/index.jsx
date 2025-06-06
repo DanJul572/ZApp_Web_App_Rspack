@@ -184,7 +184,6 @@ const Properties = (props) => {
         <Box sx={{ width: '100%' }}>
           <Box
             sx={{
-              borderBottom: CTheme.border.size.value,
               borderColor: 'divider',
             }}
           >

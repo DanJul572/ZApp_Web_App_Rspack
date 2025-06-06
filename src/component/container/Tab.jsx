@@ -58,7 +58,6 @@ const Tab = (props) => {
       return (
         <Box
           sx={{
-            borderBottom: CTheme.border.size.value,
             borderColor: 'divider',
           }}
         >
@@ -68,11 +67,7 @@ const Tab = (props) => {
         </Box>
       );
     }
-    return (
-      <Typography fontSize={CTheme.font.size.value}>
-        Label is not valid.
-      </Typography>
-    );
+    return <Typography>Label is not valid.</Typography>;
   };
 
   const content = () => {

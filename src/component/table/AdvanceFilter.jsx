@@ -91,17 +91,12 @@ const AdvanceFilter = (props) => {
       </DialogContent>
       <DialogActions>
         <Button
-          size={CTheme.button.size.name}
           onClick={() => setOpenAdvanceFilterDialog(false)}
           variant="outlined"
         >
           {t('cancel')}
         </Button>
-        <Button
-          onClick={onAply}
-          size={CTheme.button.size.name}
-          variant="contained"
-        >
+        <Button onClick={onAply} variant="contained">
           {t('apply')}
         </Button>
       </DialogActions>

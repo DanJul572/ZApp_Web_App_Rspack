@@ -19,7 +19,7 @@ const Upload = (props) => {
   const { label, onUpload, type } = props;
 
   return (
-    <Button component="label" variant="outlined" size={CTheme.button.size.name}>
+    <Button component="label" variant="outlined">
       {label}
       <VisuallyHiddenInput type="file" accept={type} onChange={onUpload} />
     </Button>

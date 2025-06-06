@@ -123,11 +123,7 @@ const Container = (props) => {
 
     if (type === CContainerType.view.value) {
       if (isBuilder) {
-        return (
-          <Typography fontSize={CTheme.font.size.value} textAlign="center">
-            {t('empty_content')}
-          </Typography>
-        );
+        return <Typography textAlign="center">{t('empty_content')}</Typography>;
       }
 
       return (

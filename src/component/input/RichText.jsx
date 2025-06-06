@@ -9,7 +9,7 @@ const RichText = (props) => {
 
   return (
     <Box>
-      <Typography fontSize={CTheme.font.size.value}>{label}</Typography>
+      <Typography>{label}</Typography>
       <SunEditor
         setOptions={{
           buttonList: [

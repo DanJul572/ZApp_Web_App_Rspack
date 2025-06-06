@@ -20,9 +20,7 @@ const Ratings = (props) => {
         '& > legend': { mt: 2 },
       }}
     >
-      <Typography fontSize={CTheme.font.size.value}>
-        {label || CInputType.ratings.label}
-      </Typography>
+      <Typography>{label || CInputType.ratings.label}</Typography>
       <Rating disabled={disabled} value={value} onChange={handleChange} />
     </Box>
   );

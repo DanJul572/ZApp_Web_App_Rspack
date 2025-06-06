@@ -22,13 +22,8 @@ const Collapse = (props) => {
   const finalColor = color || theme.palette.primary.main;
 
   return (
-    <Box
-      border={CTheme.border.size.value}
-      borderColor={finalColor}
-      borderRadius={1}
-    >
+    <Box borderColor={finalColor} borderRadius={1}>
       <Box
-        borderBottom={CTheme.border.size.value}
         borderColor={finalColor}
         display="flex"
         justifyContent="space-between"
@@ -36,7 +31,6 @@ const Collapse = (props) => {
         sx={{ backgroundColor: finalColor }}
       >
         <Typography
-          fontSize={CTheme.font.size.value}
           fontWeight="bold"
           color={theme.palette.getContrastText(finalColor)}
         >
@@ -46,16 +40,14 @@ const Collapse = (props) => {
           onClick={() => {
             setOpen(!open);
           }}
-          size={CTheme.button.size.name}
           sx={{ padding: 0 }}
         >
           {open ? (
             <KeyboardArrowDown
-              fontSize={CTheme.font.size.name}
               sx={{ color: theme.palette.getContrastText(finalColor) }}
             />
           ) : (
-            <KeyboardArrowRight fontSize={CTheme.font.size.name} />
+            <KeyboardArrowRight />
           )}
         </IconButton>
       </Box>
