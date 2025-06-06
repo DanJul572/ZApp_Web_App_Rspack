@@ -1,13 +1,12 @@
+import { useMutation } from '@tanstack/react-query';
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router';
 
-import { useLoading } from '@/context/LoadingProvider';
 import { useToast } from '@/context/ToastProvider';
-import { createTheme } from '@mui/material';
+import { Card, createTheme } from '@mui/material';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import { grey } from '@mui/material/colors';
 
 import Dropdown from '@/component/input/Dropdown';
 import Password from '@/component/input/Password';
@@ -26,35 +25,44 @@ const Page = () => {
   const { t } = Translator();
 
   const navigate = useNavigate();
-  const { setLoading } = useLoading();
   const { setToast } = useToast();
 
-  const [name, setName] = useState(null);
-  const [email, setEmail] = useState(null);
-  const [password, setPassword] = useState(null);
-  const [confirmPassword, setConfirmPassword] = useState(null);
-  const [roleId, setRoleId] = useState(null);
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    password: '',
+    confirmPassword: '',
+    roleId: null,
+  });
 
-  const onSignIn = () => {
-    setLoading(true);
+  const updateField = (key, value) => {
+    setFormData((prev) => ({
+      ...prev,
+      [key]: value,
+    }));
+  };
 
+  const onSignIn = async () => {
     const body = {
-      name: name,
-      email: email,
-      password: password,
-      roleId: roleId,
+      name: formData.name,
+      email: formData.email,
+      password: formData.password,
+      roleId: formData.roleId,
     };
 
-    post(CApiUrl.auth.register, body, false)
-      .then(() => {
-        setToast({ status: true, type: 'success', message: 'Success' });
-        navigate('/login');
-      })
-      .catch((err) => {
-        setToast({ status: true, type: 'error', message: err });
-      })
-      .finally(() => setLoading(false));
+    return await post(CApiUrl.auth.register, body, false);
   };
+
+  const mutation = useMutation({
+    mutationFn: onSignIn,
+    onSuccess: () => {
+      setToast({ status: true, type: 'success', message: 'Success' });
+      navigate('/login');
+    },
+    onError: (err) => {
+      setToast({ status: true, type: 'error', message: err });
+    },
+  });
 
   return (
     <Box
@@ -67,50 +75,59 @@ const Page = () => {
       right={0}
       top={0}
     >
-      <Box
-        border={CTheme.border.size.value}
-        borderColor={grey[300]}
-        borderRadius={1}
-        display="flex"
-        flexDirection="column"
-        padding={2}
-        width={450}
+      <Card
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          padding: 2,
+          width: 450,
+        }}
       >
         <Box marginBottom={3} display="flex" flexDirection="column" gap={1}>
-          <ShortText label="Name" value={name} onChange={setName} />
-          <ShortText label="Email" value={email} onChange={setEmail} />
+          <ShortText
+            label="Name"
+            value={formData.name}
+            onChange={(val) => updateField('name', val)}
+          />
+          <ShortText
+            label="Email"
+            value={formData.email}
+            onChange={(val) => updateField('email', val)}
+          />
           <Dropdown
             label="Role"
-            value={roleId}
-            onChange={setRoleId}
+            value={formData.roleId}
+            onChange={(val) => updateField('roleId', val)}
             id={CFieldID.users.roleId}
           />
-          <Box display="flex" gap={1}>
-            <Password
-              label="Password"
-              name="password"
-              value={password}
-              onChange={setPassword}
-            />
-            <Password
-              label="Repeat Password"
-              value={confirmPassword}
-              onChange={setConfirmPassword}
-            />
-          </Box>
+          <Password
+            label="Password"
+            name="password"
+            value={formData.password}
+            onChange={(val) => updateField('password', val)}
+          />
+          <Password
+            label="Repeat Password"
+            value={formData.confirmPassword}
+            onChange={(val) => updateField('confirmPassword', val)}
+          />
         </Box>
-        <Button variant="contained" onClick={onSignIn}>
+        <Button
+          variant="contained"
+          onClick={mutation.mutate}
+          disabled={mutation.isPending}
+        >
           {t('signin')}
         </Button>
         <Box display="flex" justifyContent="flex-end" marginTop={2}>
           <Typography fontSize={CTheme.font.size.value}>
-            Have An Account ?{' '}
-            <Link href="/login" style={{ color: theme.palette.primary.main }}>
+            Have An Account?{' '}
+            <Link to="/login" style={{ color: theme.palette.primary.main }}>
               Login
             </Link>
           </Typography>
         </Box>
-      </Box>
+      </Card>
     </Box>
   );
 };

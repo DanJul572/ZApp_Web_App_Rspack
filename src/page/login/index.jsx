@@ -96,7 +96,7 @@ const Page = () => {
           <Typography fontSize={CTheme.font.size.value}>
             {t("don't_have_an_account")}
             <Link
-              href="/register"
+              to="/register"
               style={{ color: theme.palette.primary.main, marginLeft: 3 }}
             >
               {t('register')}

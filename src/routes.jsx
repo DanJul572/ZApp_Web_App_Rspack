@@ -10,6 +10,7 @@ import MenuPage from '@/page/menu';
 import CreateMenuPage from '@/page/menu/create';
 import ModulePage from '@/page/module';
 import CreateModulePage from '@/page/module/create';
+import RegisterPage from '@/page/register';
 import ViewPage from '@/page/view';
 import CreateViewPage from '@/page/view/create';
 
@@ -27,6 +28,14 @@ const routes = createBrowserRouter([
     Component: () => (
       <EmptyLayout>
         <LoginPage />
+      </EmptyLayout>
+    ),
+  },
+  {
+    path: '/register',
+    Component: () => (
+      <EmptyLayout>
+        <RegisterPage />
       </EmptyLayout>
     ),
   },
