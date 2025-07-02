@@ -7,7 +7,7 @@ import Toolbar from '@mui/material/Toolbar';
 
 import { ThemeProvider, createTheme } from '@mui/material';
 
-import FullCoverLoader from '@/component/loading/fullCoverLoader';
+import FullCoverLoader from '@/component/loading/FullCoverLoader';
 import Toast from '@/component/toast';
 
 import CTheme from '@/constant/CTheme';

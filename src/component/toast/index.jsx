@@ -14,7 +14,7 @@ const Alert = forwardRef(function Alert(props, ref) {
 const Toast = () => {
   const { toast, setToast } = useToast();
 
-  const { t } = Translator();
+  const translator = Translator();
 
   const handleClose = () => setToast(false);
 
@@ -32,7 +32,7 @@ const Toast = () => {
           severity={toast.type || 'success'}
           sx={{ width: '100%' }}
         >
-          {toast.message || t('success_message')}
+          {toast.message || translator('success_message')}
         </Alert>
       </Snackbar>
     );

@@ -1,26 +1,27 @@
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
-
 import { PieChart } from '@mui/x-charts/PieChart';
 
 import Translator from '@/hook/Translator';
-
 import CTheme from '@/constant/CTheme';
 
 const Pie = (props) => {
   const { values } = props;
 
-  const { t } = Translator();
+  const translator = Translator();
 
-  const renderChart = () => {
-    if (!values || !values.length)
-      return (
-        <Typography fontSize={CTheme.font.size.value} fontWeight="bold">
-          {t('empty_content')}
-        </Typography>
-      );
-
+  if (!values || !values.length) {
     return (
+      <Container sx={{ padding: 0 }}>
+        <Typography fontSize={CTheme.font.size.value} fontWeight="bold">
+          {translator('empty_content')}
+        </Typography>
+      </Container>
+    );
+  }
+
+  return (
+    <Container sx={{ padding: 0 }}>
       <PieChart
         series={[
           {
@@ -29,10 +30,8 @@ const Pie = (props) => {
         ]}
         height={250}
       />
-    );
-  };
-
-  return <Container sx={{ padding: 0 }}>{renderChart()}</Container>;
+    </Container>
+  );
 };
 
 export default Pie;

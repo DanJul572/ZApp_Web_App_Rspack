@@ -1,7 +1,7 @@
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 
-import Runner from '@/runner';
+import Waiter from '@/interpreter/waiter';
 
 import Confirm from '@/component/dialog/Confirm';
 
@@ -18,12 +18,12 @@ import ZTable from '@/alias/ZTable';
 const Table = (props) => {
   const { type, properties, isBuilder } = props;
 
-  const { getValues, runFunction } = Runner({ isBuilder });
+  const { take, order } = Waiter({ isBuilder });
 
-  const { t } = Translator();
+  const translator = Translator();
 
   const actions = properties.actions;
-  const defaultFilter = getValues(properties.filter);
+  const defaultFilter = take(properties.filter);
   const moduleID = properties.moduleID;
 
   const tableProps = {
@@ -48,14 +48,14 @@ const Table = (props) => {
   } = TableFunction(tableProps);
 
   const onCLickToolbarAction = (action) => {
-    if (action.type === CActionType.insert.value) runFunction(action.onClick);
+    if (action.type === CActionType.insert.value) order(action.onClick);
   };
 
   const onClickRowAction = (data) => {
     const action = data.action;
     const param = { row: data.row };
     if (action.type === CActionType.update.value) {
-      runFunction(action.onClick, param);
+      order(action.onClick, param);
     } else if (data.action.type === CActionType.delete.value) {
       setSelectedRow(data.row);
       setOpenConfirmDialog(true);
@@ -66,7 +66,7 @@ const Table = (props) => {
     if (isBuilder) {
       return (
         <Typography fontSize={CTheme.font.size.value} textAlign="center">
-          {t('empty_content')}
+          {translator('empty_content')}
         </Typography>
       );
     }
@@ -94,12 +94,12 @@ const Table = (props) => {
             rows={rows}
           />
           <Confirm
-            cancelButton={t('cancel')}
-            confirmButton={t('delete')}
+            cancelButton={translator('cancel')}
+            confirmButton={translator('delete')}
             onConfirm={onConfirm}
             open={openConfirmDialog}
-            text={t('confirm_delete')}
-            title={t('delete_data')}
+            text={translator('confirm_delete')}
+            title={translator('delete_data')}
           />
         </Box>
       );

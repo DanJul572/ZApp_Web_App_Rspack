@@ -21,7 +21,7 @@ import CTheme from '@/constant/CTheme';
 const CodeForm = (props) => {
   const { content, selected, editComponent, setContent, label, name } = props;
 
-  const { t } = Translator();
+  const translator = Translator();
 
   const type = selected ? selected.type.value : false;
   const group = selected ? selected.group.value : false;
@@ -75,14 +75,14 @@ const CodeForm = (props) => {
               variant="outlined"
               size={CTheme.button.size.name}
             >
-              {t('cancel')}
+              {translator('cancel')}
             </Button>
             <Button
               onClick={onApply}
               variant="contained"
               size={CTheme.button.size.name}
             >
-              {t('apply')}
+              {translator('apply')}
             </Button>
           </DialogActions>
         </Dialog>

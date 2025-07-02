@@ -1,4 +1,4 @@
-import ContentLoader from '@/component/loading/contentLoader';
+import ContentLoader from '@/component/loading/ContentLoader';
 import Content from '@/hook/Content';
 import Interpreter from '@/interpreter';
 import Main from '@/layout/Main';

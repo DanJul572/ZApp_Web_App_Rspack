@@ -24,7 +24,7 @@ import CTheme from '@/constant/CTheme';
 const TableAction = (props) => {
   const { content, selected, editComponent, setContent } = props;
 
-  const { t } = Translator();
+  const translator = Translator();
 
   const [open, setOpen] = useState(false);
   const [selectedAction, setSelectedAction] = useState([]);
@@ -66,7 +66,7 @@ const TableAction = (props) => {
       });
       setOpen(false);
     }
-    const newContent = editComponent('actions', newActions, content);
+    const newContent = editComponentranslator('actions', newActions, content);
     setContent([...newContent]);
   };
 
@@ -153,14 +153,14 @@ const TableAction = (props) => {
               variant="outlined"
               size={CTheme.button.size.name}
             >
-              {t('cancel')}
+              {translator('cancel')}
             </Button>
             <Button
               onClick={applyOnClick}
               variant="contained"
               size={CTheme.button.size.name}
             >
-              {t('apply')}
+              {translator('apply')}
             </Button>
           </DialogActions>
         </Dialog>

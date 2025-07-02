@@ -14,7 +14,7 @@ const ToolbarAction = (props) => {
     isSupportAddAction,
   } = props;
 
-  const { t } = Translator();
+  const translator = Translator();
 
   const insertAction = action.find(
     (action) => action.type === CActionType.insert.value,
@@ -35,7 +35,7 @@ const ToolbarAction = (props) => {
           variant="contained"
           size={CTheme.button.size.name}
         >
-          {t('add_new_data')}
+          {translator('add_new_data')}
         </Button>
       )}
       {toolbarCustomAction.map((action) => (

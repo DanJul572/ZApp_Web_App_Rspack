@@ -1,15 +1,15 @@
 import CComponentGroupType from '@/constant/CComponentGroupType';
 
-import Button from './Button';
-import Chart from './Chart';
-import Container from './Container';
-import FieldControl from './FieldControl';
-import Table from './Table';
-import VisualElement from './VisualElement';
-import Wraper from './Wrapper';
+import Button from './group/Button';
+import Chart from './group/Chart';
+import Container from './group/Container';
+import FieldControl from './group/FieldControl';
+import Page from './group/Page';
+import Table from './group/Table';
+import VisualElement from './group/VisualElement';
+import Wraper from './group/Wrapper';
 
-import ContentLoader from '@/component/loading/contentLoader';
-import Page from './shared/Page';
+import ContentLoader from '@/component/loading/ContentLoader';
 
 const Interpreter = (props) => {
   const {

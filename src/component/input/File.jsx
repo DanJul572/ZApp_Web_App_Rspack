@@ -26,7 +26,7 @@ const File = (props) => {
   const { label, onChange, name, disabled, value } = props;
 
   const { get } = Request();
-  const { t } = Translator();
+  const translator = Translator();
   const { file, setFile } = useFile();
 
   const fileContent =
@@ -113,7 +113,7 @@ const File = (props) => {
           size={CTheme.field.size.name}
           value={fileContent?.file ? fileContent.file : null}
           clearIconButtonProps={{
-            title: t('delete'),
+            title: translator('delete'),
             children: <Close fontSize={CTheme.font.size.name} />,
           }}
         />

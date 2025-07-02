@@ -24,7 +24,7 @@ import CTheme from '@/constant/CTheme';
 const Position = (props) => {
   const { selected, content, setContent, setSelected, deleteComponent } = props;
 
-  const { t } = Translator();
+  const translator = Translator();
 
   const [containerID, setContainerID] = useState(null);
   const [columnIndex, setColumnIndex] = useState(null);
@@ -177,7 +177,7 @@ const Position = (props) => {
               variant="outlined"
               size={CTheme.button.size.name}
             >
-              {t('cancel')}
+              {translator('cancel')}
             </Button>
             <Button
               aria-hidden={open ? 'false' : 'true'}
@@ -185,7 +185,7 @@ const Position = (props) => {
               variant="contained"
               size={CTheme.button.size.name}
             >
-              {t('apply')}
+              {translator('apply')}
             </Button>
           </DialogActions>
         </Dialog>

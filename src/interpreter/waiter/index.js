@@ -1,26 +1,16 @@
-import Builder from '@/builder';
-import Caller from '@/caller';
+import Builder from '../command/builder';
+import Core from '../command/core';
+import Query from '../command/query';
 
-import Script from '@/hook/Script';
-
-const Runner = (props) => {
+const Waiter = (props) => {
   const { isBuilder } = props;
 
-  const ZApp = Caller();
+  const ZCore = Core();
   const ZBuilder = Builder();
-  const ZSQL = (id, isOne = false, obj = null) => {
-    if (!isBuilder) {
-      const result = Script({ id }).val;
-      if (isOne) {
-        return result && result.length > 0 ? result[0][obj].toString() : null;
-      }
-      return result;
-    }
-    return null;
-  };
+  const ZQuery = Query();
 
   // eslint-disable-next-line no-unused-vars
-  const runFunction = (func, param = null) => {
+  const order = (func, param = null) => {
     try {
       eval(func);
     } catch (error) {
@@ -30,7 +20,7 @@ const Runner = (props) => {
   };
 
   // eslint-disable-next-line no-unused-vars
-  const getValues = (data, param = null) => {
+  const take = (data, param = null) => {
     if (!data) return null;
     try {
       if (typeof data === 'object') {
@@ -43,7 +33,7 @@ const Runner = (props) => {
     }
   };
 
-  return { runFunction, getValues };
+  return { order, take };
 };
 
-export default Runner;
+export default Waiter;

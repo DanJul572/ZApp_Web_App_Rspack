@@ -22,7 +22,7 @@ import CTheme from '@/constant/CTheme';
 const Page = () => {
   const theme = createTheme(CTheme);
   const { post } = Request();
-  const { t } = Translator();
+  const translator = Translator();
 
   const navigate = useNavigate();
   const { setToast } = useToast();
@@ -117,7 +117,7 @@ const Page = () => {
           onClick={mutation.mutate}
           disabled={mutation.isPending}
         >
-          {t('signin')}
+          {translator('signin')}
         </Button>
         <Box display="flex" justifyContent="flex-end" marginTop={2}>
           <Typography fontSize={CTheme.font.size.value}>

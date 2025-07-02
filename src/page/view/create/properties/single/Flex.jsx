@@ -17,7 +17,7 @@ const Flex = (props) => {
   };
 
   const callChangeProperties = (val) => {
-    const newContent = editComponent('flex', val, content);
+    const newContent = editComponentranslator('flex', val, content);
     setContent([...newContent]);
   };
 

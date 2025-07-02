@@ -10,12 +10,12 @@ import * as Icon from '@/component/icons';
 import CButtonType from '@/constant/CButtonType';
 import CTheme from '@/constant/CTheme';
 
-import Runner from '@/runner';
+import Waiter from '@/interpreter/waiter';
 
 const Button = (props) => {
   const { type, properties, isBuilder } = props;
 
-  const { runFunction, getValues } = Runner({ isBuilder });
+  const { order, take } = Waiter({ isBuilder });
 
   const displayValue = (type) => {
     return properties.display?.[type]
@@ -23,12 +23,12 @@ const Button = (props) => {
       : 'flex-start';
   };
 
-  const disable = Boolean(getValues(properties.disable));
-  const fullWidth = Boolean(getValues(properties.fullWidth));
-  const hidden = Boolean(getValues(properties.hidden));
+  const disable = Boolean(take(properties.disable));
+  const fullWidth = Boolean(take(properties.fullWidth));
+  const hidden = Boolean(take(properties.hidden));
 
-  const items = getValues(properties.items);
-  const label = getValues(properties.label);
+  const items = take(properties.items);
+  const label = take(properties.label);
 
   const color = properties.color ? properties.color.name : 'primary';
   const display = {
@@ -45,7 +45,7 @@ const Button = (props) => {
 
   const click = () => {
     if (!isBuilder) {
-      runFunction(onClick);
+      order(onClick);
     }
   };
 
@@ -85,7 +85,7 @@ const Button = (props) => {
           <Box sx={display}>
             <Group
               items={items}
-              onClick={(item) => runFunction(onClick, item)}
+              onClick={(item) => order(onClick, item)}
               color={color}
             />
           </Box>

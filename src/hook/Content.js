@@ -12,7 +12,7 @@ import { decrypt } from '@/helper/encryption';
 const Content = ({ isBuilder }) => {
   const params = useParams();
   const { get } = Request();
-  const { t } = Translator();
+  const translator = Translator();
 
   const fetchContent = async () => {
     const param = { moduleId: CModuleID.views, rowId: params.id };
@@ -24,7 +24,7 @@ const Content = ({ isBuilder }) => {
       };
     }
     return {
-      content: t('empty_content'),
+      content: translator('empty_content'),
       page: null,
     };
   };

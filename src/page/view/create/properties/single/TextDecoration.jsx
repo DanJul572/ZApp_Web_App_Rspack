@@ -34,7 +34,11 @@ const TextDecoration = (props) => {
     };
     newDecoration[param] = !newDecoration[param];
 
-    const newContent = editComponent('textDecoration', newDecoration, content);
+    const newContent = editComponentranslator(
+      'textDecoration',
+      newDecoration,
+      content,
+    );
 
     setContent([...newContent]);
     setDecoration(newDecoration);

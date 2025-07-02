@@ -22,7 +22,7 @@ const AdvanceFilter = (props) => {
     setOpenAdvanceFilterDialog,
   } = props;
 
-  const { t } = Translator();
+  const translator = Translator();
 
   const [fields, setFields] = useState([]);
 
@@ -95,14 +95,14 @@ const AdvanceFilter = (props) => {
           onClick={() => setOpenAdvanceFilterDialog(false)}
           variant="outlined"
         >
-          {t('cancel')}
+          {translator('cancel')}
         </Button>
         <Button
           onClick={onAply}
           size={CTheme.button.size.name}
           variant="contained"
         >
-          {t('apply')}
+          {translator('apply')}
         </Button>
       </DialogActions>
     </Dialog>

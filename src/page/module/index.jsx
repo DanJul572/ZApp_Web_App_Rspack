@@ -14,13 +14,14 @@ import ClassicView from '@/template/ClassicView';
 import CActionType from '@/constant/CActionType';
 import CApiUrl from '@/constant/CApiUrl';
 import CModuleID from '@/constant/CModuleID';
+import Alert from '@/hook/Alert';
+import Loader from '@/hook/Loader';
 
 const Page = () => {
-  const { get } = Request();
-  const { t } = Translator();
-
-  const { setAlert } = useAlert();
-  const { setLoading } = useLoading();
+  const translator = Translator();
+  const alert = Alert();
+  const loader = Loader();
+  const request = Request();
 
   const actions = [
     {
@@ -37,18 +38,19 @@ const Page = () => {
     {
       type: 6,
       value: 6,
-      label: t('download'),
+      label: translator('download'),
     },
   ];
 
   const getFields = (module) => {
-    setLoading(true);
+    loader.showLoading();
 
     const param = {
       moduleId: module.id,
     };
 
-    get(CApiUrl.field.rows, param)
+    request
+      .get(CApiUrl.field.rows, param)
       .then((res) => {
         const reformatModule = { ...module };
         reformatModule.createdAt = undefined;
@@ -64,14 +66,10 @@ const Page = () => {
         downloadJsonFile(reformatModule, module.label);
       })
       .catch((err) => {
-        setAlert({
-          status: true,
-          type: 'error',
-          message: err,
-        });
+        alert.showErrorAlert(err);
       })
       .finally(() => {
-        setLoading(false);
+        loader.hideLoading();
       });
   };
 

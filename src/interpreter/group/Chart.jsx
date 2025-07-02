@@ -5,15 +5,15 @@ import Pie from '@/component/chart/Pie';
 
 import CChartType from '@/constant/CChartType';
 
-import Runner from '@/runner';
+import Waiter from '@/interpreter/waiter';
 
 const Chart = (props) => {
   const { type, properties, isBuilder } = props;
 
-  const { getValues } = Runner({ isBuilder });
+  const { take } = Waiter({ isBuilder });
 
-  const label = getValues(properties.label);
-  const value = getValues(properties.value);
+  const label = take(properties.label);
+  const value = take(properties.value);
 
   const content = () => {
     if (type === CChartType.bar.value) {

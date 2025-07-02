@@ -23,12 +23,8 @@ const Translator = () => {
     }
   }, []);
 
-  const t = (key) => {
+  return (key) => {
     return i18next.isInitialized ? i18next.t(key) : key;
-  };
-
-  return {
-    t,
   };
 };
 

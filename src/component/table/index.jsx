@@ -57,7 +57,7 @@ const Table = (props) => {
     toolbarCustomAction = [],
   } = props;
 
-  const { t } = Translator();
+  const translator = Translator();
 
   const pageSize = 10;
   const pageIndex = 0;
@@ -179,7 +179,7 @@ const Table = (props) => {
     initialState: initialState,
     layoutMode: 'grid',
     localization: {
-      actions: t('action'),
+      actions: translator('action'),
     },
     manualFiltering: true,
     manualPagination: true,

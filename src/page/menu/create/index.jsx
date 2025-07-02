@@ -23,7 +23,7 @@ import Upload from '@/component/button/Upload';
 import IconPicker from '@/component/iconPicker';
 import Dropdown from '@/component/input/Dropdown';
 import ShortText from '@/component/input/ShortText';
-import ContentLoader from '@/component/loading/contentLoader';
+import ContentLoader from '@/component/loading/ContentLoader';
 import Tree from '@/component/tree';
 
 import CApiUrl from '@/constant/CApiUrl';
@@ -39,7 +39,7 @@ import { readJSONFile } from '@/helper/readFile';
 
 const Page = () => {
   const { post, get } = Request();
-  const { t } = Translator();
+  const translator = Translator();
 
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
@@ -57,7 +57,7 @@ const Page = () => {
     child: [],
   });
 
-  const id = searchParams.get('id');
+  const id = searchParams.getranslator('id');
   const actionType = { add: 1, edit: 2, delete: 3, up: 4, down: 5 };
 
   const onLoad = async () => {
@@ -246,20 +246,20 @@ const Page = () => {
   return (
     <Box>
       <Box display="flex" justifyContent="flex-end" gap={1}>
-        <Upload label={t('upload')} onUpload={onUpload} type=".json" />
+        <Upload label={translator('upload')} onUpload={onUpload} type=".json" />
         <Button
           variant="outlined"
           size={CTheme.button.size.name}
           onClick={onDownload}
         >
-          {t('download')}
+          {translator('download')}
         </Button>
         <Button
           variant="outlined"
           size={CTheme.button.size.name}
           onClick={onBack}
         >
-          {t('back')}
+          {translator('back')}
         </Button>
         <Button
           variant="contained"
@@ -267,7 +267,7 @@ const Page = () => {
           loading={mutation.isPending}
           onClick={mutation.mutate}
         >
-          {t('save')}
+          {translator('save')}
         </Button>
       </Box>
       <Box>

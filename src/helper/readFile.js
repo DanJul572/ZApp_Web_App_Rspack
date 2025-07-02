@@ -15,7 +15,7 @@ const readJSONFile = (event) => {
       reader.readAsText(file);
     } else {
       console.error('Invalid file type. Please choose a JSON file');
-      reject('Invalid file type');
+      rejectranslator('Invalid file type');
     }
   });
 };

@@ -24,7 +24,7 @@ const Delete = (props) => {
     duplicateComponent,
   } = props;
 
-  const { t } = Translator();
+  const translator = Translator();
 
   const [open, setOpen] = useState(false);
 
@@ -62,12 +62,12 @@ const Delete = (props) => {
           </Box>
         </Box>
         <Confirm
-          cancelButton={t('cancel')}
-          confirmButton={t('delete')}
+          cancelButton={translator('cancel')}
+          confirmButton={translator('delete')}
           onConfirm={onDelete}
           open={open}
-          text={t('confirm_delete')}
-          title={t('delete_data')}
+          text={translator('confirm_delete')}
+          title={translator('delete_data')}
         />
       </Box>
     )

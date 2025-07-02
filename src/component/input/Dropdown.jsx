@@ -46,7 +46,7 @@ const Dropdown = (props) => {
         ? finalOptions.find((option) => option.value === value)
         : null;
     }
-    const values = value ? value.split('|') : [];
+    const values = value ? value.splitranslator('|') : [];
     return finalOptions.filter((option) =>
       values.includes(option.value.toString()),
     );

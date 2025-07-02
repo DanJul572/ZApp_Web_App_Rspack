@@ -1,14 +1,14 @@
 import Box from '@mui/material/Box';
 
 import Confirm from '@/component/dialog/Confirm';
-import ContentLoader from '@/component/loading/contentLoader';
+import ContentLoader from '@/component/loading/ContentLoader';
 import Table from '@/component/table';
 
 import TableFunction from '@/hook/TableFunction';
 import Translator from '@/hook/Translator';
 
 const ClassicView = (props) => {
-  const { t } = Translator();
+  const translator = Translator();
 
   const {
     actions,
@@ -63,12 +63,12 @@ const ClassicView = (props) => {
         rows={rows}
       />
       <Confirm
-        cancelButton={t('cancel')}
-        confirmButton={t('delete')}
+        cancelButton={translator('cancel')}
+        confirmButton={translator('delete')}
         onConfirm={onConfirm}
         open={openConfirmDialog}
-        text={t('confirm_delete')}
-        title={t('delete_data')}
+        text={translator('confirm_delete')}
+        title={translator('delete_data')}
       />
     </Box>
   );

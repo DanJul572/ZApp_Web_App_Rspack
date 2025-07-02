@@ -65,7 +65,7 @@ const Display = (props) => {
       newDisplay[value.type] && newDisplay[value.type].name === value.name
         ? null
         : value;
-    const newContent = editComponent('display', newDisplay, content);
+    const newContent = editComponentranslator('display', newDisplay, content);
     setContent([...newContent]);
     setDisplay(newDisplay);
   };

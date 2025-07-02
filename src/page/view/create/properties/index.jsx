@@ -72,7 +72,7 @@ const Properties = (props) => {
     navigationType,
   } = props;
 
-  const { t } = Translator();
+  const translator = Translator();
 
   const [value, setValue] = useState(0);
 
@@ -189,8 +189,8 @@ const Properties = (props) => {
             }}
           >
             <Tabs value={value} onChange={handleChange} centered>
-              <Tab label={t('page')} {...a11yProps(0)} />
-              <Tab label={t('property')} {...a11yProps(1)} />
+              <Tab label={translator('page')} {...a11yProps(0)} />
+              <Tab label={translator('property')} {...a11yProps(1)} />
             </Tabs>
           </Box>
           <CustomTabPanel value={value} index={0}>

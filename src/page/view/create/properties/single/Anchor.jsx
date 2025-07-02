@@ -25,7 +25,7 @@ const Anchor = (props) => {
   const anchors = ['left', 'top', 'right', 'bottom'];
 
   const onApply = (value) => {
-    const newContent = editComponent('anchor', value, content);
+    const newContent = editComponentranslator('anchor', value, content);
     setContent([...newContent]);
     setAnchor(value);
   };

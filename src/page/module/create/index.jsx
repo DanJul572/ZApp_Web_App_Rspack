@@ -22,7 +22,7 @@ import CTheme from '@/constant/CTheme';
 
 const Page = () => {
   const { post } = Request();
-  const { t } = Translator();
+  const translator = Translator();
 
   const navigate = useNavigate();
   const { setLoading } = useLoading();
@@ -91,15 +91,15 @@ const Page = () => {
           size={CTheme.button.size.name}
           onClick={onBack}
         >
-          {t('back')}
+          {translator('back')}
         </Button>
-        <Upload label={t('upload')} onUpload={onUpload} type=".json" />
+        <Upload label={translator('upload')} onUpload={onUpload} type=".json" />
         <Button
           variant="contained"
           size={CTheme.button.size.name}
           onClick={onSave}
         >
-          {t('save')}
+          {translator('save')}
         </Button>
       </Box>
       <ModuleForm

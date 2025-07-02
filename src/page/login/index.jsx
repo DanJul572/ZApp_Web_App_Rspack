@@ -25,7 +25,7 @@ const Page = () => {
 
   const navigate = useNavigate();
   const { post } = Request();
-  const { t } = Translator();
+  const translator = Translator();
 
   const { setExpandedMenu } = useExpandedMenu();
   const { setToast } = useToast();
@@ -90,7 +90,7 @@ const Page = () => {
           loading={mutation.isPending}
           size={CTheme.button.size.name}
         >
-          {t('login')}
+          {translator('login')}
         </Button>
         <Box display="flex" justifyContent="flex-end" marginTop={2}>
           <Typography fontSize={CTheme.font.size.value}>
@@ -99,7 +99,7 @@ const Page = () => {
               to="/register"
               style={{ color: theme.palette.primary.main, marginLeft: 3 }}
             >
-              {t('register')}
+              {translator('register')}
             </Link>
           </Typography>
         </Box>

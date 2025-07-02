@@ -20,7 +20,7 @@ import CTheme from '@/constant/CTheme';
 const OnLoad = (props) => {
   const { page, setPage } = props;
 
-  const { t } = Translator();
+  const translator = Translator();
 
   const [open, setOpen] = useState(false);
   const [onLoad, setOnLoad] = useState(null);
@@ -65,14 +65,14 @@ const OnLoad = (props) => {
             variant="outlined"
             size={CTheme.button.size.name}
           >
-            {t('cancel')}
+            {translator('cancel')}
           </Button>
           <Button
             onClick={onApply}
             variant="contained"
             size={CTheme.button.size.name}
           >
-            {t('apply')}
+            {translator('apply')}
           </Button>
         </DialogActions>
       </Dialog>

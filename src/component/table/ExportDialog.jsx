@@ -18,7 +18,7 @@ import CTheme from '@/constant/CTheme';
 const ExportDialog = (props) => {
   const { openExportDialog, setOpenExportDialog, table } = props;
 
-  const { t } = Translator();
+  const translator = Translator();
 
   const rowType = [
     { value: 'selected', label: 'Selected' },
@@ -128,14 +128,14 @@ const ExportDialog = (props) => {
       </DialogContent>
       <DialogActions>
         <Button size={CTheme.button.size.name} onClick={closeDialog}>
-          {t('cancel')}
+          {translator('cancel')}
         </Button>
         <Button
           size={CTheme.button.size.name}
           onClick={handleExportRows}
           variant="contained"
         >
-          {t('download')}
+          {translator('download')}
         </Button>
       </DialogActions>
     </Dialog>

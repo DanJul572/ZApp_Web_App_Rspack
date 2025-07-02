@@ -4,12 +4,12 @@ import Typography from '@mui/material/Typography';
 
 import Translator from '@/hook/Translator';
 
-import Runner from '@/runner';
+import Waiter from '@/interpreter/waiter';
 
 import CTheme from '@/constant/CTheme';
 import CVisualElement from '@/constant/CVisualElementType';
 
-import MapLoop from './shared/MapLoop';
+import MapLoop from './MapLoop';
 
 const Text = (props, key = null) => {
   return (
@@ -31,12 +31,12 @@ const Text = (props, key = null) => {
 const VisualElement = (props) => {
   const { type, properties, isBuilder } = props;
 
-  const { getValues } = Runner({ isBuilder });
-  const { t } = Translator();
+  const { take } = Waiter({ isBuilder });
+  const translator = Translator();
   const theme = useTheme();
 
-  const label = getValues(properties.label);
-  const loop = getValues(properties.loop);
+  const label = take(properties.label);
+  const loop = take(properties.loop);
   const color = properties.color
     ? properties.color.value
     : theme.palette.text.primary;
@@ -62,7 +62,7 @@ const VisualElement = (props) => {
         if (isBuilder) {
           return (
             <Typography fontSize={CTheme.font.size.value}>
-              {t('empty_content')}
+              {translator('empty_content')}
             </Typography>
           );
         }
@@ -70,7 +70,7 @@ const VisualElement = (props) => {
           <MapLoop
             items={loop}
             render={(item, index) => {
-              props.label = getValues(properties.label, item);
+              props.label = take(properties.label, item);
               return Text(props, index);
             }}
           />

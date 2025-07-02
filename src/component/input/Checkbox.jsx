@@ -10,7 +10,7 @@ import CTheme from '@/constant/CTheme';
 const Checkbox = (props) => {
   const { value, label, options, disabled, onChange } = props;
 
-  const values = value?.length ? value.split('|') : [];
+  const values = value?.length ? value.splitranslator('|') : [];
 
   const setValues = (val) => {
     const deleteIndex = values.findIndex((value) => value === val);

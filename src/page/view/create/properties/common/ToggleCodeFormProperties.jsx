@@ -23,7 +23,7 @@ import CTheme from '@/constant/CTheme';
 const ToggleCodeFormProperties = (props) => {
   const { content, selected, editComponent, setContent, label, name } = props;
 
-  const { t } = Translator();
+  const translator = Translator();
 
   const type = selected ? selected.type.value : false;
   const group = selected ? selected.group.value : false;
@@ -124,21 +124,21 @@ const ToggleCodeFormProperties = (props) => {
               variant="outlined"
               size={CTheme.button.size.name}
             >
-              {t('cancel')}
+              {translator('cancel')}
             </Button>
             <Button
               onClick={onRemove}
               variant="outlined"
               size={CTheme.button.size.name}
             >
-              {t('delete')}
+              {translator('delete')}
             </Button>
             <Button
               onClick={onApply}
               variant="contained"
               size={CTheme.button.size.name}
             >
-              {t('apply')}
+              {translator('apply')}
             </Button>
           </DialogActions>
         </Dialog>

@@ -8,18 +8,18 @@ import Toaster from '@/hook/Toaster';
 import Translator from '@/hook/Translator';
 import Vars from '@/hook/Vars';
 
-const Caller = () => {
+const Core = () => {
   return {
-    Alert: Alert(),
-    Api: Api(),
-    Comp: Comp(),
-    Loader: Loader(),
-    Parameter: Parameter(),
-    Redirect: Redirect(),
-    Toaster: Toaster(),
-    Translator: Translator(),
-    Vars: Vars(),
+    alert: Alert(),
+    api: Api(),
+    comp: Comp(),
+    loader: Loader(),
+    parameter: Parameter(),
+    redirect: Redirect(),
+    toaster: Toaster(),
+    translator: Translator(),
+    vars: Vars(),
   };
 };
 
-export default Caller;
+export default Core;

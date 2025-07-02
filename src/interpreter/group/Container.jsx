@@ -12,25 +12,25 @@ import CContainerType from '@/constant/CContainerType';
 import Content from '@/hook/Content';
 import Translator from '@/hook/Translator';
 
-import Runner from '@/runner';
+import Waiter from '@/interpreter/waiter';
 
-import Page from './shared/Page';
+import Page from './Page';
 
 import CTheme from '@/constant/CTheme';
 
 const Container = (props) => {
   const { type, section, properties, renderComponent, isBuilder } = props;
 
-  const { getValues } = Runner({ isBuilder });
-  const { t } = Translator();
+  const { take } = Waiter({ isBuilder });
+  const translator = Translator();
 
   const anchor = properties.anchor;
   const border = Number.parseInt(properties.border);
   const color = properties.color ? properties.color.value : null;
   const display = properties.display;
   const flex = Boolean(properties.flex);
-  const label = getValues(properties.label);
-  const open = getValues(properties.open);
+  const label = take(properties.label);
+  const open = take(properties.open);
   const padding = Number.parseInt(properties.padding);
   const size = properties.size;
   const viewID = properties.viewID;
@@ -62,7 +62,9 @@ const Container = (props) => {
     }
 
     if (type === CContainerType.grid.value) {
-      const columnSize = properties.size ? properties.size.split(',') : [];
+      const columnSize = properties.size
+        ? properties.size.splitranslator(',')
+        : [];
       const defaultSize = 12 / (section.length > 0 ? section.length : 1);
       return (
         <Grid container>
@@ -125,7 +127,7 @@ const Container = (props) => {
       if (isBuilder) {
         return (
           <Typography fontSize={CTheme.font.size.value} textAlign="center">
-            {t('empty_content')}
+            {translator('empty_content')}
           </Typography>
         );
       }

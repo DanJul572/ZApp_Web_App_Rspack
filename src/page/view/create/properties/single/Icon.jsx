@@ -22,7 +22,7 @@ const Icon = (props) => {
 
   const updateIcon = (updatedFields) => {
     const newIcon = { ...active, ...updatedFields };
-    const newContent = editComponent('icon', newIcon, content);
+    const newContent = editComponentranslator('icon', newIcon, content);
     setContent([...newContent]);
     setActive(newIcon);
   };

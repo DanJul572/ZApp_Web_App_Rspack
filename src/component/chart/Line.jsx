@@ -1,26 +1,27 @@
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
-
 import { LineChart } from '@mui/x-charts/LineChart';
 
 import Translator from '@/hook/Translator';
-
 import CTheme from '@/constant/CTheme';
 
 const Line = (props) => {
   const { labels, values } = props;
 
-  const { t } = Translator();
+  const translator = Translator();
 
-  const renderChart = () => {
-    if (!labels || !labels.length || !values || !values.length)
-      return (
-        <Typography fontSize={CTheme.font.size.value} fontWeight="bold">
-          {t('empty_content')}
-        </Typography>
-      );
-
+  if (!labels || !labels.length || !values || !values.length) {
     return (
+      <Container sx={{ padding: 0 }}>
+        <Typography fontSize={CTheme.font.size.value} fontWeight="bold">
+          {translator('empty_content')}
+        </Typography>
+      </Container>
+    );
+  }
+
+  return (
+    <Container sx={{ padding: 0 }}>
       <LineChart
         xAxis={[{ data: labels }]}
         series={[
@@ -30,10 +31,8 @@ const Line = (props) => {
         ]}
         height={250}
       />
-    );
-  };
-
-  return <Container sx={{ padding: 0 }}>{renderChart()}</Container>;
+    </Container>
+  );
 };
 
 export default Line;

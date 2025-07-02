@@ -23,7 +23,7 @@ import Translator from '@/hook/Translator';
 const FieldForm = (props) => {
   const { fieldRows, setFieldRows } = props;
 
-  const { t } = Translator();
+  const translator = Translator();
 
   const inputTypeOptions = Object.values(CInputType);
   const dataTypeOptions = Object.values(CDataType).filter(
@@ -373,14 +373,14 @@ const FieldForm = (props) => {
               size={CTheme.button.size.name}
               onClick={onSave}
             >
-              {t('add')}
+              {translator('add')}
             </Button>
             <Button
               onClick={() => setOpenFieldForm(false)}
               size={CTheme.button.size.name}
               variant="outlined"
             >
-              {t('cancel')}
+              {translator('cancel')}
             </Button>
           </Box>
           <Box width={500} display="flex" flexDirection="column" gap={2}>
@@ -407,12 +407,12 @@ const FieldForm = (props) => {
       </Drawer>
 
       <Confirm
-        cancelButton={t('cancel')}
-        confirmButton={t('delete')}
+        cancelButton={translator('cancel')}
+        confirmButton={translator('delete')}
         onConfirm={deleteConfirmation}
         open={openConfirmDialog}
-        text={t('confirm_delete')}
-        title={t('delete_data')}
+        text={translator('confirm_delete')}
+        title={translator('delete_data')}
       />
     </Box>
   );

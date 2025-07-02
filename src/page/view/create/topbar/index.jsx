@@ -49,7 +49,7 @@ const TopBar = (props) => {
   } = props;
 
   const { get, post } = Request();
-  const { t } = Translator();
+  const translator = Translator();
 
   const navigate = useNavigate();
   const { setLoading } = useLoading();
@@ -215,18 +215,22 @@ const TopBar = (props) => {
             />
           </IconButton>
           <Typography sx={{ fontWeight: 'bold' }}>
-            {t('view_builder')}
+            {translator('view_builder')}
           </Typography>
         </Box>
         <Box display="flex" gap={1}>
-          <Upload label={t('upload')} onUpload={onUpload} type=".json" />
+          <Upload
+            label={translator('upload')}
+            onUpload={onUpload}
+            type=".json"
+          />
           {hasContent && (
             <Button
               variant="outlined"
               size={CTheme.button.size.name}
               onClick={onDownload}
             >
-              {t('download')}
+              {translator('download')}
             </Button>
           )}
           <Button
@@ -234,7 +238,7 @@ const TopBar = (props) => {
             size={CTheme.button.size.name}
             onClick={() => setOpenGenerateDialog(true)}
           >
-            {t('generate')}
+            {translator('generate')}
           </Button>
           {hasContent && (
             <Button
@@ -242,7 +246,7 @@ const TopBar = (props) => {
               size={CTheme.button.size.name}
               onClick={onPreview}
             >
-              {t('preview')}
+              {translator('preview')}
             </Button>
           )}
           {viewId && (
@@ -251,7 +255,7 @@ const TopBar = (props) => {
               size={CTheme.button.size.name}
               onClick={setOpenConfirmDialog}
             >
-              {t('delete')}
+              {translator('delete')}
             </Button>
           )}
           {hasContent && (
@@ -260,18 +264,18 @@ const TopBar = (props) => {
               size={CTheme.button.size.name}
               onClick={onSave}
             >
-              {t('save')}
+              {translator('save')}
             </Button>
           )}
         </Box>
       </Card>
       <Confirm
-        cancelButton={t('cancel')}
-        confirmButton={t('delete')}
+        cancelButton={translator('cancel')}
+        confirmButton={translator('delete')}
         onConfirm={onDelete}
         open={openConfirmDialog}
-        text={t('confirm_delete')}
-        title={t('delete_data')}
+        text={translator('confirm_delete')}
+        title={translator('delete_data')}
       />
       <List
         items={generateTypeList}
