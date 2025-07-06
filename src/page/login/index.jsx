@@ -94,7 +94,7 @@ const Page = () => {
         </Button>
         <Box display="flex" justifyContent="flex-end" marginTop={2}>
           <Typography fontSize={CTheme.font.size.value}>
-            {t("don't_have_an_account")}
+            {translator("don't_have_an_account")}
             <Link
               to="/register"
               style={{ color: theme.palette.primary.main, marginLeft: 3 }}
