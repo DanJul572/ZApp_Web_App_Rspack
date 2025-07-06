@@ -40,55 +40,62 @@ function a11yProps(index) {
   };
 }
 
-const Tab = (props) => {
-  const { label, items, render } = props;
-
-  const [value, setValue] = useState(0);
+const Header = (props) => {
+  const { value, setValue, label } = props;
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
 
-  const component = (item, index) => {
-    return <MuiTab key={index} label={item} {...a11yProps(index)} />;
-  };
-
-  const header = () => {
-    if (Array.isArray(label)) {
-      return (
-        <Box
-          sx={{
-            borderBottom: CTheme.border.size.value,
-            borderColor: 'divider',
-          }}
-        >
-          <Tabs value={value} onChange={handleChange}>
-            {label && label.length > 0 && label.map(component)}
-          </Tabs>
-        </Box>
-      );
-    }
+  if (Array.isArray(label)) {
     return (
-      <Typography fontSize={CTheme.font.size.value}>
-        Label is not valid.
-      </Typography>
+      <Box
+        sx={{
+          borderBottom: CTheme.border.size.value,
+          borderColor: 'divider',
+        }}
+      >
+        <Tabs value={value} onChange={handleChange}>
+          {label &&
+            label.length > 0 &&
+            label.map((item, index) => (
+              <MuiTab key={index} label={item} {...a11yProps(index)} />
+            ))}
+        </Tabs>
+      </Box>
     );
-  };
+  }
 
-  const content = () => {
-    if (items && items.length > 0) {
-      return items.map((item, index) => (
-        <CustomTabPanel key={uuidv4()} value={value} index={index}>
-          {render(item, index)}
-        </CustomTabPanel>
-      ));
-    }
-  };
+  return (
+    <Typography fontSize={CTheme.font.size.value}>
+      Label is not valid.
+    </Typography>
+  );
+};
+
+const Content = (props) => {
+  const { items, value, render } = props;
+
+  if (items && items.length > 0) {
+    return items.map((item, index) => (
+      <CustomTabPanel key={uuidv4()} value={value} index={index}>
+        {render(item, index)}
+      </CustomTabPanel>
+    ));
+  }
+};
+
+const Tab = (props) => {
+  const { label, items, render } = props;
+
+  const [value, setValue] = useState(0);
 
   return (
     <Box>
-      {header()}
-      <Box padding={1}>{content()}</Box>
+      <Header value={value} setValue={setValue} label={label} />
+      <Box padding={1}>
+        <Content items={items} value={value} render={render} />
+      </Box>
     </Box>
   );
 };
