@@ -17,8 +17,12 @@ const NumberField = (props) => {
   const error = validator(rules, value ? value : '');
 
   useEffect(() => {
-    if (!group && !name) return;
-    if (!error.status) return clearError(group, name);
+    if (!group && !name) {
+      return;
+    }
+    if (!error.status) {
+      return clearError(group, name);
+    }
     setError(group, name, error.message);
   }, [value]);
 

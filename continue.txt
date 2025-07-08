@@ -1,1 +1,1 @@
-component/input/Checkbox
+component/loading/ContentLoader

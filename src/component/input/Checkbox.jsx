@@ -15,7 +15,6 @@ const Checkbox = (props) => {
   const setValues = (val) => {
     const deleteIndex = values.findIndex((value) => value === val);
     deleteIndex >= 0 ? values.splice(deleteIndex, 1) : values.push(val);
-
     onChange(values.join('|'));
   };
 
@@ -23,35 +22,29 @@ const Checkbox = (props) => {
     return !!values.find((value) => value === val);
   };
 
-  const renderOptions = () => {
-    if (!options || !options.length) return false;
-
-    return (
-      <FormGroup row>
-        {options.map((option) => (
-          <FormControlLabel
-            key={option.value}
-            control={
-              <MuiCheckbox
-                checked={checked(option.value)}
-                value={option.value}
-                size={CTheme.field.size.name}
-                onChange={(e) => setValues(e.target.value)}
-                disabled={disabled}
-              />
-            }
-            slotProps={{ typography: { fontSize: CTheme.font.size.value } }}
-            label={option.label}
-          />
-        ))}
-      </FormGroup>
-    );
-  };
-
   return (
     <Box>
       <Typography fontSize={CTheme.font.size.value}>{label}</Typography>
-      {renderOptions()}
+      {options && options.length && (
+        <FormGroup row>
+          {options.map((option) => (
+            <FormControlLabel
+              key={option.value}
+              control={
+                <MuiCheckbox
+                  checked={checked(option.value)}
+                  value={option.value}
+                  size={CTheme.field.size.name}
+                  onChange={(e) => setValues(e.target.value)}
+                  disabled={disabled}
+                />
+              }
+              slotProps={{ typography: { fontSize: CTheme.font.size.value } }}
+              label={option.label}
+            />
+          ))}
+        </FormGroup>
+      )}
     </Box>
   );
 };

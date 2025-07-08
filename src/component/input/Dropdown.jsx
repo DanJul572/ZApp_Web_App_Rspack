@@ -58,23 +58,6 @@ const Dropdown = (props) => {
     }
   }, [value, finalOptions]);
 
-  const renderInput = (params) => {
-    return (
-      <Box>
-        <Typography fontSize={CTheme.font.size.value}>{label}</Typography>
-        <TextField {...params} />
-      </Box>
-    );
-  };
-
-  const renderOptions = (props, option) => {
-    return (
-      <List {...props} key={option.value}>
-        {option.label}
-      </List>
-    );
-  };
-
   if (isLoading) {
     return <Typography>Loading...</Typography>;
   }
@@ -87,8 +70,17 @@ const Dropdown = (props) => {
         multiple={multiple}
         onChange={handleChange}
         options={finalOptions?.length ? finalOptions : []}
-        renderInput={(params) => renderInput(params)}
-        renderOption={(props, option) => renderOptions(props, option)}
+        renderInput={(params) => (
+          <Box>
+            <Typography fontSize={CTheme.font.size.value}>{label}</Typography>
+            <TextField {...params} />
+          </Box>
+        )}
+        renderOption={(props, option) => (
+          <List {...props} key={option.value}>
+            {option.label}
+          </List>
+        )}
         size={CTheme.field.size.name}
         value={newValue}
       />
