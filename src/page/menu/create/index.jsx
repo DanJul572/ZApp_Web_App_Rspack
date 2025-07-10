@@ -57,7 +57,7 @@ const Page = () => {
     child: [],
   });
 
-  const id = searchParams.getranslator('id');
+  const id = searchParams.get('id');
   const actionType = { add: 1, edit: 2, delete: 3, up: 4, down: 5 };
 
   const onLoad = async () => {

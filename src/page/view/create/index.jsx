@@ -28,7 +28,7 @@ const Page = () => {
     module: 'module',
   };
   const activeNavigation = navigationType.content;
-  const moduleId = searchParams.getranslator('id');
+  const moduleId = searchParams.get('id');
 
   const [content, setContent] = useState([]);
   const [label, setLabel] = useState(null);

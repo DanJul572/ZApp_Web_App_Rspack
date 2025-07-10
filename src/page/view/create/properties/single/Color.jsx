@@ -31,7 +31,7 @@ const Color = (props) => {
 
   const onApply = (color) => {
     const newColor = active && active.name === color.name ? null : color;
-    const newContent = editComponentranslator('color', newColor, content);
+    const newContent = editComponent('color', newColor, content);
     setContent([...newContent]);
     setActive(newColor);
   };

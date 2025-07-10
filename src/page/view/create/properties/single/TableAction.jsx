@@ -66,7 +66,7 @@ const TableAction = (props) => {
       });
       setOpen(false);
     }
-    const newContent = editComponentranslator('actions', newActions, content);
+    const newContent = editComponent('actions', newActions, content);
     setContent([...newContent]);
   };
 
