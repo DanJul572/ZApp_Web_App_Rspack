@@ -2,9 +2,7 @@ import Builder from '../command/builder';
 import Core from '../command/core';
 import Query from '../command/query';
 
-const Waiter = (props) => {
-  const { isBuilder } = props;
-
+const Waiter = () => {
   const ZCore = Core();
   const ZBuilder = Builder();
   const ZQuery = Query();
