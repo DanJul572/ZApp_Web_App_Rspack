@@ -86,7 +86,7 @@ const FieldControl = (props) => {
     }
 
     if (type === CInputType.file.value) {
-      const tempFileName = comp.getranslator('tempData')?.[name] || null;
+      const tempFileName = comp.get('tempData')?.[name] || null;
       return <File {...componentProps} name={name} value={tempFileName} />;
     }
 

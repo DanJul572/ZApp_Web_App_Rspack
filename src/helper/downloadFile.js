@@ -2,7 +2,7 @@ const downloadJsonFile = (content, label) => {
   const jsonString = JSON.stringify(content, null, 2);
   const blob = new Blob([jsonString], { type: 'application/json' });
   const url = URL.createObjectURL(blob);
-  const a = document.createElementranslator('a');
+  const a = document.createElement('a');
 
   a.href = url;
   a.download = `${label}.json`;
@@ -18,7 +18,7 @@ const downloadJsonFile = (content, label) => {
 const downloadFileFromBuffer = (bufferData, fileName, type) => {
   const blob = new Blob([bufferData], { type: type });
   const url = URL.createObjectURL(blob);
-  const a = document.createElementranslator('a');
+  const a = document.createElement('a');
 
   a.href = url;
   a.download = fileName;
@@ -33,7 +33,7 @@ const downloadFileFromBuffer = (bufferData, fileName, type) => {
 
 function downloadFile(file) {
   const url = URL.createObjectURL(file);
-  const link = document.createElementranslator('a');
+  const link = document.createElement('a');
 
   link.href = url;
   link.download = file.name;

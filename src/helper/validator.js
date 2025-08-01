@@ -28,7 +28,7 @@ const generateValidation = (action, key, value, rule) => {
 
   let newRule = '';
   const values =
-    matchValue?.[1].splitranslator(',').map((value) => value.trim()) || [];
+    matchValue?.[1].split(',').map((value) => value.trim()) || [];
 
   if (action === CActionType.insert.value) {
     values.push(value);
@@ -55,7 +55,7 @@ const generateValidation = (action, key, value, rule) => {
 const validator = (rules, value) => {
   if (!rules) return false;
 
-  const rulesSplited = rules.splitranslator('|');
+  const rulesSplited = rules.split('|');
   const error = {
     status: false,
     message: '',
@@ -91,7 +91,7 @@ const validator = (rules, value) => {
     }
 
     const sameValidate = rule.match(/same:\(([^)]+)\)/);
-    if (sameValidate && same(sameValidate[1].splitranslator(','), value)) {
+    if (sameValidate && same(sameValidate[1].split(','), value)) {
       error.status = true;
       error.message = 'Already exist';
       break;
