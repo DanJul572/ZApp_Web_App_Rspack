@@ -20,11 +20,13 @@ import Translator from '@/hook/Translator';
 import CApiUrl from '@/constant/CApiUrl';
 import CTheme from '@/constant/CTheme';
 
+import handleError from '@/helper/handleError';
+
 const Page = () => {
   const theme = createTheme(CTheme);
 
   const navigate = useNavigate();
-  const { post } = Request();
+  const request = Request();
   const translator = Translator();
 
   const { setExpandedMenu } = useExpandedMenu();
@@ -35,7 +37,7 @@ const Page = () => {
 
   const onLogin = async () => {
     const body = { email: email, password: password };
-    return await post(CApiUrl.auth.login, body, false);
+    return await request.post(CApiUrl.auth.login, body, false);
   };
 
   const mutation = useMutation({
@@ -47,7 +49,8 @@ const Page = () => {
       navigate(res.afterLogin);
     },
     onError: (err) => {
-      setToast({ status: true, type: 'error', message: err });
+      const errorMessage = handleError(err);
+      setToast({ status: true, type: 'error', message: errorMessage });
     },
   });
 

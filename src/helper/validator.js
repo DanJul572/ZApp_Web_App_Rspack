@@ -27,8 +27,7 @@ const generateValidation = (action, key, value, rule) => {
   if (action === 1 && !matchValue) return `${rule}|${key}:(${value})`;
 
   let newRule = '';
-  const values =
-    matchValue?.[1].split(',').map((value) => value.trim()) || [];
+  const values = matchValue?.[1].split(',').map((value) => value.trim()) || [];
 
   if (action === CActionType.insert.value) {
     values.push(value);

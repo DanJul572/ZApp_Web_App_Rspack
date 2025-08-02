@@ -62,9 +62,7 @@ const Container = (props) => {
     }
 
     if (type === CContainerType.grid.value) {
-      const columnSize = properties.size
-        ? properties.size.split(',')
-        : [];
+      const columnSize = properties.size ? properties.size.split(',') : [];
       const defaultSize = 12 / (section.length > 0 ? section.length : 1);
       return (
         <Grid container>
