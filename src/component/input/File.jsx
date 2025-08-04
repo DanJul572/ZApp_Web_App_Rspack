@@ -102,27 +102,40 @@ const File = (props) => {
   }
 
   return (
-    <Box display="flex" alignItems="center">
-      <Box width="100%">
-        <Typography fontSize={CTheme.font.size.value}>{label}</Typography>
-        <MuiFileInput
-          disabled={disabled}
-          fullWidth
-          multiple={false}
-          onChange={handleChange}
-          size={CTheme.field.size.name}
-          value={fileContent?.file ? fileContent.file : null}
-          clearIconButtonProps={{
-            title: translator('delete'),
-            children: <Close fontSize={CTheme.font.size.name} />,
+    <Box>
+      <Typography fontSize={CTheme.font.size.value}>{label}</Typography>
+      <Box
+        sx={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          gap: 1,
+        }}
+      >
+        <Box
+          sx={{
+            width: '100%',
           }}
-        />
+        >
+          <MuiFileInput
+            disabled={disabled}
+            fullWidth
+            multiple={false}
+            onChange={handleChange}
+            size={CTheme.field.size.name}
+            value={fileContent?.file ? fileContent.file : null}
+            clearIconButtonProps={{
+              title: translator('delete'),
+              children: <Close fontSize={CTheme.font.size.name} />,
+            }}
+          />
+        </Box>
+        {fileContent && (
+          <IconButton size={CTheme.button.size.name} onClick={handleDownload}>
+            <Download />
+          </IconButton>
+        )}
       </Box>
-      {fileContent && (
-        <IconButton size={CTheme.button.size.name} onClick={handleDownload}>
-          <Download />
-        </IconButton>
-      )}
     </Box>
   );
 };

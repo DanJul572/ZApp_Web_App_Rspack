@@ -26,17 +26,17 @@ import Waiter from '@/interpreter/waiter';
 const FieldControl = (props) => {
   const { isBuilder, type, properties } = props;
 
-  const { take } = Waiter({ isBuilder });
+  const waiter = Waiter({ isBuilder });
   const vars = Vars();
   const comp = Comp();
 
-  const color = properties.color ? properties.color.name : 'primary';
-  const disabled = !name || Boolean(take(properties.disable));
-  const fieldID = properties.fieldID;
-  const hidden = take(properties.hidden);
-  const label = take(properties.label);
-  const multiple = take(properties.multiple);
   const name = properties.name;
+  const color = properties.color ? properties.color.name : 'primary';
+  const disabled = !name || Boolean(waiter.take(properties.disable));
+  const fieldID = properties.fieldID;
+  const hidden = waiter.take(properties.hidden);
+  const label = waiter.take(properties.label);
+  const multiple = waiter.take(properties.multiple);
 
   const onChange = (value) => {
     if (!isBuilder) {
