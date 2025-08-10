@@ -6,7 +6,6 @@ import 'react-querybuilder/dist/query-builder.css';
 
 import { AlertProvider } from '@/context/AlertProvider';
 import { ComponentProvider } from '@/context/ComponentProvider';
-import ErrorProvider from '@/context/ErrorProvider';
 import { ExpandedMenuProvider } from '@/context/ExpandedMenuProvider';
 import { FileProvider } from '@/context/FileProvider';
 import { LoadingProvider } from '@/context/LoadingProvider';
@@ -24,21 +23,19 @@ export default function Layout({ children }) {
   return (
     <Suspense>
       <QueryClientProvider client={queryClient}>
-        <ErrorProvider>
-          <LoadingProvider>
-            <AlertProvider>
-              <ToastProvider>
-                <VarsProvider>
-                  <FileProvider>
-                    <ComponentProvider>
-                      <ExpandedMenuProvider>{children}</ExpandedMenuProvider>
-                    </ComponentProvider>
-                  </FileProvider>
-                </VarsProvider>
-              </ToastProvider>
-            </AlertProvider>
-          </LoadingProvider>
-        </ErrorProvider>
+        <LoadingProvider>
+          <AlertProvider>
+            <ToastProvider>
+              <VarsProvider>
+                <FileProvider>
+                  <ComponentProvider>
+                    <ExpandedMenuProvider>{children}</ExpandedMenuProvider>
+                  </ComponentProvider>
+                </FileProvider>
+              </VarsProvider>
+            </ToastProvider>
+          </AlertProvider>
+        </LoadingProvider>
       </QueryClientProvider>
     </Suspense>
   );

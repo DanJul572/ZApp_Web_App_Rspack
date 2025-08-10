@@ -1,7 +1,4 @@
-import { useContext, useEffect, useState } from 'react';
-
-import { ErrorContext } from '@/context/ErrorProvider';
-import { validator } from '@/helper/validator';
+import { useState } from 'react';
 
 import FormControl from '@mui/material/FormControl';
 import IconButton from '@mui/material/IconButton';
@@ -15,14 +12,9 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import CTheme from '@/constant/CTheme';
 
 const Password = (props) => {
-  const { label, onChange, value, rules, group, name, disabled, onBlur } =
-    props;
-
-  const { setError, clearError } = useContext(ErrorContext);
+  const { label, onChange, value, name, disabled, onBlur } = props;
 
   const [showPassword, setShowPassword] = useState(false);
-
-  const error = validator(rules, value);
 
   const handleClickShowPassword = () => {
     setShowPassword((show) => !show);
@@ -43,16 +35,6 @@ const Password = (props) => {
       onChange(e.target.value);
     }
   };
-
-  useEffect(() => {
-    if (!group && !name) {
-      return;
-    }
-    if (!error.status) {
-      return clearError(group, name);
-    }
-    setError(group, name, error.message);
-  }, [value]);
 
   return (
     <FormControl variant="outlined" fullWidth>
