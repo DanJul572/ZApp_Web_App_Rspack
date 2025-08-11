@@ -19,13 +19,23 @@ const Waiter = () => {
 
   // eslint-disable-next-line no-unused-vars
   const take = (data, param = null) => {
-    if (!data) return null;
     try {
-      if (typeof data === 'object') {
-        if (!data.isBind) return data.value;
-        return data.value ? eval(data.value) : null;
+      if (!data) {
+        return null;
       }
-      return data ? eval(data) : null;
+      if (typeof data === 'object') {
+        if (!data.isBind) {
+          return data.value;
+        }
+        if (data.value) {
+          return eval(data.value);
+        }
+        return null;
+      }
+      if (data) {
+        return eval(data);
+      }
+      return null;
     } catch (error) {
       console.log(`Error : ${error.message}`);
     }
