@@ -1,12 +1,12 @@
 import Alert from '@/hook/Alert';
 import Api from '@/hook/Api';
 import Comp from '@/hook/Comp';
+import FormData from '@/hook/FormData';
 import Loader from '@/hook/Loader';
 import Parameter from '@/hook/Parameter';
 import Redirect from '@/hook/Redirect';
 import Toaster from '@/hook/Toaster';
 import Translator from '@/hook/Translator';
-import Vars from '@/hook/Vars';
 
 const Core = () => {
   return {
@@ -18,7 +18,7 @@ const Core = () => {
     redirect: Redirect(),
     toaster: Toaster(),
     translator: Translator(),
-    vars: Vars(),
+    formData: FormData(),
   };
 };
 

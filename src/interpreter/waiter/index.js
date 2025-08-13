@@ -4,13 +4,13 @@ import Query from '../command/query';
 
 const Waiter = () => {
   // biome-ignore lint/correctness/noUnusedVariables: required for interpeter
-  const ZCore = Core();
+  const zcore = Core();
 
   // biome-ignore lint/correctness/noUnusedVariables: required for interpeter
-  const ZBuilder = Builder();
+  const zbuilder = Builder();
 
   // biome-ignore lint/correctness/noUnusedVariables: required for interpeter
-  const ZQuery = Query();
+  const zquery = Query();
 
   // biome-ignore lint/correctness/noUnusedFunctionParameters: required for interpeter
   const order = (func, param = null) => {

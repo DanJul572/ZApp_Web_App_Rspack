@@ -3,64 +3,63 @@ import { useFile } from '@/context/FileProvider';
 import Core from '../core';
 
 const ClassicQuery = () => {
-  const ZCore = Core();
-
-  const { setFile } = useFile();
+  const zcore = Core();
+  const file = useFile();
 
   const createOrUpdate = (moduleId, key, path = null) => {
-    ZCore.loader.showLoading();
+    zcore.loader.showLoading();
 
-    const id = ZCore.parameter.get(key);
+    const id = zcore.parameter.get(key);
 
     if (!id) {
-      ZCore.api
+      zcore.api
         .create({
           moduleId: moduleId,
-          data: ZCore.vars.getAll(),
+          data: zcore.formData.getAll(),
         })
         .then((res) => {
-          ZCore.alert.showSuccessAlert(res);
-          ZCore.vars.removeAll();
-          ZCore.loader.hideLoading();
-          setFile([]);
+          zcore.alert.showSuccessAlert(res);
+          zcore.formData.removeAll();
+          zcore.loader.hideLoading();
+          file.setFile([]);
 
           if (path) {
-            ZCore.redirect.internal(path);
+            zcore.redirect.internal(path);
           }
         })
         .catch((err) => {
-          ZCore.alert.showErrorAlert(err);
-          ZCore.loader.hideLoading();
+          zcore.alert.showErrorAlert(err);
+          zcore.loader.hideLoading();
         });
     } else {
-      ZCore.api
+      zcore.api
         .update({
           moduleId: moduleId,
           rowId: id,
-          data: ZCore.vars.getAll(),
+          data: zcore.formData.getAll(),
         })
         .then((res) => {
-          ZCore.alert.showSuccessAlert(res);
-          ZCore.vars.removeAll();
-          ZCore.loader.hideLoading();
-          setFile([]);
+          zcore.alert.showSuccessAlert(res);
+          zcore.formData.removeAll();
+          zcore.loader.hideLoading();
+          file.setFile([]);
 
           if (path) {
-            ZCore.redirect.internal(path);
+            zcore.redirect.internal(path);
           }
         })
         .catch((err) => {
-          ZCore.alert.showErrorAlert(err);
-          ZCore.loader.hideLoading();
+          zcore.alert.showErrorAlert(err);
+          zcore.loader.hideLoading();
         });
     }
   };
 
   const findOneAndSet = (moduleId, key) => {
-    const id = ZCore.parameter.get(key);
+    const id = zcore.parameter.get(key);
     if (id) {
-      ZCore.loader.showLoading();
-      ZCore.api
+      zcore.loader.showLoading();
+      zcore.api
         .detail({
           moduleId: moduleId,
           rowId: id,
@@ -70,14 +69,14 @@ const ClassicQuery = () => {
           res.updatedAt = undefined;
           res[key] = undefined;
 
-          ZCore.vars.setAll(res);
-          ZCore.comp.set('tempData', res);
+          zcore.formData.setAll(res);
+          zcore.comp.set('tempData', res);
         })
         .catch((err) => {
-          ZCore.alert.showErrorAlert(err);
+          zcore.alert.showErrorAlert(err);
         })
         .finally(() => {
-          ZCore.loader.hideLoading();
+          zcore.loader.hideLoading();
         });
     }
   };

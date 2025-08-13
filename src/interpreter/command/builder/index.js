@@ -2,7 +2,7 @@ import ClassicQuery from './ClassicQuery';
 
 const Builder = () => {
   return {
-    ClassicQuery: ClassicQuery(),
+    classicQuery: ClassicQuery(),
   };
 };
 

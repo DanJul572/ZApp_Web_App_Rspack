@@ -12,12 +12,13 @@ import CTheme from '@/constant/CTheme';
 import Content from '@/hook/Content';
 import Translator from '@/hook/Translator';
 import Waiter from '@/interpreter/waiter';
+import Component from '.';
 import Page from './Page';
 
 const Container = (props) => {
-  const { type, section, properties, renderComponent, isBuilder } = props;
+  const { type, section, properties, isBuilder, selected, setSelected } = props;
 
-  const { take } = Waiter({ isBuilder });
+  const waiter = Waiter({ isBuilder });
   const translator = Translator();
 
   const anchor = properties.anchor;
@@ -25,8 +26,8 @@ const Container = (props) => {
   const color = properties.color ? properties.color.value : null;
   const display = properties.display;
   const flex = Boolean(properties.flex);
-  const label = take(properties.label);
-  const open = take(properties.open);
+  const label = waiter.take(properties.label);
+  const open = waiter.take(properties.open);
   const padding = Number.parseInt(properties.padding);
   const size = properties.size;
   const viewID = properties.viewID;
@@ -52,7 +53,18 @@ const Container = (props) => {
         >
           {section &&
             section.length > 0 &&
-            section.map((childs) => childs.map(renderComponent))}
+            section.map((childs) =>
+              childs.map((component) => {
+                return (
+                  <Component
+                    key={component.id}
+                    component={component}
+                    selected={selected}
+                    setSelected={setSelected}
+                  />
+                );
+              }),
+            )}
         </Card>
       );
     }
@@ -71,7 +83,16 @@ const Container = (props) => {
               }
               key={uuidv4()}
             >
-              {childs.map(renderComponent)}
+              {childs.map((component) => {
+                return (
+                  <Component
+                    key={component.id}
+                    component={component}
+                    selected={selected}
+                    setSelected={setSelected}
+                  />
+                );
+              })}
             </Grid>
           ))}
         </Grid>
@@ -83,7 +104,18 @@ const Container = (props) => {
         <Collapse label={label || CContainerType.collapse.label} color={color}>
           {section &&
             section.length > 0 &&
-            section.map((childs) => childs.map(renderComponent))}
+            section.map((childs) =>
+              childs.map((component) => {
+                return (
+                  <Component
+                    key={component.id}
+                    component={component}
+                    selected={selected}
+                    setSelected={setSelected}
+                  />
+                );
+              }),
+            )}
         </Collapse>
       );
     }
@@ -94,7 +126,18 @@ const Container = (props) => {
           <Card>
             {section &&
               section.length > 0 &&
-              section.map((childs) => childs.map(renderComponent))}
+              section.map((childs) =>
+                childs.map((component) => {
+                  return (
+                    <Component
+                      key={component.id}
+                      component={component}
+                      selected={selected}
+                      setSelected={setSelected}
+                    />
+                  );
+                }),
+              )}
           </Card>
         );
       }
@@ -102,7 +145,18 @@ const Container = (props) => {
         <Drawer anchor={anchor} open={Boolean(open)} size={size}>
           {section &&
             section.length > 0 &&
-            section.map((childs) => childs.map(renderComponent))}
+            section.map((childs) =>
+              childs.map((component) => {
+                return (
+                  <Component
+                    key={component.id}
+                    component={component}
+                    selected={selected}
+                    setSelected={setSelected}
+                  />
+                );
+              }),
+            )}
         </Drawer>
       );
     }
@@ -112,7 +166,18 @@ const Container = (props) => {
         <Tab
           label={label}
           items={section}
-          render={(childs) => childs.map(renderComponent)}
+          render={(childs) =>
+            childs.map((component) => {
+              return (
+                <Component
+                  key={component.id}
+                  component={component}
+                  selected={selected}
+                  setSelected={setSelected}
+                />
+              );
+            })
+          }
         />
       );
     }
@@ -129,7 +194,16 @@ const Container = (props) => {
       return (
         <Page isBuilder={isBuilder} page={page}>
           {content && content.length > 0 && Array.isArray(content)
-            ? content.map(renderComponent)
+            ? content.map((component) => {
+                return (
+                  <Component
+                    key={component.id}
+                    component={component}
+                    selected={selected}
+                    setSelected={setSelected}
+                  />
+                );
+              })
             : content}
         </Page>
       );

@@ -2,15 +2,14 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Suspense } from 'react';
 
 import 'suneditor/dist/css/suneditor.min.css';
-import 'react-querybuilder/dist/query-builder.css';
 
 import { AlertProvider } from '@/context/AlertProvider';
 import { ComponentProvider } from '@/context/ComponentProvider';
 import { ExpandedMenuProvider } from '@/context/ExpandedMenuProvider';
 import { FileProvider } from '@/context/FileProvider';
+import { FormDataProvider } from '@/context/FormDataProvider';
 import { LoadingProvider } from '@/context/LoadingProvider';
 import { ToastProvider } from '@/context/ToastProvider';
-import { VarsProvider } from '@/context/VarsProvider';
 
 const queryClient = new QueryClient();
 
@@ -26,13 +25,13 @@ export default function Layout({ children }) {
         <LoadingProvider>
           <AlertProvider>
             <ToastProvider>
-              <VarsProvider>
+              <FormDataProvider>
                 <FileProvider>
                   <ComponentProvider>
                     <ExpandedMenuProvider>{children}</ExpandedMenuProvider>
                   </ComponentProvider>
                 </FileProvider>
-              </VarsProvider>
+              </FormDataProvider>
             </ToastProvider>
           </AlertProvider>
         </LoadingProvider>

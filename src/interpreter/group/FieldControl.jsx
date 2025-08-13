@@ -19,7 +19,7 @@ import Toggle from '@/component/input/Toggle';
 import CInputType from '@/constant/CInputType';
 
 import Comp from '@/hook/Comp';
-import Vars from '@/hook/Vars';
+import FormData from '@/hook/FormData';
 
 import Waiter from '@/interpreter/waiter';
 
@@ -27,7 +27,7 @@ const FieldControl = (props) => {
   const { isBuilder, type, properties } = props;
 
   const waiter = Waiter({ isBuilder });
-  const vars = Vars();
+  const formData = FormData();
   const comp = Comp();
 
   const name = properties.name;
@@ -41,13 +41,13 @@ const FieldControl = (props) => {
   const onChange = (value) => {
     if (!isBuilder) {
       if (name) {
-        vars.set(name, value);
+        formData.set(name, value);
       }
     }
   };
 
   const componentProps = {
-    value: vars.get(name) || null,
+    value: formData.get(name) || null,
     onChange: onChange,
     disabled: disabled,
     label: label || null,
