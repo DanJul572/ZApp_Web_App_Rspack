@@ -1,5 +1,4 @@
 import Download from '@mui/icons-material/Download';
-import Storage from '@mui/icons-material/Storage';
 
 import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
@@ -17,26 +16,13 @@ const ToolBarComponent = (props) => {
   const {
     enableSearch,
     enableFilter,
-    enableAdvanceFilter,
     enableHiding,
     enableDensityToggle,
     enableFullScreenToggle,
     enableExport,
-    setOpenAdvanceFilterDialog,
     setOpenExportDialog,
     table,
   } = props;
-
-  const advanceFilterButton = (
-    <Tooltip arrow title="Advance Filter">
-      <IconButton
-        color="primary"
-        onClick={() => setOpenAdvanceFilterDialog(true)}
-      >
-        <Storage />
-      </IconButton>
-    </Tooltip>
-  );
 
   const exportButton = (
     <Tooltip arrow title="Download">
@@ -54,7 +40,6 @@ const ToolBarComponent = (props) => {
       {enableFilter && (
         <MRT_ToggleFiltersButton color="primary" table={table} />
       )}
-      {enableAdvanceFilter && advanceFilterButton}
       {enableHiding && (
         <MRT_ShowHideColumnsButton color="primary" table={table} />
       )}

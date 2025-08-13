@@ -9,7 +9,6 @@ import CActionType from '@/constant/CActionType';
 import CInputType from '@/constant/CInputType';
 import dataDisplay from '@/helper/dataDisplay';
 import Translator from '@/hook/Translator';
-import AdvanceFilter from './AdvanceFilter';
 import RowCustomActionDialog from './CustomActionDialog';
 import Download from './Download';
 import ExportDialog from './ExportDialog';
@@ -23,7 +22,6 @@ const Table = (props) => {
     columnKey,
     columnPinning = {},
     columns = [],
-    enableAdvanceFilter = false,
     enableColumnResizing = false,
     enableDensityToggle = false,
     enableExport = false,
@@ -36,7 +34,6 @@ const Table = (props) => {
     enableSearch = false,
     enableSorting = false,
     isLoading = false,
-    onAdvanceFilter,
     onChangePage,
     onClickRowAction,
     onClickRowCustomAction,
@@ -60,12 +57,10 @@ const Table = (props) => {
     pageIndex: pageIndex,
     pageSize: pageSize,
   });
-  const [advanceFilter, setAdvanceFilter] = useState(null);
   const [columnFilters, setColumnFilters] = useState([]);
   const [sorting, setSorting] = useState([]);
   const [rowSelection, setRowSelection] = useState([]);
   const [openExportDialog, setOpenExportDialog] = useState(false);
-  const [openAdvanceFilterDialog, setOpenAdvanceFilterDialog] = useState(false);
   const [openRowCustomActionDialog, setOpenRowCustomActionDialog] =
     useState(false);
   const [rowClicked, setRowClicked] = useState(null);
@@ -117,12 +112,10 @@ const Table = (props) => {
         table={table}
         enableSearch={enableSearch}
         enableFilter={enableFilter}
-        enableAdvanceFilter={enableAdvanceFilter}
         enableHiding={enableHiding}
         enableDensityToggle={enableDensityToggle}
         enableFullScreenToggle={enableFullScreenToggle}
         enableExport={enableExport}
-        setOpenAdvanceFilterDialog={setOpenAdvanceFilterDialog}
         setOpenExportDialog={setOpenExportDialog}
       />
     );
@@ -224,17 +217,6 @@ const Table = (props) => {
     formattedColumns.length > 0 && (
       <Box>
         <MaterialReactTable table={table} />
-        {enableAdvanceFilter && (
-          <AdvanceFilter
-            advanceFilter={advanceFilter}
-            columns={columns}
-            enableAdvanceFilter={enableAdvanceFilter}
-            onAdvanceFilter={onAdvanceFilter}
-            openAdvanceFilterDialog={openAdvanceFilterDialog}
-            setAdvanceFilter={setAdvanceFilter}
-            setOpenAdvanceFilterDialog={setOpenAdvanceFilterDialog}
-          />
-        )}
         {enableExport && (
           <ExportDialog
             table={table}

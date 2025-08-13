@@ -16,7 +16,6 @@ const TableFunction = (props) => {
   const { setLoading } = useLoading();
 
   const [page, setPage] = useState(1);
-  const [advanceFilter, setAdvanceFilter] = useState(null);
   const [filter, setFilter] = useState([]);
   const [sort, setSort] = useState([]);
   const [selectedRow, setSelectedRow] = useState(null);
@@ -38,7 +37,6 @@ const TableFunction = (props) => {
     const body = {
       id: moduleID,
       page,
-      advanceFilter,
       filter,
       sort,
       defaultFilter: defaultFilter || [],
@@ -53,15 +51,7 @@ const TableFunction = (props) => {
     isError: rowIsError,
     error: rowError,
   } = useQuery({
-    queryKey: [
-      'table-rows',
-      moduleID,
-      page,
-      filter,
-      sort,
-      advanceFilter,
-      defaultFilter,
-    ],
+    queryKey: ['table-rows', moduleID, page, filter, sort, defaultFilter],
     queryFn: fetchRows,
     enabled: !!moduleID && !!columns && columns.length > 0,
     retry: 0,
@@ -140,7 +130,6 @@ const TableFunction = (props) => {
     openConfirmDialog,
     rowCount,
     rows,
-    setAdvanceFilter,
     setFilter,
     setOpenConfirmDialog,
     setPage,
