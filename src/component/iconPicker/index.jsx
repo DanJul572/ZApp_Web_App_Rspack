@@ -16,7 +16,7 @@ const IconPicker = (props) => {
       }}
     >
       {iconNames.map((iconName) => {
-        // biome-ignore format/all: This file is intentionally ignored
+        // biome-ignore lint/performance/noDynamicNamespaceImportAccess: dynamic import needed here
         const IconComponent = Icon[iconName];
         return (
           <IconButton

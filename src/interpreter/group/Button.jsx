@@ -40,7 +40,11 @@ const Button = (props) => {
 
   const iconName = properties.icon?.name;
   const iconIsRight = properties.icon?.isRight;
+
+  // biome-ignore lint/performance/noDynamicNamespaceImportAccess: dynamic import needed here
   const EndIcon = iconName && iconIsRight ? Icon[iconName] : null;
+
+  // biome-ignore lint/performance/noDynamicNamespaceImportAccess: dynamic import needed here
   const StartIcon = iconName && !iconIsRight ? Icon[iconName] : null;
 
   const click = () => {

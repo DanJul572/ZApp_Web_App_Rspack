@@ -109,6 +109,7 @@ const Tree = (props) => {
   };
 
   const treeMenu = (menu) => {
+    // biome-ignore lint/performance/noDynamicNamespaceImportAccess: dynamic import needed here
     const SelectedIcon = Icon[menu.icon];
 
     if (menu.child) {

@@ -3,10 +3,16 @@ import Core from '../command/core';
 import Query from '../command/query';
 
 const Waiter = () => {
+  // biome-ignore lint/correctness/noUnusedVariables: required for interpeter
   const ZCore = Core();
+
+  // biome-ignore lint/correctness/noUnusedVariables: required for interpeter
   const ZBuilder = Builder();
+
+  // biome-ignore lint/correctness/noUnusedVariables: required for interpeter
   const ZQuery = Query();
 
+  // biome-ignore lint/correctness/noUnusedFunctionParameters: required for interpeter
   const order = (func, param = null) => {
     try {
       eval(func);
@@ -16,6 +22,7 @@ const Waiter = () => {
     }
   };
 
+  // biome-ignore lint/correctness/noUnusedFunctionParameters: required for interpeter
   const take = (data, param = null) => {
     try {
       if (!data) {
