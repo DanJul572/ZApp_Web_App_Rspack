@@ -1,16 +1,13 @@
-import { useQuery } from '@tanstack/react-query';
-import { useEffect, useState } from 'react';
-
 import Autocomplete from '@mui/material/Autocomplete';
 import Box from '@mui/material/Box';
 import List from '@mui/material/List';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
-
-import Request from '@/hook/Request';
-
+import { useQuery } from '@tanstack/react-query';
+import { useEffect, useState } from 'react';
 import CApiUrl from '@/constant/CApiUrl';
 import CTheme from '@/constant/CTheme';
+import Request from '@/hook/Request';
 
 const Dropdown = (props) => {
   const { label, onChange, options, value, disabled, id, multiple } = props;
@@ -32,7 +29,7 @@ const Dropdown = (props) => {
 
   const finalOptions = options || requestOptions;
 
-  const handleChange = (e, param) => {
+  const handleChange = (_e, param) => {
     if (!multiple) {
       return onChange(param ? param.value : null);
     }

@@ -1,12 +1,10 @@
-import { useEffect, useState } from 'react';
-
-import { useTheme } from '@mui/material';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-
 import AlignHorizontalCenter from '@mui/icons-material/AlignHorizontalCenter';
 import AlignHorizontalLeft from '@mui/icons-material/AlignHorizontalLeft';
 import AlignHorizontalRight from '@mui/icons-material/AlignHorizontalRight';
+import { useTheme } from '@mui/material';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+import { useEffect, useState } from 'react';
 
 /*
 import AlignVerticalBottom from '@mui/icons-material/AlignVerticalBottom';

@@ -1,26 +1,20 @@
-import { useMutation } from '@tanstack/react-query';
-import { useState } from 'react';
-import { Link, useNavigate } from 'react-router';
-
-import { useExpandedMenu } from '@/context/ExpandedMenuProvider';
-import { useToast } from '@/context/ToastProvider';
-
 import { createTheme } from '@mui/material';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
 import Typography from '@mui/material/Typography';
-
+import { useMutation } from '@tanstack/react-query';
+import { useState } from 'react';
+import { Link, useNavigate } from 'react-router';
 import Password from '@/component/input/Password';
 import ShortText from '@/component/input/ShortText';
-
-import Request from '@/hook/Request';
-import Translator from '@/hook/Translator';
-
 import CApiUrl from '@/constant/CApiUrl';
 import CTheme from '@/constant/CTheme';
-
+import { useExpandedMenu } from '@/context/ExpandedMenuProvider';
+import { useToast } from '@/context/ToastProvider';
 import handleError from '@/helper/handleError';
+import Request from '@/hook/Request';
+import Translator from '@/hook/Translator';
 
 const Page = () => {
   const theme = createTheme(CTheme);

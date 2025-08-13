@@ -1,14 +1,11 @@
 import { useQuery } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
-
-import { useAlert } from '@/context/AlertProvider';
-import { useLoading } from '@/context/LoadingProvider';
-
-import Request from '@/hook/Request';
-
 import CActionType from '@/constant/CActionType';
 import CApiUrl from '@/constant/CApiUrl';
+import { useAlert } from '@/context/AlertProvider';
+import { useLoading } from '@/context/LoadingProvider';
+import Request from '@/hook/Request';
 
 const TableFunction = (props) => {
   const { moduleID, actions, isBuilder, defaultFilter } = props;

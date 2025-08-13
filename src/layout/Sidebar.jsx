@@ -1,17 +1,13 @@
-import { useQuery } from '@tanstack/react-query';
-import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router';
-
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import CircularProgress from '@mui/material/CircularProgress';
 import Typography from '@mui/material/Typography';
-
-import Request from '@/hook/Request';
-
+import { useQuery } from '@tanstack/react-query';
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router';
 import Tree from '@/component/tree';
-
 import CApiUrl from '@/constant/CApiUrl';
+import Request from '@/hook/Request';
 
 const Loading = ({ isLoading }) => {
   if (isLoading) {

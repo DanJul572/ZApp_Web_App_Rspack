@@ -1,5 +1,3 @@
-import { useEffect, useState } from 'react';
-
 import InsertLink from '@mui/icons-material/InsertLink';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -9,14 +7,13 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
+import { useEffect, useState } from 'react';
 
 import Code from '@/component/input/Code';
-
-import Translator from '@/hook/Translator';
+import CTheme from '@/constant/CTheme';
 
 import isValidProperties from '@/helper/isValidProperties';
-
-import CTheme from '@/constant/CTheme';
+import Translator from '@/hook/Translator';
 
 const CodeForm = (props) => {
   const { content, selected, editComponent, setContent, label, name } = props;

@@ -1,7 +1,6 @@
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-
-import Waiter from '@/interpreter/waiter';
+import ZTable from '@/alias/ZTable';
 
 import Confirm from '@/component/dialog/Confirm';
 
@@ -12,8 +11,7 @@ import CTheme from '@/constant/CTheme';
 import TableFunction from '@/hook/TableFunction';
 
 import Translator from '@/hook/Translator';
-
-import ZTable from '@/alias/ZTable';
+import Waiter from '@/interpreter/waiter';
 
 const Table = (props) => {
   const { type, properties, isBuilder } = props;

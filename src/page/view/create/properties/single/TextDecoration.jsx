@@ -1,11 +1,9 @@
-import { useEffect, useState } from 'react';
-
-import { useTheme } from '@mui/material';
-import Box from '@mui/material/Box';
-
 import FormatBold from '@mui/icons-material/FormatBold';
 import FormatItalic from '@mui/icons-material/FormatItalic';
 import FormatUnderlined from '@mui/icons-material/FormatUnderlined';
+import { useTheme } from '@mui/material';
+import Box from '@mui/material/Box';
+import { useEffect, useState } from 'react';
 
 import CComponentGroupType from '@/constant/CComponentGroupType';
 import CTheme from '@/constant/CTheme';

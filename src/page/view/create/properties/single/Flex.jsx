@@ -1,6 +1,5 @@
-import { useEffect, useState } from 'react';
-
 import Box from '@mui/material/Box';
+import { useEffect, useState } from 'react';
 
 import Toggle from '@/component/input/Toggle';
 

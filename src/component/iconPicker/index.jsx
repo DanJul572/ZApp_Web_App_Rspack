@@ -16,6 +16,7 @@ const IconPicker = (props) => {
       }}
     >
       {iconNames.map((iconName) => {
+        // biome-ignore format/all: This file is intentionally ignored
         const IconComponent = Icon[iconName];
         return (
           <IconButton

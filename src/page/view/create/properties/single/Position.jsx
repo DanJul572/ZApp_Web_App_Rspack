@@ -1,5 +1,6 @@
-import { useEffect, useState } from 'react';
-
+import ArrowDropDown from '@mui/icons-material/ArrowDropDown';
+import ArrowDropUp from '@mui/icons-material/ArrowDropUp';
+import ShortTextOutlined from '@mui/icons-material/ShortTextOutlined';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
@@ -8,18 +9,13 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
-
-import ArrowDropDown from '@mui/icons-material/ArrowDropDown';
-import ArrowDropUp from '@mui/icons-material/ArrowDropUp';
-import ShortTextOutlined from '@mui/icons-material/ShortTextOutlined';
+import { useEffect, useState } from 'react';
 
 import NumberField from '@/component/input/NumberField';
 import ShortText from '@/component/input/ShortText';
-
-import Translator from '@/hook/Translator';
-
 import CComponentGroupType from '@/constant/CComponentGroupType';
 import CTheme from '@/constant/CTheme';
+import Translator from '@/hook/Translator';
 
 const Position = (props) => {
   const { selected, content, setContent, setSelected, deleteComponent } = props;

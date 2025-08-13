@@ -1,11 +1,9 @@
-import { useState } from 'react';
-import { v4 as uuidv4 } from 'uuid';
-
-import PropTypes from 'prop-types';
-
 import Box from '@mui/material/Box';
 import Tabs from '@mui/material/Tabs';
 import Typography from '@mui/material/Typography';
+import PropTypes from 'prop-types';
+import { useState } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 
 import MuiTab from '@/alias/MuiTab';
 
@@ -43,7 +41,7 @@ function a11yProps(index) {
 const Header = (props) => {
   const { value, setValue, label } = props;
 
-  const handleChange = (event, newValue) => {
+  const handleChange = (_event, newValue) => {
     setValue(newValue);
   };
 
@@ -59,7 +57,7 @@ const Header = (props) => {
           {label &&
             label.length > 0 &&
             label.map((item, index) => (
-              <MuiTab key={index} label={item} {...a11yProps(index)} />
+              <MuiTab key={item} label={item} {...a11yProps(index)} />
             ))}
         </Tabs>
       </Box>

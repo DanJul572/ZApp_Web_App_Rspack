@@ -1,10 +1,9 @@
-import MuiAlert from '@/alias/MuiAlert';
 import Close from '@mui/icons-material/Close';
 import IconButton from '@mui/material/IconButton';
-
+import MuiAlert from '@/alias/MuiAlert';
+import CTheme from '@/constant/CTheme';
 import { useAlert } from '@/context/AlertProvider';
 import Translator from '@/hook/Translator';
-import CTheme from '@/constant/CTheme';
 
 const Alert = () => {
   const { alert, setAlert } = useAlert();

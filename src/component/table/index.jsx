@@ -1,17 +1,14 @@
-import { useEffect, useState } from 'react';
-
+import Box from '@mui/material/Box';
+import Stack from '@mui/material/Stack';
 import {
   MaterialReactTable,
   useMaterialReactTable,
 } from 'material-react-table';
-
-import Box from '@mui/material/Box';
-import Stack from '@mui/material/Stack';
-
-import Translator from '@/hook/Translator';
-
+import { useEffect, useState } from 'react';
+import CActionType from '@/constant/CActionType';
+import CInputType from '@/constant/CInputType';
 import dataDisplay from '@/helper/dataDisplay';
-
+import Translator from '@/hook/Translator';
 import AdvanceFilter from './AdvanceFilter';
 import RowCustomActionDialog from './CustomActionDialog';
 import Download from './Download';
@@ -19,9 +16,6 @@ import ExportDialog from './ExportDialog';
 import RowAction from './RowAction';
 import ToolbarAction from './ToolbarAction';
 import ToolBarComponent from './ToolbarComponent';
-
-import CActionType from '@/constant/CActionType';
-import CInputType from '@/constant/CInputType';
 
 const Table = (props) => {
   const {

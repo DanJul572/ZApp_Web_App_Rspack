@@ -1,9 +1,8 @@
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 import { BarChart } from '@mui/x-charts/BarChart';
-
-import Translator from '@/hook/Translator';
 import CTheme from '@/constant/CTheme';
+import Translator from '@/hook/Translator';
 
 const Bar = (props) => {
   const { labels, values } = props;

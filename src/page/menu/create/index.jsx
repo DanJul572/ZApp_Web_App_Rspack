@@ -1,9 +1,8 @@
-import { useAlert } from '@/context/AlertProvider';
-import { useMutation, useQuery } from '@tanstack/react-query';
-import { useEffect, useState } from 'react';
-import { useNavigate, useSearchParams } from 'react-router';
-
-import { v4 as uuidv4 } from 'uuid';
+import CreateNewFolder from '@mui/icons-material/CreateNewFolder';
+import Delete from '@mui/icons-material/Delete';
+import KeyboardArrowDown from '@mui/icons-material/KeyboardArrowDown';
+import KeyboardArrowUp from '@mui/icons-material/KeyboardArrowUp';
+import NoteAdd from '@mui/icons-material/NoteAdd';
 
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -12,30 +11,25 @@ import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
-
-import CreateNewFolder from '@mui/icons-material/CreateNewFolder';
-import Delete from '@mui/icons-material/Delete';
-import KeyboardArrowDown from '@mui/icons-material/KeyboardArrowDown';
-import KeyboardArrowUp from '@mui/icons-material/KeyboardArrowUp';
-import NoteAdd from '@mui/icons-material/NoteAdd';
-
+import { useMutation, useQuery } from '@tanstack/react-query';
+import { useEffect, useState } from 'react';
+import { useNavigate, useSearchParams } from 'react-router';
+import { v4 as uuidv4 } from 'uuid';
 import Upload from '@/component/button/Upload';
 import IconPicker from '@/component/iconPicker';
 import Dropdown from '@/component/input/Dropdown';
 import ShortText from '@/component/input/ShortText';
 import ContentLoader from '@/component/loading/ContentLoader';
 import Tree from '@/component/tree';
-
 import CApiUrl from '@/constant/CApiUrl';
 import CFieldID from '@/constant/CFieldID';
 import CModuleID from '@/constant/CModuleID';
 import CTheme from '@/constant/CTheme';
-
-import Request from '@/hook/Request';
-import Translator from '@/hook/Translator';
-
+import { useAlert } from '@/context/AlertProvider';
 import { downloadJsonFile } from '@/helper/downloadFile';
 import { readJSONFile } from '@/helper/readFile';
+import Request from '@/hook/Request';
+import Translator from '@/hook/Translator';
 
 const Page = () => {
   const { post, get } = Request();

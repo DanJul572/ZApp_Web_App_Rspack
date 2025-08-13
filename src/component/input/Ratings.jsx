@@ -8,7 +8,7 @@ import CTheme from '@/constant/CTheme';
 const Ratings = (props) => {
   const { value, onChange, label, disabled } = props;
 
-  const handleChange = (event, newValue) => {
+  const handleChange = (_event, newValue) => {
     if (onChange) {
       onChange(newValue);
     }

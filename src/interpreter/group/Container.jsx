@@ -8,15 +8,11 @@ import Drawer from '@/component/container/Drawer';
 import Tab from '@/component/container/Tab';
 
 import CContainerType from '@/constant/CContainerType';
-
+import CTheme from '@/constant/CTheme';
 import Content from '@/hook/Content';
 import Translator from '@/hook/Translator';
-
 import Waiter from '@/interpreter/waiter';
-
 import Page from './Page';
-
-import CTheme from '@/constant/CTheme';
 
 const Container = (props) => {
   const { type, section, properties, renderComponent, isBuilder } = props;

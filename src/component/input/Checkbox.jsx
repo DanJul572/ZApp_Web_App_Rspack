@@ -25,7 +25,7 @@ const Checkbox = (props) => {
   return (
     <Box>
       <Typography fontSize={CTheme.font.size.value}>{label}</Typography>
-      {options && options.length && (
+      {options?.length && (
         <FormGroup row>
           {options.map((option) => (
             <FormControlLabel

@@ -1,9 +1,7 @@
 import axios from 'axios';
 import { useNavigate } from 'react-router';
-
-import auth from '@/helper/auth';
-
 import CApiUrl from '@/constant/CApiUrl';
+import auth from '@/helper/auth';
 
 const Request = () => {
   const navigate = useNavigate();

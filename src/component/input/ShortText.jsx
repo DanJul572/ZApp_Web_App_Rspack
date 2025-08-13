@@ -1,13 +1,10 @@
+import Help from '@mui/icons-material/Help';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
-
-import Help from '@mui/icons-material/Help';
-
-import { validator } from '@/helper/validator';
-
 import CTheme from '@/constant/CTheme';
+import { validator } from '@/helper/validator';
 
 const ShortText = (props) => {
   const {

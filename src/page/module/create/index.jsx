@@ -1,24 +1,17 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router';
-
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-
-import FieldForm from './FieldForm';
-import ModuleForm from './ModuleForm';
-
-import { useAlert } from '@/context/AlertProvider';
-import { useLoading } from '@/context/LoadingProvider';
-
-import Request from '@/hook/Request';
-import Translator from '@/hook/Translator';
-
-import { readJSONFile } from '@/helper/readFile';
-
+import { useState } from 'react';
+import { useNavigate } from 'react-router';
 import Upload from '@/component/button/Upload';
-
 import CApiUrl from '@/constant/CApiUrl';
 import CTheme from '@/constant/CTheme';
+import { useAlert } from '@/context/AlertProvider';
+import { useLoading } from '@/context/LoadingProvider';
+import { readJSONFile } from '@/helper/readFile';
+import Request from '@/hook/Request';
+import Translator from '@/hook/Translator';
+import FieldForm from './FieldForm';
+import ModuleForm from './ModuleForm';
 
 const Page = () => {
   const { post } = Request();

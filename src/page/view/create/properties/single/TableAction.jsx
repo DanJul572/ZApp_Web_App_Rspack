@@ -1,7 +1,4 @@
-import { useEffect, useState } from 'react';
-
 import InsertLink from '@mui/icons-material/InsertLink';
-
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
@@ -11,15 +8,14 @@ import DialogTitle from '@mui/material/DialogTitle';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
+import { useEffect, useState } from 'react';
 
 import Code from '@/component/input/Code';
 import Toggle from '@/component/input/Toggle';
-
-import Translator from '@/hook/Translator';
-
 import CActionType from '@/constant/CActionType';
 import CComponentGroupType from '@/constant/CComponentGroupType';
 import CTheme from '@/constant/CTheme';
+import Translator from '@/hook/Translator';
 
 const TableAction = (props) => {
   const { content, selected, editComponent, setContent } = props;

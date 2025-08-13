@@ -1,26 +1,19 @@
-import { useQuery } from '@tanstack/react-query';
-import { useEffect } from 'react';
-import { v4 as uuidv4 } from 'uuid';
-
-import { MuiFileInput } from 'mui-file-input';
-
+import Close from '@mui/icons-material/Close';
+import Download from '@mui/icons-material/Download';
 import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
-
-import Close from '@mui/icons-material/Close';
-import Download from '@mui/icons-material/Download';
-
-import { useFile } from '@/context/FileProvider';
-
-import { downloadFile } from '@/helper/downloadFile';
-import { getFileFromBuffer } from '@/helper/readFile';
-
-import Request from '@/hook/Request';
-import Translator from '@/hook/Translator';
-
+import { useQuery } from '@tanstack/react-query';
+import { MuiFileInput } from 'mui-file-input';
+import { useEffect } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 import CApiUrl from '@/constant/CApiUrl';
 import CTheme from '@/constant/CTheme';
+import { useFile } from '@/context/FileProvider';
+import { downloadFile } from '@/helper/downloadFile';
+import { getFileFromBuffer } from '@/helper/readFile';
+import Request from '@/hook/Request';
+import Translator from '@/hook/Translator';
 
 const File = (props) => {
   const { label, onChange, name, disabled, value } = props;

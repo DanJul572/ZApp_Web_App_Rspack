@@ -1,12 +1,17 @@
-import PropTypes from 'prop-types';
-import { useState } from 'react';
-import { v4 as uuidv4 } from 'uuid';
-
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import Tab from '@mui/material/Tab';
 import Tabs from '@mui/material/Tabs';
-
+import PropTypes from 'prop-types';
+import { useState } from 'react';
+import { v4 as uuidv4 } from 'uuid';
+import CComponentGroupType from '@/constant/CComponentGroupType';
+import CProperties from '@/constant/CProperties';
+import CTheme from '@/constant/CTheme';
+import Translator from '@/hook/Translator';
+import CodeForm from './common/CodeForm';
+import ShortTextForm from './common/ShortTextForm';
+import ToggleCodeFormProperties from './common/ToggleCodeFormProperties';
 import Anchor from './single/Anchor';
 import Color from './single/Color';
 import Delete from './single/Delete';
@@ -18,16 +23,6 @@ import PageSettings from './single/PageSettings';
 import Position from './single/Position';
 import TableAction from './single/TableAction';
 import TextDecoration from './single/TextDecoration';
-
-import CodeForm from './common/CodeForm';
-import ShortTextForm from './common/ShortTextForm';
-import ToggleCodeFormProperties from './common/ToggleCodeFormProperties';
-
-import Translator from '@/hook/Translator';
-
-import CComponentGroupType from '@/constant/CComponentGroupType';
-import CProperties from '@/constant/CProperties';
-import CTheme from '@/constant/CTheme';
 
 const CustomTabPanel = (props) => {
   const { children, value, index, ...other } = props;
@@ -76,7 +71,7 @@ const Properties = (props) => {
 
   const [value, setValue] = useState(0);
 
-  const handleChange = (event, newValue) => {
+  const handleChange = (_event, newValue) => {
     setValue(newValue);
   };
 

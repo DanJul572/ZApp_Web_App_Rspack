@@ -1,5 +1,5 @@
+import ContentLoader from '@/component/loading/ContentLoader';
 import CComponentGroupType from '@/constant/CComponentGroupType';
-
 import Button from './group/Button';
 import Chart from './group/Chart';
 import Container from './group/Container';
@@ -8,8 +8,6 @@ import Page from './group/Page';
 import Table from './group/Table';
 import VisualElement from './group/VisualElement';
 import Wraper from './group/Wrapper';
-
-import ContentLoader from '@/component/loading/ContentLoader';
 
 const Interpreter = (props) => {
   const {

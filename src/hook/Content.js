@@ -1,13 +1,10 @@
 import { useQuery } from '@tanstack/react-query';
 import { useParams } from 'react-router';
-
-import Request from './Request';
-import Translator from './Translator';
-
 import CApiUrl from '@/constant/CApiUrl';
 import CModuleID from '@/constant/CModuleID';
-
 import { decrypt } from '@/helper/encryption';
+import Request from './Request';
+import Translator from './Translator';
 
 const Content = ({ isBuilder }) => {
   const params = useParams();

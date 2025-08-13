@@ -1,9 +1,3 @@
-import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router';
-
-import { useLoading } from '@/context/LoadingProvider';
-import { useToast } from '@/context/ToastProvider';
-
 import ArrowBack from '@mui/icons-material/ArrowBack';
 import { useTheme } from '@mui/material';
 import Box from '@mui/material/Box';
@@ -11,27 +5,26 @@ import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
-
-import { readJSONFile } from '@/helper/readFile';
-
-import Request from '@/hook/Request';
-import Translator from '@/hook/Translator';
-
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router';
+import Upload from '@/component/button/Upload';
+import Confirm from '@/component/dialog/Confirm';
+import List from '@/component/dialog/List';
+import CActionType from '@/constant/CActionType';
+import CApiUrl from '@/constant/CApiUrl';
+import CModuleID from '@/constant/CModuleID';
+import CTheme from '@/constant/CTheme';
+import { useLoading } from '@/context/LoadingProvider';
+import { useToast } from '@/context/ToastProvider';
 import { downloadJsonFile } from '@/helper/downloadFile';
 import { decrypt, encrypt } from '@/helper/encryption';
 import {
   generateContent,
   generateInvalidContent,
 } from '@/helper/generateContent';
-
-import Upload from '@/component/button/Upload';
-import Confirm from '@/component/dialog/Confirm';
-import List from '@/component/dialog/List';
-
-import CActionType from '@/constant/CActionType';
-import CApiUrl from '@/constant/CApiUrl';
-import CModuleID from '@/constant/CModuleID';
-import CTheme from '@/constant/CTheme';
+import { readJSONFile } from '@/helper/readFile';
+import Request from '@/hook/Request';
+import Translator from '@/hook/Translator';
 
 const TopBar = (props) => {
   const {

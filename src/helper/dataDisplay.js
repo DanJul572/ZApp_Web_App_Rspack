@@ -1,9 +1,7 @@
 import dayjs from 'dayjs';
-
-import isValidValue from './isValidValue';
-
 import CDateTimeFormat from '@/constant/CDateTimeFormat';
 import CInputType from '@/constant/CInputType';
+import isValidValue from './isValidValue';
 
 const dataDisplay = (type, value) => {
   if (type === CInputType.code.value) return isValidValue(value) ? 'Code' : '';

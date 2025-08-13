@@ -1,13 +1,11 @@
-import { useEffect, useState } from 'react';
-
-import { useTheme } from '@mui/material';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-
 import ArrowDropDown from '@mui/icons-material/ArrowDropDown';
 import ArrowDropUp from '@mui/icons-material/ArrowDropUp';
 import ArrowLeft from '@mui/icons-material/ArrowLeft';
 import ArrowRight from '@mui/icons-material/ArrowRight';
+import { useTheme } from '@mui/material';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+import { useEffect, useState } from 'react';
 
 import CComponentGroupType from '@/constant/CComponentGroupType';
 import CContainerType from '@/constant/CContainerType';

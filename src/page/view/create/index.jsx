@@ -1,19 +1,15 @@
+import Box from '@mui/material/Box';
 import { useQuery } from '@tanstack/react-query';
 import { useState } from 'react';
 import { useSearchParams } from 'react-router';
-
-import Box from '@mui/material/Box';
-
+import CApiUrl from '@/constant/CApiUrl';
+import Request from '@/hook/Request';
+import Empty from '@/layout/Empty';
 import Component from './component';
 import Content from './content';
 import Preview from './preview';
 import Properties from './properties';
 import TopBar from './topbar';
-
-import Request from '@/hook/Request';
-import Empty from '@/layout/Empty';
-
-import CApiUrl from '@/constant/CApiUrl';
 
 const Page = () => {
   const [searchParams] = useSearchParams();

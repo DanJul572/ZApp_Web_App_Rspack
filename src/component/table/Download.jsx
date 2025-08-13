@@ -1,15 +1,11 @@
+import FileDownload from '@mui/icons-material/FileDownload';
 import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
-
-import FileDownload from '@mui/icons-material/FileDownload';
-
-import Request from '@/hook/Request';
-
-import { downloadFileFromBuffer } from '@/helper/downloadFile';
-import { extractFileNames } from '@/helper/readFile';
-
 import CApiUrl from '@/constant/CApiUrl';
 import CTheme from '@/constant/CTheme';
+import { downloadFileFromBuffer } from '@/helper/downloadFile';
+import { extractFileNames } from '@/helper/readFile';
+import Request from '@/hook/Request';
 
 const Download = ({ label }) => {
   const { get } = Request();

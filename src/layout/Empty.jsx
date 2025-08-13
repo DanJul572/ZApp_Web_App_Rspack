@@ -1,4 +1,4 @@
-import { ThemeProvider, createTheme } from '@mui/material';
+import { createTheme, ThemeProvider } from '@mui/material';
 import CssBaseline from '@mui/material/CssBaseline';
 
 import FullCoverLoader from '@/component/loading/FullCoverLoader';

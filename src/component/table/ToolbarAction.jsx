@@ -1,10 +1,8 @@
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-
-import Translator from '@/hook/Translator';
-
 import CActionType from '@/constant/CActionType';
 import CTheme from '@/constant/CTheme';
+import Translator from '@/hook/Translator';
 
 const ToolbarAction = (props) => {
   const {

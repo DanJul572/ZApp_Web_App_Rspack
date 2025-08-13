@@ -7,7 +7,6 @@ const Waiter = () => {
   const ZBuilder = Builder();
   const ZQuery = Query();
 
-  // eslint-disable-next-line no-unused-vars
   const order = (func, param = null) => {
     try {
       eval(func);
@@ -17,7 +16,6 @@ const Waiter = () => {
     }
   };
 
-  // eslint-disable-next-line no-unused-vars
   const take = (data, param = null) => {
     try {
       if (!data) {

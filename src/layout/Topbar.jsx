@@ -1,15 +1,11 @@
-import { useNavigate } from 'react-router';
-
-import { useExpandedMenu } from '@/context/ExpandedMenuProvider';
-
+import Logout from '@mui/icons-material/Logout';
 import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
-
-import Logout from '@mui/icons-material/Logout';
-
-import auth from '@/helper/auth';
+import { useNavigate } from 'react-router';
 import CTheme from '@/constant/CTheme';
+import { useExpandedMenu } from '@/context/ExpandedMenuProvider';
+import auth from '@/helper/auth';
 
 const Topbar = () => {
   const navigate = useNavigate();

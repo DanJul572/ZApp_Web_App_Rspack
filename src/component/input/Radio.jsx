@@ -13,7 +13,7 @@ const Radio = (props) => {
   return (
     <Box>
       <Typography fontSize={CTheme.font.size.value}>{label}</Typography>
-      {options && options.length && (
+      {options?.length && (
         <RadioGroup row>
           {options.map((option) => (
             <FormControlLabel

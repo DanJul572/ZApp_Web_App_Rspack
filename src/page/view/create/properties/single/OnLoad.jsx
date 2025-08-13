@@ -1,7 +1,4 @@
-import { useEffect, useState } from 'react';
-
 import InsertLink from '@mui/icons-material/InsertLink';
-
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
@@ -10,12 +7,10 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
-
-import Translator from '@/hook/Translator';
-
+import { useEffect, useState } from 'react';
 import Code from '@/component/input/Code';
-
 import CTheme from '@/constant/CTheme';
+import Translator from '@/hook/Translator';
 
 const OnLoad = (props) => {
   const { page, setPage } = props;

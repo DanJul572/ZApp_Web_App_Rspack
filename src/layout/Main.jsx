@@ -1,11 +1,10 @@
-import Alert from '@/component/alert';
+import { createTheme, ThemeProvider } from '@mui/material';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import CssBaseline from '@mui/material/CssBaseline';
 
 import Toolbar from '@mui/material/Toolbar';
-
-import { ThemeProvider, createTheme } from '@mui/material';
+import Alert from '@/component/alert';
 
 import FullCoverLoader from '@/component/loading/FullCoverLoader';
 import Toast from '@/component/toast';

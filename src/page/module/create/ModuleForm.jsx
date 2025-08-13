@@ -4,8 +4,6 @@ import Grid from '@mui/material/Grid';
 import LongText from '@/component/input/LongText';
 import ShortText from '@/component/input/ShortText';
 
-import CTheme from '@/constant/CTheme';
-
 const ModuleForm = (props) => {
   const {
     moduleName,

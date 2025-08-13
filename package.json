@@ -7,7 +7,6 @@
     "build": "rsbuild build",
     "check": "biome check --write",
     "dev": "rsbuild dev",
-    "format": "prettier --write .",
     "lint": "eslint . --fix",
     "preview": "rsbuild preview"
   },
@@ -50,8 +49,7 @@
     "eslint": "^9.33.0",
     "eslint-plugin-react": "^7.37.5",
     "eslint-plugin-react-hooks": "^5.2.0",
-    "globals": "^16.3.0",
-    "prettier": "^3.6.2"
+    "globals": "^16.3.0"
   },
   "packageManager": "pnpm@10.14.0"
 }

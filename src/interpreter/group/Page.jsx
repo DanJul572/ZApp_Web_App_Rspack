@@ -1,9 +1,7 @@
 import { useEffect } from 'react';
-
+import { useFile } from '@/context/FileProvider';
 import Comp from '@/hook/Comp';
 import Vars from '@/hook/Vars';
-
-import { useFile } from '@/context/FileProvider';
 
 import Waiter from '@/interpreter/waiter';
 
