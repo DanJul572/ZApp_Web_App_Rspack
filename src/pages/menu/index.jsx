@@ -1,8 +1,8 @@
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import CActionType from '@/constantss/CActionType';
-import CModuleID from '@/constantss/CModuleID';
-import ClassicView from '@/templatess/ClassicView';
+import CActionType from '@/constants/CActionType';
+import CModuleID from '@/constants/CModuleID';
+import ClassicView from '@/templates/ClassicView';
 
 const Page = () => {
   const actions = [

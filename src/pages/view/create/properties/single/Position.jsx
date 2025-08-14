@@ -11,10 +11,10 @@ import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import { useEffect, useState } from 'react';
 
-import NumberField from '@/componentss/input/NumberField';
-import ShortText from '@/componentss/input/ShortText';
-import CComponentGroupType from '@/constantss/CComponentGroupType';
-import CTheme from '@/constantss/CTheme';
+import NumberField from '@/components/input/NumberField';
+import ShortText from '@/components/input/ShortText';
+import CComponentGroupType from '@/constants/CComponentGroupType';
+import CTheme from '@/constants/CTheme';
 import Translator from '@/hooks/Translator';
 
 const Position = (props) => {

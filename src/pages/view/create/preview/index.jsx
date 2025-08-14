@@ -1,4 +1,4 @@
-import FullScreen from '@/componentss/dialog/FullScreen';
+import FullScreen from '@/components/dialog/FullScreen';
 
 import Interpreter from '@/interpreter';
 

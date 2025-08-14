@@ -10,11 +10,11 @@ import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import { useEffect, useState } from 'react';
 
-import Code from '@/componentss/input/Code';
-import Toggle from '@/componentss/input/Toggle';
-import CActionType from '@/constantss/CActionType';
-import CComponentGroupType from '@/constantss/CComponentGroupType';
-import CTheme from '@/constantss/CTheme';
+import Code from '@/components/input/Code';
+import Toggle from '@/components/input/Toggle';
+import CActionType from '@/constants/CActionType';
+import CComponentGroupType from '@/constants/CComponentGroupType';
+import CTheme from '@/constants/CTheme';
 import Translator from '@/hooks/Translator';
 
 const TableAction = (props) => {

@@ -1,10 +1,10 @@
 import { createTheme, ThemeProvider } from '@mui/material';
 import CssBaseline from '@mui/material/CssBaseline';
 
-import FullCoverLoader from '@/componentss/loading/FullCoverLoader';
-import Toast from '@/componentss/toast';
+import FullCoverLoader from '@/components/loading/FullCoverLoader';
+import Toast from '@/components/toast';
 
-import CTheme from '@/constantss/CTheme';
+import CTheme from '@/constants/CTheme';
 
 const Empty = ({ children }) => {
   const theme = createTheme(CTheme);

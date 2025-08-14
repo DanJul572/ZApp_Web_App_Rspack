@@ -1,10 +1,10 @@
 import { v4 as uuidv4 } from 'uuid';
 
-import CActionType from '@/constantss/CActionType';
-import CButtonType from '@/constantss/CButtonType';
-import CComponentGroupType from '@/constantss/CComponentGroupType';
-import CInputType from '@/constantss/CInputType';
-import CVisualElement from '@/constantss/CVisualElementType';
+import CActionType from '@/constants/CActionType';
+import CButtonType from '@/constants/CButtonType';
+import CComponentGroupType from '@/constants/CComponentGroupType';
+import CInputType from '@/constants/CInputType';
+import CVisualElement from '@/constants/CVisualElementType';
 
 const getInputTypeValue = (value) => {
   for (const key in CInputType) {

@@ -1,8 +1,8 @@
 import { useQuery } from '@tanstack/react-query';
 import { useParams } from 'react-router';
-import CApiUrl from '@/constantss/CApiUrl';
-import CModuleID from '@/constantss/CModuleID';
-import { decrypt } from '@/helperss/encryption';
+import CApiUrl from '@/constants/CApiUrl';
+import CModuleID from '@/constants/CModuleID';
+import { decrypt } from '@/helpers/encryption';
 import Request from './Request';
 import Translator from './Translator';
 

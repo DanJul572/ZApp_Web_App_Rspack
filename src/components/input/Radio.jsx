@@ -3,9 +3,9 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import RadioGroup from '@mui/material/RadioGroup';
 import Typography from '@mui/material/Typography';
 
-import MuiRadio from '@/aliaseses/MuiRadio';
+import MuiRadio from '@/aliases/MuiRadio';
 
-import CTheme from '@/constantss/CTheme';
+import CTheme from '@/constants/CTheme';
 
 const Radio = (props) => {
   const { value, label, options, disabled, onChange } = props;

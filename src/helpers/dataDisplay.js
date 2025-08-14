@@ -1,6 +1,6 @@
 import dayjs from 'dayjs';
-import CDateTimeFormat from '@/constantss/CDateTimeFormat';
-import CInputType from '@/constantss/CInputType';
+import CDateTimeFormat from '@/constants/CDateTimeFormat';
+import CInputType from '@/constants/CInputType';
 import isValidValue from './isValidValue';
 
 const dataDisplay = (type, value) => {

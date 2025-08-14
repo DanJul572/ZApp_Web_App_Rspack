@@ -4,11 +4,11 @@ import Card from '@mui/material/Card';
 import Modal from '@mui/material/Modal';
 import { useEffect, useState } from 'react';
 
-import IconPicker from '@/componentss/iconPicker';
-import Toggle from '@/componentss/input/Toggle';
+import IconPicker from '@/components/iconPicker';
+import Toggle from '@/components/input/Toggle';
 
-import CButtonType from '@/constantss/CButtonType';
-import CComponentGroupType from '@/constantss/CComponentGroupType';
+import CButtonType from '@/constants/CButtonType';
+import CComponentGroupType from '@/constants/CComponentGroupType';
 
 const Icon = (props) => {
   const { content, selected, editComponent, setContent } = props;

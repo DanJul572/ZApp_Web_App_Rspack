@@ -3,17 +3,17 @@ import Button from '@mui/material/Button';
 import { grey } from '@mui/material/colors';
 import Drawer from '@mui/material/Drawer';
 import { useState } from 'react';
-import Confirm from '@/componentss/dialog/Confirm';
-import Dropdown from '@/componentss/input/Dropdown';
-import NumberField from '@/componentss/input/NumberField';
-import ShortText from '@/componentss/input/ShortText';
-import Toggle from '@/componentss/input/Toggle';
-import Table from '@/componentss/table';
-import CActionType from '@/constantss/CActionType';
-import CDataType from '@/constantss/CDataType';
-import CInputType from '@/constantss/CInputType';
+import Confirm from '@/components/dialog/Confirm';
+import Dropdown from '@/components/input/Dropdown';
+import NumberField from '@/components/input/NumberField';
+import ShortText from '@/components/input/ShortText';
+import Toggle from '@/components/input/Toggle';
+import Table from '@/components/table';
+import CActionType from '@/constants/CActionType';
+import CDataType from '@/constants/CDataType';
+import CInputType from '@/constants/CInputType';
 
-import CTheme from '@/constantss/CTheme';
+import CTheme from '@/constants/CTheme';
 
 import Translator from '@/hooks/Translator';
 

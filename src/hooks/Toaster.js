@@ -1,4 +1,4 @@
-import { useToast } from '@/contextss/ToastProvider';
+import { useToast } from '@/contexts/ToastProvider';
 
 const Toaster = () => {
   const { setToast } = useToast();

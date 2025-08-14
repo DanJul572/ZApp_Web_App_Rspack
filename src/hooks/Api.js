@@ -1,6 +1,6 @@
-import CApiUrl from '@/constantss/CApiUrl';
+import CApiUrl from '@/constants/CApiUrl';
 
-import { useFile } from '@/contextss/FileProvider';
+import { useFile } from '@/contexts/FileProvider';
 
 import Request from './Request';
 

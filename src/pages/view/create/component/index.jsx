@@ -15,14 +15,14 @@ import Typography from '@mui/material/Typography';
 import { useEffect, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
-import CButtonType from '@/constantss/CButtonType';
-import CChartType from '@/constantss/CChartType';
-import CComponentGroupType from '@/constantss/CComponentGroupType';
-import CContainerType from '@/constantss/CContainerType';
-import CInputType from '@/constantss/CInputType';
-import CTableType from '@/constantss/CTableType';
-import CTheme from '@/constantss/CTheme';
-import CVisualElement from '@/constantss/CVisualElementType';
+import CButtonType from '@/constants/CButtonType';
+import CChartType from '@/constants/CChartType';
+import CComponentGroupType from '@/constants/CComponentGroupType';
+import CContainerType from '@/constants/CContainerType';
+import CInputType from '@/constants/CInputType';
+import CTableType from '@/constants/CTableType';
+import CTheme from '@/constants/CTheme';
+import CVisualElement from '@/constants/CVisualElementType';
 
 import ViewList from '../views';
 

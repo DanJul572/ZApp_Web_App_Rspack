@@ -2,8 +2,8 @@ import Box from '@mui/material/Box';
 import Rating from '@mui/material/Rating';
 import Typography from '@mui/material/Typography';
 
-import CInputType from '@/constantss/CInputType';
-import CTheme from '@/constantss/CTheme';
+import CInputType from '@/constants/CInputType';
+import CTheme from '@/constants/CTheme';
 
 const Ratings = (props) => {
   const { value, onChange, label, disabled } = props;

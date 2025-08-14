@@ -1,4 +1,4 @@
-import CValidProperty from '@/constantss/CValidProperty';
+import CValidProperty from '@/constants/CValidProperty';
 
 const isValidProperties = (name, group, type) => {
   if (!name || !group || !type) {

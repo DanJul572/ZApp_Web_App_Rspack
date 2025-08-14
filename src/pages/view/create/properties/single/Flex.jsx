@@ -1,10 +1,10 @@
 import Box from '@mui/material/Box';
 import { useEffect, useState } from 'react';
 
-import Toggle from '@/componentss/input/Toggle';
+import Toggle from '@/components/input/Toggle';
 
-import CComponentGroupType from '@/constantss/CComponentGroupType';
-import CContainerType from '@/constantss/CContainerType';
+import CComponentGroupType from '@/constants/CComponentGroupType';
+import CContainerType from '@/constants/CContainerType';
 
 const Flex = (props) => {
   const { content, selected, editComponent, setContent } = props;

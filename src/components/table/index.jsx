@@ -5,9 +5,9 @@ import {
   useMaterialReactTable,
 } from 'material-react-table';
 import { useEffect, useState } from 'react';
-import CActionType from '@/constantss/CActionType';
-import CInputType from '@/constantss/CInputType';
-import dataDisplay from '@/helperss/dataDisplay';
+import CActionType from '@/constants/CActionType';
+import CInputType from '@/constants/CInputType';
+import dataDisplay from '@/helpers/dataDisplay';
 import Translator from '@/hooks/Translator';
 import RowCustomActionDialog from './CustomActionDialog';
 import Download from './Download';

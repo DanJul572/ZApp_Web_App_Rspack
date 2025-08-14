@@ -3,9 +3,9 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import FormGroup from '@mui/material/FormGroup';
 import Typography from '@mui/material/Typography';
 
-import MuiCheckbox from '@/aliaseses/MuiCheckbox';
+import MuiCheckbox from '@/aliases/MuiCheckbox';
 
-import CTheme from '@/constantss/CTheme';
+import CTheme from '@/constants/CTheme';
 
 const Checkbox = (props) => {
   const { value, label, options, disabled, onChange } = props;

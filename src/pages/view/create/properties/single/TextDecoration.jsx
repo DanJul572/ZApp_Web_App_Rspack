@@ -5,9 +5,9 @@ import { useTheme } from '@mui/material';
 import Box from '@mui/material/Box';
 import { useEffect, useState } from 'react';
 
-import CComponentGroupType from '@/constantss/CComponentGroupType';
-import CTheme from '@/constantss/CTheme';
-import CVisualElement from '@/constantss/CVisualElementType';
+import CComponentGroupType from '@/constants/CComponentGroupType';
+import CTheme from '@/constants/CTheme';
+import CVisualElement from '@/constants/CVisualElementType';
 
 const TextDecoration = (props) => {
   const { content, selected, editComponent, setContent } = props;

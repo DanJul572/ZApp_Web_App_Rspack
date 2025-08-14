@@ -7,9 +7,9 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import { useEffect, useState } from 'react';
 
-import CComponentGroupType from '@/constantss/CComponentGroupType';
-import CContainerType from '@/constantss/CContainerType';
-import CTheme from '@/constantss/CTheme';
+import CComponentGroupType from '@/constants/CComponentGroupType';
+import CContainerType from '@/constants/CContainerType';
+import CTheme from '@/constants/CTheme';
 
 const Anchor = (props) => {
   const { content, selected, editComponent, setContent } = props;

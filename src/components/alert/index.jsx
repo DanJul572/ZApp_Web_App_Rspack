@@ -1,8 +1,8 @@
 import Close from '@mui/icons-material/Close';
 import IconButton from '@mui/material/IconButton';
-import MuiAlert from '@/aliaseses/MuiAlert';
-import CTheme from '@/constantss/CTheme';
-import { useAlert } from '@/contextss/AlertProvider';
+import MuiAlert from '@/aliases/MuiAlert';
+import CTheme from '@/constants/CTheme';
+import { useAlert } from '@/contexts/AlertProvider';
 import Translator from '@/hooks/Translator';
 
 const Alert = () => {

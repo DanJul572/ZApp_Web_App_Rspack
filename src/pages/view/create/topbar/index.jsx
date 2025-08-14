@@ -7,22 +7,22 @@ import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
-import Upload from '@/componentss/button/Upload';
-import Confirm from '@/componentss/dialog/Confirm';
-import List from '@/componentss/dialog/List';
-import CActionType from '@/constantss/CActionType';
-import CApiUrl from '@/constantss/CApiUrl';
-import CModuleID from '@/constantss/CModuleID';
-import CTheme from '@/constantss/CTheme';
-import { useLoading } from '@/contextss/LoadingProvider';
-import { useToast } from '@/contextss/ToastProvider';
-import { downloadJsonFile } from '@/helperss/downloadFile';
-import { decrypt, encrypt } from '@/helperss/encryption';
+import Upload from '@/components/button/Upload';
+import Confirm from '@/components/dialog/Confirm';
+import List from '@/components/dialog/List';
+import CActionType from '@/constants/CActionType';
+import CApiUrl from '@/constants/CApiUrl';
+import CModuleID from '@/constants/CModuleID';
+import CTheme from '@/constants/CTheme';
+import { useLoading } from '@/contexts/LoadingProvider';
+import { useToast } from '@/contexts/ToastProvider';
+import { downloadJsonFile } from '@/helpers/downloadFile';
+import { decrypt, encrypt } from '@/helpers/encryption';
 import {
   generateContent,
   generateInvalidContent,
-} from '@/helperss/generateContent';
-import { readJSONFile } from '@/helperss/readFile';
+} from '@/helpers/generateContent';
+import { readJSONFile } from '@/helpers/readFile';
 import Request from '@/hooks/Request';
 import Translator from '@/hooks/Translator';
 

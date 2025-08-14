@@ -3,8 +3,8 @@ import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 
-import CComponentGroupType from '@/constantss/CComponentGroupType';
-import CTheme from '@/constantss/CTheme';
+import CComponentGroupType from '@/constants/CComponentGroupType';
+import CTheme from '@/constants/CTheme';
 
 const Identity = (props) => {
   const { selected } = props;

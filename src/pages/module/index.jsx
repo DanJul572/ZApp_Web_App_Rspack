@@ -1,14 +1,14 @@
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import CActionType from '@/constantss/CActionType';
-import CApiUrl from '@/constantss/CApiUrl';
-import CModuleID from '@/constantss/CModuleID';
-import { downloadJsonFile } from '@/helperss/downloadFile';
+import CActionType from '@/constants/CActionType';
+import CApiUrl from '@/constants/CApiUrl';
+import CModuleID from '@/constants/CModuleID';
+import { downloadJsonFile } from '@/helpers/downloadFile';
 import Alert from '@/hooks/Alert';
 import Loader from '@/hooks/Loader';
 import Request from '@/hooks/Request';
 import Translator from '@/hooks/Translator';
-import ClassicView from '@/templatess/ClassicView';
+import ClassicView from '@/templates/ClassicView';
 
 const Page = () => {
   const translator = Translator();

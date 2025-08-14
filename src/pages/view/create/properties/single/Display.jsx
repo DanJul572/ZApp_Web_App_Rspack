@@ -12,9 +12,9 @@ import AlignVerticalCenter from '@mui/icons-material/AlignVerticalCenter';
 import AlignVerticalTop from '@mui/icons-material/AlignVerticalTop';
 */
 
-import CComponentGroupType from '@/constantss/CComponentGroupType';
-import CContainerType from '@/constantss/CContainerType';
-import CTheme from '@/constantss/CTheme';
+import CComponentGroupType from '@/constants/CComponentGroupType';
+import CContainerType from '@/constants/CContainerType';
+import CTheme from '@/constants/CTheme';
 
 const Display = (props) => {
   const { content, selected, editComponent, setContent } = props;

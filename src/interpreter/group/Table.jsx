@@ -1,12 +1,12 @@
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import ZTable from '@/aliaseses/ZTable';
+import ZTable from '@/aliases/ZTable';
 
-import Confirm from '@/componentss/dialog/Confirm';
+import Confirm from '@/components/dialog/Confirm';
 
-import CActionType from '@/constantss/CActionType';
-import CTableType from '@/constantss/CTableType';
-import CTheme from '@/constantss/CTheme';
+import CActionType from '@/constants/CActionType';
+import CTableType from '@/constants/CTableType';
+import CTheme from '@/constants/CTheme';
 
 import TableFunction from '@/hooks/TableFunction';
 

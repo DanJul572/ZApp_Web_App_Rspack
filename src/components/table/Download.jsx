@@ -1,10 +1,10 @@
 import FileDownload from '@mui/icons-material/FileDownload';
 import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
-import CApiUrl from '@/constantss/CApiUrl';
-import CTheme from '@/constantss/CTheme';
-import { downloadFileFromBuffer } from '@/helperss/downloadFile';
-import { extractFileNames } from '@/helperss/readFile';
+import CApiUrl from '@/constants/CApiUrl';
+import CTheme from '@/constants/CTheme';
+import { downloadFileFromBuffer } from '@/helpers/downloadFile';
+import { extractFileNames } from '@/helpers/readFile';
 import Request from '@/hooks/Request';
 
 const Download = ({ label }) => {

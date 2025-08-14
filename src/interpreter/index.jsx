@@ -1,4 +1,4 @@
-import ContentLoader from '@/componentss/loading/ContentLoader';
+import ContentLoader from '@/components/loading/ContentLoader';
 
 import GroupComponent from './group';
 import Page from './group/Page';

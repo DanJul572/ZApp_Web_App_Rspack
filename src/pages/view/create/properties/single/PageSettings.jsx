@@ -1,6 +1,6 @@
 import Box from '@mui/material/Box';
 
-import ShortText from '@/componentss/input/ShortText';
+import ShortText from '@/components/input/ShortText';
 import OnLoad from './OnLoad';
 
 const PageSettings = (props) => {

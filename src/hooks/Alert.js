@@ -1,4 +1,4 @@
-import { useAlert } from '@/contextss/AlertProvider';
+import { useAlert } from '@/contexts/AlertProvider';
 
 const Alert = () => {
   const { setAlert } = useAlert();

@@ -6,8 +6,8 @@ import { download, generateCsv, mkConfig } from 'export-to-csv';
 import { jsPDF } from 'jspdf';
 import autoTable from 'jspdf-autotable';
 import { useState } from 'react';
-import Dropdown from '@/componentss/input/Dropdown';
-import CTheme from '@/constantss/CTheme';
+import Dropdown from '@/components/input/Dropdown';
+import CTheme from '@/constants/CTheme';
 import Translator from '@/hooks/Translator';
 
 const ExportDialog = (props) => {

@@ -1,5 +1,5 @@
 import Box from '@mui/material/Box';
-import MuiDrawer from '@/aliaseses/MuiDrawer';
+import MuiDrawer from '@/aliases/MuiDrawer';
 
 const Drawer = (props) => {
   const { anchor, open, children, setOpen, size } = props;

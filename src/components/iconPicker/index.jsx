@@ -1,7 +1,7 @@
 import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
 
-import * as Icon from '@/componentss/icons';
+import * as Icon from '@/components/icons';
 
 const IconPicker = (props) => {
   const { active, onSelect, onBlur } = props;

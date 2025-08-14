@@ -4,9 +4,9 @@ import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import { useState } from 'react';
-import MuiDeleteIcon from '@/aliaseses/MuiDeleteIcon';
-import Confirm from '@/componentss/dialog/Confirm';
-import CTheme from '@/constantss/CTheme';
+import MuiDeleteIcon from '@/aliases/MuiDeleteIcon';
+import Confirm from '@/components/dialog/Confirm';
+import CTheme from '@/constants/CTheme';
 import Translator from '@/hooks/Translator';
 
 const Delete = (props) => {

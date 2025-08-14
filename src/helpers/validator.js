@@ -1,4 +1,4 @@
-import CActionType from '@/constantss/CActionType';
+import CActionType from '@/constants/CActionType';
 
 const required = (value) => {
   return !value;

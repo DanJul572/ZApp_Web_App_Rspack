@@ -9,11 +9,11 @@ import DialogTitle from '@mui/material/DialogTitle';
 import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
 import { useEffect, useState } from 'react';
-import Code from '@/componentss/input/Code';
-import Toggle from '@/componentss/input/Toggle';
-import CTheme from '@/constantss/CTheme';
+import Code from '@/components/input/Code';
+import Toggle from '@/components/input/Toggle';
+import CTheme from '@/constants/CTheme';
 
-import isValidProperties from '@/helperss/isValidProperties';
+import isValidProperties from '@/helpers/isValidProperties';
 import Translator from '@/hooks/Translator';
 
 const ToggleCodeFormProperties = (props) => {

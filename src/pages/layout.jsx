@@ -3,13 +3,13 @@ import { Suspense } from 'react';
 
 import 'suneditor/dist/css/suneditor.min.css';
 
-import { AlertProvider } from '@/contextss/AlertProvider';
-import { ExpandedMenuProvider } from '@/contextss/ExpandedMenuProvider';
-import { FileProvider } from '@/contextss/FileProvider';
-import { FormDataProvider } from '@/contextss/FormDataProvider';
-import { LoadingProvider } from '@/contextss/LoadingProvider';
-import { ToastProvider } from '@/contextss/ToastProvider';
-import { UIStoreProvider } from '@/contextss/UIStoreProvider';
+import { AlertProvider } from '@/contexts/AlertProvider';
+import { ExpandedMenuProvider } from '@/contexts/ExpandedMenuProvider';
+import { FileProvider } from '@/contexts/FileProvider';
+import { FormDataProvider } from '@/contexts/FormDataProvider';
+import { LoadingProvider } from '@/contexts/LoadingProvider';
+import { ToastProvider } from '@/contexts/ToastProvider';
+import { UIStoreProvider } from '@/contexts/UIStoreProvider';
 
 const queryClient = new QueryClient();
 

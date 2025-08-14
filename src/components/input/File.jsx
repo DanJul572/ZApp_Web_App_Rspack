@@ -7,11 +7,11 @@ import { useQuery } from '@tanstack/react-query';
 import { MuiFileInput } from 'mui-file-input';
 import { useEffect } from 'react';
 import { v4 as uuidv4 } from 'uuid';
-import CApiUrl from '@/constantss/CApiUrl';
-import CTheme from '@/constantss/CTheme';
-import { useFile } from '@/contextss/FileProvider';
-import { downloadFile } from '@/helperss/downloadFile';
-import { getFileFromBuffer } from '@/helperss/readFile';
+import CApiUrl from '@/constants/CApiUrl';
+import CTheme from '@/constants/CTheme';
+import { useFile } from '@/contexts/FileProvider';
+import { downloadFile } from '@/helpers/downloadFile';
+import { getFileFromBuffer } from '@/helpers/readFile';
 import Request from '@/hooks/Request';
 import Translator from '@/hooks/Translator';
 

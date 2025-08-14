@@ -8,10 +8,10 @@ import DialogContent from '@mui/material/DialogContent';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import { useEffect, useState } from 'react';
-import ShortText from '@/componentss/input/ShortText';
-import CTheme from '@/constantss/CTheme';
+import ShortText from '@/components/input/ShortText';
+import CTheme from '@/constants/CTheme';
 
-import isValidProperties from '@/helperss/isValidProperties';
+import isValidProperties from '@/helpers/isValidProperties';
 import Translator from '@/hooks/Translator';
 
 const ShortTextForm = (props) => {

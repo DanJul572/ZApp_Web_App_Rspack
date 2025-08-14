@@ -5,9 +5,9 @@ import PropTypes from 'prop-types';
 import { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
-import MuiTab from '@/aliaseses/MuiTab';
+import MuiTab from '@/aliases/MuiTab';
 
-import CTheme from '@/constantss/CTheme';
+import CTheme from '@/constants/CTheme';
 
 const CustomTabPanel = (props) => {
   const { children, value, index, ...other } = props;

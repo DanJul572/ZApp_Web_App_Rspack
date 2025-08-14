@@ -1,14 +1,14 @@
 import Box from '@mui/material/Box';
 import Link from '@mui/material/Link';
 
-import MuiButton from '@/aliaseses/MuiButton';
+import MuiButton from '@/aliases/MuiButton';
 
-import Group from '@/componentss/button/Group';
+import Group from '@/components/button/Group';
 
-import * as Icon from '@/componentss/icons';
+import * as Icon from '@/components/icons';
 
-import CButtonType from '@/constantss/CButtonType';
-import CTheme from '@/constantss/CTheme';
+import CButtonType from '@/constants/CButtonType';
+import CTheme from '@/constants/CTheme';
 
 import Waiter from '@/interpreter/waiter';
 

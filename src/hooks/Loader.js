@@ -1,4 +1,4 @@
-import { useLoading } from '@/contextss/LoadingProvider';
+import { useLoading } from '@/contexts/LoadingProvider';
 
 const Loader = () => {
   const { setLoading } = useLoading();

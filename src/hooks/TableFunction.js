@@ -1,10 +1,10 @@
 import { useQuery } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
-import CActionType from '@/constantss/CActionType';
-import CApiUrl from '@/constantss/CApiUrl';
-import { useAlert } from '@/contextss/AlertProvider';
-import { useLoading } from '@/contextss/LoadingProvider';
+import CActionType from '@/constants/CActionType';
+import CApiUrl from '@/constants/CApiUrl';
+import { useAlert } from '@/contexts/AlertProvider';
+import { useLoading } from '@/contexts/LoadingProvider';
 import Request from '@/hooks/Request';
 
 const TableFunction = (props) => {

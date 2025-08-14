@@ -5,8 +5,8 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import dayjs from 'dayjs';
 
-import CDateTimeFormat from '@/constantss/CDateTimeFormat';
-import CTheme from '@/constantss/CTheme';
+import CDateTimeFormat from '@/constants/CDateTimeFormat';
+import CTheme from '@/constants/CTheme';
 
 const DateField = (props) => {
   const { label, onChange, value, disabled } = props;

@@ -3,10 +3,10 @@ import Box from '@mui/material/Box';
 import { grey } from '@mui/material/colors';
 import { useEffect, useState } from 'react';
 
-import CButtonType from '@/constantss/CButtonType';
-import CComponentGroupType from '@/constantss/CComponentGroupType';
-import CContainerType from '@/constantss/CContainerType';
-import CInputType from '@/constantss/CInputType';
+import CButtonType from '@/constants/CButtonType';
+import CComponentGroupType from '@/constants/CComponentGroupType';
+import CContainerType from '@/constants/CContainerType';
+import CInputType from '@/constants/CInputType';
 
 const Color = (props) => {
   const { content, selected, editComponent, setContent } = props;
