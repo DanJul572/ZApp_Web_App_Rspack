@@ -6,7 +6,7 @@ import CVisualElement from '@/enums/EVisualElementType';
 import Translator from '@/hooks/Translator';
 import Waiter from '@/interpreter/waiter';
 
-import MapLoop from './MapLoop';
+import MapLoop from '../extra/MapLoop';
 
 const Text = (props, key = null) => {
   return (

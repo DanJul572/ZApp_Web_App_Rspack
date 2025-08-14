@@ -1,7 +1,6 @@
 import ContentLoader from '@/components/loading/ContentLoader';
-
+import Page from './extra/Page';
 import GroupComponent from './group';
-import Page from './group/Page';
 
 const Interpreter = (props) => {
   const {

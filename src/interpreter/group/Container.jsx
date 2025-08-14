@@ -11,8 +11,8 @@ import EContainerType from '@/enums/EContainerType';
 import Content from '@/hooks/Content';
 import Translator from '@/hooks/Translator';
 import Waiter from '@/interpreter/waiter';
-import Component from '.';
-import Page from './Page';
+import Page from '../extra/Page';
+import GroupComponent from '.';
 
 const Container = (props) => {
   const { type, section, properties, isBuilder, selected, setSelected } = props;
@@ -54,7 +54,7 @@ const Container = (props) => {
           section.map((childs) =>
             childs.map((component) => {
               return (
-                <Component
+                <GroupComponent
                   key={component.id}
                   component={component}
                   selected={selected}
@@ -83,7 +83,7 @@ const Container = (props) => {
           >
             {childs.map((component) => {
               return (
-                <Component
+                <GroupComponent
                   key={component.id}
                   component={component}
                   selected={selected}
@@ -105,7 +105,7 @@ const Container = (props) => {
           section.map((childs) =>
             childs.map((component) => {
               return (
-                <Component
+                <GroupComponent
                   key={component.id}
                   component={component}
                   selected={selected}
@@ -127,7 +127,7 @@ const Container = (props) => {
             section.map((childs) =>
               childs.map((component) => {
                 return (
-                  <Component
+                  <GroupComponent
                     key={component.id}
                     component={component}
                     selected={selected}
@@ -146,7 +146,7 @@ const Container = (props) => {
           section.map((childs) =>
             childs.map((component) => {
               return (
-                <Component
+                <GroupComponent
                   key={component.id}
                   component={component}
                   selected={selected}
@@ -167,7 +167,7 @@ const Container = (props) => {
         render={(childs) =>
           childs.map((component) => {
             return (
-              <Component
+              <GroupComponent
                 key={component.id}
                 component={component}
                 selected={selected}
@@ -194,7 +194,7 @@ const Container = (props) => {
         {content && content.length > 0 && Array.isArray(content)
           ? content.map((component) => {
               return (
-                <Component
+                <GroupComponent
                   key={component.id}
                   component={component}
                   selected={selected}

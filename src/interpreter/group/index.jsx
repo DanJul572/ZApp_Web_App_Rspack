@@ -1,12 +1,11 @@
 import EComponentGroupType from '@/enums/EComponentGroupType';
-
+import Wraper from '../extra/Wrapper';
 import Button from './Button';
 import Chart from './Chart';
 import Container from './Container';
 import FieldControl from './FieldControl';
 import Table from './Table';
 import VisualElement from './VisualElement';
-import Wraper from './Wrapper';
 
 const GroupComponent = ({ component, selected, setSelected, isBuilder }) => {
   const id = component.id;
