@@ -79,10 +79,10 @@ const CToggleCodeFormProperties = [
   },
 ];
 
-const CProperties = {
+const EProperties = {
   CShortTextFormProperties,
   CCodeFormProperties,
   CToggleCodeFormProperties,
 };
 
-export default CProperties;
+export default EProperties;

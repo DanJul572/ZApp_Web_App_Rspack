@@ -4,10 +4,9 @@ import FormatUnderlined from '@mui/icons-material/FormatUnderlined';
 import { useTheme } from '@mui/material';
 import Box from '@mui/material/Box';
 import { useEffect, useState } from 'react';
-
-import CComponentGroupType from '@/constants/CComponentGroupType';
-import CTheme from '@/constants/CTheme';
-import CVisualElement from '@/constants/CVisualElementType';
+import CTheme from '@/configs/CTheme';
+import EComponentGroupType from '@/enums/EComponentGroupType';
+import CVisualElement from '@/enums/EVisualElementType';
 
 const TextDecoration = (props) => {
   const { content, selected, editComponent, setContent } = props;
@@ -101,7 +100,7 @@ const TextDecoration = (props) => {
 
     if (
       type === CVisualElement.text.value &&
-      group === CComponentGroupType.visualElement.value
+      group === EComponentGroupType.visualElement.value
     )
       return true;
     return false;

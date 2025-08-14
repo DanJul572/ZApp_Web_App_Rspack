@@ -6,9 +6,8 @@ import Card from '@/components/container/Card';
 import Collapse from '@/components/container/Collapse';
 import Drawer from '@/components/container/Drawer';
 import Tab from '@/components/container/Tab';
-
-import CContainerType from '@/constants/CContainerType';
-import CTheme from '@/constants/CTheme';
+import CTheme from '@/configs/CTheme';
+import EContainerType from '@/enums/EContainerType';
 import Content from '@/hooks/Content';
 import Translator from '@/hooks/Translator';
 import Waiter from '@/interpreter/waiter';
@@ -42,7 +41,7 @@ const Container = (props) => {
   const { content, page } = Content(contentProps);
 
   const render = () => {
-    if (type === CContainerType.card.value) {
+    if (type === EContainerType.card.value) {
       return (
         <Card
           color={color}
@@ -69,7 +68,7 @@ const Container = (props) => {
       );
     }
 
-    if (type === CContainerType.grid.value) {
+    if (type === EContainerType.grid.value) {
       const columnSize = properties.size ? properties.size.split(',') : [];
       const defaultSize = 12 / (section.length > 0 ? section.length : 1);
       return (
@@ -99,9 +98,9 @@ const Container = (props) => {
       );
     }
 
-    if (type === CContainerType.collapse.value) {
+    if (type === EContainerType.collapse.value) {
       return (
-        <Collapse label={label || CContainerType.collapse.label} color={color}>
+        <Collapse label={label || EContainerType.collapse.label} color={color}>
           {section &&
             section.length > 0 &&
             section.map((childs) =>
@@ -120,7 +119,7 @@ const Container = (props) => {
       );
     }
 
-    if (type === CContainerType.drawer.value) {
+    if (type === EContainerType.drawer.value) {
       if (isBuilder) {
         return (
           <Card>
@@ -161,7 +160,7 @@ const Container = (props) => {
       );
     }
 
-    if (type === CContainerType.tab.value) {
+    if (type === EContainerType.tab.value) {
       return (
         <Tab
           label={label}
@@ -182,7 +181,7 @@ const Container = (props) => {
       );
     }
 
-    if (type === CContainerType.view.value) {
+    if (type === EContainerType.view.value) {
       if (isBuilder) {
         return (
           <Typography fontSize={CTheme.font.size.value} textAlign="center">

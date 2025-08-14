@@ -16,7 +16,7 @@ import Slider from '@/components/input/Slider';
 import Time from '@/components/input/Time';
 import Toggle from '@/components/input/Toggle';
 
-import CInputType from '@/constants/CInputType';
+import EInputType from '@/enums/EInputType';
 import FormData from '@/hooks/FormData';
 import UIStore from '@/hooks/UIStore';
 
@@ -53,47 +53,47 @@ const FieldControl = (props) => {
   };
 
   if (!hidden) {
-    if (type === CInputType.shortText.value) {
+    if (type === EInputType.shortText.value) {
       return <ShortText {...componentProps} />;
     }
 
-    if (type === CInputType.longText.value) {
+    if (type === EInputType.longText.value) {
       return <LongText {...componentProps} rows={4} />;
     }
 
-    if (type === CInputType.number.value) {
+    if (type === EInputType.number.value) {
       return <NumberField {...componentProps} />;
     }
 
-    if (type === CInputType.toggle.value) {
+    if (type === EInputType.toggle.value) {
       return <Toggle {...componentProps} />;
     }
 
-    if (type === CInputType.dropdown.value) {
+    if (type === EInputType.dropdown.value) {
       if (!isBuilder) {
         componentProps.id = fieldID;
       }
       return <Dropdown {...componentProps} multiple={multiple} />;
     }
 
-    if (type === CInputType.date.value) {
+    if (type === EInputType.date.value) {
       return <DateField {...componentProps} />;
     }
 
-    if (type === CInputType.time.value) {
+    if (type === EInputType.time.value) {
       return <Time {...componentProps} />;
     }
 
-    if (type === CInputType.file.value) {
+    if (type === EInputType.file.value) {
       const tempFileName = uiStore.get('tempData')?.[name] || null;
       return <File {...componentProps} name={name} value={tempFileName} />;
     }
 
-    if (type === CInputType.richText.value) {
+    if (type === EInputType.richText.value) {
       return <RichText {...componentProps} />;
     }
 
-    if (type === CInputType.radio.value) {
+    if (type === EInputType.radio.value) {
       return (
         <Radio
           {...componentProps}
@@ -106,7 +106,7 @@ const FieldControl = (props) => {
       );
     }
 
-    if (type === CInputType.checkbox.value) {
+    if (type === EInputType.checkbox.value) {
       return (
         <Checkbox
           {...componentProps}
@@ -119,23 +119,23 @@ const FieldControl = (props) => {
       );
     }
 
-    if (type === CInputType.datetime.value) {
+    if (type === EInputType.datetime.value) {
       return <Datetime {...componentProps} />;
     }
 
-    if (type === CInputType.slider.value) {
+    if (type === EInputType.slider.value) {
       return <Slider {...componentProps} color={color} />;
     }
 
-    if (type === CInputType.password.value) {
+    if (type === EInputType.password.value) {
       return <Password {...componentProps} color={color} />;
     }
 
-    if (type === CInputType.code.value) {
+    if (type === EInputType.code.value) {
       return <Code {...componentProps} withOptions={true} />;
     }
 
-    if (type === CInputType.ratings.value) {
+    if (type === EInputType.ratings.value) {
       return <Ratings {...componentProps} />;
     }
   }

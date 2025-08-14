@@ -5,8 +5,8 @@ import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import { useQuery } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
-import CApiUrl from '@/constants/CApiUrl';
-import CTheme from '@/constants/CTheme';
+import CApiUrl from '@/configs/CApiUrl';
+import CTheme from '@/configs/CTheme';
 import Request from '@/hooks/Request';
 
 const Dropdown = (props) => {

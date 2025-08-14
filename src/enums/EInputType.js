@@ -1,4 +1,4 @@
-const CInputType = {
+const EInputType = {
   shortText: {
     value: 1,
     label: 'Short Text',
@@ -65,4 +65,4 @@ const CInputType = {
   },
 };
 
-export default CInputType;
+export default EInputType;

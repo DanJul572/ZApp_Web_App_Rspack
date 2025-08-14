@@ -6,9 +6,8 @@ import MuiButton from '@/aliases/MuiButton';
 import Group from '@/components/button/Group';
 
 import * as Icon from '@/components/icons';
-
-import CButtonType from '@/constants/CButtonType';
-import CTheme from '@/constants/CTheme';
+import CTheme from '@/configs/CTheme';
+import EButtonType from '@/enums/EButtonType';
 
 import Waiter from '@/interpreter/waiter';
 
@@ -55,7 +54,7 @@ const Button = (props) => {
 
   const content = () => {
     if (!hidden) {
-      if (type === CButtonType.button.value) {
+      if (type === EButtonType.button.value) {
         return (
           <Box sx={display}>
             <MuiButton
@@ -68,23 +67,23 @@ const Button = (props) => {
               endIcon={EndIcon ? <EndIcon /> : null}
               startIcon={StartIcon ? <StartIcon /> : null}
             >
-              {label || CButtonType.button.label}
+              {label || EButtonType.button.label}
             </MuiButton>
           </Box>
         );
       }
 
-      if (type === CButtonType.link.value) {
+      if (type === EButtonType.link.value) {
         return (
           <Box sx={display}>
             <Link href="#" underline="always">
-              {label || CButtonType.link.label}
+              {label || EButtonType.link.label}
             </Link>
           </Box>
         );
       }
 
-      if (type === CButtonType.group.value) {
+      if (type === EButtonType.group.value) {
         return (
           <Box sx={display}>
             <Group

@@ -3,10 +3,9 @@ import Typography from '@mui/material/Typography';
 import ZTable from '@/aliases/ZTable';
 
 import Confirm from '@/components/dialog/Confirm';
-
-import CActionType from '@/constants/CActionType';
-import CTableType from '@/constants/CTableType';
-import CTheme from '@/constants/CTheme';
+import CTheme from '@/configs/CTheme';
+import EActionType from '@/enums/EActionType';
+import ETableType from '@/enums/ETableType';
 
 import TableFunction from '@/hooks/TableFunction';
 
@@ -46,15 +45,15 @@ const Table = (props) => {
   } = TableFunction(tableProps);
 
   const onCLickToolbarAction = (action) => {
-    if (action.type === CActionType.insert.value) order(action.onClick);
+    if (action.type === EActionType.insert.value) order(action.onClick);
   };
 
   const onClickRowAction = (data) => {
     const action = data.action;
     const param = { row: data.row };
-    if (action.type === CActionType.update.value) {
+    if (action.type === EActionType.update.value) {
       order(action.onClick, param);
-    } else if (data.action.type === CActionType.delete.value) {
+    } else if (data.action.type === EActionType.delete.value) {
       setSelectedRow(data.row);
       setOpenConfirmDialog(true);
     }
@@ -68,7 +67,7 @@ const Table = (props) => {
         </Typography>
       );
     }
-    if (type === CTableType.table.value && moduleID) {
+    if (type === ETableType.table.value && moduleID) {
       return (
         <Box>
           <ZTable

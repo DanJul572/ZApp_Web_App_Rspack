@@ -10,12 +10,12 @@ import { useNavigate } from 'react-router';
 import Upload from '@/components/button/Upload';
 import Confirm from '@/components/dialog/Confirm';
 import List from '@/components/dialog/List';
-import CActionType from '@/constants/CActionType';
-import CApiUrl from '@/constants/CApiUrl';
-import CModuleID from '@/constants/CModuleID';
-import CTheme from '@/constants/CTheme';
+import CApiUrl from '@/configs/CApiUrl';
+import CModuleID from '@/configs/CModuleID';
+import CTheme from '@/configs/CTheme';
 import { useLoading } from '@/contexts/LoadingProvider';
 import { useToast } from '@/contexts/ToastProvider';
+import EActionType from '@/enums/EActionType';
 import { downloadJsonFile } from '@/helpers/downloadFile';
 import { decrypt, encrypt } from '@/helpers/encryption';
 import {
@@ -49,7 +49,7 @@ const TopBar = (props) => {
   const { setToast } = useToast();
   const theme = useTheme();
 
-  const generateTypeList = [CActionType.insert, CActionType.update];
+  const generateTypeList = [EActionType.insert, EActionType.update];
   const hasContent = content && content.length > 0;
 
   const [openConfirmDialog, setOpenConfirmDialog] = useState(false);
@@ -160,7 +160,7 @@ const TopBar = (props) => {
   };
 
   const onGenerate = (item) => {
-    if (item.value === CActionType.insert.value) {
+    if (item.value === EActionType.insert.value) {
       getModule(item.value);
     } else {
       const content = generateInvalidContent();

@@ -7,8 +7,8 @@ import { useEffect, useState } from 'react';
 import IconPicker from '@/components/iconPicker';
 import Toggle from '@/components/input/Toggle';
 
-import CButtonType from '@/constants/CButtonType';
-import CComponentGroupType from '@/constants/CComponentGroupType';
+import EButtonType from '@/enums/EButtonType';
+import EComponentGroupType from '@/enums/EComponentGroupType';
 
 const Icon = (props) => {
   const { content, selected, editComponent, setContent } = props;
@@ -40,8 +40,8 @@ const Icon = (props) => {
     }
 
     return (
-      selected.group.value === CComponentGroupType.button.value &&
-      selected.type.value === CButtonType.button.value
+      selected.group.value === EComponentGroupType.button.value &&
+      selected.type.value === EButtonType.button.value
     );
   };
 

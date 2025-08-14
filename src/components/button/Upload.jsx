@@ -1,7 +1,7 @@
 import { styled } from '@mui/material';
 import Button from '@mui/material/Button';
 
-import CTheme from '@/constants/CTheme';
+import CTheme from '@/configs/CTheme';
 
 const VisuallyHiddenInput = styled('input')({
   clip: 'rect(0 0 0 0)',

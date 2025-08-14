@@ -1,7 +1,7 @@
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 import { PieChart } from '@mui/x-charts/PieChart';
-import CTheme from '@/constants/CTheme';
+import CTheme from '@/configs/CTheme';
 import Translator from '@/hooks/Translator';
 
 const Pie = (props) => {

@@ -9,7 +9,7 @@ import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import { useEffect, useState } from 'react';
 import Code from '@/components/input/Code';
-import CTheme from '@/constants/CTheme';
+import CTheme from '@/configs/CTheme';
 import Translator from '@/hooks/Translator';
 
 const OnLoad = (props) => {

@@ -6,7 +6,7 @@ import { useQuery } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
 import Tree from '@/components/tree';
-import CApiUrl from '@/constants/CApiUrl';
+import CApiUrl from '@/configs/CApiUrl';
 import Request from '@/hooks/Request';
 
 const Loading = ({ isLoading }) => {

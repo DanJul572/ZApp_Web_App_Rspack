@@ -5,7 +5,7 @@ import Typography from '@mui/material/Typography';
 import CodeEditor from '@uiw/react-textarea-code-editor';
 import { useState } from 'react';
 
-import CTheme from '@/constants/CTheme';
+import CTheme from '@/configs/CTheme';
 
 const Code = (props) => {
   const { label, value, onChange, disabled, withOptions } = props;

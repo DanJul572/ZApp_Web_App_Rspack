@@ -9,7 +9,7 @@ import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import { useEffect, useState } from 'react';
 import ShortText from '@/components/input/ShortText';
-import CTheme from '@/constants/CTheme';
+import CTheme from '@/configs/CTheme';
 
 import isValidProperties from '@/helpers/isValidProperties';
 import Translator from '@/hooks/Translator';

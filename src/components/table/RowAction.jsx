@@ -4,9 +4,8 @@ import Info from '@mui/icons-material/Info';
 import Menu from '@mui/icons-material/Menu';
 import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
-
-import CActionType from '@/constants/CActionType';
-import CTheme from '@/constants/CTheme';
+import CTheme from '@/configs/CTheme';
+import EActionType from '@/enums/EActionType';
 
 const RowAction = (props) => {
   const {
@@ -25,7 +24,7 @@ const RowAction = (props) => {
   };
 
   const findAction = (type) => {
-    return action.find((item) => item.type === CActionType[type].value);
+    return action.find((item) => item.type === EActionType[type].value);
   };
 
   return (

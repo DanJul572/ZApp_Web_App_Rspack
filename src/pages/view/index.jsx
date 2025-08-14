@@ -1,13 +1,13 @@
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import CActionType from '@/constants/CActionType';
-import CModuleID from '@/constants/CModuleID';
+import CModuleID from '@/configs/CModuleID';
+import EActionType from '@/enums/EActionType';
 import ClassicView from '@/templates/ClassicView';
 
 const Page = () => {
   const actions = [
     {
-      type: CActionType.update.value,
+      type: EActionType.update.value,
       path: '/view/create',
     },
   ];

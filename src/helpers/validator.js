@@ -1,4 +1,4 @@
-import CActionType from '@/constants/CActionType';
+import EActionType from '@/enums/EActionType';
 
 const required = (value) => {
   return !value;
@@ -29,12 +29,12 @@ const generateValidation = (action, key, value, rule) => {
   let newRule = '';
   const values = matchValue?.[1].split(',').map((value) => value.trim()) || [];
 
-  if (action === CActionType.insert.value) {
+  if (action === EActionType.insert.value) {
     values.push(value);
     newRule = `${key}:(${values.join(',')})`;
   }
 
-  if (action === CActionType.delete.value) {
+  if (action === EActionType.delete.value) {
     newRule = '';
     const indexToRemove = values.indexOf(value);
 

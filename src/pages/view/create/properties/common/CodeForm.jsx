@@ -10,7 +10,7 @@ import Typography from '@mui/material/Typography';
 import { useEffect, useState } from 'react';
 
 import Code from '@/components/input/Code';
-import CTheme from '@/constants/CTheme';
+import CTheme from '@/configs/CTheme';
 
 import isValidProperties from '@/helpers/isValidProperties';
 import Translator from '@/hooks/Translator';

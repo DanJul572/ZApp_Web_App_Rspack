@@ -1,4 +1,4 @@
-const CButtonType = {
+const EButtonType = {
   button: {
     value: 1,
     label: 'Button',
@@ -13,4 +13,4 @@ const CButtonType = {
   },
 };
 
-export default CButtonType;
+export default EButtonType;

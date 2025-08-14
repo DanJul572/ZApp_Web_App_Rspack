@@ -1,15 +1,15 @@
 import { v4 as uuidv4 } from 'uuid';
 
-import CActionType from '@/constants/CActionType';
-import CButtonType from '@/constants/CButtonType';
-import CComponentGroupType from '@/constants/CComponentGroupType';
-import CInputType from '@/constants/CInputType';
-import CVisualElement from '@/constants/CVisualElementType';
+import EActionType from '@/enums/EActionType';
+import EButtonType from '@/enums/EButtonType';
+import EComponentGroupType from '@/enums/EComponentGroupType';
+import EInputType from '@/enums/EInputType';
+import CVisualElement from '@/enums/EVisualElementType';
 
 const getInputTypeValue = (value) => {
-  for (const key in CInputType) {
-    if (CInputType[key].value === value) {
-      return CInputType[key];
+  for (const key in EInputType) {
+    if (EInputType[key].value === value) {
+      return EInputType[key];
     }
   }
   return null;
@@ -22,7 +22,7 @@ const getInsertContent = (module) => {
   // Generate Title
   content.push({
     id: uuidv4(),
-    group: CComponentGroupType.visualElement,
+    group: EComponentGroupType.visualElement,
     type: CVisualElement.text,
     properties: {
       label: `"${module.label}"`,
@@ -36,7 +36,7 @@ const getInsertContent = (module) => {
     if (!field.autoIncrement) {
       const pushField = {
         id: uuidv4(),
-        group: CComponentGroupType.fieldControl,
+        group: EComponentGroupType.fieldControl,
         type: getInputTypeValue(field.inputType),
         properties: {
           label: `"${field.label}"`,
@@ -44,9 +44,9 @@ const getInsertContent = (module) => {
         },
       };
       if (
-        field.inputType === CInputType.checkbox.value ||
-        field.inputType === CInputType.dropdown.value ||
-        field.inputType === CInputType.radio.value
+        field.inputType === EInputType.checkbox.value ||
+        field.inputType === EInputType.dropdown.value ||
+        field.inputType === EInputType.radio.value
       ) {
         pushField.properties.fieldID = field.id;
       }
@@ -57,8 +57,8 @@ const getInsertContent = (module) => {
   // Generate Button
   content.push({
     id: uuidv4(),
-    group: CComponentGroupType.button,
-    type: CButtonType.button,
+    group: EComponentGroupType.button,
+    type: EButtonType.button,
     properties: {
       label: '"Insert"',
       display: {
@@ -79,7 +79,7 @@ const generateInvalidContent = () => {
 
   content.push({
     id: uuidv4(),
-    group: CComponentGroupType.visualElement,
+    group: EComponentGroupType.visualElement,
     type: CVisualElement.text,
     properties: {
       label: `"Content is not avalaible"`,
@@ -90,7 +90,7 @@ const generateInvalidContent = () => {
 };
 
 const generateContent = (module, type) => {
-  if (type === CActionType.insert.value) {
+  if (type === EActionType.insert.value) {
     return getInsertContent(module);
   }
 };

@@ -5,8 +5,8 @@ import {
   useMaterialReactTable,
 } from 'material-react-table';
 import { useEffect, useState } from 'react';
-import CActionType from '@/constants/CActionType';
-import CInputType from '@/constants/CInputType';
+import EActionType from '@/enums/EActionType';
+import EInputType from '@/enums/EInputType';
 import dataDisplay from '@/helpers/dataDisplay';
 import Translator from '@/hooks/Translator';
 import RowCustomActionDialog from './CustomActionDialog';
@@ -72,10 +72,10 @@ const Table = (props) => {
   };
 
   const isSupportAddAction = !!action.find(
-    (item) => item.type === CActionType.insert.value,
+    (item) => item.type === EActionType.insert.value,
   );
   const isSupportRowAction =
-    action.filter((item) => item.type !== CActionType.insert.value).length > 0;
+    action.filter((item) => item.type !== EActionType.insert.value).length > 0;
   const muiBottomToolbarProps =
     !enablePagination && !onChangePage ? { style: { display: 'none' } } : false;
   const muiTableContainerProps = { sx: { maxHeight: '500px' } };
@@ -83,7 +83,7 @@ const Table = (props) => {
 
   const formattedColumns = columns.map((column) => {
     column.Cell = function OrderItems({ cell }) {
-      if (column.type !== CInputType.file.value) {
+      if (column.type !== EInputType.file.value) {
         return dataDisplay(column.type, cell.getValue());
       }
       return <Download label={cell.getValue()} />;

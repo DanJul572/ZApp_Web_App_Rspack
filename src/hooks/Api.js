@@ -1,4 +1,4 @@
-import CApiUrl from '@/constants/CApiUrl';
+import CApiUrl from '@/configs/CApiUrl';
 
 import { useFile } from '@/contexts/FileProvider';
 

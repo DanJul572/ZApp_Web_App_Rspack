@@ -3,10 +3,10 @@ import Box from '@mui/material/Box';
 import { grey } from '@mui/material/colors';
 import { useEffect, useState } from 'react';
 
-import CButtonType from '@/constants/CButtonType';
-import CComponentGroupType from '@/constants/CComponentGroupType';
-import CContainerType from '@/constants/CContainerType';
-import CInputType from '@/constants/CInputType';
+import EButtonType from '@/enums/EButtonType';
+import EComponentGroupType from '@/enums/EComponentGroupType';
+import EContainerType from '@/enums/EContainerType';
+import EInputType from '@/enums/EInputType';
 
 const Color = (props) => {
   const { content, selected, editComponent, setContent } = props;
@@ -42,31 +42,31 @@ const Color = (props) => {
     const type = selected.type.value;
 
     if (
-      group === CComponentGroupType.container.value &&
-      type === CContainerType.collapse.value
+      group === EComponentGroupType.container.value &&
+      type === EContainerType.collapse.value
     )
       return true;
     if (
-      group === CComponentGroupType.container.value &&
-      type === CContainerType.card.value
+      group === EComponentGroupType.container.value &&
+      type === EContainerType.card.value
     )
       return true;
     if (
-      group === CComponentGroupType.fieldControl.value &&
-      type === CInputType.slider.value
+      group === EComponentGroupType.fieldControl.value &&
+      type === EInputType.slider.value
     )
       return true;
     if (
-      group === CComponentGroupType.button.value &&
-      type === CButtonType.button.value
+      group === EComponentGroupType.button.value &&
+      type === EButtonType.button.value
     )
       return true;
     if (
-      group === CComponentGroupType.button.value &&
-      type === CButtonType.group.value
+      group === EComponentGroupType.button.value &&
+      type === EButtonType.group.value
     )
       return true;
-    if (group === CComponentGroupType.visualElement.value) return true;
+    if (group === EComponentGroupType.visualElement.value) return true;
     return false;
   };
 

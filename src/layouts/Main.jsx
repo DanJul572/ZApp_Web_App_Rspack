@@ -9,7 +9,7 @@ import Alert from '@/components/alert';
 import FullCoverLoader from '@/components/loading/FullCoverLoader';
 import Toast from '@/components/toast';
 
-import CTheme from '@/constants/CTheme';
+import CTheme from '@/configs/CTheme';
 
 import Sidebar from './Sidebar';
 import Topbar from './Topbar';

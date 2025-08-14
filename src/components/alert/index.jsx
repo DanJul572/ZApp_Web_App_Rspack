@@ -1,7 +1,7 @@
 import Close from '@mui/icons-material/Close';
 import IconButton from '@mui/material/IconButton';
 import MuiAlert from '@/aliases/MuiAlert';
-import CTheme from '@/constants/CTheme';
+import CTheme from '@/configs/CTheme';
 import { useAlert } from '@/contexts/AlertProvider';
 import Translator from '@/hooks/Translator';
 

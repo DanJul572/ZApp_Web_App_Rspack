@@ -7,7 +7,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 import MuiTab from '@/aliases/MuiTab';
 
-import CTheme from '@/constants/CTheme';
+import CTheme from '@/configs/CTheme';
 
 const CustomTabPanel = (props) => {
   const { children, value, index, ...other } = props;

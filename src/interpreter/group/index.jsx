@@ -1,4 +1,4 @@
-import CComponentGroupType from '@/constants/CComponentGroupType';
+import EComponentGroupType from '@/enums/EComponentGroupType';
 
 import Button from './Button';
 import Chart from './Chart';
@@ -28,7 +28,7 @@ const GroupComponent = ({ component, selected, setSelected, isBuilder }) => {
     isBuilder,
   };
 
-  if (group === CComponentGroupType.container.value) {
+  if (group === EComponentGroupType.container.value) {
     return (
       <Wraper key={id} {...wrapperProps}>
         <Container
@@ -42,7 +42,7 @@ const GroupComponent = ({ component, selected, setSelected, isBuilder }) => {
     );
   }
 
-  if (group === CComponentGroupType.fieldControl.value) {
+  if (group === EComponentGroupType.fieldControl.value) {
     return (
       <Wraper key={id} {...wrapperProps}>
         <FieldControl {...componentProps} />
@@ -50,7 +50,7 @@ const GroupComponent = ({ component, selected, setSelected, isBuilder }) => {
     );
   }
 
-  if (group === CComponentGroupType.visualElement.value) {
+  if (group === EComponentGroupType.visualElement.value) {
     return (
       <Wraper key={id} {...wrapperProps}>
         <VisualElement {...componentProps} />
@@ -58,7 +58,7 @@ const GroupComponent = ({ component, selected, setSelected, isBuilder }) => {
     );
   }
 
-  if (group === CComponentGroupType.table.value) {
+  if (group === EComponentGroupType.table.value) {
     return (
       <Wraper key={id} {...wrapperProps}>
         <Table {...componentProps} />
@@ -66,7 +66,7 @@ const GroupComponent = ({ component, selected, setSelected, isBuilder }) => {
     );
   }
 
-  if (group === CComponentGroupType.chart.value) {
+  if (group === EComponentGroupType.chart.value) {
     return (
       <Wraper key={id} {...wrapperProps}>
         <Chart {...componentProps} />
@@ -74,7 +74,7 @@ const GroupComponent = ({ component, selected, setSelected, isBuilder }) => {
     );
   }
 
-  if (group === CComponentGroupType.button.value) {
+  if (group === EComponentGroupType.button.value) {
     return (
       <Wraper key={id} {...wrapperProps}>
         <Button {...componentProps} />

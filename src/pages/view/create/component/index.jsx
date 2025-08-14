@@ -14,15 +14,14 @@ import ListItemButton from '@mui/material/ListItemButton';
 import Typography from '@mui/material/Typography';
 import { useEffect, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
-
-import CButtonType from '@/constants/CButtonType';
-import CChartType from '@/constants/CChartType';
-import CComponentGroupType from '@/constants/CComponentGroupType';
-import CContainerType from '@/constants/CContainerType';
-import CInputType from '@/constants/CInputType';
-import CTableType from '@/constants/CTableType';
-import CTheme from '@/constants/CTheme';
-import CVisualElement from '@/constants/CVisualElementType';
+import CTheme from '@/configs/CTheme';
+import EButtonType from '@/enums/EButtonType';
+import EChartType from '@/enums/EChartType';
+import EComponentGroupType from '@/enums/EComponentGroupType';
+import EContainerType from '@/enums/EContainerType';
+import EInputType from '@/enums/EInputType';
+import ETableType from '@/enums/ETableType';
+import CVisualElement from '@/enums/EVisualElementType';
 
 import ViewList from '../views';
 
@@ -40,29 +39,29 @@ const Component = (props) => {
   const [componentList, setComponentList] = useState([]);
   const [open, setOpen] = useState({});
 
-  const container = Object.keys(CContainerType)
+  const container = Object.keys(EContainerType)
     .sort()
-    .map((key) => CContainerType[key]);
+    .map((key) => EContainerType[key]);
 
-  const input = Object.keys(CInputType)
+  const input = Object.keys(EInputType)
     .sort()
-    .map((key) => CInputType[key]);
+    .map((key) => EInputType[key]);
 
   const visualElement = Object.keys(CVisualElement)
     .sort()
     .map((key) => CVisualElement[key]);
 
-  const table = Object.keys(CTableType)
+  const table = Object.keys(ETableType)
     .sort()
-    .map((key) => CTableType[key]);
+    .map((key) => ETableType[key]);
 
-  const chart = Object.keys(CChartType)
+  const chart = Object.keys(EChartType)
     .sort()
-    .map((key) => CChartType[key]);
+    .map((key) => EChartType[key]);
 
-  const button = Object.keys(CButtonType)
+  const button = Object.keys(EButtonType)
     .sort()
-    .map((key) => CButtonType[key]);
+    .map((key) => EButtonType[key]);
 
   const handleCollapse = (group) => {
     setOpen((prevState) => ({ ...prevState, [group]: !prevState[group] }));
@@ -76,7 +75,7 @@ const Component = (props) => {
     component.id = uuidv4();
     component.properties = {};
 
-    if (group.value === CComponentGroupType.container.value) {
+    if (group.value === EComponentGroupType.container.value) {
       component.section = [];
     }
 
@@ -91,7 +90,7 @@ const Component = (props) => {
   };
 
   const componentListInitiation = () => {
-    const groupType = { ...CComponentGroupType };
+    const groupType = { ...EComponentGroupType };
 
     groupType.button.components = button;
     groupType.chart.components = chart;
@@ -104,27 +103,27 @@ const Component = (props) => {
   };
 
   const icon = (type) => {
-    if (type === CComponentGroupType.button.value) {
+    if (type === EComponentGroupType.button.value) {
       return <SmartButton fontSize={CTheme.font.size.name} color="primary" />;
     }
 
-    if (type === CComponentGroupType.container.value) {
+    if (type === EComponentGroupType.container.value) {
       return (
         <SpaceDashboard fontSize={CTheme.font.size.name} color="primary" />
       );
     }
 
-    if (type === CComponentGroupType.chart.value) {
+    if (type === EComponentGroupType.chart.value) {
       return <BarChart fontSize={CTheme.font.size.name} color="primary" />;
     }
 
-    if (type === CComponentGroupType.fieldControl.value) {
+    if (type === EComponentGroupType.fieldControl.value) {
       return (
         <ShortTextOutlined fontSize={CTheme.font.size.name} color="primary" />
       );
     }
 
-    if (type === CComponentGroupType.table.value) {
+    if (type === EComponentGroupType.table.value) {
       return <TableChart fontSize={CTheme.font.size.name} color="primary" />;
     }
 

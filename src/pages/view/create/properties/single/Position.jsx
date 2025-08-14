@@ -13,8 +13,8 @@ import { useEffect, useState } from 'react';
 
 import NumberField from '@/components/input/NumberField';
 import ShortText from '@/components/input/ShortText';
-import CComponentGroupType from '@/constants/CComponentGroupType';
-import CTheme from '@/constants/CTheme';
+import CTheme from '@/configs/CTheme';
+import EComponentGroupType from '@/enums/EComponentGroupType';
 import Translator from '@/hooks/Translator';
 
 const Position = (props) => {
@@ -44,7 +44,7 @@ const Position = (props) => {
             component.section[columnIndexInt].splice(rowIndexInt, 0, selected);
           }
         }
-        if (component.group.value === CComponentGroupType.container.value) {
+        if (component.group.value === EComponentGroupType.container.value) {
           for (let y = 0; y < component.section.length; y++) {
             const section = component.section[y];
             changePosition(section);

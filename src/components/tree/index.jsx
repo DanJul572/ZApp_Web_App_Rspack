@@ -29,10 +29,12 @@ const StyledTreeItem = styled(CustomTreeItem)(({ theme }) => ({
 }));
 
 const ExpandIcon = (props) => {
+  const theme = useTheme();
   return <Folder {...props} sx={{ color: theme.palette.primary.main }} />;
 };
 
 const CollapseIcon = (props) => {
+  const theme = useTheme();
   return <FolderOpen {...props} sx={{ color: theme.palette.primary.main }} />;
 };
 

@@ -2,7 +2,7 @@ import Box from '@mui/material/Box';
 import { useQuery } from '@tanstack/react-query';
 import { useState } from 'react';
 import { useSearchParams } from 'react-router';
-import CApiUrl from '@/constants/CApiUrl';
+import CApiUrl from '@/configs/CApiUrl';
 import Request from '@/hooks/Request';
 import Empty from '@/layouts/Empty';
 import Component from './component';

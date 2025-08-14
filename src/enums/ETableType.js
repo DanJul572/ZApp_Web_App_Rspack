@@ -1,8 +1,8 @@
-const CTableType = {
+const ETableType = {
   table: {
     value: 1,
     label: 'Table',
   },
 };
 
-export default CTableType;
+export default ETableType;

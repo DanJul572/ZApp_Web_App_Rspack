@@ -3,7 +3,7 @@ import Typography from '@mui/material/Typography';
 
 import MuiSlider from '@/aliases/MuiSlider';
 
-import CTheme from '@/constants/CTheme';
+import CTheme from '@/configs/CTheme';
 
 const Slider = (props) => {
   const { label, onChange, value, disabled, color } = props;

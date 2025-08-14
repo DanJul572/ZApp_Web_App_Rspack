@@ -6,7 +6,7 @@ import Typography from '@mui/material/Typography';
 import { useState } from 'react';
 import MuiDeleteIcon from '@/aliases/MuiDeleteIcon';
 import Confirm from '@/components/dialog/Confirm';
-import CTheme from '@/constants/CTheme';
+import CTheme from '@/configs/CTheme';
 import Translator from '@/hooks/Translator';
 
 const Delete = (props) => {

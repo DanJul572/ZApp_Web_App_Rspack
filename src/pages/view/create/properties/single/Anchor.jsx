@@ -6,10 +6,9 @@ import { useTheme } from '@mui/material';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import { useEffect, useState } from 'react';
-
-import CComponentGroupType from '@/constants/CComponentGroupType';
-import CContainerType from '@/constants/CContainerType';
-import CTheme from '@/constants/CTheme';
+import CTheme from '@/configs/CTheme';
+import EComponentGroupType from '@/enums/EComponentGroupType';
+import EContainerType from '@/enums/EContainerType';
 
 const Anchor = (props) => {
   const { content, selected, editComponent, setContent } = props;
@@ -35,8 +34,8 @@ const Anchor = (props) => {
     const type = selected.type.value;
 
     if (
-      group === CComponentGroupType.container.value &&
-      type === CContainerType.drawer.value
+      group === EComponentGroupType.container.value &&
+      type === EContainerType.drawer.value
     )
       return true;
     return false;

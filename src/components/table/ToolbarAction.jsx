@@ -1,7 +1,7 @@
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import CActionType from '@/constants/CActionType';
-import CTheme from '@/constants/CTheme';
+import CTheme from '@/configs/CTheme';
+import EActionType from '@/enums/EActionType';
 import Translator from '@/hooks/Translator';
 
 const ToolbarAction = (props) => {
@@ -15,7 +15,7 @@ const ToolbarAction = (props) => {
   const translator = Translator();
 
   const insertAction = action.find(
-    (action) => action.type === CActionType.insert.value,
+    (action) => action.type === EActionType.insert.value,
   );
 
   return (

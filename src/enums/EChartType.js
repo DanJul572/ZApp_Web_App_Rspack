@@ -1,4 +1,4 @@
-const CChartType = {
+const EChartType = {
   bar: {
     value: 1,
     label: 'Bar',
@@ -17,4 +17,4 @@ const CChartType = {
   },
 };
 
-export default CChartType;
+export default EChartType;

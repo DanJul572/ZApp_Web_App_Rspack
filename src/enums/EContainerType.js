@@ -1,4 +1,4 @@
-const CContainerType = {
+const EContainerType = {
   grid: {
     value: 1,
     label: 'Grid',
@@ -25,4 +25,4 @@ const CContainerType = {
   },
 };
 
-export default CContainerType;
+export default EContainerType;

@@ -1,4 +1,4 @@
-const CComponentGroupType = {
+const EComponentGroupType = {
   container: {
     value: 1,
     label: 'Container',
@@ -25,4 +25,4 @@ const CComponentGroupType = {
   },
 };
 
-export default CComponentGroupType;
+export default EComponentGroupType;

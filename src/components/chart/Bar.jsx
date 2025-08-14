@@ -1,7 +1,7 @@
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 import { BarChart } from '@mui/x-charts/BarChart';
-import CTheme from '@/constants/CTheme';
+import CTheme from '@/configs/CTheme';
 import Translator from '@/hooks/Translator';
 
 const Bar = (props) => {

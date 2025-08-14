@@ -7,7 +7,7 @@ import { jsPDF } from 'jspdf';
 import autoTable from 'jspdf-autotable';
 import { useState } from 'react';
 import Dropdown from '@/components/input/Dropdown';
-import CTheme from '@/constants/CTheme';
+import CTheme from '@/configs/CTheme';
 import Translator from '@/hooks/Translator';
 
 const ExportDialog = (props) => {

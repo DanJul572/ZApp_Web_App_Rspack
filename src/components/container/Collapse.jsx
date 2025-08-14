@@ -7,7 +7,7 @@ import Typography from '@mui/material/Typography';
 import { useState } from 'react';
 
 import MuiCollapse from '@/aliases/MuiCollapse';
-import CTheme from '@/constants/CTheme';
+import CTheme from '@/configs/CTheme';
 
 const Collapse = (props) => {
   const { children, label, color } = props;
