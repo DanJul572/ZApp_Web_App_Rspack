@@ -40,16 +40,88 @@ const Container = (props) => {
 
   const { content, page } = Content(contentProps);
 
-  const render = () => {
-    if (type === EContainerType.card.value) {
+  if (type === EContainerType.card.value) {
+    return (
+      <Card
+        color={color}
+        flex={flex}
+        display={display}
+        border={border}
+        padding={padding}
+      >
+        {section &&
+          section.length > 0 &&
+          section.map((childs) =>
+            childs.map((component) => {
+              return (
+                <Component
+                  key={component.id}
+                  component={component}
+                  selected={selected}
+                  setSelected={setSelected}
+                />
+              );
+            }),
+          )}
+      </Card>
+    );
+  }
+
+  if (type === EContainerType.grid.value) {
+    const columnSize = properties.size ? properties.size.split(',') : [];
+    const defaultSize = 12 / (section.length > 0 ? section.length : 1);
+    return (
+      <Grid container>
+        {section?.map((childs, index) => (
+          <Grid
+            size={
+              columnSize.length > 0
+                ? Number.parseInt(columnSize[index], 10)
+                : defaultSize
+            }
+            key={uuidv4()}
+          >
+            {childs.map((component) => {
+              return (
+                <Component
+                  key={component.id}
+                  component={component}
+                  selected={selected}
+                  setSelected={setSelected}
+                />
+              );
+            })}
+          </Grid>
+        ))}
+      </Grid>
+    );
+  }
+
+  if (type === EContainerType.collapse.value) {
+    return (
+      <Collapse label={label || EContainerType.collapse.label} color={color}>
+        {section &&
+          section.length > 0 &&
+          section.map((childs) =>
+            childs.map((component) => {
+              return (
+                <Component
+                  key={component.id}
+                  component={component}
+                  selected={selected}
+                  setSelected={setSelected}
+                />
+              );
+            }),
+          )}
+      </Collapse>
+    );
+  }
+
+  if (type === EContainerType.drawer.value) {
+    if (isBuilder) {
       return (
-        <Card
-          color={color}
-          flex={flex}
-          display={display}
-          border={border}
-          padding={padding}
-        >
+        <Card>
           {section &&
             section.length > 0 &&
             section.map((childs) =>
@@ -67,105 +139,11 @@ const Container = (props) => {
         </Card>
       );
     }
-
-    if (type === EContainerType.grid.value) {
-      const columnSize = properties.size ? properties.size.split(',') : [];
-      const defaultSize = 12 / (section.length > 0 ? section.length : 1);
-      return (
-        <Grid container>
-          {section?.map((childs, index) => (
-            <Grid
-              size={
-                columnSize.length > 0
-                  ? Number.parseInt(columnSize[index], 10)
-                  : defaultSize
-              }
-              key={uuidv4()}
-            >
-              {childs.map((component) => {
-                return (
-                  <Component
-                    key={component.id}
-                    component={component}
-                    selected={selected}
-                    setSelected={setSelected}
-                  />
-                );
-              })}
-            </Grid>
-          ))}
-        </Grid>
-      );
-    }
-
-    if (type === EContainerType.collapse.value) {
-      return (
-        <Collapse label={label || EContainerType.collapse.label} color={color}>
-          {section &&
-            section.length > 0 &&
-            section.map((childs) =>
-              childs.map((component) => {
-                return (
-                  <Component
-                    key={component.id}
-                    component={component}
-                    selected={selected}
-                    setSelected={setSelected}
-                  />
-                );
-              }),
-            )}
-        </Collapse>
-      );
-    }
-
-    if (type === EContainerType.drawer.value) {
-      if (isBuilder) {
-        return (
-          <Card>
-            {section &&
-              section.length > 0 &&
-              section.map((childs) =>
-                childs.map((component) => {
-                  return (
-                    <Component
-                      key={component.id}
-                      component={component}
-                      selected={selected}
-                      setSelected={setSelected}
-                    />
-                  );
-                }),
-              )}
-          </Card>
-        );
-      }
-      return (
-        <Drawer anchor={anchor} open={Boolean(open)} size={size}>
-          {section &&
-            section.length > 0 &&
-            section.map((childs) =>
-              childs.map((component) => {
-                return (
-                  <Component
-                    key={component.id}
-                    component={component}
-                    selected={selected}
-                    setSelected={setSelected}
-                  />
-                );
-              }),
-            )}
-        </Drawer>
-      );
-    }
-
-    if (type === EContainerType.tab.value) {
-      return (
-        <Tab
-          label={label}
-          items={section}
-          render={(childs) =>
+    return (
+      <Drawer anchor={anchor} open={Boolean(open)} size={size}>
+        {section &&
+          section.length > 0 &&
+          section.map((childs) =>
             childs.map((component) => {
               return (
                 <Component
@@ -175,41 +153,59 @@ const Container = (props) => {
                   setSelected={setSelected}
                 />
               );
-            })
-          }
-        />
-      );
-    }
+            }),
+          )}
+      </Drawer>
+    );
+  }
 
-    if (type === EContainerType.view.value) {
-      if (isBuilder) {
-        return (
-          <Typography fontSize={CTheme.font.size.value} textAlign="center">
-            {translator('empty_content')}
-          </Typography>
-        );
-      }
+  if (type === EContainerType.tab.value) {
+    return (
+      <Tab
+        label={label}
+        items={section}
+        render={(childs) =>
+          childs.map((component) => {
+            return (
+              <Component
+                key={component.id}
+                component={component}
+                selected={selected}
+                setSelected={setSelected}
+              />
+            );
+          })
+        }
+      />
+    );
+  }
 
+  if (type === EContainerType.view.value) {
+    if (isBuilder) {
       return (
-        <Page isBuilder={isBuilder} page={page}>
-          {content && content.length > 0 && Array.isArray(content)
-            ? content.map((component) => {
-                return (
-                  <Component
-                    key={component.id}
-                    component={component}
-                    selected={selected}
-                    setSelected={setSelected}
-                  />
-                );
-              })
-            : content}
-        </Page>
+        <Typography fontSize={CTheme.font.size.value} textAlign="center">
+          {translator('empty_content')}
+        </Typography>
       );
     }
-  };
 
-  return render();
+    return (
+      <Page isBuilder={isBuilder} page={page}>
+        {content && content.length > 0 && Array.isArray(content)
+          ? content.map((component) => {
+              return (
+                <Component
+                  key={component.id}
+                  component={component}
+                  selected={selected}
+                  setSelected={setSelected}
+                />
+              );
+            })
+          : content}
+      </Page>
+    );
+  }
 };
 
 export default Container;

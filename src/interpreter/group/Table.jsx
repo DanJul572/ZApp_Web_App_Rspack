@@ -15,12 +15,12 @@ import Waiter from '@/interpreter/waiter';
 const Table = (props) => {
   const { type, properties, isBuilder } = props;
 
-  const { take, order } = Waiter({ isBuilder });
+  const waiter = Waiter({ isBuilder });
 
   const translator = Translator();
 
   const actions = properties.actions;
-  const defaultFilter = take(properties.filter);
+  const defaultFilter = waiter.take(properties.filter);
   const moduleID = properties.moduleID;
 
   const tableProps = {

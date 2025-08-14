@@ -28,12 +28,12 @@ const Text = (props, key = null) => {
 const VisualElement = (props) => {
   const { type, properties, isBuilder } = props;
 
-  const { take } = Waiter({ isBuilder });
+  const waiter = Waiter({ isBuilder });
   const translator = Translator();
   const theme = useTheme();
 
-  const label = take(properties.label);
-  const loop = take(properties.loop);
+  const label = waiter.take(properties.label);
+  const loop = waiter.take(properties.loop);
   const color = properties.color
     ? properties.color.value
     : theme.palette.text.primary;
@@ -67,7 +67,7 @@ const VisualElement = (props) => {
           <MapLoop
             items={loop}
             render={(item, index) => {
-              props.label = take(properties.label, item);
+              props.label = waiter.take(properties.label, item);
               return Text(props, index);
             }}
           />

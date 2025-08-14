@@ -15,25 +15,21 @@ const Chart = (props) => {
   const label = waiter.take(properties.label);
   const value = waiter.take(properties.value);
 
-  const content = () => {
-    if (type === EChartType.bar.value) {
-      return <Bar labels={label} values={value} />;
-    }
+  if (type === EChartType.bar.value) {
+    return <Bar labels={label} values={value} />;
+  }
 
-    if (type === EChartType.line.value) {
-      return <Line labels={label} values={value} />;
-    }
+  if (type === EChartType.line.value) {
+    return <Line labels={label} values={value} />;
+  }
 
-    if (type === EChartType.pie.value) {
-      return <Pie values={value} />;
-    }
+  if (type === EChartType.pie.value) {
+    return <Pie values={value} />;
+  }
 
-    if (type === EChartType.gauge.value) {
-      return <Gauge value={value} />;
-    }
-  };
-
-  return content();
+  if (type === EChartType.gauge.value) {
+    return <Gauge value={value} />;
+  }
 };
 
 export default Chart;
