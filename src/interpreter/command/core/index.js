@@ -1,5 +1,4 @@
 import Alert from '@/hooks/Alert';
-import Api from '@/hooks/Api';
 import FormData from '@/hooks/FormData';
 import Loader from '@/hooks/Loader';
 import Parameter from '@/hooks/Parameter';
@@ -11,7 +10,6 @@ import UIStore from '@/hooks/UIStore';
 const Core = () => {
   return {
     alert: Alert(),
-    api: Api(),
     uiStore: UIStore(),
     loader: Loader(),
     parameter: Parameter(),
