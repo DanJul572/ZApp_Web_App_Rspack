@@ -1,4 +1,4 @@
-import Script from '@/hook/Script';
+import Script from '@/hooks/Script';
 
 const Query = (id, isOne = false, obj = null) => {
   const result = Script({ id }).val;

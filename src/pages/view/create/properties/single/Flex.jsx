@@ -1,0 +1,58 @@
+import Box from '@mui/material/Box';
+import { useEffect, useState } from 'react';
+
+import Toggle from '@/componentss/input/Toggle';
+
+import CComponentGroupType from '@/constantss/CComponentGroupType';
+import CContainerType from '@/constantss/CContainerType';
+
+const Flex = (props) => {
+  const { content, selected, editComponent, setContent } = props;
+
+  const [flex, setFlex] = useState(false);
+
+  const onChange = (value) => {
+    callChangeProperties(value);
+  };
+
+  const callChangeProperties = (val) => {
+    const newContent = editComponent('flex', val, content);
+    setContent([...newContent]);
+  };
+
+  const validComponent = () => {
+    if (!selected) return false;
+
+    const group = selected.group.value;
+    const type = selected.type.value;
+
+    if (
+      group === CComponentGroupType.container.value &&
+      type === CContainerType.card.value
+    )
+      return true;
+    return false;
+  };
+
+  useEffect(() => {
+    if (selected) {
+      const value = selected.properties.flex;
+      setFlex(value);
+    }
+  }, [content, selected]);
+
+  return (
+    validComponent() && (
+      <Box
+        paddingX={2}
+        display="flex"
+        justifyContent="space-between"
+        alignItems="center"
+      >
+        <Toggle value={flex} label="Flex" onChange={onChange} />
+      </Box>
+    )
+  );
+};
+
+export default Flex;

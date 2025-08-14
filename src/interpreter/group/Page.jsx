@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
-import { useFile } from '@/context/FileProvider';
-import FormData from '@/hook/FormData';
-import UIStore from '@/hook/UIStore';
+import { useFile } from '@/contextss/FileProvider';
+import FormData from '@/hooks/FormData';
+import UIStore from '@/hooks/UIStore';
 
 import Waiter from '@/interpreter/waiter';
 

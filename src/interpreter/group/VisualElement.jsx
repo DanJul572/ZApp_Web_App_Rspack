@@ -1,9 +1,9 @@
 import { useTheme } from '@mui/material';
 import Divider from '@mui/material/Divider';
 import Typography from '@mui/material/Typography';
-import CTheme from '@/constant/CTheme';
-import CVisualElement from '@/constant/CVisualElementType';
-import Translator from '@/hook/Translator';
+import CTheme from '@/constantss/CTheme';
+import CVisualElement from '@/constantss/CVisualElementType';
+import Translator from '@/hooks/Translator';
 import Waiter from '@/interpreter/waiter';
 
 import MapLoop from './MapLoop';

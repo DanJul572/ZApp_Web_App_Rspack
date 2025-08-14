@@ -1,12 +1,12 @@
-import Alert from '@/hook/Alert';
-import Api from '@/hook/Api';
-import FormData from '@/hook/FormData';
-import Loader from '@/hook/Loader';
-import Parameter from '@/hook/Parameter';
-import Redirect from '@/hook/Redirect';
-import Toaster from '@/hook/Toaster';
-import Translator from '@/hook/Translator';
-import UIStore from '@/hook/UIStore';
+import Alert from '@/hooks/Alert';
+import Api from '@/hooks/Api';
+import FormData from '@/hooks/FormData';
+import Loader from '@/hooks/Loader';
+import Parameter from '@/hooks/Parameter';
+import Redirect from '@/hooks/Redirect';
+import Toaster from '@/hooks/Toaster';
+import Translator from '@/hooks/Translator';
+import UIStore from '@/hooks/UIStore';
 
 const Core = () => {
   return {

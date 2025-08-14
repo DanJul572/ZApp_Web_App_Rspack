@@ -1,9 +1,9 @@
-import Bar from '@/component/chart/Bar';
-import Gauge from '@/component/chart/Gaude';
-import Line from '@/component/chart/Line';
-import Pie from '@/component/chart/Pie';
+import Bar from '@/componentss/chart/Bar';
+import Gauge from '@/componentss/chart/Gaude';
+import Line from '@/componentss/chart/Line';
+import Pie from '@/componentss/chart/Pie';
 
-import CChartType from '@/constant/CChartType';
+import CChartType from '@/constantss/CChartType';
 
 import Waiter from '@/interpreter/waiter';
 

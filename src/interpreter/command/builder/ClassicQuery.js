@@ -1,4 +1,4 @@
-import { useFile } from '@/context/FileProvider';
+import { useFile } from '@/contextss/FileProvider';
 
 import Core from '../core';
 

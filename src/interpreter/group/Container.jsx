@@ -2,15 +2,15 @@ import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import { v4 as uuidv4 } from 'uuid';
 
-import Card from '@/component/container/Card';
-import Collapse from '@/component/container/Collapse';
-import Drawer from '@/component/container/Drawer';
-import Tab from '@/component/container/Tab';
+import Card from '@/componentss/container/Card';
+import Collapse from '@/componentss/container/Collapse';
+import Drawer from '@/componentss/container/Drawer';
+import Tab from '@/componentss/container/Tab';
 
-import CContainerType from '@/constant/CContainerType';
-import CTheme from '@/constant/CTheme';
-import Content from '@/hook/Content';
-import Translator from '@/hook/Translator';
+import CContainerType from '@/constantss/CContainerType';
+import CTheme from '@/constantss/CTheme';
+import Content from '@/hooks/Content';
+import Translator from '@/hooks/Translator';
 import Waiter from '@/interpreter/waiter';
 import Component from '.';
 import Page from './Page';

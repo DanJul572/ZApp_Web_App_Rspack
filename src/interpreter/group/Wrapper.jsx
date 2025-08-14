@@ -4,7 +4,7 @@ import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
 
-import CTheme from '@/constant/CTheme';
+import CTheme from '@/constantss/CTheme';
 
 const Wraper = ({ children, component, isBuilder, selected, setSelected }) => {
   const theme = useTheme();

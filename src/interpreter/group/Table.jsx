@@ -1,16 +1,16 @@
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import ZTable from '@/alias/ZTable';
+import ZTable from '@/aliaseses/ZTable';
 
-import Confirm from '@/component/dialog/Confirm';
+import Confirm from '@/componentss/dialog/Confirm';
 
-import CActionType from '@/constant/CActionType';
-import CTableType from '@/constant/CTableType';
-import CTheme from '@/constant/CTheme';
+import CActionType from '@/constantss/CActionType';
+import CTableType from '@/constantss/CTableType';
+import CTheme from '@/constantss/CTheme';
 
-import TableFunction from '@/hook/TableFunction';
+import TableFunction from '@/hooks/TableFunction';
 
-import Translator from '@/hook/Translator';
+import Translator from '@/hooks/Translator';
 import Waiter from '@/interpreter/waiter';
 
 const Table = (props) => {

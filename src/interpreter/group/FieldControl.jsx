@@ -1,24 +1,24 @@
-import Checkbox from '@/component/input/Checkbox';
-import Code from '@/component/input/Code';
-import DateField from '@/component/input/DateField';
-import Datetime from '@/component/input/Datetime';
+import Checkbox from '@/componentss/input/Checkbox';
+import Code from '@/componentss/input/Code';
+import DateField from '@/componentss/input/DateField';
+import Datetime from '@/componentss/input/Datetime';
 
-import Dropdown from '@/component/input/Dropdown';
-import File from '@/component/input/File';
-import LongText from '@/component/input/LongText';
-import NumberField from '@/component/input/NumberField';
-import Password from '@/component/input/Password';
-import Radio from '@/component/input/Radio';
-import Ratings from '@/component/input/Ratings';
-import RichText from '@/component/input/RichText';
-import ShortText from '@/component/input/ShortText';
-import Slider from '@/component/input/Slider';
-import Time from '@/component/input/Time';
-import Toggle from '@/component/input/Toggle';
+import Dropdown from '@/componentss/input/Dropdown';
+import File from '@/componentss/input/File';
+import LongText from '@/componentss/input/LongText';
+import NumberField from '@/componentss/input/NumberField';
+import Password from '@/componentss/input/Password';
+import Radio from '@/componentss/input/Radio';
+import Ratings from '@/componentss/input/Ratings';
+import RichText from '@/componentss/input/RichText';
+import ShortText from '@/componentss/input/ShortText';
+import Slider from '@/componentss/input/Slider';
+import Time from '@/componentss/input/Time';
+import Toggle from '@/componentss/input/Toggle';
 
-import CInputType from '@/constant/CInputType';
-import FormData from '@/hook/FormData';
-import UIStore from '@/hook/UIStore';
+import CInputType from '@/constantss/CInputType';
+import FormData from '@/hooks/FormData';
+import UIStore from '@/hooks/UIStore';
 
 import Waiter from '@/interpreter/waiter';
 

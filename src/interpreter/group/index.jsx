@@ -1,4 +1,4 @@
-import CComponentGroupType from '@/constant/CComponentGroupType';
+import CComponentGroupType from '@/constantss/CComponentGroupType';
 
 import Button from './Button';
 import Chart from './Chart';

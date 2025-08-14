@@ -7,7 +7,7 @@ import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 
-import Layout from '@/page/layout';
+import Layout from '@/pagess/layout';
 
 import routes from './routes';
 
