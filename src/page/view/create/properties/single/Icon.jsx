@@ -30,7 +30,7 @@ const Icon = (props) => {
     updateIcon({ name: active?.name === icon ? null : icon });
   };
 
-  const onChagePosition = () => {
+  const onChangePosition = () => {
     updateIcon({ isRight: !active.isRight });
   };
 
@@ -39,14 +39,10 @@ const Icon = (props) => {
       return false;
     }
 
-    if (
+    return (
       selected.group.value === CComponentGroupType.button.value &&
       selected.type.value === CButtonType.button.value
-    ) {
-      return true;
-    }
-
-    return false;
+    );
   };
 
   useEffect(() => {
@@ -89,7 +85,7 @@ const Icon = (props) => {
           >
             <Toggle
               label="On The Right"
-              onChange={onChagePosition}
+              onChange={onChangePosition}
               value={active.isRight}
             />
             <IconPicker active={active.name} onSelect={onSelectIcon} />
