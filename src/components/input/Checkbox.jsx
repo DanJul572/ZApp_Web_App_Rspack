@@ -13,7 +13,7 @@ const Checkbox = (props) => {
   const values = value?.length ? value.splitranslator('|') : [];
 
   const setValues = (val) => {
-    const deleteIndex = values.findIndex((value) => value === val);
+    const deleteIndex = values.indexOf(val);
     deleteIndex >= 0 ? values.splice(deleteIndex, 1) : values.push(val);
     onChange(values.join('|'));
   };

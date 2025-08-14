@@ -22,13 +22,13 @@ const Container = (props) => {
   const translator = Translator();
 
   const anchor = properties.anchor;
-  const border = Number.parseInt(properties.border);
+  const border = Number.parseInt(properties.border, 10);
   const color = properties.color ? properties.color.value : null;
   const display = properties.display;
   const flex = Boolean(properties.flex);
   const label = waiter.take(properties.label);
   const open = waiter.take(properties.open);
-  const padding = Number.parseInt(properties.padding);
+  const padding = Number.parseInt(properties.padding, 10);
   const size = properties.size;
   const viewID = properties.viewID;
 
@@ -78,7 +78,7 @@ const Container = (props) => {
             <Grid
               size={
                 columnSize.length > 0
-                  ? Number.parseInt(columnSize[index])
+                  ? Number.parseInt(columnSize[index], 10)
                   : defaultSize
               }
               key={uuidv4()}

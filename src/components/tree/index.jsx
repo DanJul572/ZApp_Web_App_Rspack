@@ -28,6 +28,14 @@ const StyledTreeItem = styled(CustomTreeItem)(({ theme }) => ({
   },
 }));
 
+const ExpandIcon = (props) => {
+  return <Folder {...props} sx={{ color: theme.palette.primary.main }} />;
+};
+
+const CollapseIcon = (props) => {
+  return <FolderOpen {...props} sx={{ color: theme.palette.primary.main }} />;
+};
+
 const Tree = (props) => {
   const { onChildClick, onParentClick, tree, isSidebar, setTree } = props;
 
@@ -144,14 +152,6 @@ const Tree = (props) => {
         }}
       />
     );
-  };
-
-  const ExpandIcon = (props) => {
-    return <Folder {...props} sx={{ color: theme.palette.primary.main }} />;
-  };
-
-  const CollapseIcon = (props) => {
-    return <FolderOpen {...props} sx={{ color: theme.palette.primary.main }} />;
   };
 
   useEffect(() => {

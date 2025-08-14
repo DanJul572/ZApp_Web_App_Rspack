@@ -28,8 +28,8 @@ const Position = (props) => {
   const [open, setOpen] = useState(false);
 
   const changePosition = (content) => {
-    const rowIndexInt = Number.parseInt(rowIndex);
-    const columnIndexInt = Number.parseInt(columnIndex);
+    const rowIndexInt = Number.parseInt(rowIndex, 10);
+    const columnIndexInt = Number.parseInt(columnIndex, 10);
 
     if (!containerID) {
       content.splice(rowIndexInt, 0, selected);

@@ -37,7 +37,7 @@ const VisualElement = (props) => {
   const color = properties.color
     ? properties.color.value
     : theme.palette.text.primary;
-  const size = Number.parseInt(properties.size) || CTheme.font.size.value;
+  const size = Number.parseInt(properties.size, 10) || CTheme.font.size.value;
   const bold = properties.textDecoration?.bold ? 'bold' : 'normal';
   const italic = properties.textDecoration?.italic ? 'italic' : 'normal';
   const underline = properties.textDecoration?.underline ? 'underline' : 'none';
