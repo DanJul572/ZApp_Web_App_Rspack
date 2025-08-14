@@ -4,12 +4,12 @@ import { Suspense } from 'react';
 import 'suneditor/dist/css/suneditor.min.css';
 
 import { AlertProvider } from '@/context/AlertProvider';
-import { ComponentProvider } from '@/context/ComponentProvider';
 import { ExpandedMenuProvider } from '@/context/ExpandedMenuProvider';
 import { FileProvider } from '@/context/FileProvider';
 import { FormDataProvider } from '@/context/FormDataProvider';
 import { LoadingProvider } from '@/context/LoadingProvider';
 import { ToastProvider } from '@/context/ToastProvider';
+import { UIStoreProvider } from '@/context/UIStoreProvider';
 
 const queryClient = new QueryClient();
 
@@ -27,9 +27,9 @@ export default function Layout({ children }) {
             <ToastProvider>
               <FormDataProvider>
                 <FileProvider>
-                  <ComponentProvider>
+                  <UIStoreProvider>
                     <ExpandedMenuProvider>{children}</ExpandedMenuProvider>
-                  </ComponentProvider>
+                  </UIStoreProvider>
                 </FileProvider>
               </FormDataProvider>
             </ToastProvider>

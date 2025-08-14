@@ -1,24 +1,24 @@
-import { useComponent } from '@/context/ComponentProvider';
+import { useUIStore } from '@/context/UIStoreProvider';
 
-const Comp = () => {
-  const { comp, setComp } = useComponent({});
+const UIStore = () => {
+  const { store, setStore } = useUIStore({});
 
   const removeAll = () => {
-    setComp(null);
+    setStore(null);
   };
 
   const setAll = (obj) => {
-    setComp(obj);
+    setStore(obj);
   };
 
   const set = (name, value) => {
-    const newComp = { ...comp };
-    newComp[name] = value;
-    setComp(newComp);
+    const newStore = { ...store };
+    newStore[name] = value;
+    setStore(newStore);
   };
 
   const get = (name) => {
-    return comp ? comp[name] : null;
+    return store ? store[name] : null;
   };
 
   return {
@@ -29,4 +29,4 @@ const Comp = () => {
   };
 };
 
-export default Comp;
+export default UIStore;

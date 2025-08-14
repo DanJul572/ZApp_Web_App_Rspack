@@ -70,7 +70,7 @@ const ClassicQuery = () => {
           res[key] = undefined;
 
           zcore.formData.setAll(res);
-          zcore.comp.set('tempData', res);
+          zcore.uiStore.set('tempData', res);
         })
         .catch((err) => {
           zcore.alert.showErrorAlert(err);
