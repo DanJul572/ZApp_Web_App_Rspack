@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useFile } from '@/context/FileProvider';
-import Comp from '@/hook/Comp';
 import FormData from '@/hook/FormData';
+import UIStore from '@/hook/UIStore';
 
 import Waiter from '@/interpreter/waiter';
 
@@ -11,7 +11,7 @@ const Page = (props) => {
   const waiter = Waiter({ isBuilder });
   const file = useFile();
   const formData = FormData();
-  const comp = Comp();
+  const uiStore = UIStore();
 
   useEffect(() => {
     if (!isBuilder && !isPreview) {
@@ -21,7 +21,7 @@ const Page = (props) => {
     }
     return () => {
       formData.removeAll();
-      comp.removeAll();
+      uiStore.removeAll();
       file.setFile([]);
     };
   }, [page]);

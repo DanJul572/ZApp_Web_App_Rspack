@@ -10,10 +10,10 @@ import Waiter from '@/interpreter/waiter';
 const Chart = (props) => {
   const { type, properties, isBuilder } = props;
 
-  const { take } = Waiter({ isBuilder });
+  const waiter = Waiter({ isBuilder });
 
-  const label = take(properties.label);
-  const value = take(properties.value);
+  const label = waiter.take(properties.label);
+  const value = waiter.take(properties.value);
 
   const content = () => {
     if (type === CChartType.bar.value) {

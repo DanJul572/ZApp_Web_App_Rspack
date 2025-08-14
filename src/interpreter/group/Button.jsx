@@ -15,7 +15,7 @@ import Waiter from '@/interpreter/waiter';
 const Button = (props) => {
   const { type, properties, isBuilder } = props;
 
-  const { order, take } = Waiter({ isBuilder });
+  const waiter = Waiter({ isBuilder });
 
   const displayValue = (type) => {
     return properties.display?.[type]
@@ -23,12 +23,12 @@ const Button = (props) => {
       : 'flex-start';
   };
 
-  const disable = Boolean(take(properties.disable));
-  const fullWidth = Boolean(take(properties.fullWidth));
-  const hidden = Boolean(take(properties.hidden));
+  const disable = Boolean(waiter.take(properties.disable));
+  const fullWidth = Boolean(waiter.take(properties.fullWidth));
+  const hidden = Boolean(waiter.take(properties.hidden));
 
-  const items = take(properties.items);
-  const label = take(properties.label);
+  const items = waiter.take(properties.items);
+  const label = waiter.take(properties.label);
 
   const color = properties.color ? properties.color.name : 'primary';
   const display = {
@@ -49,7 +49,7 @@ const Button = (props) => {
 
   const click = () => {
     if (!isBuilder) {
-      order(onClick);
+      waiter.order(onClick);
     }
   };
 
@@ -89,7 +89,7 @@ const Button = (props) => {
           <Box sx={display}>
             <Group
               items={items}
-              onClick={(item) => order(onClick, item)}
+              onClick={(item) => waiter.order(onClick, item)}
               color={color}
             />
           </Box>

@@ -17,9 +17,8 @@ import Time from '@/component/input/Time';
 import Toggle from '@/component/input/Toggle';
 
 import CInputType from '@/constant/CInputType';
-
-import Comp from '@/hook/Comp';
 import FormData from '@/hook/FormData';
+import UIStore from '@/hook/UIStore';
 
 import Waiter from '@/interpreter/waiter';
 
@@ -28,7 +27,7 @@ const FieldControl = (props) => {
 
   const waiter = Waiter({ isBuilder });
   const formData = FormData();
-  const comp = Comp();
+  const uiStore = UIStore();
 
   const name = properties.name;
   const color = properties.color ? properties.color.name : 'primary';
@@ -86,7 +85,7 @@ const FieldControl = (props) => {
     }
 
     if (type === CInputType.file.value) {
-      const tempFileName = comp.get('tempData')?.[name] || null;
+      const tempFileName = uiStore.get('tempData')?.[name] || null;
       return <File {...componentProps} name={name} value={tempFileName} />;
     }
 
