@@ -1,4 +1,4 @@
-import { useUIStore } from '@/contextss/UIStoreProvider';
+import { useUIStore } from '@/contexts/UIStoreProvider';
 
 const UIStore = () => {
   const { store, setStore } = useUIStore({});

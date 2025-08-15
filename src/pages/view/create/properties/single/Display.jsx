@@ -12,9 +12,9 @@ import AlignVerticalCenter from '@mui/icons-material/AlignVerticalCenter';
 import AlignVerticalTop from '@mui/icons-material/AlignVerticalTop';
 */
 
-import CComponentGroupType from '@/constantss/CComponentGroupType';
-import CContainerType from '@/constantss/CContainerType';
-import CTheme from '@/constantss/CTheme';
+import CTheme from '@/configs/CTheme';
+import EComponentGroupType from '@/enums/EComponentGroupType';
+import EContainerType from '@/enums/EContainerType';
 
 const Display = (props) => {
   const { content, selected, editComponent, setContent } = props;
@@ -74,10 +74,10 @@ const Display = (props) => {
     const group = selected.group.value;
     const type = selected.type.value;
 
-    if (group === CComponentGroupType.button.value) return true;
+    if (group === EComponentGroupType.button.value) return true;
     if (
-      group === CComponentGroupType.container.value &&
-      type === CContainerType.card.value
+      group === EComponentGroupType.container.value &&
+      type === EContainerType.card.value
     )
       return true;
     return false;

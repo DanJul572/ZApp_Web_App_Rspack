@@ -4,11 +4,11 @@ import Card from '@mui/material/Card';
 import Modal from '@mui/material/Modal';
 import { useEffect, useState } from 'react';
 
-import IconPicker from '@/componentss/iconPicker';
-import Toggle from '@/componentss/input/Toggle';
+import IconPicker from '@/components/iconPicker';
+import Toggle from '@/components/input/Toggle';
 
-import CButtonType from '@/constantss/CButtonType';
-import CComponentGroupType from '@/constantss/CComponentGroupType';
+import EButtonType from '@/enums/EButtonType';
+import EComponentGroupType from '@/enums/EComponentGroupType';
 
 const Icon = (props) => {
   const { content, selected, editComponent, setContent } = props;
@@ -40,8 +40,8 @@ const Icon = (props) => {
     }
 
     return (
-      selected.group.value === CComponentGroupType.button.value &&
-      selected.type.value === CButtonType.button.value
+      selected.group.value === EComponentGroupType.button.value &&
+      selected.type.value === EButtonType.button.value
     );
   };
 

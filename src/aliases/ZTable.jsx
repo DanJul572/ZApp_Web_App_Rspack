@@ -1,4 +1,4 @@
-import Table from '@/componentss/table';
+import Table from '@/components/table';
 
 const ZTable = Table;
 

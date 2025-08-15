@@ -1,14 +1,14 @@
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import CActionType from '@/constantss/CActionType';
-import CApiUrl from '@/constantss/CApiUrl';
-import CModuleID from '@/constantss/CModuleID';
-import { downloadJsonFile } from '@/helperss/downloadFile';
+import CApiUrl from '@/configs/CApiUrl';
+import CModuleID from '@/configs/CModuleID';
+import EActionType from '@/enums/EActionType';
+import { downloadJsonFile } from '@/helpers/downloadFile';
 import Alert from '@/hooks/Alert';
 import Loader from '@/hooks/Loader';
 import Request from '@/hooks/Request';
 import Translator from '@/hooks/Translator';
-import ClassicView from '@/templatess/ClassicView';
+import ClassicView from '@/templates/ClassicView';
 
 const Page = () => {
   const translator = Translator();
@@ -18,11 +18,11 @@ const Page = () => {
 
   const actions = [
     {
-      type: CActionType.insert.value,
+      type: EActionType.insert.value,
       path: '/module/create',
     },
     {
-      type: CActionType.delete.value,
+      type: EActionType.delete.value,
       api: CApiUrl.module.delete,
     },
   ];

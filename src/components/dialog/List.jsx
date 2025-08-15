@@ -4,7 +4,7 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
 
-import MuiList from '@/aliaseses/MuiList';
+import MuiList from '@/aliases/MuiList';
 
 const List = (props) => {
   const { items, onSelected, open, setOpen } = props;

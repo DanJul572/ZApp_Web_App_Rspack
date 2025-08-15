@@ -2,7 +2,7 @@ import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 
-import CTheme from '@/constantss/CTheme';
+import CTheme from '@/configs/CTheme';
 
 const LongText = (props) => {
   const { label, onChange, value, rows, disabled } = props;

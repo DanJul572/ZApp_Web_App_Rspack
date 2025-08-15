@@ -8,8 +8,8 @@ import DialogTitle from '@mui/material/DialogTitle';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import { useEffect, useState } from 'react';
-import Code from '@/componentss/input/Code';
-import CTheme from '@/constantss/CTheme';
+import Code from '@/components/input/Code';
+import CTheme from '@/configs/CTheme';
 import Translator from '@/hooks/Translator';
 
 const OnLoad = (props) => {

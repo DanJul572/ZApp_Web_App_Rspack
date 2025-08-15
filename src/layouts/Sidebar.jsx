@@ -5,8 +5,8 @@ import Typography from '@mui/material/Typography';
 import { useQuery } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
-import Tree from '@/componentss/tree';
-import CApiUrl from '@/constantss/CApiUrl';
+import Tree from '@/components/tree';
+import CApiUrl from '@/configs/CApiUrl';
 import Request from '@/hooks/Request';
 
 const Loading = ({ isLoading }) => {

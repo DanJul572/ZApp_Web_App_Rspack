@@ -1,4 +1,4 @@
-import { useFormData } from '@/contextss/FormDataProvider';
+import { useFormData } from '@/contexts/FormDataProvider';
 
 const FormData = () => {
   const { formData, setFormData } = useFormData({});

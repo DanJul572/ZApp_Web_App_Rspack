@@ -6,8 +6,8 @@ import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import { useState } from 'react';
 
-import MuiCollapse from '@/aliaseses/MuiCollapse';
-import CTheme from '@/constantss/CTheme';
+import MuiCollapse from '@/aliases/MuiCollapse';
+import CTheme from '@/configs/CTheme';
 
 const Collapse = (props) => {
   const { children, label, color } = props;

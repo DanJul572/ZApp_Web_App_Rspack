@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { useFile } from '@/contextss/FileProvider';
+import { useFile } from '@/contexts/FileProvider';
 import FormData from '@/hooks/FormData';
 import UIStore from '@/hooks/UIStore';
 

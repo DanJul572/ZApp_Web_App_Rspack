@@ -1,14 +1,14 @@
 import Box from '@mui/material/Box';
-import MuiDrawer from '@/aliaseses/MuiDrawer';
+import MuiDrawer from '@/aliases/MuiDrawer';
 
 const Drawer = (props) => {
   const { anchor, open, children, setOpen, size } = props;
 
   const drawerSize = {};
   if (anchor && (anchor === 'top' || anchor === 'bottom')) {
-    drawerSize.height = Number.parseInt(size) || 750;
+    drawerSize.height = Number.parseInt(size, 10) || 750;
   } else {
-    drawerSize.width = Number.parseInt(size) || 750;
+    drawerSize.width = Number.parseInt(size, 10) || 750;
   }
 
   const onOpen = () => {

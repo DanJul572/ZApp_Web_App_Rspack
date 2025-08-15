@@ -10,9 +10,9 @@ import { TreeItem, treeItemClasses } from '@mui/x-tree-view/TreeItem';
 import { forwardRef, useEffect, useState } from 'react';
 import { useLocation } from 'react-router';
 
-import * as Icon from '@/componentss/icons';
+import * as Icon from '@/components/icons';
 
-import { useExpandedMenu } from '@/contextss/ExpandedMenuProvider';
+import { useExpandedMenu } from '@/contexts/ExpandedMenuProvider';
 
 import ShortText from '../input/ShortText';
 
@@ -27,6 +27,16 @@ const StyledTreeItem = styled(CustomTreeItem)(({ theme }) => ({
     color: theme.palette.text.primary,
   },
 }));
+
+const ExpandIcon = (props) => {
+  const theme = useTheme();
+  return <Folder {...props} sx={{ color: theme.palette.primary.main }} />;
+};
+
+const CollapseIcon = (props) => {
+  const theme = useTheme();
+  return <FolderOpen {...props} sx={{ color: theme.palette.primary.main }} />;
+};
 
 const Tree = (props) => {
   const { onChildClick, onParentClick, tree, isSidebar, setTree } = props;
@@ -144,14 +154,6 @@ const Tree = (props) => {
         }}
       />
     );
-  };
-
-  const ExpandIcon = (props) => {
-    return <Folder {...props} sx={{ color: theme.palette.primary.main }} />;
-  };
-
-  const CollapseIcon = (props) => {
-    return <FolderOpen {...props} sx={{ color: theme.palette.primary.main }} />;
   };
 
   useEffect(() => {

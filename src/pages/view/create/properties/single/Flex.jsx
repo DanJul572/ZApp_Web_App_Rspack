@@ -1,10 +1,10 @@
 import Box from '@mui/material/Box';
 import { useEffect, useState } from 'react';
 
-import Toggle from '@/componentss/input/Toggle';
+import Toggle from '@/components/input/Toggle';
 
-import CComponentGroupType from '@/constantss/CComponentGroupType';
-import CContainerType from '@/constantss/CContainerType';
+import EComponentGroupType from '@/enums/EComponentGroupType';
+import EContainerType from '@/enums/EContainerType';
 
 const Flex = (props) => {
   const { content, selected, editComponent, setContent } = props;
@@ -27,8 +27,8 @@ const Flex = (props) => {
     const type = selected.type.value;
 
     if (
-      group === CComponentGroupType.container.value &&
-      type === CContainerType.card.value
+      group === EComponentGroupType.container.value &&
+      type === EContainerType.card.value
     )
       return true;
     return false;

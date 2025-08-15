@@ -5,9 +5,9 @@ import Tabs from '@mui/material/Tabs';
 import PropTypes from 'prop-types';
 import { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
-import CComponentGroupType from '@/constantss/CComponentGroupType';
-import CProperties from '@/constantss/CProperties';
-import CTheme from '@/constantss/CTheme';
+import CTheme from '@/configs/CTheme';
+import EComponentGroupType from '@/enums/EComponentGroupType';
+import EProperties from '@/enums/EProperties';
 import Translator from '@/hooks/Translator';
 import CodeForm from './common/CodeForm';
 import ShortTextForm from './common/ShortTextForm';
@@ -78,7 +78,7 @@ const Properties = (props) => {
   const changeComponentID = (component) => {
     const id = uuidv4();
     component.id = id;
-    if (component.group.value === CComponentGroupType.container.value) {
+    if (component.group.value === EComponentGroupType.container.value) {
       for (let y = 0; y < component.section.length; y++) {
         const section = component.section[y];
         for (let x = 0; x < section.length; x++) {
@@ -97,7 +97,7 @@ const Properties = (props) => {
         content.splice(x, 0, duplicateComponent);
         return content;
       }
-      if (component.group.value === CComponentGroupType.container.value) {
+      if (component.group.value === EComponentGroupType.container.value) {
         for (let y = 0; y < component.section.length; y++) {
           const section = component.section[y];
           duplicateProcess(section, duplicateComponent);
@@ -121,7 +121,7 @@ const Properties = (props) => {
         content.splice(i, 1);
         return content;
       }
-      if (component.group.value === CComponentGroupType.container.value) {
+      if (component.group.value === EComponentGroupType.container.value) {
         for (let x = 0; x < component.section.length; x++) {
           const section = component.section[x];
           deleteComponent(section);
@@ -145,7 +145,7 @@ const Properties = (props) => {
         content.splice(x, 1, newSelected);
         return content;
       }
-      if (component.group.value === CComponentGroupType.container.value) {
+      if (component.group.value === EComponentGroupType.container.value) {
         for (let y = 0; y < component.section.length; y++) {
           const section = component.section[y];
           editComponent(key, value, section);
@@ -212,7 +212,7 @@ const Properties = (props) => {
                 deleteComponent={deleteComponent}
                 setSelected={setSelected}
               />
-              {CProperties.CShortTextFormProperties.map((property) => {
+              {EProperties.CShortTextFormProperties.map((property) => {
                 return (
                   <ShortTextForm
                     {...compProps}
@@ -222,7 +222,7 @@ const Properties = (props) => {
                   />
                 );
               })}
-              {CProperties.CCodeFormProperties.map((property) => {
+              {EProperties.CCodeFormProperties.map((property) => {
                 return (
                   <CodeForm
                     {...compProps}
@@ -232,7 +232,7 @@ const Properties = (props) => {
                   />
                 );
               })}
-              {CProperties.CToggleCodeFormProperties.map((property) => {
+              {EProperties.CToggleCodeFormProperties.map((property) => {
                 return (
                   <ToggleCodeFormProperties
                     {...compProps}

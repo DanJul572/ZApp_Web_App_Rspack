@@ -1,33 +1,33 @@
 import dayjs from 'dayjs';
-import CDateTimeFormat from '@/constantss/CDateTimeFormat';
-import CInputType from '@/constantss/CInputType';
+import EDateTimeFormat from '@/enums/EDateTimeFormat';
+import EInputType from '@/enums/EInputType';
 import isValidValue from './isValidValue';
 
 const dataDisplay = (type, value) => {
-  if (type === CInputType.code.value) return isValidValue(value) ? 'Code' : '';
+  if (type === EInputType.code.value) return isValidValue(value) ? 'Code' : '';
 
-  if (type === CInputType.date.value)
+  if (type === EInputType.date.value)
     return isValidValue(value)
-      ? dayjs(value).format(CDateTimeFormat.date.display)
+      ? dayjs(value).format(EDateTimeFormat.date.display)
       : '';
 
-  if (type === CInputType.datetime.value)
+  if (type === EInputType.datetime.value)
     return isValidValue(value)
-      ? dayjs(value).format(CDateTimeFormat.datetime.display)
+      ? dayjs(value).format(EDateTimeFormat.datetime.display)
       : '';
 
-  if (type === CInputType.richText.value)
+  if (type === EInputType.richText.value)
     return isValidValue(value) ? 'HTML' : '';
 
-  if (type === CInputType.time.value)
+  if (type === EInputType.time.value)
     return isValidValue(value)
-      ? dayjs(value).format(CDateTimeFormat.time.display)
+      ? dayjs(value).format(EDateTimeFormat.time.display)
       : '';
 
-  if (type === CInputType.toggle.value)
+  if (type === EInputType.toggle.value)
     return isValidValue(value) ? 'Yes' : 'No';
 
-  if (type === CInputType.number.value)
+  if (type === EInputType.number.value)
     return isValidValue(value)
       ? value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.')
       : '';

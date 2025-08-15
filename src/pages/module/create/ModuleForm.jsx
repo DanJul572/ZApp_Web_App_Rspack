@@ -1,8 +1,8 @@
 import Card from '@mui/material/Card';
 import Grid from '@mui/material/Grid';
 
-import LongText from '@/componentss/input/LongText';
-import ShortText from '@/componentss/input/ShortText';
+import LongText from '@/components/input/LongText';
+import ShortText from '@/components/input/ShortText';
 
 const ModuleForm = (props) => {
   const {

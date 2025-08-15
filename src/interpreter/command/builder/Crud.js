@@ -1,10 +1,8 @@
-import CApiUrl from '@/constantss/CApiUrl';
+import CApiUrl from '@/configs/CApiUrl';
+import { useFile } from '@/contexts/FileProvider';
+import Request from '@/hooks/Request';
 
-import { useFile } from '@/contextss/FileProvider';
-
-import Request from './Request';
-
-const Api = () => {
+const Crud = () => {
   const { get, post } = Request();
   const { file } = useFile();
 
@@ -23,4 +21,4 @@ const Api = () => {
   return { create, detail, update };
 };
 
-export default Api;
+export default Crud;

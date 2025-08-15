@@ -1,10 +1,10 @@
 import { useQuery } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
-import CActionType from '@/constantss/CActionType';
-import CApiUrl from '@/constantss/CApiUrl';
-import { useAlert } from '@/contextss/AlertProvider';
-import { useLoading } from '@/contextss/LoadingProvider';
+import CApiUrl from '@/configs/CApiUrl';
+import { useAlert } from '@/contexts/AlertProvider';
+import { useLoading } from '@/contexts/LoadingProvider';
+import EActionType from '@/enums/EActionType';
 import Request from '@/hooks/Request';
 
 const TableFunction = (props) => {
@@ -66,7 +66,7 @@ const TableFunction = (props) => {
       moduleId: moduleID,
       id: selectedRow[columnKey],
     };
-    const action = actions.find((a) => a.type === CActionType.delete.value);
+    const action = actions.find((a) => a.type === EActionType.delete.value);
     const url = action?.api || CApiUrl.common.delete;
 
     post(url, body)
@@ -81,16 +81,16 @@ const TableFunction = (props) => {
   };
 
   const onCLickToolbarAction = (action) => {
-    if (action.type === CActionType.insert.value) {
+    if (action.type === EActionType.insert.value) {
       navigate(action.path);
     }
   };
 
   const onClickRowAction = (data) => {
-    if (data.action.type === CActionType.delete.value) {
+    if (data.action.type === EActionType.delete.value) {
       setSelectedRow(data.row);
       setOpenConfirmDialog(true);
-    } else if (data.action.type === CActionType.update.value) {
+    } else if (data.action.type === EActionType.update.value) {
       navigate(`${data.action.path}?${columnKey}=${data.row[columnKey]}`);
     }
   };

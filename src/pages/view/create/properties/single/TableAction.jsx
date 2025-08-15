@@ -10,11 +10,11 @@ import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import { useEffect, useState } from 'react';
 
-import Code from '@/componentss/input/Code';
-import Toggle from '@/componentss/input/Toggle';
-import CActionType from '@/constantss/CActionType';
-import CComponentGroupType from '@/constantss/CComponentGroupType';
-import CTheme from '@/constantss/CTheme';
+import Code from '@/components/input/Code';
+import Toggle from '@/components/input/Toggle';
+import CTheme from '@/configs/CTheme';
+import EActionType from '@/enums/EActionType';
+import EComponentGroupType from '@/enums/EComponentGroupType';
 import Translator from '@/hooks/Translator';
 
 const TableAction = (props) => {
@@ -27,18 +27,18 @@ const TableAction = (props) => {
 
   const actions = [
     {
-      label: CActionType.insert.label,
-      type: CActionType.insert.value,
+      label: EActionType.insert.label,
+      type: EActionType.insert.value,
       onClick: null,
     },
     {
-      label: CActionType.update.label,
-      type: CActionType.update.value,
+      label: EActionType.update.label,
+      type: EActionType.update.value,
       onClick: null,
     },
     {
-      label: CActionType.delete.label,
-      type: CActionType.delete.value,
+      label: EActionType.delete.label,
+      type: EActionType.delete.value,
       onClick: null,
     },
   ];
@@ -85,7 +85,7 @@ const TableAction = (props) => {
 
     const group = selected.group.value;
 
-    if (group !== CComponentGroupType.table.value) return false;
+    if (group !== EComponentGroupType.table.value) return false;
 
     return true;
   };
@@ -117,7 +117,7 @@ const TableAction = (props) => {
                     label={action.label}
                     onChange={() => changeActions(action, true)}
                   />
-                  {action.type !== CActionType.delete.value && (
+                  {action.type !== EActionType.delete.value && (
                     <IconButton
                       sx={{ padding: 0 }}
                       size={CTheme.button.size.name}

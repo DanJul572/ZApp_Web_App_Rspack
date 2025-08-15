@@ -3,9 +3,9 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import FormGroup from '@mui/material/FormGroup';
 import Typography from '@mui/material/Typography';
 
-import MuiCheckbox from '@/aliaseses/MuiCheckbox';
+import MuiCheckbox from '@/aliases/MuiCheckbox';
 
-import CTheme from '@/constantss/CTheme';
+import CTheme from '@/configs/CTheme';
 
 const Checkbox = (props) => {
   const { value, label, options, disabled, onChange } = props;
@@ -13,7 +13,7 @@ const Checkbox = (props) => {
   const values = value?.length ? value.splitranslator('|') : [];
 
   const setValues = (val) => {
-    const deleteIndex = values.findIndex((value) => value === val);
+    const deleteIndex = values.indexOf(val);
     deleteIndex >= 0 ? values.splice(deleteIndex, 1) : values.push(val);
     onChange(values.join('|'));
   };

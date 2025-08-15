@@ -1,9 +1,8 @@
 import Box from '@mui/material/Box';
 import Rating from '@mui/material/Rating';
 import Typography from '@mui/material/Typography';
-
-import CInputType from '@/constantss/CInputType';
-import CTheme from '@/constantss/CTheme';
+import CTheme from '@/configs/CTheme';
+import EInputType from '@/enums/EInputType';
 
 const Ratings = (props) => {
   const { value, onChange, label, disabled } = props;
@@ -21,7 +20,7 @@ const Ratings = (props) => {
       }}
     >
       <Typography fontSize={CTheme.font.size.value}>
-        {label || CInputType.ratings.label}
+        {label || EInputType.ratings.label}
       </Typography>
       <Rating disabled={disabled} value={value} onChange={handleChange} />
     </Box>

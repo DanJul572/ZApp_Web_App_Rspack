@@ -11,10 +11,10 @@ import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import { useEffect, useState } from 'react';
 
-import NumberField from '@/componentss/input/NumberField';
-import ShortText from '@/componentss/input/ShortText';
-import CComponentGroupType from '@/constantss/CComponentGroupType';
-import CTheme from '@/constantss/CTheme';
+import NumberField from '@/components/input/NumberField';
+import ShortText from '@/components/input/ShortText';
+import CTheme from '@/configs/CTheme';
+import EComponentGroupType from '@/enums/EComponentGroupType';
 import Translator from '@/hooks/Translator';
 
 const Position = (props) => {
@@ -28,8 +28,8 @@ const Position = (props) => {
   const [open, setOpen] = useState(false);
 
   const changePosition = (content) => {
-    const rowIndexInt = Number.parseInt(rowIndex);
-    const columnIndexInt = Number.parseInt(columnIndex);
+    const rowIndexInt = Number.parseInt(rowIndex, 10);
+    const columnIndexInt = Number.parseInt(columnIndex, 10);
 
     if (!containerID) {
       content.splice(rowIndexInt, 0, selected);
@@ -44,7 +44,7 @@ const Position = (props) => {
             component.section[columnIndexInt].splice(rowIndexInt, 0, selected);
           }
         }
-        if (component.group.value === CComponentGroupType.container.value) {
+        if (component.group.value === EComponentGroupType.container.value) {
           for (let y = 0; y < component.section.length; y++) {
             const section = component.section[y];
             changePosition(section);

@@ -1,7 +1,7 @@
 import Backdrop from '@mui/material/Backdrop';
 import CircularProgress from '@mui/material/CircularProgress';
 
-import { useLoading } from '@/contextss/LoadingProvider';
+import { useLoading } from '@/contexts/LoadingProvider';
 
 const FullCoverLoader = () => {
   const { loading } = useLoading();

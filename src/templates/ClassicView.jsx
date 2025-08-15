@@ -1,8 +1,8 @@
 import Box from '@mui/material/Box';
 
-import Confirm from '@/componentss/dialog/Confirm';
-import ContentLoader from '@/componentss/loading/ContentLoader';
-import Table from '@/componentss/table';
+import Confirm from '@/components/dialog/Confirm';
+import ContentLoader from '@/components/loading/ContentLoader';
+import Table from '@/components/table';
 
 import TableFunction from '@/hooks/TableFunction';
 import Translator from '@/hooks/Translator';

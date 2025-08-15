@@ -1,4 +1,4 @@
-const CDataType = {
+const EDataType = {
   varchar: {
     value: 1,
     label: 'Varchar',
@@ -33,4 +33,4 @@ const CDataType = {
   },
 };
 
-export default CDataType;
+export default EDataType;

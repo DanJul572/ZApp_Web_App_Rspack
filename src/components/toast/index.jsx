@@ -1,8 +1,8 @@
 import Snackbar from '@mui/material/Snackbar';
 import { forwardRef } from 'react';
 
-import MuiAlert from '@/aliaseses/MuiAlert';
-import { useToast } from '@/contextss/ToastProvider';
+import MuiAlert from '@/aliases/MuiAlert';
+import { useToast } from '@/contexts/ToastProvider';
 
 import Translator from '@/hooks/Translator';
 

@@ -7,7 +7,7 @@ import OutlinedInput from '@mui/material/OutlinedInput';
 import Typography from '@mui/material/Typography';
 import { useState } from 'react';
 
-import CTheme from '@/constantss/CTheme';
+import CTheme from '@/configs/CTheme';
 
 const Password = (props) => {
   const { label, onChange, value, name, disabled, onBlur } = props;

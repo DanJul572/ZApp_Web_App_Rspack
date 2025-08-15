@@ -3,8 +3,8 @@ import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
-import CTheme from '@/constantss/CTheme';
-import { validator } from '@/helperss/validator';
+import CTheme from '@/configs/CTheme';
+import { validator } from '@/helpers/validator';
 
 const ShortText = (props) => {
   const {

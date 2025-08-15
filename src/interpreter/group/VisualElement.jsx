@@ -1,12 +1,12 @@
 import { useTheme } from '@mui/material';
 import Divider from '@mui/material/Divider';
 import Typography from '@mui/material/Typography';
-import CTheme from '@/constantss/CTheme';
-import CVisualElement from '@/constantss/CVisualElementType';
+import CTheme from '@/configs/CTheme';
+import CVisualElement from '@/enums/EVisualElementType';
 import Translator from '@/hooks/Translator';
 import Waiter from '@/interpreter/waiter';
 
-import MapLoop from './MapLoop';
+import MapLoop from '../extra/MapLoop';
 
 const Text = (props, key = null) => {
   return (
@@ -28,16 +28,16 @@ const Text = (props, key = null) => {
 const VisualElement = (props) => {
   const { type, properties, isBuilder } = props;
 
-  const { take } = Waiter({ isBuilder });
+  const waiter = Waiter({ isBuilder });
   const translator = Translator();
   const theme = useTheme();
 
-  const label = take(properties.label);
-  const loop = take(properties.loop);
+  const label = waiter.take(properties.label);
+  const loop = waiter.take(properties.loop);
   const color = properties.color
     ? properties.color.value
     : theme.palette.text.primary;
-  const size = Number.parseInt(properties.size) || CTheme.font.size.value;
+  const size = Number.parseInt(properties.size, 10) || CTheme.font.size.value;
   const bold = properties.textDecoration?.bold ? 'bold' : 'normal';
   const italic = properties.textDecoration?.italic ? 'italic' : 'normal';
   const underline = properties.textDecoration?.underline ? 'underline' : 'none';
@@ -67,7 +67,7 @@ const VisualElement = (props) => {
           <MapLoop
             items={loop}
             render={(item, index) => {
-              props.label = take(properties.label, item);
+              props.label = waiter.take(properties.label, item);
               return Text(props, index);
             }}
           />

@@ -1,11 +1,11 @@
-import CValidProperty from '@/constantss/CValidProperty';
+import EValidProperty from '@/enums/EValidProperty';
 
 const isValidProperties = (name, group, type) => {
   if (!name || !group || !type) {
     return false;
   }
 
-  const validate = CValidProperty[name];
+  const validate = EValidProperty[name];
 
   if (!validate || !validate[group]) {
     return false;

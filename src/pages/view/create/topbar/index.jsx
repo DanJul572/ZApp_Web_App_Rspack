@@ -7,22 +7,22 @@ import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
-import Upload from '@/componentss/button/Upload';
-import Confirm from '@/componentss/dialog/Confirm';
-import List from '@/componentss/dialog/List';
-import CActionType from '@/constantss/CActionType';
-import CApiUrl from '@/constantss/CApiUrl';
-import CModuleID from '@/constantss/CModuleID';
-import CTheme from '@/constantss/CTheme';
-import { useLoading } from '@/contextss/LoadingProvider';
-import { useToast } from '@/contextss/ToastProvider';
-import { downloadJsonFile } from '@/helperss/downloadFile';
-import { decrypt, encrypt } from '@/helperss/encryption';
+import Upload from '@/components/button/Upload';
+import Confirm from '@/components/dialog/Confirm';
+import List from '@/components/dialog/List';
+import CApiUrl from '@/configs/CApiUrl';
+import CModuleID from '@/configs/CModuleID';
+import CTheme from '@/configs/CTheme';
+import { useLoading } from '@/contexts/LoadingProvider';
+import { useToast } from '@/contexts/ToastProvider';
+import EActionType from '@/enums/EActionType';
+import { downloadJsonFile } from '@/helpers/downloadFile';
+import { decrypt, encrypt } from '@/helpers/encryption';
 import {
   generateContent,
   generateInvalidContent,
-} from '@/helperss/generateContent';
-import { readJSONFile } from '@/helperss/readFile';
+} from '@/helpers/generateContent';
+import { readJSONFile } from '@/helpers/readFile';
 import Request from '@/hooks/Request';
 import Translator from '@/hooks/Translator';
 
@@ -49,7 +49,7 @@ const TopBar = (props) => {
   const { setToast } = useToast();
   const theme = useTheme();
 
-  const generateTypeList = [CActionType.insert, CActionType.update];
+  const generateTypeList = [EActionType.insert, EActionType.update];
   const hasContent = content && content.length > 0;
 
   const [openConfirmDialog, setOpenConfirmDialog] = useState(false);
@@ -160,7 +160,7 @@ const TopBar = (props) => {
   };
 
   const onGenerate = (item) => {
-    if (item.value === CActionType.insert.value) {
+    if (item.value === EActionType.insert.value) {
       getModule(item.value);
     } else {
       const content = generateInvalidContent();

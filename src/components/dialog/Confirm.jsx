@@ -5,7 +5,7 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 
-import CTheme from '@/constantss/CTheme';
+import CTheme from '@/configs/CTheme';
 
 const Confirm = (props) => {
   const { open, title, text, confirmButton, cancelButton, onConfirm } = props;

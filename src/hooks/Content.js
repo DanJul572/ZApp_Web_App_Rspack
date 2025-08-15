@@ -1,19 +1,20 @@
 import { useQuery } from '@tanstack/react-query';
 import { useParams } from 'react-router';
-import CApiUrl from '@/constantss/CApiUrl';
-import CModuleID from '@/constantss/CModuleID';
-import { decrypt } from '@/helperss/encryption';
+import CApiUrl from '@/configs/CApiUrl';
+import CModuleID from '@/configs/CModuleID';
+import { decrypt } from '@/helpers/encryption';
 import Request from './Request';
 import Translator from './Translator';
 
 const Content = ({ isBuilder }) => {
   const params = useParams();
-  const { get } = Request();
+  
+  const request = Request();
   const translator = Translator();
 
   const fetchContent = async () => {
     const param = { moduleId: CModuleID.views, rowId: params.id };
-    const res = await get(CApiUrl.common.detail, param);
+    const res = await request.get(CApiUrl.common.detail, param);
     if (res) {
       return {
         content: decrypt(res.content),
