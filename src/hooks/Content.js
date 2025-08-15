@@ -8,7 +8,7 @@ import Translator from './Translator';
 
 const Content = ({ isBuilder }) => {
   const params = useParams();
-  
+
   const request = Request();
   const translator = Translator();
 
