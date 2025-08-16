@@ -14,7 +14,7 @@ import { UIStoreProvider } from '@/contexts/UIStoreProvider';
 const queryClient = new QueryClient();
 
 export const metadata = {
-  title: 'ZApp',
+  title: process.env.APP_NAME || 'Hello World!',
   description: 'Cretae your app without code',
 };
 

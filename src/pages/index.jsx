@@ -24,7 +24,7 @@ export default function Page() {
         <CardContent>
           <Stack spacing={3} alignItems="center" textAlign="center">
             <Typography variant="h4" component="h1" fontWeight={700}>
-              Hello World!
+              {process.env.APP_NAME || 'Hello World!'}
             </Typography>
             <ButtonGroup
               variant="text"

@@ -28,7 +28,7 @@ const Topbar = () => {
       }}
     >
       <Typography variant="h6" noWrap component="div" color="inherit">
-        ZApp
+        {process.env.APP_NAME || 'Hello World!'}
       </Typography>
       <IconButton
         size={CTheme.button.size.name}
