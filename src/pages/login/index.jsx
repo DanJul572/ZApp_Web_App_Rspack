@@ -1,3 +1,4 @@
+import { ArrowBack } from '@mui/icons-material';
 import { createTheme } from '@mui/material';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -67,6 +68,13 @@ const Page = () => {
           width: 450,
         }}
       >
+        <Button
+          startIcon={<ArrowBack />}
+          onClick={() => navigate(-1)}
+          sx={{ alignSelf: 'flex-start', mb: 2 }}
+        >
+          Back
+        </Button>
         <Box marginBottom={3} display="flex" flexDirection="column" gap={1}>
           <ShortText
             label="Email"

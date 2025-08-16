@@ -26,10 +26,17 @@ export default function Page() {
             <Typography variant="h4" component="h1" fontWeight={700}>
               Hello World!
             </Typography>
-
-            <ButtonGroup variant="text" aria-label="login register actions">
-              <Button onClick={() => navigate('/login')}>Login</Button>
-              <Button onClick={() => navigate('/register')}>Register</Button>
+            <ButtonGroup
+              variant="text"
+              aria-label="login register actions"
+              fullWidth
+            >
+              <Button sx={{ flex: 1 }} onClick={() => navigate('/login')}>
+                Login
+              </Button>
+              <Button sx={{ flex: 1 }} onClick={() => navigate('/register')}>
+                Register
+              </Button>
             </ButtonGroup>
           </Stack>
         </CardContent>
