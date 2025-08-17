@@ -9,7 +9,11 @@
         "runtime": "automatic"
       }
     },
-    "target": "es2017"
+    "target": "es2017",
+    "baseUrl": "./src",
+    "paths": {
+      "@/*": ["*"]
+    }
   },
   "module": {
     "type": "es6"
