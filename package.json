@@ -7,7 +7,6 @@
     "build": "rsbuild build",
     "check": "biome check --write",
     "dev": "rsbuild dev",
-    "lint": "eslint . --fix",
     "preview": "rsbuild preview"
   },
   "dependencies": {
