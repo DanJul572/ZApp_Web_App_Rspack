@@ -1,6 +1,6 @@
 {
   "name": "zapp_web_app",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "private": false,
   "type": "module",
   "main": "dist/index.js",
@@ -10,8 +10,7 @@
   ],
   "scripts": {
     "build:rsbuild": "rsbuild build",
-    "build:swc": "swc src -d dist --extensions .js,.jsx",
-    "copy": "cpx \"src/languages/**/*.json\" dist/src/languages",
+    "prepublishOnly": "swc src -d dist --strip-leading-paths --extensions .js,.jsx && cpx \"src/languages/**/*.json\" dist/languages",
     "check": "biome check --write",
     "dev": "rsbuild dev",
     "preview": "rsbuild preview"
@@ -52,8 +51,7 @@
     "@swc/core": "^1.13.3",
     "cpx": "^1.5.0",
     "dotenv-webpack": "^8.1.1",
-    "globals": "^16.3.0",
-    "path": "^0.12.7"
+    "globals": "^16.3.0"
   },
   "packageManager": "pnpm@10.14.0"
 }
