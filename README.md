@@ -39,7 +39,6 @@ Berikut adalah daftar script yang dapat dijalankan melalui `package.json`:
 | `dev`       | `pnpm dev`                 | Menjalankan server pengembangan dengan **Rsbuild**.                       |
 | `build`     | `pnpm build`               | Build aplikasi untuk produksi.                                            |
 | `preview`   | `pnpm preview`             | Menjalankan preview lokal dari hasil build produksi.                      |
-| `lint`      | `pnpm lint`                | Mengecek & memperbaiki kode dengan **ESLint**.                            |
 | `check`     | `pnpm check`               | Mengecek & memperbaiki format kode menggunakan **Biome**.                 |
 
 ---
@@ -78,7 +77,7 @@ pnpm check
 - **Internasionalisasi**: [i18next](https://www.i18next.com/)
 - **Ekspor Data**: `export-to-csv`, `jspdf`, `jspdf-autotable`
 - **Utils**: `uuid`, `dayjs`, `crypto-js`, `prop-types`
-- **Dev Tools**: ESLint, Biome, dotenv-webpack
+- **Dev Tools**: Biome, dotenv-webpack
 
 ---
 
