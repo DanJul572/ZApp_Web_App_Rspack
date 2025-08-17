@@ -1,15 +1,23 @@
 import ArrowBack from '@mui/icons-material/ArrowBack';
+import Download from '@mui/icons-material/Download';
+import FileUpload from '@mui/icons-material/FileUpload';
+import RemoveRedEye from '@mui/icons-material/RemoveRedEye';
+import Save from '@mui/icons-material/Save';
+import ViewComfy from '@mui/icons-material/ViewComfy';
 import { useTheme } from '@mui/material';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
+import ButtonGroup from '@mui/material/ButtonGroup';
 import Card from '@mui/material/Card';
 import IconButton from '@mui/material/IconButton';
+import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
 import Upload from '@/components/button/Upload';
 import Confirm from '@/components/dialog/Confirm';
 import List from '@/components/dialog/List';
+import { Delete } from '@/components/icons';
 import CApiUrl from '@/configs/CApiUrl';
 import CModuleID from '@/configs/CModuleID';
 import CTheme from '@/configs/CTheme';
@@ -211,56 +219,64 @@ const TopBar = (props) => {
             {translator('view_builder')}
           </Typography>
         </Box>
-        <Box display="flex" gap={1}>
-          <Upload
-            label={translator('upload')}
-            onUpload={onUpload}
-            type=".json"
-          />
+        <ButtonGroup>
+          <Tooltip title="Upload" arrow>
+            <Upload label={<FileUpload />} onUpload={onUpload} type=".json" />
+          </Tooltip>
           {hasContent && (
-            <Button
-              variant="outlined"
-              size={CTheme.button.size.name}
-              onClick={onDownload}
-            >
-              {translator('download')}
-            </Button>
+            <Tooltip title={translator('download')} arrow>
+              <Button
+                variant="outlined"
+                size={CTheme.button.size.name}
+                onClick={onDownload}
+              >
+                <Download />
+              </Button>
+            </Tooltip>
           )}
-          <Button
-            variant="outlined"
-            size={CTheme.button.size.name}
-            onClick={() => setOpenGenerateDialog(true)}
-          >
-            {translator('generate')}
-          </Button>
-          {hasContent && (
+          <Tooltip title={translator('generate')} arrow>
             <Button
               variant="outlined"
               size={CTheme.button.size.name}
-              onClick={onPreview}
+              onClick={() => setOpenGenerateDialog(true)}
             >
-              {translator('preview')}
+              <ViewComfy />
             </Button>
+          </Tooltip>
+          {hasContent && (
+            <Tooltip title={translator('preview')} arrow>
+              <Button
+                variant="outlined"
+                size={CTheme.button.size.name}
+                onClick={onPreview}
+              >
+                <RemoveRedEye />
+              </Button>
+            </Tooltip>
           )}
           {viewId && (
-            <Button
-              variant="contained"
-              size={CTheme.button.size.name}
-              onClick={setOpenConfirmDialog}
-            >
-              {translator('delete')}
-            </Button>
+            <Tooltip title={translator('delete')} arrow>
+              <Button
+                variant="outlined"
+                size={CTheme.button.size.name}
+                onClick={setOpenConfirmDialog}
+              >
+                <Delete />
+              </Button>
+            </Tooltip>
           )}
           {hasContent && (
-            <Button
-              variant="contained"
-              size={CTheme.button.size.name}
-              onClick={onSave}
-            >
-              {translator('save')}
-            </Button>
+            <Tooltip title={translator('save')} arrow>
+              <Button
+                variant="outlined"
+                size={CTheme.button.size.name}
+                onClick={onSave}
+              >
+                <Save />
+              </Button>
+            </Tooltip>
           )}
-        </Box>
+        </ButtonGroup>
       </Card>
       <Confirm
         cancelButton={translator('cancel')}
