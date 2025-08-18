@@ -1,7 +1,7 @@
+import CTheme from '@configs/CTheme';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 import { LineChart } from '@mui/x-charts/LineChart';
-import CTheme from '@/configs/CTheme';
 import Translator from '@/hooks/Translator';
 
 const Line = (props) => {

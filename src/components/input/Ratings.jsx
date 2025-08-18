@@ -1,7 +1,7 @@
+import CTheme from '@configs/CTheme';
 import Box from '@mui/material/Box';
 import Rating from '@mui/material/Rating';
 import Typography from '@mui/material/Typography';
-import CTheme from '@/configs/CTheme';
 import EInputType from '@/enums/EInputType';
 
 const Ratings = (props) => {

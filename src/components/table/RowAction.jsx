@@ -1,10 +1,10 @@
+import CTheme from '@configs/CTheme';
 import Delete from '@mui/icons-material/Delete';
 import Edit from '@mui/icons-material/Edit';
 import Info from '@mui/icons-material/Info';
 import Menu from '@mui/icons-material/Menu';
 import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
-import CTheme from '@/configs/CTheme';
 import EActionType from '@/enums/EActionType';
 
 const RowAction = (props) => {

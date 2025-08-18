@@ -1,6 +1,6 @@
+import CTheme from '@configs/CTheme';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import CTheme from '@/configs/CTheme';
 import EActionType from '@/enums/EActionType';
 import Translator from '@/hooks/Translator';
 

@@ -1,5 +1,5 @@
+import CTheme from '@configs/CTheme';
 import ShortTextOutlined from '@mui/icons-material/ShortTextOutlined';
-
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
@@ -9,7 +9,6 @@ import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import { useEffect, useState } from 'react';
 import ShortText from '@/components/input/ShortText';
-import CTheme from '@/configs/CTheme';
 
 import isValidProperties from '@/helpers/isValidProperties';
 import Translator from '@/hooks/Translator';

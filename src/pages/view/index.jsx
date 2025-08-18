@@ -1,6 +1,6 @@
+import CModuleID from '@configs/CModuleID';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import CModuleID from '@/configs/CModuleID';
 import EActionType from '@/enums/EActionType';
 import ClassicView from '@/templates/ClassicView';
 

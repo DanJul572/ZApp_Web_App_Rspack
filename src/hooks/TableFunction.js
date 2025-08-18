@@ -1,7 +1,7 @@
+import CApiUrl from '@configs/CApiUrl';
 import { useQuery } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
-import CApiUrl from '@/configs/CApiUrl';
 import { useAlert } from '@/contexts/AlertProvider';
 import { useLoading } from '@/contexts/LoadingProvider';
 import EActionType from '@/enums/EActionType';

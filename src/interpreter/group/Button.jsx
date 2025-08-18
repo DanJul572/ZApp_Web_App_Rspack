@@ -1,12 +1,9 @@
+import CTheme from '@configs/CTheme';
 import Box from '@mui/material/Box';
 import Link from '@mui/material/Link';
-
 import MuiButton from '@/aliases/MuiButton';
-
 import Group from '@/components/button/Group';
-
 import * as Icon from '@/components/icons';
-import CTheme from '@/configs/CTheme';
 import EButtonType from '@/enums/EButtonType';
 
 import Waiter from '@/interpreter/waiter';

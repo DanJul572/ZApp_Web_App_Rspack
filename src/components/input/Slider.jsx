@@ -1,9 +1,7 @@
+import CTheme from '@configs/CTheme';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-
 import MuiSlider from '@/aliases/MuiSlider';
-
-import CTheme from '@/configs/CTheme';
 
 const Slider = (props) => {
   const { label, onChange, value, disabled, color } = props;

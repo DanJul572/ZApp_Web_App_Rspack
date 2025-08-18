@@ -1,13 +1,11 @@
+import CTheme from '@configs/CTheme';
 import Box from '@mui/material/Box';
 import Tabs from '@mui/material/Tabs';
 import Typography from '@mui/material/Typography';
 import PropTypes from 'prop-types';
 import { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
-
 import MuiTab from '@/aliases/MuiTab';
-
-import CTheme from '@/configs/CTheme';
 
 const CustomTabPanel = (props) => {
   const { children, value, index, ...other } = props;

@@ -1,3 +1,4 @@
+import CApiUrl from '@configs/CApiUrl';
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import CircularProgress from '@mui/material/CircularProgress';
@@ -6,7 +7,6 @@ import { useQuery } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
 import Tree from '@/components/tree';
-import CApiUrl from '@/configs/CApiUrl';
 import Request from '@/hooks/Request';
 
 const Loading = ({ isLoading }) => {

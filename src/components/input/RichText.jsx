@@ -1,8 +1,7 @@
+import CTheme from '@configs/CTheme';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import SunEditor from 'suneditor-react';
-
-import CTheme from '@/configs/CTheme';
 
 const RichText = (props) => {
   const { label, disabled, onChange, defaultValue } = props;

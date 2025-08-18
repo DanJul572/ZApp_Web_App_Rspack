@@ -1,7 +1,7 @@
+import CTheme from '@configs/CTheme';
 import { useTheme } from '@mui/material';
 import Divider from '@mui/material/Divider';
 import Typography from '@mui/material/Typography';
-import CTheme from '@/configs/CTheme';
 import CVisualElement from '@/enums/EVisualElementType';
 import Translator from '@/hooks/Translator';
 import Waiter from '@/interpreter/waiter';

@@ -12,7 +12,7 @@ import AlignVerticalCenter from '@mui/icons-material/AlignVerticalCenter';
 import AlignVerticalTop from '@mui/icons-material/AlignVerticalTop';
 */
 
-import CTheme from '@/configs/CTheme';
+import CTheme from '@configs/CTheme';
 import EComponentGroupType from '@/enums/EComponentGroupType';
 import EContainerType from '@/enums/EContainerType';
 

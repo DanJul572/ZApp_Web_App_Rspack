@@ -1,10 +1,10 @@
+import CApiUrl from '@configs/CApiUrl';
+import CTheme from '@configs/CTheme';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import { useState } from 'react';
 import { useNavigate } from 'react-router';
 import Upload from '@/components/button/Upload';
-import CApiUrl from '@/configs/CApiUrl';
-import CTheme from '@/configs/CTheme';
 import { useAlert } from '@/contexts/AlertProvider';
 import { useLoading } from '@/contexts/LoadingProvider';
 import { readJSONFile } from '@/helpers/readFile';

@@ -1,7 +1,7 @@
+import CApiUrl from '@configs/CApiUrl';
+import CModuleID from '@configs/CModuleID';
 import { useQuery } from '@tanstack/react-query';
 import { useParams } from 'react-router';
-import CApiUrl from '@/configs/CApiUrl';
-import CModuleID from '@/configs/CModuleID';
 import { decrypt } from '@/helpers/encryption';
 import Request from './Request';
 import Translator from './Translator';

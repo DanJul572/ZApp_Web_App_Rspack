@@ -1,8 +1,7 @@
+import CTheme from '@configs/CTheme';
 import Box from '@mui/material/Box';
 import Switch from '@mui/material/Switch';
 import Typography from '@mui/material/Typography';
-
-import CTheme from '@/configs/CTheme';
 
 const Toggle = (props) => {
   const { label, onChange, value, disabled } = props;

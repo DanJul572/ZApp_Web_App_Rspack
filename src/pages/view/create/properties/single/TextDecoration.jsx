@@ -1,10 +1,10 @@
+import CTheme from '@configs/CTheme';
 import FormatBold from '@mui/icons-material/FormatBold';
 import FormatItalic from '@mui/icons-material/FormatItalic';
 import FormatUnderlined from '@mui/icons-material/FormatUnderlined';
 import { useTheme } from '@mui/material';
 import Box from '@mui/material/Box';
 import { useEffect, useState } from 'react';
-import CTheme from '@/configs/CTheme';
 import EComponentGroupType from '@/enums/EComponentGroupType';
 import CVisualElement from '@/enums/EVisualElementType';
 

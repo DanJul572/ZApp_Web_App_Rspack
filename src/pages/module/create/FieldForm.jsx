@@ -1,3 +1,4 @@
+import CTheme from '@configs/CTheme';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import { grey } from '@mui/material/colors';
@@ -9,7 +10,6 @@ import NumberField from '@/components/input/NumberField';
 import ShortText from '@/components/input/ShortText';
 import Toggle from '@/components/input/Toggle';
 import Table from '@/components/table';
-import CTheme from '@/configs/CTheme';
 import EActionType from '@/enums/EActionType';
 import EDataType from '@/enums/EDataType';
 import EInputType from '@/enums/EInputType';

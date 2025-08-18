@@ -1,8 +1,8 @@
+import CTheme from '@configs/CTheme';
 import ContentPaste from '@mui/icons-material/ContentPaste';
 import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
-import CTheme from '@/configs/CTheme';
 import EComponentGroupType from '@/enums/EComponentGroupType';
 
 const Identity = (props) => {

@@ -1,3 +1,4 @@
+import CTheme from '@configs/CTheme';
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import Tab from '@mui/material/Tab';
@@ -5,7 +6,6 @@ import Tabs from '@mui/material/Tabs';
 import PropTypes from 'prop-types';
 import { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
-import CTheme from '@/configs/CTheme';
 import EComponentGroupType from '@/enums/EComponentGroupType';
 import EProperties from '@/enums/EProperties';
 import Translator from '@/hooks/Translator';

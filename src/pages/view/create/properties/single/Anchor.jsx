@@ -1,3 +1,4 @@
+import CTheme from '@configs/CTheme';
 import ArrowDropDown from '@mui/icons-material/ArrowDropDown';
 import ArrowDropUp from '@mui/icons-material/ArrowDropUp';
 import ArrowLeft from '@mui/icons-material/ArrowLeft';
@@ -6,7 +7,6 @@ import { useTheme } from '@mui/material';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import { useEffect, useState } from 'react';
-import CTheme from '@/configs/CTheme';
 import EComponentGroupType from '@/enums/EComponentGroupType';
 import EContainerType from '@/enums/EContainerType';
 

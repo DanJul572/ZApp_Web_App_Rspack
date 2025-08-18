@@ -1,12 +1,11 @@
+import CTheme from '@configs/CTheme';
 import ContentCopy from '@mui/icons-material/ContentCopy';
-
 import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import { useState } from 'react';
 import MuiDeleteIcon from '@/aliases/MuiDeleteIcon';
 import Confirm from '@/components/dialog/Confirm';
-import CTheme from '@/configs/CTheme';
 import Translator from '@/hooks/Translator';
 
 const Delete = (props) => {

@@ -1,3 +1,4 @@
+import CTheme from '@configs/CTheme';
 import KeyboardArrowDown from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
 import { useTheme } from '@mui/material';
@@ -5,9 +6,7 @@ import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import { useState } from 'react';
-
 import MuiCollapse from '@/aliases/MuiCollapse';
-import CTheme from '@/configs/CTheme';
 
 const Collapse = (props) => {
   const { children, label, color } = props;

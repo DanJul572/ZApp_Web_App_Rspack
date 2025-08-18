@@ -1,3 +1,4 @@
+import CTheme from '@configs/CTheme';
 import InsertLink from '@mui/icons-material/InsertLink';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -9,10 +10,8 @@ import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import { useEffect, useState } from 'react';
-
 import Code from '@/components/input/Code';
 import Toggle from '@/components/input/Toggle';
-import CTheme from '@/configs/CTheme';
 import EActionType from '@/enums/EActionType';
 import EComponentGroupType from '@/enums/EComponentGroupType';
 import Translator from '@/hooks/Translator';

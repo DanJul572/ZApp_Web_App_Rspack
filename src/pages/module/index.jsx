@@ -1,7 +1,7 @@
+import CApiUrl from '@configs/CApiUrl';
+import CModuleID from '@configs/CModuleID';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import CApiUrl from '@/configs/CApiUrl';
-import CModuleID from '@/configs/CModuleID';
 import EActionType from '@/enums/EActionType';
 import { downloadJsonFile } from '@/helpers/downloadFile';
 import Alert from '@/hooks/Alert';

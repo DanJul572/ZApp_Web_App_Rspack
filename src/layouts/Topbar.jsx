@@ -1,9 +1,9 @@
+import CTheme from '@configs/CTheme';
 import Logout from '@mui/icons-material/Logout';
 import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import { useNavigate } from 'react-router';
-import CTheme from '@/configs/CTheme';
 import { useExpandedMenu } from '@/contexts/ExpandedMenuProvider';
 import auth from '@/helpers/auth';
 

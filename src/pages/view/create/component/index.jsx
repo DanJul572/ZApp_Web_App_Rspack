@@ -1,3 +1,4 @@
+import CTheme from '@configs/CTheme';
 import BarChart from '@mui/icons-material/BarChart';
 import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
@@ -14,7 +15,6 @@ import ListItemButton from '@mui/material/ListItemButton';
 import Typography from '@mui/material/Typography';
 import { useEffect, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
-import CTheme from '@/configs/CTheme';
 import EButtonType from '@/enums/EButtonType';
 import EChartType from '@/enums/EChartType';
 import EComponentGroupType from '@/enums/EComponentGroupType';

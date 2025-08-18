@@ -1,5 +1,5 @@
+import CApiUrl from '@configs/CApiUrl';
 import { useQuery } from '@tanstack/react-query';
-import CApiUrl from '@/configs/CApiUrl';
 import Request from './Request';
 
 const Script = ({ id }) => {

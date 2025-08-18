@@ -1,3 +1,4 @@
+import CTheme from '@configs/CTheme';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import FormControl from '@mui/material/FormControl';
@@ -6,8 +7,6 @@ import InputAdornment from '@mui/material/InputAdornment';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import Typography from '@mui/material/Typography';
 import { useState } from 'react';
-
-import CTheme from '@/configs/CTheme';
 
 const Password = (props) => {
   const { label, onChange, value, name, disabled, onBlur } = props;

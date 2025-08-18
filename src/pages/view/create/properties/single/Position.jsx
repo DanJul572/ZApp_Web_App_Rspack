@@ -1,3 +1,4 @@
+import CTheme from '@configs/CTheme';
 import ArrowDropDown from '@mui/icons-material/ArrowDropDown';
 import ArrowDropUp from '@mui/icons-material/ArrowDropUp';
 import ShortTextOutlined from '@mui/icons-material/ShortTextOutlined';
@@ -10,10 +11,8 @@ import DialogTitle from '@mui/material/DialogTitle';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import { useEffect, useState } from 'react';
-
 import NumberField from '@/components/input/NumberField';
 import ShortText from '@/components/input/ShortText';
-import CTheme from '@/configs/CTheme';
 import EComponentGroupType from '@/enums/EComponentGroupType';
 import Translator from '@/hooks/Translator';
 

@@ -1,9 +1,8 @@
+import CTheme from '@configs/CTheme';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import ZTable from '@/aliases/ZTable';
-
 import Confirm from '@/components/dialog/Confirm';
-import CTheme from '@/configs/CTheme';
 import EActionType from '@/enums/EActionType';
 import ETableType from '@/enums/ETableType';
 

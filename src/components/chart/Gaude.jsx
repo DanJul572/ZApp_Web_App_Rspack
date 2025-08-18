@@ -1,7 +1,6 @@
+import CTheme from '@configs/CTheme';
 import { gaugeClasses } from '@mui/x-charts/Gauge';
-
 import MuiGauge from '@/aliases/MuiGauge';
-import CTheme from '@/configs/CTheme';
 
 const Gauge = (props) => {
   const { value } = props;
