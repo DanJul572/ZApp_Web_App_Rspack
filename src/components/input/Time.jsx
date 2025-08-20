@@ -17,7 +17,7 @@ const Time = (props) => {
 
   return (
     <Box>
-      <Typography fontSize={CTheme.font.size.value}>{label}</Typography>
+      <Typography>{label}</Typography>
       <LocalizationProvider dateAdapter={AdapterDayjs}>
         <TimePicker
           value={value ? dayjs(value) : null}

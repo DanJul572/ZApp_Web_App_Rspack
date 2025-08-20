@@ -1,4 +1,3 @@
-import CTheme from '@configs/CTheme';
 import FormatBold from '@mui/icons-material/FormatBold';
 import FormatItalic from '@mui/icons-material/FormatItalic';
 import FormatUnderlined from '@mui/icons-material/FormatUnderlined';
@@ -76,7 +75,7 @@ const TextDecoration = (props) => {
     return (
       <Box
         key={index}
-        border={CTheme.border.size.value}
+        border={1}
         borderRadius={1}
         borderColor={isActive(decoration) ? primaryColor : fontColor}
         width={25}

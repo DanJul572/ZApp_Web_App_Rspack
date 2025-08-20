@@ -1,4 +1,3 @@
-import CTheme from '@configs/CTheme';
 import ArrowDropDown from '@mui/icons-material/ArrowDropDown';
 import ArrowDropUp from '@mui/icons-material/ArrowDropUp';
 import ArrowLeft from '@mui/icons-material/ArrowLeft';
@@ -88,7 +87,7 @@ const Anchor = (props) => {
     return (
       <Box
         key={index}
-        border={CTheme.border.size.value}
+        border={1}
         borderRadius={1}
         borderColor={isActive(anchor) ? primaryColor : fontColor}
         width={25}
@@ -115,7 +114,7 @@ const Anchor = (props) => {
   return (
     validComponent() && (
       <Box paddingX={2}>
-        <Typography fontSize={CTheme.font.size.value}>Anchor</Typography>
+        <Typography>Anchor</Typography>
         <Box
           marginTop={1}
           display="flex"

@@ -1,4 +1,3 @@
-import CTheme from '@configs/CTheme';
 import InsertLink from '@mui/icons-material/InsertLink';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -90,12 +89,8 @@ const ToggleCodeFormProperties = (props) => {
               onChange={(value) => onChange(false, value)}
               disabled={value.isBind}
             />
-            <IconButton
-              sx={{ padding: 0 }}
-              size={CTheme.button.size.name}
-              onClick={() => setOpen(true)}
-            >
-              <InsertLink fontSize={CTheme.font.size.name} />
+            <IconButton sx={{ padding: 0 }} onClick={() => setOpen(true)}>
+              <InsertLink />
             </IconButton>
           </Box>
         </Tooltip>
@@ -114,25 +109,13 @@ const ToggleCodeFormProperties = (props) => {
             </Box>
           </DialogContent>
           <DialogActions>
-            <Button
-              onClick={() => setOpen(false)}
-              variant="outlined"
-              size={CTheme.button.size.name}
-            >
+            <Button onClick={() => setOpen(false)} variant="outlined">
               {translator('cancel')}
             </Button>
-            <Button
-              onClick={onRemove}
-              variant="outlined"
-              size={CTheme.button.size.name}
-            >
+            <Button onClick={onRemove} variant="outlined">
               {translator('delete')}
             </Button>
-            <Button
-              onClick={onApply}
-              variant="contained"
-              size={CTheme.button.size.name}
-            >
+            <Button onClick={onApply} variant="contained">
               {translator('apply')}
             </Button>
           </DialogActions>

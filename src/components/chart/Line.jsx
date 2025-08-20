@@ -1,4 +1,3 @@
-import CTheme from '@configs/CTheme';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 import { LineChart } from '@mui/x-charts/LineChart';
@@ -12,9 +11,7 @@ const Line = (props) => {
   if (!labels || !labels.length || !values || !values.length) {
     return (
       <Container sx={{ padding: 0 }}>
-        <Typography fontSize={CTheme.font.size.value} fontWeight="bold">
-          {translator('empty_content')}
-        </Typography>
+        <Typography fontWeight="bold">{translator('empty_content')}</Typography>
       </Container>
     );
   }

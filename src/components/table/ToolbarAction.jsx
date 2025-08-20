@@ -1,4 +1,3 @@
-import CTheme from '@configs/CTheme';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import EActionType from '@/enums/EActionType';
@@ -31,7 +30,6 @@ const ToolbarAction = (props) => {
         <Button
           onClick={() => onClickToolbarAction(insertAction)}
           variant="contained"
-          size={CTheme.button.size.name}
         >
           {translator('add_new_data')}
         </Button>
@@ -41,7 +39,6 @@ const ToolbarAction = (props) => {
           key={action.type}
           onClick={() => onClickToolbarAction(action)}
           variant="contained"
-          size={CTheme.button.size.name}
         >
           {action.label}
         </Button>

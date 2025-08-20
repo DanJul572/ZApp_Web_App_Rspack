@@ -57,11 +57,7 @@ const VisualElement = (props) => {
       };
       if (loop && Array.isArray(loop)) {
         if (isBuilder) {
-          return (
-            <Typography fontSize={CTheme.font.size.value}>
-              {translator('empty_content')}
-            </Typography>
-          );
+          return <Typography>{translator('empty_content')}</Typography>;
         }
         return (
           <MapLoop

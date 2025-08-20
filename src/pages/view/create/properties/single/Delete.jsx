@@ -1,4 +1,3 @@
-import CTheme from '@configs/CTheme';
 import ContentCopy from '@mui/icons-material/ContentCopy';
 import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
@@ -35,23 +34,13 @@ const Delete = (props) => {
     selected && (
       <Box>
         <Box paddingX={2} display="flex" justifyContent="space-between">
-          <Typography fontSize={CTheme.font.size.value}>
-            {selected.type.label}
-          </Typography>
+          <Typography>{selected.type.label}</Typography>
           <Box>
-            <IconButton
-              sx={{ padding: 0 }}
-              size={CTheme.button.size.name}
-              onClick={() => setOpen(true)}
-            >
-              <MuiDeleteIcon fontSize={CTheme.font.size.name} />
+            <IconButton sx={{ padding: 0 }} onClick={() => setOpen(true)}>
+              <MuiDeleteIcon />
             </IconButton>
-            <IconButton
-              sx={{ padding: 0 }}
-              size={CTheme.button.size.name}
-              onClick={duplicateComponent}
-            >
-              <ContentCopy fontSize={CTheme.font.size.name} />
+            <IconButton sx={{ padding: 0 }} onClick={duplicateComponent}>
+              <ContentCopy />
             </IconButton>
           </Box>
         </Box>

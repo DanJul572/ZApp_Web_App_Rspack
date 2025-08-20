@@ -1,4 +1,3 @@
-import CTheme from '@configs/CTheme';
 import ShortTextOutlined from '@mui/icons-material/ShortTextOutlined';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -44,13 +43,9 @@ const ShortTextForm = (props) => {
           justifyContent="space-between"
           alignItems="center"
         >
-          <Typography fontSize={CTheme.font.size.value}>{label}</Typography>
-          <IconButton
-            sx={{ padding: 0 }}
-            size={CTheme.button.size.name}
-            onClick={() => setOpen(true)}
-          >
-            <ShortTextOutlined fontSize={CTheme.font.size.name} />
+          <Typography>{label}</Typography>
+          <IconButton sx={{ padding: 0 }} onClick={() => setOpen(true)}>
+            <ShortTextOutlined />
           </IconButton>
         </Box>
         <Dialog
@@ -64,18 +59,10 @@ const ShortTextForm = (props) => {
             </Box>
           </DialogContent>
           <DialogActions>
-            <Button
-              onClick={() => setOpen(false)}
-              variant="outlined"
-              size={CTheme.button.size.name}
-            >
+            <Button onClick={() => setOpen(false)} variant="outlined">
               {translator('cancel')}
             </Button>
-            <Button
-              onClick={onApply}
-              variant="contained"
-              size={CTheme.button.size.name}
-            >
+            <Button onClick={onApply} variant="contained">
               {translator('apply')}
             </Button>
           </DialogActions>

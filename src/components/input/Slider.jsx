@@ -1,4 +1,3 @@
-import CTheme from '@configs/CTheme';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import MuiSlider from '@/aliases/MuiSlider';
@@ -14,7 +13,7 @@ const Slider = (props) => {
 
   return (
     <Box>
-      <Typography fontSize={CTheme.font.size.value}>{label}</Typography>
+      <Typography>{label}</Typography>
       <Box padding={1}>
         <MuiSlider
           color={color || 'primary'}

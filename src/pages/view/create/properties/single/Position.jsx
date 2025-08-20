@@ -1,4 +1,3 @@
-import CTheme from '@configs/CTheme';
 import ArrowDropDown from '@mui/icons-material/ArrowDropDown';
 import ArrowDropUp from '@mui/icons-material/ArrowDropUp';
 import ShortTextOutlined from '@mui/icons-material/ShortTextOutlined';
@@ -113,28 +112,19 @@ const Position = (props) => {
           justifyContent="space-between"
           alignItems="center"
         >
-          <Typography fontSize={CTheme.font.size.value}>Position</Typography>
+          <Typography>Position</Typography>
           <Box>
-            <IconButton
-              sx={{ padding: 0 }}
-              size={CTheme.button.size.name}
-              onClick={() => onClickArrow('up')}
-            >
-              <ArrowDropUp fontSize={CTheme.font.size.name} />
+            <IconButton sx={{ padding: 0 }} onClick={() => onClickArrow('up')}>
+              <ArrowDropUp />
             </IconButton>
             <IconButton
               sx={{ padding: 0 }}
-              size={CTheme.button.size.name}
               onClick={() => onClickArrow('down')}
             >
-              <ArrowDropDown fontSize={CTheme.font.size.name} />
+              <ArrowDropDown />
             </IconButton>
-            <IconButton
-              sx={{ padding: 0 }}
-              size={CTheme.button.size.name}
-              onClick={() => setOpen(true)}
-            >
-              <ShortTextOutlined fontSize={CTheme.font.size.name} />
+            <IconButton sx={{ padding: 0 }} onClick={() => setOpen(true)}>
+              <ShortTextOutlined />
             </IconButton>
           </Box>
         </Box>
@@ -170,7 +160,6 @@ const Position = (props) => {
               aria-hidden={open ? 'false' : 'true'}
               onClick={() => setOpen(false)}
               variant="outlined"
-              size={CTheme.button.size.name}
             >
               {translator('cancel')}
             </Button>
@@ -178,7 +167,6 @@ const Position = (props) => {
               aria-hidden={open ? 'false' : 'true'}
               onClick={onApply}
               variant="contained"
-              size={CTheme.button.size.name}
             >
               {translator('apply')}
             </Button>

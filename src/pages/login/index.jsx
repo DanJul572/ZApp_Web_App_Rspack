@@ -93,12 +93,11 @@ const Page = () => {
           variant="contained"
           onClick={mutation.mutate}
           loading={mutation.isPending}
-          size={CTheme.button.size.name}
         >
           {translator('login')}
         </Button>
         <Box display="flex" justifyContent="flex-end" marginTop={2}>
-          <Typography fontSize={CTheme.font.size.value}>
+          <Typography>
             {translator("don't_have_an_account")}
             <Link
               to="/register"

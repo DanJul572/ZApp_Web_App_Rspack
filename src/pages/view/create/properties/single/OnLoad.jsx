@@ -1,4 +1,3 @@
-import CTheme from '@configs/CTheme';
 import InsertLink from '@mui/icons-material/InsertLink';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -34,13 +33,9 @@ const OnLoad = (props) => {
   return (
     <Box>
       <Box display="flex" justifyContent="space-between" alignItems="center">
-        <Typography fontSize={CTheme.font.size.value}>On Load</Typography>
-        <IconButton
-          sx={{ padding: 0 }}
-          size={CTheme.button.size.name}
-          onClick={() => setOpen(true)}
-        >
-          <InsertLink fontSize={CTheme.font.size.name} />
+        <Typography>On Load</Typography>
+        <IconButton sx={{ padding: 0 }} onClick={() => setOpen(true)}>
+          <InsertLink />
         </IconButton>
       </Box>
       <Dialog
@@ -55,18 +50,10 @@ const OnLoad = (props) => {
           </Box>
         </DialogContent>
         <DialogActions>
-          <Button
-            onClick={() => setOpen(false)}
-            variant="outlined"
-            size={CTheme.button.size.name}
-          >
+          <Button onClick={() => setOpen(false)} variant="outlined">
             {translator('cancel')}
           </Button>
-          <Button
-            onClick={onApply}
-            variant="contained"
-            size={CTheme.button.size.name}
-          >
+          <Button onClick={onApply} variant="contained">
             {translator('apply')}
           </Button>
         </DialogActions>

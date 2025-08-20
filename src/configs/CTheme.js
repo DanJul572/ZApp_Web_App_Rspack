@@ -27,27 +27,6 @@ const theme = {
       dark: '#388E3C',
     },
   },
-  font: {
-    size: {
-      value: 12,
-      name: 'small',
-    },
-  },
-  button: {
-    size: {
-      name: 'small',
-    },
-  },
-  field: {
-    size: {
-      name: 'small',
-    },
-  },
-  border: {
-    size: {
-      value: 1,
-    },
-  },
 };
 
 export default theme;

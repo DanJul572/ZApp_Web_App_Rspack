@@ -1,4 +1,3 @@
-import CTheme from '@configs/CTheme';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import ZTable from '@/aliases/ZTable';
@@ -61,7 +60,7 @@ const Table = (props) => {
   const content = () => {
     if (isBuilder) {
       return (
-        <Typography fontSize={CTheme.font.size.value} textAlign="center">
+        <Typography textAlign="center">
           {translator('empty_content')}
         </Typography>
       );

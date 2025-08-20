@@ -1,4 +1,3 @@
-import CTheme from '@configs/CTheme';
 import Box from '@mui/material/Box';
 import Tabs from '@mui/material/Tabs';
 import Typography from '@mui/material/Typography';
@@ -47,7 +46,7 @@ const Header = (props) => {
     return (
       <Box
         sx={{
-          borderBottom: CTheme.border.size.value,
+          borderBottom: 1,
           borderColor: 'divider',
         }}
       >
@@ -62,11 +61,7 @@ const Header = (props) => {
     );
   }
 
-  return (
-    <Typography fontSize={CTheme.font.size.value}>
-      Label is not valid.
-    </Typography>
-  );
+  return <Typography>Label is not valid.</Typography>;
 };
 
 const Content = (props) => {

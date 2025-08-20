@@ -10,7 +10,7 @@ const Radio = (props) => {
 
   return (
     <Box>
-      <Typography fontSize={CTheme.font.size.value}>{label}</Typography>
+      <Typography>{label}</Typography>
       {options?.length && (
         <RadioGroup row>
           {options.map((option) => (
@@ -22,7 +22,6 @@ const Radio = (props) => {
                   checked={value === option.value}
                   disabled={disabled}
                   onChange={(e) => onChange(e.target.value)}
-                  size={CTheme.field.size.name}
                 />
               }
               label={option.label}

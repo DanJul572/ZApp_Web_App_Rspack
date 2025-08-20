@@ -1,4 +1,3 @@
-import CTheme from '@configs/CTheme';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import SunEditor from 'suneditor-react';
@@ -8,7 +7,7 @@ const RichText = (props) => {
 
   return (
     <Box>
-      <Typography fontSize={CTheme.font.size.value}>{label}</Typography>
+      <Typography>{label}</Typography>
       <SunEditor
         setOptions={{
           buttonList: [

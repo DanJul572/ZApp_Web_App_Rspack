@@ -1,5 +1,4 @@
 import CApiUrl from '@configs/CApiUrl';
-import CTheme from '@configs/CTheme';
 import Close from '@mui/icons-material/Close';
 import Download from '@mui/icons-material/Download';
 import Box from '@mui/material/Box';
@@ -96,7 +95,7 @@ const File = (props) => {
 
   return (
     <Box>
-      <Typography fontSize={CTheme.font.size.value}>{label}</Typography>
+      <Typography>{label}</Typography>
       <Box
         sx={{
           display: 'flex',
@@ -115,16 +114,15 @@ const File = (props) => {
             fullWidth
             multiple={false}
             onChange={handleChange}
-            size={CTheme.field.size.name}
             value={fileContent?.file ? fileContent.file : null}
             clearIconButtonProps={{
               title: translator('delete'),
-              children: <Close fontSize={CTheme.font.size.name} />,
+              children: <Close />,
             }}
           />
         </Box>
         {fileContent && (
-          <IconButton size={CTheme.button.size.name} onClick={handleDownload}>
+          <IconButton onClick={handleDownload}>
             <Download />
           </IconButton>
         )}

@@ -1,4 +1,3 @@
-import CTheme from '@configs/CTheme';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import { v4 as uuidv4 } from 'uuid';
@@ -58,6 +57,7 @@ const Container = (props) => {
                   component={component}
                   selected={selected}
                   setSelected={setSelected}
+                  isBuilder={isBuilder}
                 />
               );
             }),
@@ -182,7 +182,7 @@ const Container = (props) => {
   if (type === EContainerType.view.value) {
     if (isBuilder) {
       return (
-        <Typography fontSize={CTheme.font.size.value} textAlign="center">
+        <Typography textAlign="center">
           {translator('empty_content')}
         </Typography>
       );

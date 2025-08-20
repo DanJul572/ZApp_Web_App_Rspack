@@ -1,4 +1,3 @@
-import CTheme from '@configs/CTheme';
 import KeyboardArrowDown from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
 import { useTheme } from '@mui/material';
@@ -17,13 +16,9 @@ const Collapse = (props) => {
   const finalColor = color || theme.palette.primary.main;
 
   return (
-    <Box
-      border={CTheme.border.size.value}
-      borderColor={finalColor}
-      borderRadius={1}
-    >
+    <Box border={1} borderColor={finalColor} borderRadius={1}>
       <Box
-        borderBottom={CTheme.border.size.value}
+        borderBottom={1}
         borderColor={finalColor}
         display="flex"
         justifyContent="space-between"
@@ -31,7 +26,6 @@ const Collapse = (props) => {
         sx={{ backgroundColor: finalColor }}
       >
         <Typography
-          fontSize={CTheme.font.size.value}
           fontWeight="bold"
           color={theme.palette.getContrastText(finalColor)}
         >
@@ -41,16 +35,14 @@ const Collapse = (props) => {
           onClick={() => {
             setOpen(!open);
           }}
-          size={CTheme.button.size.name}
           sx={{ padding: 0 }}
         >
           {open ? (
             <KeyboardArrowDown
-              fontSize={CTheme.font.size.name}
               sx={{ color: theme.palette.getContrastText(finalColor) }}
             />
           ) : (
-            <KeyboardArrowRight fontSize={CTheme.font.size.name} />
+            <KeyboardArrowRight />
           )}
         </IconButton>
       </Box>

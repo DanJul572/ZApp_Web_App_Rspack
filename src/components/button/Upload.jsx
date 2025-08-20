@@ -1,4 +1,3 @@
-import CTheme from '@configs/CTheme';
 import { styled } from '@mui/material';
 import Button from '@mui/material/Button';
 
@@ -18,12 +17,7 @@ const Upload = (props) => {
   const { label, onUpload, type, ...rest } = props;
 
   return (
-    <Button
-      component="label"
-      variant="outlined"
-      size={CTheme.button.size.name}
-      {...rest}
-    >
+    <Button component="label" variant="outlined" {...rest}>
       {label}
       <VisuallyHiddenInput type="file" accept={type} onChange={onUpload} />
     </Button>

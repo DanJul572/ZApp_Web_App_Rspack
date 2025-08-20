@@ -1,4 +1,3 @@
-import CTheme from '@configs/CTheme';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
@@ -110,7 +109,6 @@ const ExportDialog = (props) => {
           options={rowType}
           onChange={setExportSelectionType}
           value={exportSelectionType}
-          size={CTheme.button.size.name}
         />
         <Dropdown
           key="extension"
@@ -118,18 +116,11 @@ const ExportDialog = (props) => {
           options={extensionType}
           onChange={setexportExtentionType}
           value={exportExtentionType}
-          size={CTheme.button.size.name}
         />
       </DialogContent>
       <DialogActions>
-        <Button size={CTheme.button.size.name} onClick={closeDialog}>
-          {translator('cancel')}
-        </Button>
-        <Button
-          size={CTheme.button.size.name}
-          onClick={handleExportRows}
-          variant="contained"
-        >
+        <Button onClick={closeDialog}>{translator('cancel')}</Button>
+        <Button onClick={handleExportRows} variant="contained">
           {translator('download')}
         </Button>
       </DialogActions>

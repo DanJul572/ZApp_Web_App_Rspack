@@ -1,4 +1,3 @@
-import CTheme from '@configs/CTheme';
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import Tab from '@mui/material/Tab';
@@ -179,7 +178,7 @@ const Properties = (props) => {
         <Box sx={{ width: '100%' }}>
           <Box
             sx={{
-              borderBottom: CTheme.border.size.value,
+              borderBottom: 1,
               borderColor: 'divider',
             }}
           >

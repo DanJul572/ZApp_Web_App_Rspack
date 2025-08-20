@@ -1,5 +1,4 @@
 import CApiUrl from '@configs/CApiUrl';
-import CTheme from '@configs/CTheme';
 import FileDownload from '@mui/icons-material/FileDownload';
 import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
@@ -28,7 +27,7 @@ const Download = ({ label }) => {
   return (
     <Box display="flex" alignItems="center">
       {label && (
-        <IconButton onClick={onDownload} size={CTheme.button.size.name}>
+        <IconButton onClick={onDownload}>
           <FileDownload />
         </IconButton>
       )}

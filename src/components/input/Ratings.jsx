@@ -1,4 +1,3 @@
-import CTheme from '@configs/CTheme';
 import Box from '@mui/material/Box';
 import Rating from '@mui/material/Rating';
 import Typography from '@mui/material/Typography';
@@ -19,9 +18,7 @@ const Ratings = (props) => {
         '& > legend': { mt: 2 },
       }}
     >
-      <Typography fontSize={CTheme.font.size.value}>
-        {label || EInputType.ratings.label}
-      </Typography>
+      <Typography>{label || EInputType.ratings.label}</Typography>
       <Rating disabled={disabled} value={value} onChange={handleChange} />
     </Box>
   );

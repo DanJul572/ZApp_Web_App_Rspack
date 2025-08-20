@@ -35,7 +35,7 @@ const ShortText = (props) => {
   return (
     <Box>
       <Box display="flex" justifyContent="space-between" alignItems="center">
-        <Typography fontSize={CTheme.font.size.value}>{label}</Typography>
+        <Typography>{label}</Typography>
         {tooltip && (
           <Tooltip title={tooltip} arrow placement="top">
             <Help sx={{ fontSize: CTheme.font.size.value }} />
@@ -45,7 +45,6 @@ const ShortText = (props) => {
       <TextField
         disabled={disabled}
         variant="outlined"
-        size={CTheme.field.size.name}
         fullWidth
         value={value || ''}
         error={error.status}

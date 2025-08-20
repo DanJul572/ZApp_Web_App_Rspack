@@ -1,5 +1,4 @@
 import CApiUrl from '@configs/CApiUrl';
-import CTheme from '@configs/CTheme';
 import Autocomplete from '@mui/material/Autocomplete';
 import Box from '@mui/material/Box';
 import List from '@mui/material/List';
@@ -69,7 +68,7 @@ const Dropdown = (props) => {
         options={finalOptions?.length ? finalOptions : []}
         renderInput={(params) => (
           <Box>
-            <Typography fontSize={CTheme.font.size.value}>{label}</Typography>
+            <Typography>{label}</Typography>
             <TextField {...params} />
           </Box>
         )}
@@ -78,7 +77,6 @@ const Dropdown = (props) => {
             {option.label}
           </List>
         )}
-        size={CTheme.field.size.name}
         value={newValue}
       />
     </Box>

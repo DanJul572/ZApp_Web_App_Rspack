@@ -22,7 +22,7 @@ const Checkbox = (props) => {
 
   return (
     <Box>
-      <Typography fontSize={CTheme.font.size.value}>{label}</Typography>
+      <Typography>{label}</Typography>
       {options?.length && (
         <FormGroup row>
           {options.map((option) => (
@@ -32,7 +32,6 @@ const Checkbox = (props) => {
                 <MuiCheckbox
                   checked={checked(option.value)}
                   value={option.value}
-                  size={CTheme.field.size.name}
                   onChange={(e) => setValues(e.target.value)}
                   disabled={disabled}
                 />

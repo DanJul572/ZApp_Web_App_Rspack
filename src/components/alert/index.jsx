@@ -1,4 +1,3 @@
-import CTheme from '@configs/CTheme';
 import Close from '@mui/icons-material/Close';
 import IconButton from '@mui/material/IconButton';
 import MuiAlert from '@/aliases/MuiAlert';
@@ -17,12 +16,8 @@ const Alert = () => {
     <MuiAlert
       severity={alert.type || 'success'}
       action={
-        <IconButton
-          color="inherit"
-          size={CTheme.button.size.name}
-          onClick={() => setAlert(false)}
-        >
-          <Close fontSize={CTheme.font.size.name} />
+        <IconButton color="inherit" onClick={() => setAlert(false)}>
+          <Close />
         </IconButton>
       }
       sx={{ mb: 2 }}

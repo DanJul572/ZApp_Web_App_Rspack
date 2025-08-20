@@ -30,12 +30,8 @@ const Topbar = () => {
       <Typography variant="h6" noWrap component="div" color="inherit">
         {process.env.APP_NAME || 'Hello World!'}
       </Typography>
-      <IconButton
-        size={CTheme.button.size.name}
-        onClick={logout}
-        color="inherit"
-      >
-        <Logout fontSize={CTheme.font.size.name} />
+      <IconButton onClick={logout} color="inherit">
+        <Logout />
       </IconButton>
     </Box>
   );

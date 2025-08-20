@@ -30,7 +30,7 @@ const Code = (props) => {
 
   return (
     <Box>
-      <Typography fontSize={CTheme.font.size.value}>{label}</Typography>
+      <Typography>{label}</Typography>
       {withOptions && (
         <Stack direction="row" spacing={1} marginY={1}>
           {languages.map((language) => {
@@ -42,7 +42,6 @@ const Code = (props) => {
                 key={language.value}
                 label={language.label}
                 onClick={() => setActiveLanguange(language.value)}
-                size={CTheme.button.size.name}
                 variant="outlined"
               />
             );

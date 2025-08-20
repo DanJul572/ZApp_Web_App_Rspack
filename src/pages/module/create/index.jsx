@@ -1,5 +1,4 @@
 import CApiUrl from '@configs/CApiUrl';
-import CTheme from '@configs/CTheme';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import { useState } from 'react';
@@ -79,19 +78,11 @@ const Page = () => {
   return (
     <Box>
       <Box display="flex" justifyContent="flex-end" gap={1}>
-        <Button
-          variant="outlined"
-          size={CTheme.button.size.name}
-          onClick={onBack}
-        >
+        <Button variant="outlined" onClick={onBack}>
           {translator('back')}
         </Button>
         <Upload label={translator('upload')} onUpload={onUpload} type=".json" />
-        <Button
-          variant="contained"
-          size={CTheme.button.size.name}
-          onClick={onSave}
-        >
+        <Button variant="contained" onClick={onSave}>
           {translator('save')}
         </Button>
       </Box>

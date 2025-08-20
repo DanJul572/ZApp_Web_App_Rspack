@@ -1,6 +1,5 @@
 import CApiUrl from '@configs/CApiUrl';
 import CModuleID from '@configs/CModuleID';
-import CTheme from '@configs/CTheme';
 import ArrowBack from '@mui/icons-material/ArrowBack';
 import Download from '@mui/icons-material/Download';
 import FileUpload from '@mui/icons-material/FileUpload';
@@ -205,15 +204,11 @@ const TopBar = (props) => {
       >
         <Box display="flex" alignItems="center" gap={1}>
           <IconButton
-            size={CTheme.button.size.name}
             sx={{ padding: 0 }}
             color="primary"
             onClick={() => navigate('/view')}
           >
-            <ArrowBack
-              fontSize={CTheme.font.size.name}
-              sx={{ color: theme.palette.primary.main }}
-            />
+            <ArrowBack sx={{ color: theme.palette.primary.main }} />
           </IconButton>
           <Typography sx={{ fontWeight: 'bold' }}>
             {translator('view_builder')}
@@ -225,11 +220,7 @@ const TopBar = (props) => {
           </Tooltip>
           {hasContent && (
             <Tooltip title={translator('download')} arrow>
-              <Button
-                variant="outlined"
-                size={CTheme.button.size.name}
-                onClick={onDownload}
-              >
+              <Button variant="outlined" onClick={onDownload}>
                 <Download />
               </Button>
             </Tooltip>
@@ -237,7 +228,6 @@ const TopBar = (props) => {
           <Tooltip title={translator('generate')} arrow>
             <Button
               variant="outlined"
-              size={CTheme.button.size.name}
               onClick={() => setOpenGenerateDialog(true)}
             >
               <ViewComfy />
@@ -245,33 +235,21 @@ const TopBar = (props) => {
           </Tooltip>
           {hasContent && (
             <Tooltip title={translator('preview')} arrow>
-              <Button
-                variant="outlined"
-                size={CTheme.button.size.name}
-                onClick={onPreview}
-              >
+              <Button variant="outlined" onClick={onPreview}>
                 <RemoveRedEye />
               </Button>
             </Tooltip>
           )}
           {viewId && (
             <Tooltip title={translator('delete')} arrow>
-              <Button
-                variant="outlined"
-                size={CTheme.button.size.name}
-                onClick={setOpenConfirmDialog}
-              >
+              <Button variant="outlined" onClick={setOpenConfirmDialog}>
                 <Delete />
               </Button>
             </Tooltip>
           )}
           {hasContent && (
             <Tooltip title={translator('save')} arrow>
-              <Button
-                variant="outlined"
-                size={CTheme.button.size.name}
-                onClick={onSave}
-              >
+              <Button variant="outlined" onClick={onSave}>
                 <Save />
               </Button>
             </Tooltip>
