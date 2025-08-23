@@ -14,7 +14,7 @@ Dengan ZApp, Anda bisa fokus pada ide dan logika bisnis, sementara hal teknis di
 - 📊 **Komponen interaktif** – chart, date-picker, tree-view, dan tabel siap pakai.
 - 🌍 **Internasionalisasi (i18n)** – mudah menambahkan banyak bahasa dengan `i18next`.
 - 📦 **Ekspor Data** – dukungan ekspor ke CSV & PDF.
-- 📝 **Rich Text Editor** – integrasi editor teks (SunEditor).
+- 📝 **Rich Text Editor** – integrasi editor teks (Editor.js).
 - 🛠️ **Linting & Formatting** – menjaga kualitas kode tetap konsisten dengan **Biome**.
 - 🔗 **React Router & React Query** – manajemen state & routing modern.
 
@@ -72,7 +72,7 @@ pnpm check
 - **Framework Build**: [Rsbuild](https://rsbuild.dev/)
 - **UI & Styling**: [Material UI](https://mui.com/), [Emotion](https://emotion.sh/), [@fontsource/roboto](https://fontsource.org/)
 - **Komponen UI Tambahan**: Charts, Date Pickers, Tree View, Tables, File Input
-- **Editor**: [SunEditor](https://github.com/JiHong88/SunEditor) + React wrapper
+- **Editor**: [Editor.js](https://editorjs.io/)
 - **Data & State**: [React Query](https://tanstack.com/query), [Axios](https://axios-http.com/)
 - **Internasionalisasi**: [i18next](https://www.i18next.com/)
 - **Ekspor Data**: `export-to-csv`, `jspdf`, `jspdf-autotable`

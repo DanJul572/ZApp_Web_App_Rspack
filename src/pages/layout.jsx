@@ -1,8 +1,6 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Suspense } from 'react';
 
-import 'suneditor/dist/css/suneditor.min.css';
-
 import { AlertProvider } from '@/contexts/AlertProvider';
 import { ExpandedMenuProvider } from '@/contexts/ExpandedMenuProvider';
 import { FileProvider } from '@/contexts/FileProvider';
