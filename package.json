@@ -12,7 +12,7 @@
     "build:rsbuild": "rsbuild build",
     "build:swc": "swc src -d dist --strip-leading-paths --extensions .js,.jsx",
     "copy:lang": "cpx \"src/languages/**/*.json\" dist/languages",
-    "check": "biome check --write",
+    "lint": "biome check --write",
     "dev": "rsbuild dev",
     "preview": "rsbuild preview",
     "prepublishOnly": "build:swc && copy:lang"
@@ -46,7 +46,7 @@
     "crypto-js": "^4.2.0",
     "dayjs": "^1.11.13",
     "export-to-csv": "^1.4.0",
-    "i18next": "^25.4.0",
+    "i18next": "^25.4.1",
     "jspdf": "^3.0.1",
     "jspdf-autotable": "^5.0.2",
     "material-react-table": "^3.2.1",

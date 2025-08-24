@@ -39,7 +39,7 @@ Berikut adalah daftar script yang dapat dijalankan melalui `package.json`:
 | `dev`       | `pnpm dev`                 | Menjalankan server pengembangan dengan **Rsbuild**.                       |
 | `build`     | `pnpm build`               | Build aplikasi untuk produksi.                                            |
 | `preview`   | `pnpm preview`             | Menjalankan preview lokal dari hasil build produksi.                      |
-| `check`     | `pnpm check`               | Mengecek & memperbaiki format kode menggunakan **Biome**.                 |
+| `lint`      | `pnpm lint`                | Mengecek & memperbaiki format kode menggunakan **Biome**.                 |
 
 ---
 
@@ -62,7 +62,7 @@ pnpm preview
 
 Cek & format kode:
 ```bash
-pnpm check
+pnpm lint
 ```
 
 ---

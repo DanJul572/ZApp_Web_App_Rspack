@@ -93,8 +93,8 @@ importers:
         specifier: ^1.4.0
         version: 1.4.0
       i18next:
-        specifier: ^25.4.0
-        version: 25.4.0
+        specifier: ^25.4.1
+        version: 25.4.1
       jspdf:
         specifier: ^3.0.1
         version: 3.0.1
@@ -1868,8 +1868,8 @@ packages:
     resolution: {integrity: sha512-B4FFZ6q/T2jhhksgkbEW3HBvWIfDW85snkQgawt07S7J5QXTk6BkNV+0yAeZrM5QpMAdYlocGoljn0sJ/WQkFw==}
     engines: {node: '>=10.17.0'}
 
-  i18next@25.4.0:
-    resolution: {integrity: sha512-UH5aiamXsO3cfrZFurCHiB6YSs3C+s+XY9UaJllMMSbmaoXILxFgqDEZu4NbfzJFjmUo3BNMa++Rjkr3ofjfLw==}
+  i18next@25.4.1:
+    resolution: {integrity: sha512-sYJX4Ap0SSho1JZppKvc9BeacbpNCdNvKuXMYPUGjDH0XTTdVXmm7UU3l4bvF8nqh70lZNBeLboRYwItBf9jOw==}
     peerDependencies:
       typescript: ^5
     peerDependenciesMeta:
@@ -4675,7 +4675,7 @@ snapshots:
 
   human-signals@2.1.0: {}
 
-  i18next@25.4.0:
+  i18next@25.4.1:
     dependencies:
       '@babel/runtime': 7.28.2
 

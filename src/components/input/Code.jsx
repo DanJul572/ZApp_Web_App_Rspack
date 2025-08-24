@@ -57,7 +57,6 @@ const Code = (props) => {
         placeholder="Write here..."
         style={{
           borderRadius: 3,
-          fontSize: CTheme.font.size.value,
           fontFamily: 'Consolas',
         }}
         value={value}
