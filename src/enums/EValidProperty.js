@@ -77,6 +77,15 @@ const EValidProperty = {
   fullWidth: {
     [EComponentGroupType.button.value]: [EButtonType.button.value],
   },
+  color: {
+    [EComponentGroupType.container.value]: [EContainerType.collapse.value],
+    [EComponentGroupType.fieldControl.value]: [EInputType.slider.value],
+    [EComponentGroupType.button.value]: [
+      EButtonType.button.value,
+      EButtonType.group.value,
+    ],
+    [EComponentGroupType.visualElement.value]: true,
+  },
 };
 
 export default EValidProperty;

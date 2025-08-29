@@ -245,7 +245,7 @@ const Properties = (props) => {
               <Display {...compProps} />
               <TextDecoration {...compProps} />
               <Anchor {...compProps} />
-              <Color {...compProps} />
+              <Color {...compProps} name="color" />
               <TableAction {...compProps} />
               <Icon {...compProps} />
             </Box>

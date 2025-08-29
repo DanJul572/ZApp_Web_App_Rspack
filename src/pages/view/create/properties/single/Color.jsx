@@ -2,18 +2,16 @@ import { useTheme } from '@mui/material';
 import Box from '@mui/material/Box';
 import { grey } from '@mui/material/colors';
 import { useEffect, useState } from 'react';
-
-import EButtonType from '@/enums/EButtonType';
-import EComponentGroupType from '@/enums/EComponentGroupType';
-import EContainerType from '@/enums/EContainerType';
-import EInputType from '@/enums/EInputType';
+import isValidProperties from '@/helpers/isValidProperties';
 
 const Color = (props) => {
-  const { content, selected, editComponent, setContent } = props;
+  const { content, selected, editComponent, setContent, name } = props;
 
   const theme = useTheme();
-
   const [active, setActive] = useState(null);
+
+  const type = selected ? selected.type.value : false;
+  const group = selected ? selected.group.value : false;
 
   const colors = [
     { label: 'Error', value: theme.palette.error.main, name: 'error' },
@@ -35,65 +33,12 @@ const Color = (props) => {
     setActive(newColor);
   };
 
-  const validComponent = () => {
-    if (!selected) return false;
-
-    const group = selected.group.value;
-    const type = selected.type.value;
-
-    if (
-      group === EComponentGroupType.container.value &&
-      type === EContainerType.collapse.value
-    )
-      return true;
-    if (
-      group === EComponentGroupType.container.value &&
-      type === EContainerType.card.value
-    )
-      return true;
-    if (
-      group === EComponentGroupType.fieldControl.value &&
-      type === EInputType.slider.value
-    )
-      return true;
-    if (
-      group === EComponentGroupType.button.value &&
-      type === EButtonType.button.value
-    )
-      return true;
-    if (
-      group === EComponentGroupType.button.value &&
-      type === EButtonType.group.value
-    )
-      return true;
-    if (group === EComponentGroupType.visualElement.value) return true;
-    return false;
-  };
-
   useEffect(() => {
     if (selected) setActive(selected.properties.color || null);
   }, [selected]);
 
-  const component = (color, index) => {
-    return (
-      <Box
-        key={index}
-        sx={{
-          borderRadius: '50%',
-          width: 15,
-          height: 15,
-          backgroundColor: color.value,
-          cursor: 'pointer',
-          border: active && color.name === active.name ? 2 : 0,
-          borderColor: grey[300],
-        }}
-        onClick={() => onApply(color)}
-      />
-    );
-  };
-
   return (
-    validComponent() && (
+    isValidProperties(name, group, type) && (
       <Box paddingX={2}>
         <Box
           display="flex"
@@ -102,7 +47,23 @@ const Color = (props) => {
           gap={2}
           marginTop={1}
         >
-          {colors.map(component)}
+          {colors.map((color) => {
+            return (
+              <Box
+                key={color.value}
+                sx={{
+                  borderRadius: '50%',
+                  width: 15,
+                  height: 15,
+                  backgroundColor: color.value,
+                  cursor: 'pointer',
+                  border: active && color.name === active.name ? 2 : 0,
+                  borderColor: grey[300],
+                }}
+                onClick={() => onApply(color)}
+              />
+            );
+          })}
         </Box>
       </Box>
     )
