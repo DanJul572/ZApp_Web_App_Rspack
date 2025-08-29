@@ -1,4 +1,6 @@
-const theme = {
+import { createTheme } from '@mui/material/styles';
+
+const theme = createTheme({
   palette: {
     mode: process.env.THEME || 'light',
     primary: {
@@ -27,6 +29,13 @@ const theme = {
       dark: '#388E3C',
     },
   },
-};
+  components: {
+    MuiTypography: {
+      defaultProps: {
+        variant: 'body2',
+      },
+    },
+  },
+});
 
 export default theme;
