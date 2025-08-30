@@ -4,10 +4,6 @@ const CShortTextFormProperties = [
     label: 'Name',
   },
   {
-    name: 'border',
-    label: 'Border',
-  },
-  {
     name: 'padding',
     label: 'Padding',
   },

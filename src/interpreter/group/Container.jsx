@@ -1,7 +1,8 @@
+import Box from '@mui/material/Box';
+import Card from '@mui/material/Card';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import { v4 as uuidv4 } from 'uuid';
-import Card from '@/components/container/Card';
 import Collapse from '@/components/container/Collapse';
 import Drawer from '@/components/container/Drawer';
 import Tab from '@/components/container/Tab';
@@ -19,7 +20,6 @@ const Container = (props) => {
   const translator = Translator();
 
   const anchor = properties.anchor;
-  const border = Number.parseInt(properties.border, 10);
   const color = properties.color ? properties.color.value : null;
   const display = properties.display;
   const flex = Boolean(properties.flex);
@@ -39,29 +39,35 @@ const Container = (props) => {
   const { content, page } = Content(contentProps);
 
   if (type === EContainerType.card.value) {
+    const justifyContent = display?.horizontal
+      ? display.horizontal.value
+      : 'flex-start';
+
+    const compProps = {};
+    if (flex) {
+      compProps.display = 'flex';
+      compProps.justifyContent = justifyContent;
+      compProps.gap = 1;
+    }
     return (
-      <Card
-        color={color}
-        flex={flex}
-        display={display}
-        border={border}
-        padding={padding}
-      >
-        {section &&
-          section.length > 0 &&
-          section.map((childs) =>
-            childs.map((component) => {
-              return (
-                <GroupComponent
-                  key={component.id}
-                  component={component}
-                  selected={selected}
-                  setSelected={setSelected}
-                  isBuilder={isBuilder}
-                />
-              );
-            }),
-          )}
+      <Card>
+        <Box {...compProps} padding={padding || 0}>
+          {section &&
+            section.length > 0 &&
+            section.map((childs) =>
+              childs.map((component) => {
+                return (
+                  <GroupComponent
+                    key={component.id}
+                    component={component}
+                    selected={selected}
+                    setSelected={setSelected}
+                    isBuilder={isBuilder}
+                  />
+                );
+              }),
+            )}
+        </Box>
       </Card>
     );
   }

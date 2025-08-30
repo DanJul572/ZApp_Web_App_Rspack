@@ -1,4 +1,3 @@
-import CTheme from '@configs/CTheme';
 import { useTheme } from '@mui/material';
 import Divider from '@mui/material/Divider';
 import Typography from '@mui/material/Typography';
@@ -11,7 +10,7 @@ import MapLoop from '../extra/MapLoop';
 const Text = (props, key = null) => {
   return (
     <Typography
-      fontSize={props.size}
+      fontSize={props.size ? props.size : 'inherit'} // validasi langsung
       key={key}
       sx={{
         color: props.color,
@@ -37,44 +36,40 @@ const VisualElement = (props) => {
   const color = properties.color
     ? properties.color.value
     : theme.palette.text.primary;
-  const size = Number.parseInt(properties.size, 10) || CTheme.font.size.value;
+  const size = Number.parseInt(properties.size, 10);
   const bold = properties.textDecoration?.bold ? 'bold' : 'normal';
   const italic = properties.textDecoration?.italic ? 'italic' : 'normal';
   const underline = properties.textDecoration?.underline ? 'underline' : 'none';
 
-  const content = () => {
-    if (type === CVisualElement.divider.value) {
-      return <Divider sx={{ backgroundColor: color }} />;
-    }
+  if (type === CVisualElement.divider.value) {
+    return <Divider sx={{ backgroundColor: color }} />;
+  }
 
-    if (type === CVisualElement.text.value) {
-      const props = {
-        bold,
-        color,
-        italic,
-        size,
-        underline,
-      };
-      if (loop && Array.isArray(loop)) {
-        if (isBuilder) {
-          return <Typography>{translator('empty_content')}</Typography>;
-        }
-        return (
-          <MapLoop
-            items={loop}
-            render={(item, index) => {
-              props.label = waiter.take(properties.label, item);
-              return Text(props, index);
-            }}
-          />
-        );
+  if (type === CVisualElement.text.value) {
+    const props = {
+      bold,
+      color,
+      italic,
+      size,
+      underline,
+    };
+    if (loop && Array.isArray(loop)) {
+      if (isBuilder) {
+        return <Typography>{translator('empty_content')}</Typography>;
       }
-      props.label = label;
-      return Text(props);
+      return (
+        <MapLoop
+          items={loop}
+          render={(item, index) => {
+            props.label = waiter.take(properties.label, item);
+            return Text(props, index);
+          }}
+        />
+      );
     }
-  };
-
-  return content();
+    props.label = label;
+    return Text(props);
+  }
 };
 
 export default VisualElement;

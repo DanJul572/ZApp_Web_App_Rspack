@@ -52,11 +52,10 @@ const ShortTextForm = (props) => {
           open={open}
           onClose={() => setOpen(false)}
           aria-hidden={open ? 'false' : 'true'}
+          fullWidth
         >
           <DialogContent>
-            <Box>
-              <ShortText label={label} value={value} onChange={setValue} />
-            </Box>
+            <ShortText label={label} value={value} onChange={setValue} />
           </DialogContent>
           <DialogActions>
             <Button onClick={() => setOpen(false)} variant="outlined">

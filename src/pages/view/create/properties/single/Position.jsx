@@ -7,6 +7,7 @@ import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
+import Grid from '@mui/material/Grid';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import { useEffect, useState } from 'react';
@@ -132,6 +133,7 @@ const Position = (props) => {
           aria-hidden={open ? 'false' : 'true'}
           onClose={() => setOpen(false)}
           open={open}
+          fullWidth
         >
           <DialogTitle>Position</DialogTitle>
           <DialogContent>
@@ -141,18 +143,22 @@ const Position = (props) => {
                 value={containerID}
                 onChange={setContainerID}
               />
-              <Box display="flex" gap={1}>
-                <NumberField
-                  label="Column"
-                  value={columnIndex}
-                  onChange={setColumnIndex}
-                />
-                <NumberField
-                  label="Row"
-                  value={rowIndex}
-                  onChange={setRowIndex}
-                />
-              </Box>
+              <Grid container spacing={1}>
+                <Grid size={6}>
+                  <NumberField
+                    label="Column"
+                    value={columnIndex}
+                    onChange={setColumnIndex}
+                  />
+                </Grid>
+                <Grid size={6}>
+                  <NumberField
+                    label="Row"
+                    value={rowIndex}
+                    onChange={setRowIndex}
+                  />
+                </Grid>
+              </Grid>
             </Box>
           </DialogContent>
           <DialogActions>

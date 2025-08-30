@@ -7,9 +7,6 @@ import ETableType from './ETableType';
 import CVisualElement from './EVisualElementType';
 
 const EValidProperty = {
-  border: {
-    [EComponentGroupType.container.value]: [EContainerType.card.value],
-  },
   padding: {
     [EComponentGroupType.container.value]: [EContainerType.card.value],
   },
