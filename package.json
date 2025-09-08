@@ -21,7 +21,7 @@
     "@editorjs/checklist": "^1.6.0",
     "@editorjs/code": "^2.9.3",
     "@editorjs/delimiter": "^1.4.2",
-    "@editorjs/editorjs": "^2.30.8",
+    "@editorjs/editorjs": "^2.31.0",
     "@editorjs/embed": "^2.7.6",
     "@editorjs/header": "^2.8.8",
     "@editorjs/image": "^2.10.3",
@@ -55,7 +55,7 @@
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
     "react-router": "^7.8.2",
-    "uuid": "^12.0.0"
+    "uuid": "^13.0.0"
   },
   "devDependencies": {
     "@biomejs/biome": "^2.2.3",
