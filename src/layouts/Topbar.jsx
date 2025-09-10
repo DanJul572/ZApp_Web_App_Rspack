@@ -28,7 +28,7 @@ const Topbar = () => {
       }}
     >
       <Typography variant="h6" noWrap component="div" color="inherit">
-        {process.env.APP_NAME || 'Hello World!'}
+        {process.env.APP_NAME || 'ZApp'}
       </Typography>
       <IconButton onClick={logout} color="inherit">
         <Logout />
