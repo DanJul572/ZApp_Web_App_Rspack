@@ -8,13 +8,12 @@ const CModuleID = {
   views: 7,
   menus: 8,
   users: 9,
-  tokens: 10,
-  scripts: 11,
-  actions: 12,
-  access: 13,
-  validationTime: 14,
-  validation: 15,
-  logError: 16,
+  scripts: 10,
+  actions: 11,
+  access: 12,
+  validationTime: 13,
+  validation: 14,
+  logError: 15,
 };
 
 export default CModuleID;

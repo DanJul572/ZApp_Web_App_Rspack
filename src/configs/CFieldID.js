@@ -3,7 +3,7 @@ const CFieldID = {
     roleId: 48,
   },
   users: {
-    roleId: 62,
+    roleId: 59,
   },
 };
 
