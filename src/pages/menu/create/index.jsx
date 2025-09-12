@@ -26,6 +26,7 @@ import ContentLoader from '@/components/loading/ContentLoader';
 import Tree from '@/components/tree';
 import { useAlert } from '@/contexts/AlertProvider';
 import { downloadJsonFile } from '@/helpers/downloadFile';
+import getTreeMenuJson from '@/helpers/getTreeMenuJson';
 import { readJSONFile } from '@/helpers/readFile';
 import Request from '@/hooks/Request';
 import Translator from '@/hooks/Translator';
@@ -219,9 +220,10 @@ const Page = () => {
 
   useEffect(() => {
     if (treeResponse) {
+      const treeData = getTreeMenuJson(treeResponse.tree);
       setLabel(treeResponse.label);
       setRoleId(treeResponse.roleId);
-      setTree(treeResponse.tree);
+      setTree(treeData);
       setAfterLogin(treeResponse.afterLogin);
     }
   }, [treeResponse]);

@@ -7,6 +7,7 @@ import { useQuery } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
 import Tree from '@/components/tree';
+import getTreeMenuJson from '@/helpers/getTreeMenuJson';
 import Request from '@/hooks/Request';
 
 const Loading = ({ isLoading }) => {
@@ -62,8 +63,9 @@ const Sidebar = () => {
 
   useEffect(() => {
     if (data) {
-      localStorage.setItem('tree', JSON.stringify(data.tree));
-      setTree(data.tree);
+      const treeData = getTreeMenuJson(data.tree);
+      localStorage.setItem('tree', JSON.stringify(treeData));
+      setTree(treeData);
     }
   }, [data]);
 
