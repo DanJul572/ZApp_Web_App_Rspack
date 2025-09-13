@@ -10,7 +10,6 @@
   ],
   "scripts": {
     "build": "rsbuild build",
-    "format": "biome check --write",
     "lint": "biome check --write",
     "dev": "rsbuild dev",
     "preview": "rsbuild preview",
