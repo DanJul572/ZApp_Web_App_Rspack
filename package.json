@@ -9,13 +9,10 @@
     "dist"
   ],
   "scripts": {
-    "build:rsbuild": "rsbuild build",
-    "build:swc": "swc src -d dist --strip-leading-paths --extensions .js,.jsx",
-    "copy:lang": "cpx \"src/languages/**/*.json\" dist/languages",
+    "build": "rsbuild build",
     "lint": "biome check --write",
     "dev": "rsbuild dev",
-    "preview": "rsbuild preview",
-    "prepublishOnly": "build:swc && copy:lang"
+    "preview": "rsbuild preview"
   },
   "dependencies": {
     "@editorjs/checklist": "^1.6.0",
@@ -61,11 +58,7 @@
     "@biomejs/biome": "^2.2.4",
     "@rsbuild/core": "^1.5.6",
     "@rsbuild/plugin-react": "^1.4.0",
-    "@swc/cli": "^0.7.8",
-    "@swc/core": "^1.13.5",
-    "cpx": "^1.5.0",
-    "dotenv-webpack": "^8.1.1",
-    "globals": "^16.4.0"
+    "dotenv-webpack": "^8.1.1"
   },
   "packageManager": "pnpm@10.16.0"
 }
