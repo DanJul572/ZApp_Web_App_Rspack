@@ -1,8 +1,7 @@
 import { createBrowserRouter } from 'react-router';
-
+import AuthContainer from '@/guards/AuthContainer';
 import EmptyLayout from '@/layouts/Empty';
 import MainLayout from '@/layouts/Main';
-
 import WelcomePage from '@/pages';
 import LoginPage from '@/pages/login';
 import MainPage from '@/pages/main';
@@ -26,9 +25,11 @@ const routes = createBrowserRouter([
   {
     path: '/login',
     Component: () => (
-      <EmptyLayout>
-        <LoginPage />
-      </EmptyLayout>
+      <AuthContainer>
+        <EmptyLayout>
+          <LoginPage />
+        </EmptyLayout>
+      </AuthContainer>
     ),
   },
   {
@@ -42,57 +43,71 @@ const routes = createBrowserRouter([
   {
     path: '/module',
     Component: () => (
-      <MainLayout>
-        <ModulePage />
-      </MainLayout>
+      <AuthContainer>
+        <MainLayout>
+          <ModulePage />
+        </MainLayout>
+      </AuthContainer>
     ),
   },
   {
     path: '/module/create',
     Component: () => (
-      <MainLayout>
-        <CreateModulePage />
-      </MainLayout>
+      <AuthContainer>
+        <MainLayout>
+          <CreateModulePage />
+        </MainLayout>
+      </AuthContainer>
     ),
   },
   {
     path: '/menu',
     Component: () => (
-      <MainLayout>
-        <MenuPage />
-      </MainLayout>
+      <AuthContainer>
+        <MainLayout>
+          <MenuPage />
+        </MainLayout>
+      </AuthContainer>
     ),
   },
   {
     path: '/menu/create',
     Component: () => (
-      <MainLayout>
-        <CreateMenuPage />
-      </MainLayout>
+      <AuthContainer>
+        <MainLayout>
+          <CreateMenuPage />
+        </MainLayout>
+      </AuthContainer>
     ),
   },
   {
     path: '/view',
     Component: () => (
-      <MainLayout>
-        <ViewPage />
-      </MainLayout>
+      <AuthContainer>
+        <MainLayout>
+          <ViewPage />
+        </MainLayout>
+      </AuthContainer>
     ),
   },
   {
     path: '/view/create',
     Component: () => (
-      <EmptyLayout>
-        <CreateViewPage />
-      </EmptyLayout>
+      <AuthContainer>
+        <EmptyLayout>
+          <CreateViewPage />
+        </EmptyLayout>
+      </AuthContainer>
     ),
   },
   {
     path: '/:id',
     Component: () => (
-      <EmptyLayout>
-        <MainPage />
-      </EmptyLayout>
+      <AuthContainer>
+        <EmptyLayout>
+          <MainPage />
+        </EmptyLayout>
+      </AuthContainer>
     ),
   },
 ]);
