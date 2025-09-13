@@ -125,10 +125,17 @@ const Page = () => {
   };
 
   const changeMenuValue = (key, value) => {
-    setActiveMenu((prev) => ({
-      ...prev,
-      [key]: value,
-    }));
+    if (key === 'icon' && value === activeMenu.icon) {
+      setActiveMenu((prev) => ({
+        ...prev,
+        [key]: null,
+      }));
+    } else {
+      setActiveMenu((prev) => ({
+        ...prev,
+        [key]: value,
+      }));
+    }
   };
 
   const onClick = (menu) => {
