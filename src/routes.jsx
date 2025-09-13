@@ -1,5 +1,6 @@
 import { createBrowserRouter } from 'react-router';
-import AuthContainer from '@/guards/AuthContainer';
+import AuthenticatedGuard from '@/guards/AuthenticatedGuard';
+import NonAuthenticatedGuard from '@/guards/NonAuthenticatedGuard';
 import EmptyLayout from '@/layouts/Empty';
 import MainLayout from '@/layouts/Main';
 import WelcomePage from '@/pages';
@@ -25,11 +26,11 @@ const routes = createBrowserRouter([
   {
     path: '/login',
     Component: () => (
-      <AuthContainer>
+      <NonAuthenticatedGuard>
         <EmptyLayout>
           <LoginPage />
         </EmptyLayout>
-      </AuthContainer>
+      </NonAuthenticatedGuard>
     ),
   },
   {
@@ -43,71 +44,71 @@ const routes = createBrowserRouter([
   {
     path: '/module',
     Component: () => (
-      <AuthContainer>
+      <AuthenticatedGuard>
         <MainLayout>
           <ModulePage />
         </MainLayout>
-      </AuthContainer>
+      </AuthenticatedGuard>
     ),
   },
   {
     path: '/module/create',
     Component: () => (
-      <AuthContainer>
+      <AuthenticatedGuard>
         <MainLayout>
           <CreateModulePage />
         </MainLayout>
-      </AuthContainer>
+      </AuthenticatedGuard>
     ),
   },
   {
     path: '/menu',
     Component: () => (
-      <AuthContainer>
+      <AuthenticatedGuard>
         <MainLayout>
           <MenuPage />
         </MainLayout>
-      </AuthContainer>
+      </AuthenticatedGuard>
     ),
   },
   {
     path: '/menu/create',
     Component: () => (
-      <AuthContainer>
+      <AuthenticatedGuard>
         <MainLayout>
           <CreateMenuPage />
         </MainLayout>
-      </AuthContainer>
+      </AuthenticatedGuard>
     ),
   },
   {
     path: '/view',
     Component: () => (
-      <AuthContainer>
+      <AuthenticatedGuard>
         <MainLayout>
           <ViewPage />
         </MainLayout>
-      </AuthContainer>
+      </AuthenticatedGuard>
     ),
   },
   {
     path: '/view/create',
     Component: () => (
-      <AuthContainer>
+      <AuthenticatedGuard>
         <EmptyLayout>
           <CreateViewPage />
         </EmptyLayout>
-      </AuthContainer>
+      </AuthenticatedGuard>
     ),
   },
   {
     path: '/:id',
     Component: () => (
-      <AuthContainer>
+      <AuthenticatedGuard>
         <EmptyLayout>
           <MainPage />
         </EmptyLayout>
-      </AuthContainer>
+      </AuthenticatedGuard>
     ),
   },
 ]);
