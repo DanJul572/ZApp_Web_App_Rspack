@@ -9,7 +9,7 @@ const Alert = () => {
   const translator = Translator();
 
   if (!alert || !alert.status) {
-              return false;
+    return false;
   }
 
   return (
