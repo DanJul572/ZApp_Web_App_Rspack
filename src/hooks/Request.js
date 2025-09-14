@@ -1,6 +1,7 @@
 import CApiUrl from '@configs/CApiUrl';
 import axios from 'axios';
 import { useNavigate } from 'react-router';
+import statusCode from '@/enums/EStatusCode';
 import auth from '@/helpers/auth';
 
 const Request = () => {
@@ -13,7 +14,9 @@ const Request = () => {
 
   const forceRedirect = () => {
     auth.logout();
-    navigate('/login');
+    navigate('/login', {
+      replace: true,
+    });
   };
 
   const get = (url, params, withAuth = true) => {
@@ -35,7 +38,11 @@ const Request = () => {
         .catch((error) => {
           const message = error.response ? error.response.data : error.message;
           const status = error.response.status;
-          if (withAuth && (status === 401 || status === 403)) {
+          if (
+            withAuth &&
+            (status === statusCode.UNAUTHORIZED ||
+              status === statusCode.FORBIDDEN)
+          ) {
             forceRedirect();
             reject(message);
           }
@@ -70,7 +77,11 @@ const Request = () => {
         .catch((error) => {
           const message = error.response ? error.response.data : error.message;
           const status = error.response.status;
-          if (withAuth && (status === 401 || status === 403)) {
+          if (
+            withAuth &&
+            (status === statusCode.UNAUTHORIZED ||
+              status === statusCode.FORBIDDEN)
+          ) {
             forceRedirect();
             reject(message);
           }
