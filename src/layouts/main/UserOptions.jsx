@@ -7,9 +7,12 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import { useId } from 'react';
+import { useNavigate } from 'react-router';
 
 const UserOptions = (props) => {
   const { open, onClose, anchorEl, logout } = props;
+
+  const navigate = useNavigate();
 
   const id = useId();
 
@@ -64,7 +67,11 @@ const UserOptions = (props) => {
         </ListItemIcon>
         Add another account
       </MenuItem>
-      <MenuItem onClick={onClose}>
+      <MenuItem
+        onClick={() => {
+          navigate('/setting');
+        }}
+      >
         <ListItemIcon>
           <Settings fontSize="small" />
         </ListItemIcon>

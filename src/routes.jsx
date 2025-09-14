@@ -11,6 +11,7 @@ import CreateMenuPage from '@/pages/menu/create';
 import ModulePage from '@/pages/module';
 import CreateModulePage from '@/pages/module/create';
 import RegisterPage from '@/pages/register';
+import SettingPage from '@/pages/setting';
 import ViewPage from '@/pages/view';
 import CreateViewPage from '@/pages/view/create';
 
@@ -105,9 +106,19 @@ const routes = createBrowserRouter([
     path: '/:id',
     Component: () => (
       <AuthenticatedGuard>
-        <EmptyLayout>
+        <MainLayout>
           <MainPage />
-        </EmptyLayout>
+        </MainLayout>
+      </AuthenticatedGuard>
+    ),
+  },
+  {
+    path: '/setting',
+    Component: () => (
+      <AuthenticatedGuard>
+        <MainLayout>
+          <SettingPage />
+        </MainLayout>
       </AuthenticatedGuard>
     ),
   },
