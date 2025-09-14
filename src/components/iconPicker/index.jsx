@@ -77,9 +77,9 @@ const IconPicker = ({ active, onSelect, onBlur }) => {
       <Box sx={{ display: 'flex', gap: 1, mb: 1 }}>
         <FormControl size="small" sx={{ flex: '0 0 150px' }}>
           <Select value={filter} onChange={(e) => setFilter(e.target.value)}>
+            <MenuItem value="filled">Filled</MenuItem> 
             <MenuItem value="outlined">Outlined</MenuItem>
             <MenuItem value="rounded">Rounded</MenuItem>
-            <MenuItem value="filled">Filled</MenuItem>
             <MenuItem value="twoTone">TwoTone</MenuItem>
             <MenuItem value="sharp">Sharp</MenuItem>
           </Select>

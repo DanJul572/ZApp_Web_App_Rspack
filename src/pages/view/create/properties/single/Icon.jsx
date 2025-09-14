@@ -77,7 +77,6 @@ const Icon = (props) => {
             sx={{
               padding: 2,
               width: 567,
-              height: 550,
               display: 'flex',
               flexDirection: 'column',
               gap: 1,
