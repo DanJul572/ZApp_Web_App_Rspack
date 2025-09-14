@@ -94,7 +94,7 @@ const Table = (props) => {
     return column;
   });
 
-  const toolbarAction = () => {
+  const getToolbarAction = () => {
     if (!toolbarCustomAction.length && !isSupportAddAction) return;
     return (
       <ToolbarAction
@@ -106,7 +106,7 @@ const Table = (props) => {
     );
   };
 
-  const toolbarComponent = (table) => {
+  const getToolbarComponent = (table) => {
     return (
       <ToolBarComponent
         table={table}
@@ -121,7 +121,7 @@ const Table = (props) => {
     );
   };
 
-  const rowAction = (row) => {
+  const getRowAction = (row) => {
     return (
       <RowAction
         onClickRowAction={onClickRowAction}
@@ -181,9 +181,9 @@ const Table = (props) => {
     onSortingChange: setSorting,
     pageSize: pageSize,
     positionToolbarAlertBanner: 'none',
-    renderRowActions: ({ row }) => rowAction(row),
-    renderToolbarInternalActions: ({ table }) => toolbarComponent(table),
-    renderTopToolbarCustomActions: toolbarAction,
+    renderRowActions: ({ row }) => getRowAction(row),
+    renderToolbarInternalActions: ({ table }) => getToolbarComponent(table),
+    renderTopToolbarCustomActions: getToolbarAction,
     rowCount: rowCount,
     state: { pagination, columnFilters, sorting, rowSelection, isLoading },
   });
