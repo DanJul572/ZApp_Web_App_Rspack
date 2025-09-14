@@ -93,6 +93,7 @@ const Page = () => {
           variant="contained"
           onClick={mutation.mutate}
           loading={mutation.isPending}
+          disabled={mutation.isPending}
         >
           {translator('login')}
         </Button>

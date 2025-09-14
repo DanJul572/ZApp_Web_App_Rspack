@@ -20,7 +20,9 @@ const Topbar = () => {
 
   const open = Boolean(anchorEl);
   const userData = getUserData();
-  const avatarLabel = userData.userName.trim().charAt(0).toUpperCase();
+  const avatarLabel = userData?.userName
+    ? userData.userName.trim().charAt(0).toUpperCase()
+    : null;
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -74,9 +76,11 @@ const Topbar = () => {
             {`v${version}`}
           </Typography>
         </Box>
-        <IconButton onClick={handleClick}>
-          <Avatar>{avatarLabel}</Avatar>
-        </IconButton>
+        {avatarLabel && (
+          <IconButton onClick={handleClick} size="small">
+            <Avatar>{avatarLabel}</Avatar>
+          </IconButton>
+        )}
       </Box>
       <UserOptions
         open={open}
