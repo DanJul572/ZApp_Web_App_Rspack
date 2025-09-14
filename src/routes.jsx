@@ -2,7 +2,7 @@ import { createBrowserRouter } from 'react-router';
 import AuthenticatedGuard from '@/guards/AuthenticatedGuard';
 import NonAuthenticatedGuard from '@/guards/NonAuthenticatedGuard';
 import EmptyLayout from '@/layouts/Empty';
-import MainLayout from '@/layouts/Main';
+import MainLayout from '@/layouts/main';
 import WelcomePage from '@/pages';
 import LoginPage from '@/pages/login';
 import MainPage from '@/pages/main';

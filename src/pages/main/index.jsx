@@ -1,6 +1,6 @@
 import Content from '@/hooks/Content';
 import Interpreter from '@/interpreter';
-import Main from '@/layouts/Main';
+import Main from '@/layouts/main';
 
 const Page = (props) => {
   const { content, page, isLoading } = Content(props);

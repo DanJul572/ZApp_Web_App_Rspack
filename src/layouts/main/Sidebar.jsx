@@ -81,7 +81,7 @@ const Sidebar = () => {
         bottom: 0,
         left: 0,
         overflowY: 'auto',
-        paddingTop: 10,
+        paddingTop: 11,
         position: 'fixed',
         top: 0,
         width: 300,

@@ -1,4 +1,9 @@
-const decodeToken = (token) => {
+const getUserData = () => {
+  const token = localStorage.getItem('token');
+  if (!token) {
+    return null;
+  }
+
   const base64Url = token.split('.')[1];
   const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
   const jsonPayload = decodeURIComponent(
@@ -11,4 +16,4 @@ const decodeToken = (token) => {
   return JSON.parse(jsonPayload);
 };
 
-export default decodeToken;
+export default getUserData;

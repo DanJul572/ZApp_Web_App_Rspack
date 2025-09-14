@@ -7,7 +7,6 @@ import Toolbar from '@mui/material/Toolbar';
 import Alert from '@/components/alert';
 import FullCoverLoader from '@/components/loading/FullCoverLoader';
 import Toast from '@/components/toast';
-
 import Sidebar from './Sidebar';
 import Topbar from './Topbar';
 
