@@ -4,9 +4,9 @@ import CModuleID from '@configs/CModuleID';
 import CTheme from '@configs/CTheme';
 import CreateNewFolder from '@mui/icons-material/CreateNewFolder';
 import Delete from '@mui/icons-material/Delete';
-import KeyboardArrowDown from '@mui/icons-material/KeyboardArrowDown';
-import KeyboardArrowUp from '@mui/icons-material/KeyboardArrowUp';
+import North from '@mui/icons-material/North';
 import NoteAdd from '@mui/icons-material/NoteAdd';
+import South from '@mui/icons-material/South';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
@@ -282,7 +282,7 @@ const Page = () => {
           <Box padding={1}>
             <Tooltip arrow title="Move To Up">
               <IconButton color="primary" onClick={() => onMove(actionType.up)}>
-                <KeyboardArrowUp />
+                <North />
               </IconButton>
             </Tooltip>
             <Tooltip arrow title="Move To Down">
@@ -290,7 +290,7 @@ const Page = () => {
                 color="primary"
                 onClick={() => onMove(actionType.down)}
               >
-                <KeyboardArrowDown />
+                <South />
               </IconButton>
             </Tooltip>
             <Tooltip arrow title="Add Root Menu">

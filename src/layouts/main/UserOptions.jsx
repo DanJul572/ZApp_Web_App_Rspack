@@ -1,5 +1,4 @@
 import Logout from '@mui/icons-material/Logout';
-import PersonAdd from '@mui/icons-material/PersonAdd';
 import Settings from '@mui/icons-material/Settings';
 import Avatar from '@mui/material/Avatar';
 import Divider from '@mui/material/Divider';
@@ -41,7 +40,7 @@ const UserOptions = (props) => {
               display: 'block',
               position: 'absolute',
               top: 0,
-              right: 23,
+              right: 12,
               width: 10,
               height: 10,
               bgcolor: 'background.paper',
@@ -57,16 +56,7 @@ const UserOptions = (props) => {
       <MenuItem onClick={onClose}>
         <Avatar /> Profile
       </MenuItem>
-      <MenuItem onClick={onClose}>
-        <Avatar /> My account
-      </MenuItem>
       <Divider />
-      <MenuItem onClick={onClose}>
-        <ListItemIcon>
-          <PersonAdd fontSize="small" />
-        </ListItemIcon>
-        Add another account
-      </MenuItem>
       <MenuItem
         onClick={() => {
           navigate('/setting');

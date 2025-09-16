@@ -1,6 +1,6 @@
-import ArrowDropDown from '@mui/icons-material/ArrowDropDown';
-import ArrowDropUp from '@mui/icons-material/ArrowDropUp';
+import North from '@mui/icons-material/North';
 import ShortTextOutlined from '@mui/icons-material/ShortTextOutlined';
+import South from '@mui/icons-material/South';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
@@ -116,13 +116,13 @@ const Position = (props) => {
           <Typography>Position</Typography>
           <Box>
             <IconButton sx={{ padding: 0 }} onClick={() => onClickArrow('up')}>
-              <ArrowDropUp />
+              <North />
             </IconButton>
             <IconButton
               sx={{ padding: 0 }}
               onClick={() => onClickArrow('down')}
             >
-              <ArrowDropDown />
+              <South />
             </IconButton>
             <IconButton sx={{ padding: 0 }} onClick={() => setOpen(true)}>
               <ShortTextOutlined />
