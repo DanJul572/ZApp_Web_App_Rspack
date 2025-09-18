@@ -46,7 +46,7 @@
     "dayjs": "^1.11.18",
     "export-to-csv": "^1.4.0",
     "i18next": "^25.5.2",
-    "jspdf": "^3.0.2",
+    "jspdf": "^3.0.3",
     "jspdf-autotable": "^5.0.2",
     "material-react-table": "^3.2.1",
     "mui-file-input": "^7.0.0",
@@ -59,10 +59,10 @@
   },
   "devDependencies": {
     "@biomejs/biome": "^2.2.4",
-    "@rsbuild/core": "^1.5.8",
+    "@rsbuild/core": "^1.5.9",
     "@rsbuild/plugin-react": "^1.4.0",
     "dotenv-webpack": "^8.1.1",
     "husky": "^9.1.7"
   },
-  "packageManager": "pnpm@10.16.1"
+  "packageManager": "pnpm@10.17.0"
 }
