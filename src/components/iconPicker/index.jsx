@@ -6,7 +6,7 @@ import Select from '@mui/material/Select';
 import TextField from '@mui/material/TextField';
 import { useEffect, useMemo, useState } from 'react';
 import { AutoSizer, Grid } from 'react-virtualized';
-import * as Icon from '@/components/icons';
+import * as Icon from '@/configs/CIcons';
 
 const IconPicker = ({ active, onSelect, onBlur }) => {
   const [filter, setFilter] = useState('filled');

@@ -1,6 +1,7 @@
 import CApiUrl from '@configs/CApiUrl';
 import CModuleID from '@configs/CModuleID';
 import ArrowBack from '@mui/icons-material/ArrowBack';
+import Delete from '@mui/icons-material/Delete';
 import Download from '@mui/icons-material/Download';
 import FileUpload from '@mui/icons-material/FileUpload';
 import RemoveRedEye from '@mui/icons-material/RemoveRedEye';
@@ -19,7 +20,6 @@ import { useNavigate } from 'react-router';
 import Upload from '@/components/button/Upload';
 import Confirm from '@/components/dialog/Confirm';
 import List from '@/components/dialog/List';
-import { Delete } from '@/components/icons';
 import { useLoading } from '@/contexts/LoadingProvider';
 import { useToast } from '@/contexts/ToastProvider';
 import EActionType from '@/enums/EActionType';

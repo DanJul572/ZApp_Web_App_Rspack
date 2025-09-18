@@ -10,7 +10,7 @@ import { TreeItem, treeItemClasses } from '@mui/x-tree-view/TreeItem';
 import { forwardRef, useEffect, useState } from 'react';
 import { useLocation } from 'react-router';
 
-import * as Icon from '@/components/icons';
+import * as Icon from '@/configs/CIcons';
 
 import { useExpandedMenu } from '@/contexts/ExpandedMenuProvider';
 
