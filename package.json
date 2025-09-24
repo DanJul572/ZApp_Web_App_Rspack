@@ -39,7 +39,7 @@
     "@mui/x-charts": "^8.11.3",
     "@mui/x-date-pickers": "^8.11.3",
     "@mui/x-tree-view": "8.11.3",
-    "@tanstack/react-query": "^5.90.1",
+    "@tanstack/react-query": "^5.90.2",
     "@uiw/react-textarea-code-editor": "^3.1.1",
     "axios": "^1.12.2",
     "crypto-js": "^4.2.0",
@@ -59,10 +59,10 @@
   },
   "devDependencies": {
     "@biomejs/biome": "^2.2.4",
-    "@rsbuild/core": "^1.5.10",
+    "@rsbuild/core": "^1.5.11",
     "@rsbuild/plugin-react": "^1.4.0",
     "dotenv-webpack": "^8.1.1",
     "husky": "^9.1.7"
   },
-  "packageManager": "pnpm@10.17.0"
+  "packageManager": "pnpm@10.17.1"
 }
