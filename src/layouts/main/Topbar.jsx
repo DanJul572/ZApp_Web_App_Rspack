@@ -35,7 +35,9 @@ const Topbar = () => {
   const logout = () => {
     auth.logout();
     setExpandedMenu([]);
-    navigate('/login');
+    navigate('/login', {
+      replace: true,
+    });
   };
 
   return (
