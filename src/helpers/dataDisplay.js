@@ -1,5 +1,5 @@
 import dayjs from 'dayjs';
-import EDateTimeFormat from '@/enums/EDateTimeFormat';
+import CDateTimeFormat from '@/configs/CDateTimeFormat';
 import EInputType from '@/enums/EInputType';
 import isValidValue from './isValidValue';
 
@@ -8,12 +8,12 @@ const dataDisplay = (type, value) => {
 
   if (type === EInputType.date.value)
     return isValidValue(value)
-      ? dayjs(value).format(EDateTimeFormat.date.display)
+      ? dayjs(value).format(CDateTimeFormat.date.display)
       : '';
 
   if (type === EInputType.datetime.value)
     return isValidValue(value)
-      ? dayjs(value).format(EDateTimeFormat.datetime.display)
+      ? dayjs(value).format(CDateTimeFormat.datetime.display)
       : '';
 
   if (type === EInputType.richText.value)
@@ -21,7 +21,7 @@ const dataDisplay = (type, value) => {
 
   if (type === EInputType.time.value)
     return isValidValue(value)
-      ? dayjs(value).format(EDateTimeFormat.time.display)
+      ? dayjs(value).format(CDateTimeFormat.time.display)
       : '';
 
   if (type === EInputType.toggle.value)

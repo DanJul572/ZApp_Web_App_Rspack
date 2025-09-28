@@ -5,13 +5,13 @@ import { TimePicker } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import dayjs from 'dayjs';
-import EDateTimeFormat from '@/enums/EDateTimeFormat';
+import CDateTimeFormat from '@/configs/CDateTimeFormat';
 
 const Time = (props) => {
   const { label, onChange, value, disabled } = props;
 
   const valueFormater = (val) => {
-    const time = dayjs(val).format(EDateTimeFormat.time.value);
+    const time = dayjs(val).format(CDateTimeFormat.time.value);
     return onChange(time);
   };
 
@@ -23,7 +23,7 @@ const Time = (props) => {
           value={value ? dayjs(value) : null}
           onChange={valueFormater}
           disabled={disabled}
-          format={EDateTimeFormat.time.display}
+          format={CDateTimeFormat.time.display}
           slotProps={{
             textField: {
               disabled: disabled,

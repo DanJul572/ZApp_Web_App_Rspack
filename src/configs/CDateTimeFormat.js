@@ -1,4 +1,4 @@
-const EDateTimeFormat = {
+const CDateTimeFormat = {
   time: {
     display: 'HH:mm:ss',
     value: '1901-01-01THH:mm:ss',
@@ -13,4 +13,4 @@ const EDateTimeFormat = {
   },
 };
 
-export default EDateTimeFormat;
+export default CDateTimeFormat;
