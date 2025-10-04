@@ -18,6 +18,14 @@ jobs:
         with:
           node-version: 20
 
+      - name: Create .env file
+        run: |
+          echo "API_URL=${{ secrets.API_URL }}" >> .env
+          echo "APP_NAME=${{ secrets.APP_NAME }}" >> .env
+          echo "THEME=${{ secrets.THEME }}" >> .env
+          echo "LANGUAGE=${{ secrets.LANGUAGE }}" >> .env
+          echo "ENCRYPTION_KEY=${{ secrets.ENCRYPTION_KEY }}" >> .env
+
       - name: Install dependencies
         run: npm install --legacy-peer-deps
 
