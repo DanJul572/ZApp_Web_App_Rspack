@@ -20,11 +20,11 @@ jobs:
 
       - name: Create .env file
         run: |
-          echo "API_URL=${{ secrets.API_URL }}" >> .env
-          echo "APP_NAME=${{ secrets.APP_NAME }}" >> .env
-          echo "THEME=${{ secrets.THEME }}" >> .env
-          echo "LANGUAGE=${{ secrets.LANGUAGE }}" >> .env
-          echo "ENCRYPTION_KEY=${{ secrets.ENCRYPTION_KEY }}" >> .env
+          echo "API_URL=${{ secrets.ENV_API_URL }}" >> .env
+          echo "APP_NAME=${{ secrets.ENV_APP_NAME }}" >> .env
+          echo "THEME=${{ secrets.ENV_THEME }}" >> .env
+          echo "LANGUAGE=${{ secrets.ENV_LANGUAGE }}" >> .env
+          echo "ENCRYPTION_KEY=${{ secrets.ENV_ENCRYPTION_KEY }}" >> .env
 
       - name: Install dependencies
         run: npm install --legacy-peer-deps
