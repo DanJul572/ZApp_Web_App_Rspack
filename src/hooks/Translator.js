@@ -8,7 +8,7 @@ const Translator = () => {
   useEffect(() => {
     if (!i18next.isInitialized) {
       i18next.init({
-        lng: process.env.LANGUAGE || 'en',
+        lng: process.env.VITE_LANGUAGE || 'en',
         debug: false,
         resources: {
           en: {

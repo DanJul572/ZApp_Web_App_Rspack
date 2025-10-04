@@ -2,7 +2,7 @@ import { createTheme } from '@mui/material/styles';
 
 const theme = createTheme({
   palette: {
-    mode: process.env.THEME || 'light',
+    mode: process.env.VITE_THEME || 'light',
     primary: {
       light: '#ffec8b', // amber soft
       main: '#ffb400', // orange agak merah (utama)

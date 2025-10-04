@@ -5,7 +5,7 @@ import Dotenv from 'dotenv-webpack';
 export default defineConfig({
   plugins: [pluginReact()],
   html: {
-    title: process.env.APP_NAME,
+    title: process.env.VITE_APP_NAME,
   },
   tools: {
     rspack: {
