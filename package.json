@@ -1,6 +1,6 @@
 {
   "name": "zapp_web_app",
-  "version": "1.0.15",
+  "version": "1.0.16",
   "private": false,
   "type": "module",
   "main": "dist/index.js",
@@ -37,16 +37,16 @@
     "@fontsource/roboto": "^5.2.8",
     "@mui/icons-material": "^7.3.4",
     "@mui/material": "^7.3.4",
-    "@mui/x-charts": "^8.13.1",
-    "@mui/x-date-pickers": "^8.12.0",
-    "@mui/x-tree-view": "8.13.1",
-    "@tanstack/react-query": "^5.90.2",
+    "@mui/x-charts": "^8.14.0",
+    "@mui/x-date-pickers": "^8.14.0",
+    "@mui/x-tree-view": "8.14.0",
+    "@tanstack/react-query": "^5.90.3",
     "@uiw/react-textarea-code-editor": "^3.1.1",
     "axios": "^1.12.2",
     "crypto-js": "^4.2.0",
     "dayjs": "^1.11.18",
     "export-to-csv": "^1.4.0",
-    "i18next": "^25.5.3",
+    "i18next": "^25.6.0",
     "jspdf": "^3.0.3",
     "jspdf-autotable": "^5.0.2",
     "material-react-table": "^3.2.1",
@@ -54,16 +54,16 @@
     "prop-types": "^15.8.1",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
-    "react-router": "^7.9.3",
+    "react-router": "^7.9.4",
     "react-virtualized": "^9.22.6",
     "uuid": "^13.0.0"
   },
   "devDependencies": {
-    "@biomejs/biome": "^2.2.5",
-    "@rsbuild/core": "^1.5.13",
+    "@biomejs/biome": "^2.2.6",
+    "@rsbuild/core": "^1.5.17",
     "@rsbuild/plugin-react": "^1.4.1",
     "dotenv-webpack": "^8.1.1",
     "husky": "^9.1.7"
   },
-  "packageManager": "pnpm@10.18.0"
+  "packageManager": "pnpm@10.18.3"
 }
