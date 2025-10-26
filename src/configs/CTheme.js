@@ -4,9 +4,9 @@ const theme = createTheme({
   palette: {
     mode: process.env.VITE_THEME || 'light',
     primary: {
-      light: '#ffec8b', // amber soft
-      main: '#ffb400', // orange agak merah (utama)
-      dark: '#c77800', // coklat–orange gelap
+      light: '#8324ffff',
+      main: '#6f00ffff',
+      dark: '#5b00d1ff',
     },
     secondary: {
       light: '#D2E8D4',

@@ -7,6 +7,7 @@ import Delete from '@mui/icons-material/Delete';
 import North from '@mui/icons-material/North';
 import NoteAdd from '@mui/icons-material/NoteAdd';
 import South from '@mui/icons-material/South';
+import { useTheme } from '@mui/material';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
@@ -37,6 +38,7 @@ const Page = () => {
 
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
+  const theme = useTheme();
   const { setAlert } = useAlert();
 
   const [label, setLabel] = useState(null);
@@ -247,7 +249,22 @@ const Page = () => {
 
   return (
     <Box>
-      <Box display="flex" justifyContent="flex-end" gap={1}>
+      <Box
+        sx={{
+          display: 'flex',
+          justifyContent: 'flex-end',
+          position: 'fixed',
+          right: 0,
+          padding: '15px',
+          gap: '5px',
+          left: '301px',
+          top: '67px',
+          zIndex: 2,
+          backgroundColor: theme.palette.background.default,
+          borderBottom: '1px solid',
+          borderColor: theme.palette.divider,
+        }}
+      >
         <Upload label={translator('upload')} onUpload={onUpload} type=".json" />
         <Button variant="outlined" onClick={onDownload}>
           {translator('download')}
@@ -263,8 +280,15 @@ const Page = () => {
           {translator('save')}
         </Button>
       </Box>
-      <Box>
-        <Box gap={2} display="flex" flexDirection="column" marginBottom={2}>
+      <Box sx={{ marginTop: '67px' }}>
+        <Box
+          sx={{
+            gap: 2,
+            display: 'flex',
+            flexDirection: 'column',
+            marginBottom: 2,
+          }}
+        >
           <ShortText value={label} label="Label" onChange={setLabel} />
           <Dropdown
             value={roleId}
@@ -279,7 +303,7 @@ const Page = () => {
           />
         </Box>
         <Card>
-          <Box padding={1}>
+          <Box sx={{ p: 1 }}>
             <Tooltip arrow title="Move To Up">
               <IconButton color="primary" onClick={() => onMove(actionType.up)}>
                 <North />
@@ -313,9 +337,11 @@ const Page = () => {
               </IconButton>
             </Tooltip>
           </Box>
+
           <Divider sx={{ backgroundColor: CTheme.palette.primary.main }} />
-          <Box gap={2} display="flex">
-            <Box padding={1} flex={1}>
+
+          <Box sx={{ gap: 2, display: 'flex' }}>
+            <Box sx={{ p: 1, flex: 1 }}>
               <Tree
                 tree={tree}
                 onParentClick={onClick}
@@ -324,12 +350,15 @@ const Page = () => {
                 setTree={setTree}
               />
             </Box>
+
             <Box
-              padding={2}
-              display="flex"
-              flexDirection="column"
-              gap={2}
-              flex={1}
+              sx={{
+                p: 2,
+                display: 'flex',
+                flexDirection: 'column',
+                gap: 2,
+                flex: 1,
+              }}
             >
               <ShortText
                 value={activeMenu.label}
