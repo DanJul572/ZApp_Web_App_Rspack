@@ -31,6 +31,11 @@ const theme = createTheme({
   },
   components: {
     MuiTypography: {
+      styleOverrides: {
+        root: {
+          fontFamily: '"Inter", "Roboto", "Helvetica", "Arial", sans-serif',
+        },
+      },
       defaultProps: {
         variant: 'body2',
       },
