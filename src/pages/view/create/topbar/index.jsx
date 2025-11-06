@@ -199,7 +199,6 @@ const TopBar = (props) => {
           right: 0,
           top: 0,
           zIndex: 2,
-          boxShadow: 'none',
         }}
       >
         <Box display="flex" alignItems="center" gap={1}>

@@ -26,6 +26,15 @@ jobs:
           echo "VITE_LANGUAGE=${{ secrets.ENV_VITE_LANGUAGE }}" >> .env
           echo "VITE_ENCRYPTION_KEY=${{ secrets.ENV_VITE_ENCRYPTION_KEY }}" >> .env
 
+      - name: Verify working directory
+        run: pwd && ls -la
+
+      - name: Debug .env
+        run: |
+          echo "===== .env content ====="
+          cat .env || echo ".env not found!"
+          echo "========================"
+
       - name: Install dependencies
         run: npm install --legacy-peer-deps
 

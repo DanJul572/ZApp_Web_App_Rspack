@@ -7,7 +7,12 @@ const ViewList = (props) => {
 
   return (
     <Box paddingX={2} paddingTop={2}>
-      <Dropdown value={viewId} options={viewOptions} onChange={setViewId} />
+      <Dropdown
+        placeholder="Select View"
+        value={viewId}
+        options={viewOptions}
+        onChange={setViewId}
+      />
     </Box>
   );
 };

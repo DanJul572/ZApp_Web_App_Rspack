@@ -9,7 +9,16 @@ import { useEffect, useState } from 'react';
 import Request from '@/hooks/Request';
 
 const Dropdown = (props) => {
-  const { label, onChange, options, value, disabled, id, multiple } = props;
+  const {
+    label,
+    onChange,
+    options,
+    value,
+    disabled,
+    id,
+    multiple,
+    placeholder,
+  } = props;
 
   const { get } = Request();
 
@@ -69,7 +78,7 @@ const Dropdown = (props) => {
         renderInput={(params) => (
           <Box>
             <Typography>{label}</Typography>
-            <TextField {...params} />
+            <TextField placeholder={placeholder} {...params} />
           </Box>
         )}
         renderOption={(props, option) => (
