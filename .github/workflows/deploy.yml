@@ -20,11 +20,11 @@ jobs:
 
       - name: Create .env file
         run: |
-          echo "VITE_API_URL=${{ secrets.ENV_VITE_API_URL }}" >> .env
-          echo "VITE_APP_NAME=${{ secrets.ENV_VITE_APP_NAME }}" >> .env
-          echo "VITE_THEME=${{ secrets.ENV_VITE_THEME }}" >> .env
-          echo "VITE_LANGUAGE=${{ secrets.ENV_VITE_LANGUAGE }}" >> .env
-          echo "VITE_ENCRYPTION_KEY=${{ secrets.ENV_VITE_ENCRYPTION_KEY }}" >> .env
+          echo "REACT_APP_API_URL=${{ secrets.ENV_VITE_API_URL }}" >> .env
+          echo "REACT_APP_APP_NAME=${{ secrets.ENV_VITE_APP_NAME }}" >> .env
+          echo "REACT_APP_THEME=${{ secrets.ENV_VITE_THEME }}" >> .env
+          echo "REACT_APP_LANGUAGE=${{ secrets.ENV_VITE_LANGUAGE }}" >> .env
+          echo "REACT_APP_ENCRYPTION_KEY=${{ secrets.ENV_VITE_ENCRYPTION_KEY }}" >> .env
 
       - name: Verify working directory
         run: pwd && ls -la

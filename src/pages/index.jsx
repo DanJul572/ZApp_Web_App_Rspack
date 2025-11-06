@@ -24,7 +24,7 @@ export default function Page() {
         <CardContent>
           <Stack spacing={3} alignItems="center" textAlign="center">
             <Typography variant="h4" component="h1" fontWeight={700}>
-              {process.env.VITE_APP_NAME || 'ZApp'}
+              {process.env.REACT_APP_APP_NAME || 'ZApp'}
             </Typography>
             <ButtonGroup
               variant="text"

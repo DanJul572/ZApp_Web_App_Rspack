@@ -68,7 +68,7 @@ const Topbar = () => {
               color: theme.palette.primary.contrastText,
             }}
           >
-            {process.env.VITE_APP_NAME || 'ZApp'}
+            {process.env.REACT_APP_APP_NAME || 'ZApp'}
           </Typography>
           <Typography
             riant="subtitle2"

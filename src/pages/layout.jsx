@@ -12,7 +12,7 @@ import { UIStoreProvider } from '@/contexts/UIStoreProvider';
 const queryClient = new QueryClient();
 
 export const metadata = {
-  title: process.env.VITE_APP_NAME || 'ZApp',
+  title: process.env.REACT_APP_APP_NAME || 'ZApp',
   description: 'Cretae your app without code',
 };
 

@@ -2,7 +2,7 @@ import { createTheme } from '@mui/material/styles';
 
 const theme = createTheme({
   palette: {
-    mode: process.env.VITE_THEME || 'light',
+    mode: process.env.REACT_APP_THEME || 'light',
     primary: {
       light: '#8324ffff',
       main: '#6f00ffff',
