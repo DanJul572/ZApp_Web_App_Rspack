@@ -1,22 +1,24 @@
 # ⚡ Zapp – Build Apps with Low-Code
 
-📌 Versi: **1.0.0**
+📌 **Version:** 1.0.16
 
-ZApp adalah aplikasi **low-code** yang dirancang untuk membantu Anda membangun aplikasi lain dengan cepat, efisien, dan tanpa kerumitan teknis berlebih.  
-Dengan ZApp, Anda bisa fokus pada ide dan logika bisnis, sementara hal teknis ditangani otomatis oleh sistem.
+**Zapp** is a **low-code application builder** designed to help you create apps quickly, efficiently, and without complex technical overhead.  
+Focus on your ideas and business logic — Zapp handles the technical side automatically.
 
 ---
 
-## 🚀 Fitur Utama
-- ✨ **Low-code builder** – buat aplikasi lebih cepat tanpa harus menulis kode panjang.
-- ⚡ **Powered by Rsbuild** – proses build dan preview super cepat.
-- 🎨 **Material UI & Emotion** – desain modern dengan dukungan styling fleksibel.
-- 📊 **Komponen interaktif** – chart, date-picker, tree-view, dan tabel siap pakai.
-- 🌍 **Internasionalisasi (i18n)** – mudah menambahkan banyak bahasa dengan `i18next`.
-- 📦 **Ekspor Data** – dukungan ekspor ke CSV & PDF.
-- 📝 **Rich Text Editor** – integrasi editor teks (Editor.js).
-- 🛠️ **Linting & Formatting** – menjaga kualitas kode tetap konsisten dengan **Biome**.
-- 🔗 **React Router & React Query** – manajemen state & routing modern.
+## 🚀 Key Features
+
+- ✨ **Low-code Builder** – Create applications faster without writing long code.
+- ⚡ **Powered by Rsbuild** – Super-fast build and preview process.
+- 🎨 **Material UI & Emotion** – Modern design with flexible styling.
+- 📊 **Interactive Components** – Charts, date pickers, tree views, and tables ready to use.
+- 🌍 **Internationalization (i18n)** – Easily support multiple languages using `i18next`.
+- 📦 **Data Export** – Export data to **CSV** or **PDF** formats.
+- 📝 **Rich Text Editor** – Integrated with **Editor.js** for flexible text editing.
+- 🛠️ **Linting & Formatting** – Keep your code clean and consistent with **Biome**.
+- 🔗 **React Router & React Query** – Modern state management and routing.
+- 💾 **Secure Utilities** – Built-in support for encryption and unique IDs using `crypto-js` and `uuid`.
 
 ---
 
@@ -30,67 +32,69 @@ pnpm install
 
 ---
 
-## 🛠️ Perintah yang Tersedia
+## 🛠️ Available Scripts
 
-Berikut adalah daftar script yang dapat dijalankan melalui `package.json`:
+The following scripts can be run from `package.json`:
 
-| Script      | Perintah                   | Deskripsi                                                                 |
-|-------------|----------------------------|---------------------------------------------------------------------------|
-| `dev`       | `pnpm dev`                 | Menjalankan server pengembangan dengan **Rsbuild**.                       |
-| `build`     | `pnpm build`               | Build aplikasi untuk produksi.                                            |
-| `preview`   | `pnpm preview`             | Menjalankan preview lokal dari hasil build produksi.                      |
-| `lint`      | `pnpm lint`                | Mengecek & memperbaiki format kode menggunakan **Biome**.                 |
+| Script      | Command           | Description                                                          |
+|--------------|------------------|----------------------------------------------------------------------|
+| `dev`        | `pnpm dev`       | Run the development server using **Rsbuild**.                        |
+| `build`      | `pnpm build`     | Build the application for production.                                |
+| `preview`    | `pnpm preview`   | Run a local preview of the production build.                         |
+| `lint`       | `pnpm lint`      | Check and fix code formatting using **Biome**.                       |
+| `format`     | `pnpm format`    | Automatically format code using **Biome**.                           |
+| `prepare`    | `pnpm prepare`   | Initialize **Husky** for Git hooks.                                  |
 
 ---
 
-## 🚦 Cara Penggunaan
+## 🚦 Usage
 
-Jalankan server pengembangan:
+Start the development server:
 ```bash
 pnpm dev
 ```
 
-Build untuk produksi:
+Build for production:
 ```bash
 pnpm build
 ```
 
-Preview hasil build:
+Preview the production build:
 ```bash
 pnpm preview
 ```
 
-Cek & format kode:
+Check and format code:
 ```bash
 pnpm lint
 ```
 
 ---
 
-## 📚 Teknologi yang Digunakan
+## 📚 Tech Stack
 
-- **Framework Build**: [Rsbuild](https://rsbuild.dev/)
-- **UI & Styling**: [Material UI](https://mui.com/), [Emotion](https://emotion.sh/), [@fontsource/roboto](https://fontsource.org/)
-- **Komponen UI Tambahan**: Charts, Date Pickers, Tree View, Tables, File Input
-- **Editor**: [Editor.js](https://editorjs.io/)
-- **Data & State**: [React Query](https://tanstack.com/query), [Axios](https://axios-http.com/)
-- **Internasionalisasi**: [i18next](https://www.i18next.com/)
-- **Ekspor Data**: `export-to-csv`, `jspdf`, `jspdf-autotable`
-- **Utils**: `uuid`, `dayjs`, `crypto-js`, `prop-types`
-- **Dev Tools**: Biome, dotenv-webpack
+- **Build Framework:** [Rsbuild](https://rsbuild.dev/)
+- **UI & Styling:** [Material UI](https://mui.com/), [Emotion](https://emotion.sh/), [@fontsource/inter](https://fontsource.org/)
+- **UI Components:** Charts, Date Pickers, Tree View, Tables, File Input
+- **Editor:** [Editor.js](https://editorjs.io/)
+- **Data & State:** [React Query](https://tanstack.com/query), [Axios](https://axios-http.com/)
+- **Internationalization:** [i18next](https://www.i18next.com/)
+- **Data Export:** `export-to-csv`, `jspdf`, `jspdf-autotable`
+- **Utilities:** `uuid`, `dayjs`, `crypto-js`, `prop-types`
+- **Development Tools:** `Biome`, `dotenv-webpack`, `Husky`
 
 ---
 
 ## 📖 Roadmap
 
-- [ ] Tambah integrasi drag & drop komponen.
-- [ ] Dukungan ekspor multi-platform.
-- [ ] Template aplikasi siap pakai.
-- [ ] Mode kolaborasi real-time.
-- [ ] Plugin marketplace untuk ekstensi fitur.
+- [ ] Add drag & drop component integration.  
+- [ ] Multi-platform export support.  
+- [ ] Ready-to-use app templates.  
+- [ ] Real-time collaboration mode.  
+- [ ] Plugin marketplace for feature extensions.  
 
 ---
 
-## 📜 Lisensi
+## 📜 License
 
-Proyek ini bersifat **private** dan tidak untuk distribusi publik.
+This project is **private** and not intended for public distribution.
