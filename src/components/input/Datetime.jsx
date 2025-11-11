@@ -1,4 +1,3 @@
-import CTheme from '@configs/CTheme';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
@@ -28,7 +27,6 @@ const Datetime = (props) => {
             textField: {
               disabled: disabled,
               fullWidth: true,
-              size: CTheme.field.size.name,
             },
           }}
         />

@@ -1,4 +1,3 @@
-import CTheme from '@configs/CTheme';
 import { Avatar, useTheme } from '@mui/material';
 import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
@@ -48,7 +47,7 @@ const Topbar = () => {
           justifyContent: 'space-between',
           alignItems: 'center',
           padding: 1,
-          backgroundColor: CTheme.palette.primary.main,
+          backgroundColor: theme.palette.primary.main,
         }}
       >
         <Box

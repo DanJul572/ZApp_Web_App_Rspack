@@ -1,17 +1,23 @@
-import CTheme from '@configs/CTheme';
 import { createTheme, ThemeProvider } from '@mui/material';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import CssBaseline from '@mui/material/CssBaseline';
 import Toolbar from '@mui/material/Toolbar';
+import { useContext } from 'react';
 import Alert from '@/components/alert';
 import FullCoverLoader from '@/components/loading/FullCoverLoader';
 import Toast from '@/components/toast';
+import { ConfigContext } from '@/contexts/ConfigProvider';
 import Sidebar from './Sidebar';
 import Topbar from './Topbar';
 
 export default function Main({ children }) {
-  const theme = createTheme(CTheme);
+  const { config, loading, error } = useContext(ConfigContext);
+
+  if (loading || !config) return <div>Loading...</div>;
+  if (error) return <div>Error loading config</div>;
+
+  const theme = createTheme(config.ui);
 
   return (
     <ThemeProvider theme={theme}>

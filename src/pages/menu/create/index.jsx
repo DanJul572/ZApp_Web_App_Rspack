@@ -1,7 +1,6 @@
 import CApiUrl from '@configs/CApiUrl';
 import CFieldID from '@configs/CFieldID';
 import CModuleID from '@configs/CModuleID';
-import CTheme from '@configs/CTheme';
 import CreateNewFolder from '@mui/icons-material/CreateNewFolder';
 import Delete from '@mui/icons-material/Delete';
 import North from '@mui/icons-material/North';
@@ -351,7 +350,7 @@ const Page = () => {
             </Tooltip>
           </Box>
 
-          <Divider sx={{ backgroundColor: CTheme.palette.primary.main }} />
+          <Divider sx={{ backgroundColor: theme.palette.primary.main }} />
 
           <Box sx={{ gap: 2, display: 'flex' }}>
             <Box sx={{ p: 1, flex: 1 }}>

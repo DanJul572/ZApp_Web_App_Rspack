@@ -1,7 +1,6 @@
 import CApiUrl from '@configs/CApiUrl';
-import CTheme from '@configs/CTheme';
 import { ArrowBack } from '@mui/icons-material';
-import { createTheme } from '@mui/material';
+import { useTheme } from '@mui/material';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
@@ -18,7 +17,7 @@ import Request from '@/hooks/Request';
 import Translator from '@/hooks/Translator';
 
 const Page = () => {
-  const theme = createTheme(CTheme);
+  const theme = useTheme();
 
   const navigate = useNavigate();
   const request = Request();

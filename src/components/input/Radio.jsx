@@ -1,4 +1,3 @@
-import CTheme from '@configs/CTheme';
 import Box from '@mui/material/Box';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import RadioGroup from '@mui/material/RadioGroup';
@@ -25,7 +24,6 @@ const Radio = (props) => {
                 />
               }
               label={option.label}
-              slotProps={{ typography: { fontSize: CTheme.font.size.value } }}
             />
           ))}
         </RadioGroup>

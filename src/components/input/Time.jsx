@@ -1,4 +1,3 @@
-import CTheme from '@configs/CTheme';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import { TimePicker } from '@mui/x-date-pickers';
@@ -28,7 +27,6 @@ const Time = (props) => {
             textField: {
               disabled: disabled,
               fullWidth: true,
-              size: CTheme.field.size.name,
             },
           }}
         />

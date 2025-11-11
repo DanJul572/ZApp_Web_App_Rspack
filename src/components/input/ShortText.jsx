@@ -1,4 +1,3 @@
-import CTheme from '@configs/CTheme';
 import Help from '@mui/icons-material/Help';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
@@ -38,7 +37,7 @@ const ShortText = (props) => {
         <Typography>{label}</Typography>
         {tooltip && (
           <Tooltip title={tooltip} arrow placement="top">
-            <Help sx={{ fontSize: CTheme.font.size.value }} />
+            <Help />
           </Tooltip>
         )}
       </Box>

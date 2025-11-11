@@ -1,8 +1,7 @@
 import CApiUrl from '@configs/CApiUrl';
 import CFieldID from '@configs/CFieldID';
-import CTheme from '@configs/CTheme';
 import { ArrowBack } from '@mui/icons-material';
-import { Card, createTheme } from '@mui/material';
+import { Card, useTheme } from '@mui/material';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
@@ -17,7 +16,7 @@ import Request from '@/hooks/Request';
 import Translator from '@/hooks/Translator';
 
 const Page = () => {
-  const theme = createTheme(CTheme);
+  const theme = useTheme();
   const { post } = Request();
   const translator = Translator();
 

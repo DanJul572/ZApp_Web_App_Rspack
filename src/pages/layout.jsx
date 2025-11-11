@@ -2,6 +2,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Suspense } from 'react';
 
 import { AlertProvider } from '@/contexts/AlertProvider';
+import { ConfigProvider } from '@/contexts/ConfigProvider';
 import { ExpandedMenuProvider } from '@/contexts/ExpandedMenuProvider';
 import { FileProvider } from '@/contexts/FileProvider';
 import { FormDataProvider } from '@/contexts/FormDataProvider';
@@ -26,7 +27,9 @@ export default function Layout({ children }) {
               <FormDataProvider>
                 <FileProvider>
                   <UIStoreProvider>
-                    <ExpandedMenuProvider>{children}</ExpandedMenuProvider>
+                    <ConfigProvider>
+                      <ExpandedMenuProvider>{children}</ExpandedMenuProvider>
+                    </ConfigProvider>
                   </UIStoreProvider>
                 </FileProvider>
               </FormDataProvider>

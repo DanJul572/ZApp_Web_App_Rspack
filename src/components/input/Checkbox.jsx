@@ -1,4 +1,3 @@
-import CTheme from '@configs/CTheme';
 import Box from '@mui/material/Box';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormGroup from '@mui/material/FormGroup';
@@ -36,7 +35,6 @@ const Checkbox = (props) => {
                   disabled={disabled}
                 />
               }
-              slotProps={{ typography: { fontSize: CTheme.font.size.value } }}
               label={option.label}
             />
           ))}
