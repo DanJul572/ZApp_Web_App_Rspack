@@ -209,7 +209,7 @@ const Page = () => {
     error: treeError,
     isError: treeIsError,
   } = useQuery({
-    queryKey: ['tree-menu'],
+    queryKey: ['tree-menu', id],
     queryFn: onLoad,
     enabled: !!id,
     retry: 0,
@@ -252,7 +252,8 @@ const Page = () => {
       <Box
         sx={{
           display: 'flex',
-          justifyContent: 'flex-end',
+          justifyContent: 'space-between',
+          alignItems: 'center',
           position: 'fixed',
           right: 0,
           padding: '15px',
@@ -265,20 +266,32 @@ const Page = () => {
           borderColor: theme.palette.divider,
         }}
       >
-        <Upload label={translator('upload')} onUpload={onUpload} type=".json" />
-        <Button variant="outlined" onClick={onDownload}>
-          {translator('download')}
-        </Button>
-        <Button variant="outlined" onClick={onBack}>
-          {translator('back')}
-        </Button>
-        <Button
-          variant="contained"
-          loading={mutation.isPending}
-          onClick={mutation.mutate}
+        <Typography variant="h6">Create Menu</Typography>
+        <Box
+          sx={{
+            display: 'flex',
+            gap: '5px',
+          }}
         >
-          {translator('save')}
-        </Button>
+          <Upload
+            label={translator('upload')}
+            onUpload={onUpload}
+            type=".json"
+          />
+          <Button variant="outlined" onClick={onDownload}>
+            {translator('download')}
+          </Button>
+          <Button variant="outlined" onClick={onBack}>
+            {translator('back')}
+          </Button>
+          <Button
+            variant="contained"
+            loading={mutation.isPending}
+            onClick={mutation.mutate}
+          >
+            {translator('save')}
+          </Button>
+        </Box>
       </Box>
       <Box sx={{ marginTop: '67px' }}>
         <Box
