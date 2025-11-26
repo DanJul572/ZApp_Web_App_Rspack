@@ -1,12 +1,11 @@
 import { createTheme, ThemeProvider } from '@mui/material';
 import CssBaseline from '@mui/material/CssBaseline';
-import { useContext } from 'react';
 import FullCoverLoader from '@/components/loading/FullCoverLoader';
 import Toast from '@/components/toast';
-import { ConfigContext } from '@/contexts/ConfigProvider';
+import { useConfig } from '@/contexts/ConfigProvider';
 
 const Empty = ({ children }) => {
-  const { config, loading, error } = useContext(ConfigContext);
+  const { config, loading, error } = useConfig();
 
   if (loading || !config) return <div>Loading...</div>;
   if (error) return <div>Error loading config</div>;

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { createContext, useEffect, useState } from 'react';
+import { createContext, useContext, useEffect, useState } from 'react';
 
 export const ConfigContext = createContext();
 
@@ -33,3 +33,11 @@ export function ConfigProvider({ children }) {
     </ConfigContext.Provider>
   );
 }
+
+export const useConfig = () => {
+  const context = useContext(ConfigContext);
+  if (!context) {
+    throw new Error('useConfig must be used within a ExpandedMenuProvider');
+  }
+  return context;
+};

@@ -6,9 +6,11 @@ import CardContent from '@mui/material/CardContent';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import { useNavigate } from 'react-router';
+import { useConfig } from '@/contexts/ConfigProvider';
 
 export default function Page() {
   const navigate = useNavigate();
+  const { config } = useConfig();
 
   return (
     <Box
@@ -24,7 +26,7 @@ export default function Page() {
         <CardContent>
           <Stack spacing={3} alignItems="center" textAlign="center">
             <Typography variant="h4" component="h1" fontWeight={700}>
-              {process.env.REACT_APP_APP_NAME || 'ZApp'}
+              {config.app.name || 'ZApp'}
             </Typography>
             <ButtonGroup
               variant="text"

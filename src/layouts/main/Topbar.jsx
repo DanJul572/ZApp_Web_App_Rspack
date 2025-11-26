@@ -4,16 +4,17 @@ import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import { useState } from 'react';
 import { useNavigate } from 'react-router';
+import { useConfig } from '@/contexts/ConfigProvider';
 import { useExpandedMenu } from '@/contexts/ExpandedMenuProvider';
 import auth from '@/helpers/auth';
 import getUserData from '@/helpers/getUserData';
-import { version } from '../../../package.json';
 import UserOptions from './UserOptions';
 
 const Topbar = () => {
   const navigate = useNavigate();
   const theme = useTheme();
   const { setExpandedMenu } = useExpandedMenu();
+  const { config } = useConfig();
 
   const [anchorEl, setAnchorEl] = useState(null);
 
@@ -67,14 +68,7 @@ const Topbar = () => {
               color: theme.palette.primary.contrastText,
             }}
           >
-            {process.env.REACT_APP_APP_NAME || 'ZApp'}
-          </Typography>
-          <Typography
-            riant="subtitle2"
-            component="span"
-            sx={{ fontWeight: 500, color: theme.palette.primary.contrastText }}
-          >
-            {`v${version}`}
+            {config.app.name || 'ZApp'}
           </Typography>
         </Box>
         {avatarLabel && (

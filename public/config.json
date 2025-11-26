@@ -1,4 +1,11 @@
 {
+  "api": {
+    "base": "http://localhost:8080/api"
+  },
+  "app": {
+    "name": "ZApp",
+    "language": "en"
+  },
   "ui": {
     "palette": {
       "mode": "dark",

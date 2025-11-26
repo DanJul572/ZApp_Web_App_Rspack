@@ -1,13 +1,14 @@
-import CApiUrl from '@configs/CApiUrl';
 import axios from 'axios';
 import { useNavigate } from 'react-router';
+import { useConfig } from '@/contexts/ConfigProvider';
 import statusCode from '@/enums/EStatusCode';
 import auth from '@/helpers/auth';
 
 const Request = () => {
   const navigate = useNavigate();
+  const { config } = useConfig();
 
-  const apiUrl = CApiUrl.base;
+  const apiUrl = config.api.base;
   const headers = {
     Accept: 'application/json',
   };

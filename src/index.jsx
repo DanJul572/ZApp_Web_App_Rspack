@@ -12,14 +12,16 @@ import '@fontsource/inter/700.css';
 import 'react-virtualized/styles.css';
 
 import Layout from '@/pages/layout';
-
+import { ConfigProvider } from './contexts/ConfigProvider';
 import routes from './routes';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <Layout>
-      <RouterProvider router={routes} />
-    </Layout>
+    <ConfigProvider>
+      <Layout>
+        <RouterProvider router={routes} />
+      </Layout>
+    </ConfigProvider>
   </React.StrictMode>,
 );

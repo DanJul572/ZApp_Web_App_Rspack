@@ -1,14 +1,16 @@
 import i18next from 'i18next';
 import { useEffect } from 'react';
-
+import { useConfig } from '@/contexts/ConfigProvider';
 import en from '@/languages/en';
 import id from '@/languages/id';
 
 const Translator = () => {
+  const { config } = useConfig();
+
   useEffect(() => {
     if (!i18next.isInitialized) {
       i18next.init({
-        lng: process.env.REACT_APP_LANGUAGE || 'en',
+        lng: config.app.language || 'en',
         debug: false,
         resources: {
           en: {
