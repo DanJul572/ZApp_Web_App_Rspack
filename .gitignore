@@ -14,3 +14,6 @@ dist/
 
 # Environment Variable
 .env
+
+# Test Coverage
+coverage
