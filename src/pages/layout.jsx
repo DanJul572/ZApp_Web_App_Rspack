@@ -6,6 +6,7 @@ import { useConfig } from '@/contexts/ConfigProvider';
 import { ExpandedMenuProvider } from '@/contexts/ExpandedMenuProvider';
 import { FileProvider } from '@/contexts/FileProvider';
 import { FormDataProvider } from '@/contexts/FormDataProvider';
+import { JSReportProvider } from '@/contexts/JSReport';
 import { LoadingProvider } from '@/contexts/LoadingProvider';
 import { ToastProvider } from '@/contexts/ToastProvider';
 import { UIStoreProvider } from '@/contexts/UIStoreProvider';
@@ -31,7 +32,9 @@ export default function Layout({ children }) {
               <FormDataProvider>
                 <FileProvider>
                   <UIStoreProvider>
-                    <ExpandedMenuProvider>{children}</ExpandedMenuProvider>
+                    <JSReportProvider>
+                      <ExpandedMenuProvider>{children}</ExpandedMenuProvider>
+                    </JSReportProvider>
                   </UIStoreProvider>
                 </FileProvider>
               </FormDataProvider>

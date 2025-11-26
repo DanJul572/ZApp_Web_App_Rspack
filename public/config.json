@@ -6,6 +6,11 @@
     "name": "ZApp",
     "language": "en"
   },
+  "report": {
+    "jsreport": {
+      "url": "http://localhost:8081"
+    }
+  },
   "ui": {
     "palette": {
       "mode": "dark",

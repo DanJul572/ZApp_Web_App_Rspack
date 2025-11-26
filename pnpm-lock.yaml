@@ -59,6 +59,9 @@ importers:
       '@fontsource/inter':
         specifier: ^5.2.8
         version: 5.2.8
+      '@jsreport/browser-client':
+        specifier: ^3.1.1
+        version: 3.1.1
       '@mui/icons-material':
         specifier: ^7.3.5
         version: 7.3.5(@mui/material@7.3.5(@emotion/react@11.14.0(@types/react@19.1.8)(react@19.2.0))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@19.1.8)(react@19.2.0))(@types/react@19.1.8)(react@19.2.0))(@types/react@19.1.8)(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(@types/react@19.1.8)(react@19.2.0)
@@ -726,6 +729,9 @@ packages:
 
   '@jridgewell/trace-mapping@0.3.29':
     resolution: {integrity: sha512-uw6guiW/gcAGPDhLmd77/6lW8QLeiV5RUTsAX46Db6oLhGaVj4lhnPwb184s1bkc8kdVg/+h988dro8GRDpmYQ==}
+
+  '@jsreport/browser-client@3.1.1':
+    resolution: {integrity: sha512-AAeTkqyVJGdWLCA60aHDrh3s8h9z8TokyoR1tCpNtYatfe2cdocVdB0AaNquWTmddRWgAklmOBrowsMFQFY8hg==}
 
   '@module-federation/error-codes@0.21.4':
     resolution: {integrity: sha512-ClpL5MereWNXh+EgDjz7w4RrC1JlisQTvXDa1gLxpviHafzNDfdViVmuhi9xXVuj+EYo8KU70Y999KHhk9424Q==}
@@ -3952,6 +3958,8 @@ snapshots:
     dependencies:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.5.4
+
+  '@jsreport/browser-client@3.1.1': {}
 
   '@module-federation/error-codes@0.21.4': {}
 
