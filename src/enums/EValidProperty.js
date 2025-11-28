@@ -58,6 +58,9 @@ const EValidProperty = {
     [EComponentGroupType.button.value]: true,
     [EComponentGroupType.fieldControl.value]: true,
   },
+  loading: {
+    [EComponentGroupType.button.value]: true,
+  },
   open: {
     [EComponentGroupType.container.value]: [EContainerType.drawer.value],
   },

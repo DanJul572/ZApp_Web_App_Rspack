@@ -1,6 +1,7 @@
 import Builder from '../command/builder';
 import Core from '../command/core';
 import Query from '../command/query';
+import Report from '../command/report';
 
 const Waiter = () => {
   // biome-ignore lint/correctness/noUnusedVariables: required for interpreter
@@ -11,6 +12,9 @@ const Waiter = () => {
 
   // biome-ignore lint/correctness/noUnusedVariables: required for interpreter
   const zquery = Query();
+
+  // biome-ignore lint/correctness/noUnusedVariables: required for interpreter
+  const zreport = Report();
 
   // biome-ignore lint/correctness/noUnusedFunctionParameters: required for interpreter
   const order = (func, param = null) => {

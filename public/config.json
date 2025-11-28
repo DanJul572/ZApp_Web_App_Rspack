@@ -13,7 +13,7 @@
   },
   "ui": {
     "palette": {
-      "mode": "dark",
+      "mode": "light",
       "primary": {
         "light": "#8324ffff",
         "main": "#6f00ffff",

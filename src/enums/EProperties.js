@@ -58,6 +58,10 @@ const CToggleCodeFormProperties = [
     label: 'Disable',
   },
   {
+    name: 'loading',
+    label: 'Loading',
+  },
+  {
     name: 'hidden',
     label: 'Hidden',
   },

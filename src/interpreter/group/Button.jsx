@@ -19,6 +19,7 @@ const Button = (props) => {
   };
 
   const disable = Boolean(waiter.take(properties.disable));
+  const loading = Boolean(waiter.take(properties.loading));
   const fullWidth = Boolean(waiter.take(properties.fullWidth));
   const hidden = Boolean(waiter.take(properties.hidden));
 
@@ -58,6 +59,7 @@ const Button = (props) => {
               onClick={click}
               variant="contained"
               disabled={Boolean(disable)}
+              loading={Boolean(loading)}
               color={color}
               endIcon={EndIcon ? <EndIcon /> : null}
               startIcon={StartIcon ? <StartIcon /> : null}
