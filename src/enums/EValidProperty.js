@@ -2,6 +2,7 @@ import EButtonType from './EButtonType';
 import EChartType from './EChartType';
 import EComponentGroupType from './EComponentGroupType';
 import EContainerType from './EContainerType';
+import ECustomType from './ECustomType';
 import EInputType from './EInputType';
 import ETableType from './ETableType';
 import CVisualElement from './EVisualElementType';
@@ -77,6 +78,9 @@ const EValidProperty = {
   fullWidth: {
     [EComponentGroupType.button.value]: [EButtonType.button.value],
   },
+  attribute: {
+    [EComponentGroupType.custom.value]: [ECustomType.leftBorderCard.value],
+  },
   color: {
     [EComponentGroupType.container.value]: [EContainerType.collapse.value],
     [EComponentGroupType.fieldControl.value]: [EInputType.slider.value],
@@ -85,6 +89,7 @@ const EValidProperty = {
       EButtonType.group.value,
     ],
     [EComponentGroupType.visualElement.value]: true,
+    [EComponentGroupType.custom.value]: [ECustomType.leftBorderCard.value],
   },
 };
 

@@ -9,6 +9,7 @@ import Toggle from '@/components/input/Toggle';
 
 import EButtonType from '@/enums/EButtonType';
 import EComponentGroupType from '@/enums/EComponentGroupType';
+import ECustomType from '@/enums/ECustomType';
 
 const Icon = (props) => {
   const { content, selected, editComponent, setContent } = props;
@@ -40,8 +41,10 @@ const Icon = (props) => {
     }
 
     return (
-      selected.group.value === EComponentGroupType.button.value &&
-      selected.type.value === EButtonType.button.value
+      (selected.group.value === EComponentGroupType.button.value &&
+        selected.type.value === EButtonType.button.value) ||
+      (selected.group.value === EComponentGroupType.custom.value &&
+        selected.type.value === ECustomType.leftBorderCard.value)
     );
   };
 

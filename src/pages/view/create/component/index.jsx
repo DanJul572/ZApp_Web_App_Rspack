@@ -18,10 +18,10 @@ import EButtonType from '@/enums/EButtonType';
 import EChartType from '@/enums/EChartType';
 import EComponentGroupType from '@/enums/EComponentGroupType';
 import EContainerType from '@/enums/EContainerType';
+import ECustomType from '@/enums/ECustomType';
 import EInputType from '@/enums/EInputType';
 import ETableType from '@/enums/ETableType';
 import CVisualElement from '@/enums/EVisualElementType';
-
 import ViewList from '../views';
 
 const Component = (props) => {
@@ -62,6 +62,10 @@ const Component = (props) => {
     .sort()
     .map((key) => EButtonType[key]);
 
+  const custom = Object.keys(ECustomType)
+    .sort()
+    .map((key) => ECustomType[key]);
+
   const handleCollapse = (group) => {
     setOpen((prevState) => ({ ...prevState, [group]: !prevState[group] }));
   };
@@ -97,6 +101,7 @@ const Component = (props) => {
     groupType.fieldControl.components = input;
     groupType.table.components = table;
     groupType.visualElement.components = visualElement;
+    groupType.custom.components = custom;
 
     setComponentList(Object.values(groupType));
   };

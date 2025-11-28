@@ -23,6 +23,10 @@ const EComponentGroupType = {
     value: 7,
     label: 'Chart',
   },
+  custom: {
+    value: 8,
+    label: 'Custom',
+  },
 };
 
 export default EComponentGroupType;

@@ -3,6 +3,7 @@ import Wraper from '../extra/Wrapper';
 import Button from './Button';
 import Chart from './Chart';
 import Container from './Container';
+import Custom from './Custom';
 import FieldControl from './FieldControl';
 import Table from './Table';
 import VisualElement from './VisualElement';
@@ -77,6 +78,14 @@ const GroupComponent = ({ component, selected, setSelected, isBuilder }) => {
     return (
       <Wraper key={id} {...wrapperProps}>
         <Button {...componentProps} />
+      </Wraper>
+    );
+  }
+
+  if (group === EComponentGroupType.custom.value) {
+    return (
+      <Wraper key={id} {...wrapperProps}>
+        <Custom {...componentProps} />
       </Wraper>
     );
   }
