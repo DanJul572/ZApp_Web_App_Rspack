@@ -4,15 +4,19 @@ import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
 
-const Wraper = ({ children, component, isBuilder, selected, setSelected }) => {
+const Wrapper = (props) => {
+  const { children, component, isBuilder, selected, setSelected } = props;
+
   const theme = useTheme();
 
-  if (!isBuilder)
+  if (!isBuilder) {
     return (
       <Box key={component.id} marginBottom={1}>
         {children}
       </Box>
     );
+  }
+
   const selectedBorder = selected && component.id === selected.id ? 1 : 0;
   return (
     <Box
@@ -33,4 +37,4 @@ const Wraper = ({ children, component, isBuilder, selected, setSelected }) => {
   );
 };
 
-export default Wraper;
+export default Wrapper;

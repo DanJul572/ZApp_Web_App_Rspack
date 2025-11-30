@@ -1,5 +1,5 @@
 import EComponentGroupType from '@/enums/EComponentGroupType';
-import Wraper from '../extra/Wrapper';
+import Wrapper from '../extra/Wrapper';
 import Button from './Button';
 import Chart from './Chart';
 import Container from './Container';
@@ -30,7 +30,7 @@ const GroupComponent = ({ component, selected, setSelected, isBuilder }) => {
 
   if (group === EComponentGroupType.container.value) {
     return (
-      <Wraper key={id} {...wrapperProps}>
+      <Wrapper key={id} {...wrapperProps}>
         <Container
           {...componentProps}
           section={section}
@@ -38,55 +38,55 @@ const GroupComponent = ({ component, selected, setSelected, isBuilder }) => {
           setSelected={setSelected}
           isBuilder={isBuilder}
         />
-      </Wraper>
+      </Wrapper>
     );
   }
 
   if (group === EComponentGroupType.fieldControl.value) {
     return (
-      <Wraper key={id} {...wrapperProps}>
+      <Wrapper key={id} {...wrapperProps}>
         <FieldControl {...componentProps} />
-      </Wraper>
+      </Wrapper>
     );
   }
 
   if (group === EComponentGroupType.visualElement.value) {
     return (
-      <Wraper key={id} {...wrapperProps}>
+      <Wrapper key={id} {...wrapperProps}>
         <VisualElement {...componentProps} />
-      </Wraper>
+      </Wrapper>
     );
   }
 
   if (group === EComponentGroupType.table.value) {
     return (
-      <Wraper key={id} {...wrapperProps}>
+      <Wrapper key={id} {...wrapperProps}>
         <Table {...componentProps} />
-      </Wraper>
+      </Wrapper>
     );
   }
 
   if (group === EComponentGroupType.chart.value) {
     return (
-      <Wraper key={id} {...wrapperProps}>
+      <Wrapper key={id} {...wrapperProps}>
         <Chart {...componentProps} />
-      </Wraper>
+      </Wrapper>
     );
   }
 
   if (group === EComponentGroupType.button.value) {
     return (
-      <Wraper key={id} {...wrapperProps}>
+      <Wrapper key={id} {...wrapperProps}>
         <Button {...componentProps} />
-      </Wraper>
+      </Wrapper>
     );
   }
 
   if (group === EComponentGroupType.custom.value) {
     return (
-      <Wraper key={id} {...wrapperProps}>
+      <Wrapper key={id} {...wrapperProps}>
         <Custom {...componentProps} />
-      </Wraper>
+      </Wrapper>
     );
   }
 };
