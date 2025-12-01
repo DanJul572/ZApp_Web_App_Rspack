@@ -133,11 +133,11 @@ importers:
         specifier: ^2.3.8
         version: 2.3.8
       '@rsbuild/core':
-        specifier: ^1.6.9
-        version: 1.6.9
+        specifier: ^1.6.10
+        version: 1.6.10
       '@rsbuild/plugin-react':
         specifier: ^1.4.2
-        version: 1.4.2(@rsbuild/core@1.6.9)
+        version: 1.4.2(@rsbuild/core@1.6.10)
       '@swc/core':
         specifier: ^1.15.3
         version: 1.15.3(@swc/helpers@0.5.17)
@@ -940,8 +940,8 @@ packages:
   '@popperjs/core@2.11.8':
     resolution: {integrity: sha512-P1st0aksCrn9sGZhp8GMYwBnQsbvAWsZAX44oXNNvLHGqAOcoVxmjZiohstwQ7SqKnbR47akdNi+uleWD8+g6A==}
 
-  '@rsbuild/core@1.6.9':
-    resolution: {integrity: sha512-wf41bbFIzqQsGkrDal2eVC4cxN6II1k4bUo1g7OFuvWeEOJzjoeK4R5xxKM9g5hRjbGAJs6OiQaGpASvUnDrsw==}
+  '@rsbuild/core@1.6.10':
+    resolution: {integrity: sha512-gAdI+H/xUsuEQikKlFUsxbr2f3uXfLU+3Z73wdcaQcNcvfmS3K+6vMyNYn6UFuCL5LPtXG9lwgc8cycToHgm5g==}
     engines: {node: '>=18.12.0'}
     hasBin: true
 
@@ -4189,7 +4189,7 @@ snapshots:
 
   '@popperjs/core@2.11.8': {}
 
-  '@rsbuild/core@1.6.9':
+  '@rsbuild/core@1.6.10':
     dependencies:
       '@rspack/core': 1.6.5(@swc/helpers@0.5.17)
       '@rspack/lite-tapable': 1.1.0
@@ -4197,9 +4197,9 @@ snapshots:
       core-js: 3.47.0
       jiti: 2.6.1
 
-  '@rsbuild/plugin-react@1.4.2(@rsbuild/core@1.6.9)':
+  '@rsbuild/plugin-react@1.4.2(@rsbuild/core@1.6.10)':
     dependencies:
-      '@rsbuild/core': 1.6.9
+      '@rsbuild/core': 1.6.10
       '@rspack/plugin-react-refresh': 1.5.2(react-refresh@0.18.0)
       react-refresh: 0.18.0
     transitivePeerDependencies:
@@ -4856,7 +4856,7 @@ snapshots:
     dependencies:
       '@babel/runtime': 7.28.4
       '@types/raf': 3.4.3
-      core-js: 3.46.0
+      core-js: 3.47.0
       raf: 3.4.1
       regenerator-runtime: 0.13.11
       rgbcolor: 1.0.1
