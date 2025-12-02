@@ -2,7 +2,6 @@ import { fireEvent, render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import Drawer from '@/components/container/Drawer';
 
-// Mock MuiDrawer alias
 jest.mock('@/aliases/MuiDrawer', () => {
   return ({ open, onClose, anchor, children }) => (
     <div

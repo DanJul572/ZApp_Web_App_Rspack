@@ -4,12 +4,6 @@ import Line from '@/components/chart/Line';
 // Mock Translator hook to return the key for simplicity
 jest.mock('@/hooks/Translator', () => () => (key) => key);
 
-// Mock Typography to avoid MUI issues
-jest.mock('@mui/material/Typography', () => (props) => {
-  const { children } = props;
-  return <span>{children}</span>;
-});
-
 // Mock LineChart to avoid ESM import issues
 jest.mock('@mui/x-charts/LineChart', () => ({
   __esModule: true,

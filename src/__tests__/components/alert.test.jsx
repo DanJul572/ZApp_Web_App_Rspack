@@ -2,10 +2,8 @@ import { fireEvent, render, screen } from '@testing-library/react';
 import Alert from '@/components/alert';
 import { useAlert } from '@/contexts/AlertProvider';
 
-// Mock Translator hook
 jest.mock('@/hooks/Translator', () => () => (key) => key);
 
-// Mock useAlert context
 jest.mock('@/contexts/AlertProvider', () => ({
   useAlert: jest.fn(),
 }));

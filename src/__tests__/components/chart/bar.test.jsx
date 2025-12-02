@@ -4,14 +4,6 @@ import Bar from '@/components/chart/Bar';
 // Mock Translator hook to return the key for simplicity
 jest.mock('@/hooks/Translator', () => () => (key) => key);
 
-jest.mock('@mui/material/Typography', () => {
-  return (props) => <span {...props}>{props.children}</span>;
-});
-
-jest.mock('@mui/material/Container', () => {
-  return (props) => <div {...props}>{props.children}</div>;
-});
-
 jest.mock('@mui/x-charts/BarChart', () => ({
   __esModule: true,
   BarChart: (props) => (

@@ -3,7 +3,6 @@ import '@testing-library/jest-dom';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Collapse from '@/components/container/Collapse';
 
-// Mock the MuiCollapse alias
 jest.mock('@/aliases/MuiCollapse', () => {
   return ({ in: open, children }) => (
     <div data-testid="mui-collapse" data-open={open}>

@@ -4,12 +4,6 @@ import Pie from '@/components/chart/Pie';
 // Mock Translator hook to return the key for simplicity
 jest.mock('@/hooks/Translator', () => () => (key) => key);
 
-// Mock Typography to avoid MUI issues
-jest.mock('@mui/material/Typography', () => (props) => {
-  const { children } = props;
-  return <span>{children}</span>;
-});
-
 // Mock PieChart to avoid ESM import issues
 jest.mock('@mui/x-charts/PieChart', () => ({
   __esModule: true,
