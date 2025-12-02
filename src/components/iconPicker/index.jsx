@@ -62,6 +62,7 @@ const IconPicker = ({ active, onSelect, onBlur }) => {
     return (
       <div key={key} style={style}>
         <IconButton
+          data-testid={`icon-button-${iconName}`}
           color={active === iconName ? 'primary' : 'inherit'}
           onClick={onSelect ? () => onSelect(iconName) : undefined}
           onBlur={onBlur ? () => onBlur(iconName) : undefined}
