@@ -6,6 +6,9 @@ export default {
     'src/**/*.{js,jsx,ts,tsx}',
     '!src/**/*.d.ts',
     '!src/**/index.{js,ts,tsx}',
+    '!src/aliases/**',
+    '!src/routes.jsx',
+    '!src/index.jsx',
   ],
   transform: {
     '^.+\\.(t|j)sx?$': [
