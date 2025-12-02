@@ -96,8 +96,8 @@ importers:
         specifier: ^1.4.0
         version: 1.4.0
       i18next:
-        specifier: ^25.6.3
-        version: 25.6.3
+        specifier: ^25.7.1
+        version: 25.7.1
       jspdf:
         specifier: ^3.0.4
         version: 3.0.4
@@ -133,11 +133,11 @@ importers:
         specifier: ^2.3.8
         version: 2.3.8
       '@rsbuild/core':
-        specifier: ^1.6.10
-        version: 1.6.10
+        specifier: ^1.6.11
+        version: 1.6.11
       '@rsbuild/plugin-react':
         specifier: ^1.4.2
-        version: 1.4.2(@rsbuild/core@1.6.10)
+        version: 1.4.2(@rsbuild/core@1.6.11)
       '@swc/core':
         specifier: ^1.15.3
         version: 1.15.3(@swc/helpers@0.5.17)
@@ -940,8 +940,8 @@ packages:
   '@popperjs/core@2.11.8':
     resolution: {integrity: sha512-P1st0aksCrn9sGZhp8GMYwBnQsbvAWsZAX44oXNNvLHGqAOcoVxmjZiohstwQ7SqKnbR47akdNi+uleWD8+g6A==}
 
-  '@rsbuild/core@1.6.10':
-    resolution: {integrity: sha512-gAdI+H/xUsuEQikKlFUsxbr2f3uXfLU+3Z73wdcaQcNcvfmS3K+6vMyNYn6UFuCL5LPtXG9lwgc8cycToHgm5g==}
+  '@rsbuild/core@1.6.11':
+    resolution: {integrity: sha512-H/OAavDKfa/10prrn++bNbe2KGBo1opglQIq6+G38Mzb+44BM0sv/kn78K2sk2wpfmv4MwljeF1NvczFq2ttzQ==}
     engines: {node: '>=18.12.0'}
     hasBin: true
 
@@ -2150,8 +2150,8 @@ packages:
     engines: {node: '>=18'}
     hasBin: true
 
-  i18next@25.6.3:
-    resolution: {integrity: sha512-AEQvoPDljhp67a1+NsnG/Wb1Nh6YoSvtrmeEd24sfGn3uujCtXCF3cXpr7ulhMywKNFF7p3TX1u2j7y+caLOJg==}
+  i18next@25.7.1:
+    resolution: {integrity: sha512-XbTnkh1yCZWSAZGnA9xcQfHcYNgZs2cNxm+c6v1Ma9UAUGCeJPplRe1ILia6xnDvXBjk0uXU+Z8FYWhA19SKFw==}
     peerDependencies:
       typescript: ^5
     peerDependenciesMeta:
@@ -4189,7 +4189,7 @@ snapshots:
 
   '@popperjs/core@2.11.8': {}
 
-  '@rsbuild/core@1.6.10':
+  '@rsbuild/core@1.6.11':
     dependencies:
       '@rspack/core': 1.6.5(@swc/helpers@0.5.17)
       '@rspack/lite-tapable': 1.1.0
@@ -4197,9 +4197,9 @@ snapshots:
       core-js: 3.47.0
       jiti: 2.6.1
 
-  '@rsbuild/plugin-react@1.4.2(@rsbuild/core@1.6.10)':
+  '@rsbuild/plugin-react@1.4.2(@rsbuild/core@1.6.11)':
     dependencies:
-      '@rsbuild/core': 1.6.10
+      '@rsbuild/core': 1.6.11
       '@rspack/plugin-react-refresh': 1.5.2(react-refresh@0.18.0)
       react-refresh: 0.18.0
     transitivePeerDependencies:
@@ -5390,7 +5390,7 @@ snapshots:
 
   husky@9.1.7: {}
 
-  i18next@25.6.3:
+  i18next@25.7.1:
     dependencies:
       '@babel/runtime': 7.28.4
 
