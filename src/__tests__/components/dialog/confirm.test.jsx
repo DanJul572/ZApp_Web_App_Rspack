@@ -11,6 +11,10 @@ describe('Confirm Dialog Component', () => {
     onConfirm: jest.fn(),
   };
 
+  afterEach(() => {
+    defaultProps.onConfirm.mockClear();
+  });
+
   it('renders dialog with title and text', () => {
     render(<Confirm {...defaultProps} />);
     expect(screen.getByText('Confirm Title')).toBeInTheDocument();
@@ -34,5 +38,14 @@ describe('Confirm Dialog Component', () => {
   it('does not render dialog when open is false', () => {
     render(<Confirm {...defaultProps} open={false} />);
     expect(screen.queryByText('Confirm Title')).not.toBeInTheDocument();
+  });
+
+  it('calls onConfirm(false) when dialog backdrop is clicked', () => {
+    render(<Confirm {...defaultProps} />);
+
+    const backdrop = document.querySelector('.MuiBackdrop-root');
+    fireEvent.click(backdrop);
+
+    expect(defaultProps.onConfirm).toHaveBeenCalledWith(false);
   });
 });
