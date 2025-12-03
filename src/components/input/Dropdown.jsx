@@ -1,4 +1,3 @@
-import CApiUrl from '@configs/CApiUrl';
 import Autocomplete from '@mui/material/Autocomplete';
 import Box from '@mui/material/Box';
 import List from '@mui/material/List';
@@ -6,9 +5,11 @@ import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import { useQuery } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
+import { useConfig } from '@/contexts/ConfigProvider';
 import Request from '@/hooks/Request';
 
 const Dropdown = (props) => {
+  const { config } = useConfig();
   const {
     label,
     onChange,
@@ -25,7 +26,7 @@ const Dropdown = (props) => {
   const [newValue, setNewValue] = useState(!multiple ? null : []);
 
   const getOptions = async () => {
-    return await get(CApiUrl.common.options, { id: id }, false);
+    return await get(config.api.base, { id: id }, false);
   };
 
   const { data: requestOptions, isLoading } = useQuery({
