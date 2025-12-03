@@ -7,7 +7,7 @@ import MuiCheckbox from '@/aliases/MuiCheckbox';
 const Checkbox = (props) => {
   const { value, label, options, disabled, onChange } = props;
 
-  const values = value?.length ? value.splitranslator('|') : [];
+  const values = value?.length ? value.split('|') : [];
 
   const setValues = (val) => {
     const deleteIndex = values.indexOf(val);
