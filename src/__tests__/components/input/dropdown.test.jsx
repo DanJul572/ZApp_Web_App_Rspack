@@ -105,4 +105,15 @@ describe('Dropdown Input Component', () => {
 
     expect(handleChange).toHaveBeenCalled();
   });
+
+  it('renders loading state', () => {
+    useQuery.mockReturnValueOnce({
+      data: [],
+      isLoading: true,
+    });
+
+    render(<Dropdown label="Test" value="" onChange={() => {}} />);
+
+    expect(screen.getByText('Loading...')).toBeInTheDocument();
+  });
 });
