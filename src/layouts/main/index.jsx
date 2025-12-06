@@ -4,6 +4,7 @@ import Box from '@mui/material/Box';
 import CssBaseline from '@mui/material/CssBaseline';
 import Toolbar from '@mui/material/Toolbar';
 import Alert from '@/components/alert';
+import FullAppLoader from '@/components/loading/FullAppLoader';
 import FullCoverLoader from '@/components/loading/FullCoverLoader';
 import Toast from '@/components/toast';
 import { useConfig } from '@/contexts/ConfigProvider';
@@ -11,10 +12,11 @@ import Sidebar from './Sidebar';
 import Topbar from './Topbar';
 
 export default function Main({ children }) {
-  const { config, loading, error } = useConfig();
+  const { config, loading } = useConfig();
 
-  if (loading || !config) return <div>Loading...</div>;
-  if (error) return <div>Error loading config</div>;
+  if (loading || !config) {
+    return <FullAppLoader />;
+  }
 
   const theme = createTheme(config.ui);
 

@@ -4,6 +4,8 @@ import NonAuthenticatedGuard from '@/guards/NonAuthenticatedGuard';
 import EmptyLayout from '@/layouts/Empty';
 import MainLayout from '@/layouts/main';
 import WelcomePage from '@/pages';
+import NotFoundPage from '@/pages/error/NotFoundPage';
+import ServerErrorPage from '@/pages/error/ServerErrorPage';
 import LoginPage from '@/pages/login';
 import MainPage from '@/pages/main';
 import MenuPage from '@/pages/menu';
@@ -120,6 +122,22 @@ const routes = createBrowserRouter([
           <SettingPage />
         </MainLayout>
       </AuthenticatedGuard>
+    ),
+  },
+  {
+    path: '/not-found',
+    Component: () => (
+      <EmptyLayout>
+        <NotFoundPage />
+      </EmptyLayout>
+    ),
+  },
+  {
+    path: '/server-error',
+    Component: () => (
+      <EmptyLayout>
+        <ServerErrorPage />
+      </EmptyLayout>
     ),
   },
 ]);

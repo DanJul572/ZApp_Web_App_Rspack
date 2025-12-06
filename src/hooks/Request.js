@@ -9,92 +9,68 @@ const Request = () => {
   const { config } = useConfig();
 
   const apiUrl = config.api.base;
-  const headers = {
-    Accept: 'application/json',
+  const headers = { Accept: 'application/json' };
+
+  const setAuthHeader = (withAuth) => {
+    if (!withAuth) return;
+    const token = localStorage.getItem('token');
+    if (token) headers.Authorization = token;
   };
 
-  const forceRedirect = () => {
-    auth.logout();
-    navigate('/login', {
-      replace: true,
-    });
-  };
+  const handleError = (error, withAuth) => {
+    const status = error?.response?.status;
+    const message = error?.response?.data || error.message;
 
-  const get = (url, params, withAuth = true) => {
-    if (withAuth) {
-      const token = localStorage.getItem('token');
-      if (token) {
-        headers.Authorization = token;
-      }
+    if (!error.response) {
+      navigate('/server-error', { replace: true });
+      return Promise.reject('Server unreachable');
     }
 
-    return new Promise((resolve, reject) => {
-      const config = {
-        params: params,
-        headers: headers,
-      };
-      axios
-        .get(apiUrl + url, config)
-        .then((res) => resolve(res.data))
-        .catch((error) => {
-          const message = error.response ? error.response.data : error.message;
-          const status = error.response.status;
-          if (
-            withAuth &&
-            (status === statusCode.UNAUTHORIZED ||
-              status === statusCode.FORBIDDEN)
-          ) {
-            forceRedirect();
-            reject(message);
-          }
-          reject(message);
-        });
-    });
+    switch (status) {
+      case statusCode.INTERNAL_SERVER_ERROR:
+        navigate('/server-error', { replace: true });
+        break;
+
+      case statusCode.UNAUTHORIZED:
+      case statusCode.FORBIDDEN:
+        if (withAuth) {
+          auth.logout();
+          navigate('/login', { replace: true });
+        }
+        break;
+    }
+
+    return Promise.reject(message);
   };
 
-  const post = (url, body, withAuth = true, files = []) => {
-    if (withAuth) {
-      const token = localStorage.getItem('token');
-      if (token) {
-        headers.Authorization = token;
-      }
+  const get = async (url, params = {}, withAuth = true) => {
+    setAuthHeader(withAuth);
+    try {
+      const { data } = await axios.get(apiUrl + url, { params, headers });
+      return data;
+    } catch (error) {
+      return handleError(error, withAuth);
     }
+  };
+
+  const post = async (url, body, withAuth = true, files = []) => {
+    setAuthHeader(withAuth);
 
     const formData = new FormData();
-
-    if (files && files.length > 0) {
-      for (let i = 0; i < files.length; i++) {
-        formData.append('files', files[i].file, files[i].id);
-      }
-    }
+    files?.forEach((file) => {
+      formData.append('files', file.file, file.id);
+    });
     formData.append('data', JSON.stringify(body));
 
-    return new Promise((resolve, reject) => {
-      axios
-        .post(apiUrl + url, formData, {
-          headers: headers,
-        })
-        .then((res) => resolve(res.data))
-        .catch((error) => {
-          const message = error.response ? error.response.data : error.message;
-          const status = error.response.status;
-          if (
-            withAuth &&
-            (status === statusCode.UNAUTHORIZED ||
-              status === statusCode.FORBIDDEN)
-          ) {
-            forceRedirect();
-            reject(message);
-          }
-          reject(message);
-        });
-    });
+    try {
+      const { data } = await axios.post(apiUrl + url, formData, { headers });
+      return data;
+    } catch (error) {
+      return handleError(error, withAuth);
+    }
   };
 
-  return {
-    get,
-    post,
-  };
+  return { get, post };
 };
 
 export default Request;

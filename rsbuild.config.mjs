@@ -3,6 +3,9 @@ import { pluginReact } from '@rsbuild/plugin-react';
 import Dotenv from 'dotenv-webpack';
 
 export default defineConfig({
+  html: {
+    favicon: './public/favicon.ico',
+  },
   plugins: [pluginReact()],
   tools: {
     rspack: {

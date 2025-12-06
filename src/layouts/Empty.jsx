@@ -1,14 +1,16 @@
 import { createTheme, ThemeProvider } from '@mui/material';
 import CssBaseline from '@mui/material/CssBaseline';
+import FullAppLoader from '@/components/loading/FullAppLoader';
 import FullCoverLoader from '@/components/loading/FullCoverLoader';
 import Toast from '@/components/toast';
 import { useConfig } from '@/contexts/ConfigProvider';
 
 const Empty = ({ children }) => {
-  const { config, loading, error } = useConfig();
+  const { config, loading } = useConfig();
 
-  if (loading || !config) return <div>Loading...</div>;
-  if (error) return <div>Error loading config</div>;
+  if (loading || !config) {
+    return <FullAppLoader />;
+  }
 
   const theme = createTheme(config.ui);
 
