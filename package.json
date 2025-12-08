@@ -15,7 +15,7 @@
     "format": "biome check --write",
     "lint": "biome check",
     "prepare": "husky",
-    "preview": "rsbuild preview",
+    "start": "rsbuild preview",
     "test": "jest",
     "test:coverage": "jest --coverage"
   },
