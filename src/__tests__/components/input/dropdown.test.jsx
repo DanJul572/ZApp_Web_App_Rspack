@@ -1,6 +1,8 @@
 import { useQuery } from '@tanstack/react-query';
 import { fireEvent, render, screen } from '@testing-library/react';
 import Dropdown from '@/components/input/Dropdown';
+import CApiUrl from '@/configs/CApiUrl';
+import Request from '@/hooks/Request';
 
 const options = [
   { value: '1', label: 'Option 1' },
@@ -115,5 +117,60 @@ describe('Dropdown Input Component', () => {
     render(<Dropdown label="Test" value="" onChange={() => {}} />);
 
     expect(screen.getByText('Loading...')).toBeInTheDocument();
+  });
+
+  it('fetches options via API when id is provided and no options prop', async () => {
+    const mockedGet = jest
+      .fn()
+      .mockResolvedValue([{ value: '3', label: 'Fetched 3' }]);
+
+    Request.mockReturnValue({
+      get: mockedGet,
+    });
+
+    useQuery.mockImplementation(({ queryFn }) => ({
+      data: queryFn(),
+      isLoading: false,
+    }));
+
+    render(<Dropdown label="Test" id="abc" value="" onChange={() => {}} />);
+
+    expect(mockedGet).toHaveBeenCalledWith(
+      CApiUrl.common.options,
+      { id: 'abc' },
+      false,
+    );
+  });
+
+  it('sets correct value when single selection and value matches option', () => {
+    render(
+      <Dropdown
+        label="Test"
+        options={[
+          { value: '10', label: 'Ten' },
+          { value: '20', label: 'Twenty' },
+        ]}
+        value="20"
+        onChange={() => {}}
+      />,
+    );
+
+    const combobox = screen.getByRole('combobox');
+
+    expect(combobox.value).toBe('Twenty');
+  });
+  it('executes isOptionEqualToValue comparator', () => {
+    const opts = [
+      { value: '1', label: 'One' },
+      { value: '2', label: 'Two' },
+    ];
+
+    render(
+      <Dropdown label="Test" options={opts} value="1" onChange={() => {}} />,
+    );
+
+    const ac = screen.getByRole('combobox');
+
+    expect(ac.value).toBe('One');
   });
 });
