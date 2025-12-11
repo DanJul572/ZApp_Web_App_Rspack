@@ -58,7 +58,7 @@ const TableFunction = (props) => {
   });
 
   const rows = rowsData?.data?.rows || [];
-  const rowCount = rowsData?.count || 0;
+  const rowCount = rowsData?.data?.count || 0;
 
   const onDelete = () => {
     setLoading(true);
