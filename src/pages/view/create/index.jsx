@@ -37,13 +37,13 @@ const Page = () => {
     const response = await request.get(CApiUrl.view.options, {
       moduleId: moduleId,
     });
-    if (response && response.length > 0) {
-      return response.map((option) => {
+    if (response?.data?.length > 0) {
+      return response.data.map((option) => {
         option.label = `(${option.value}) - ${option.label}`;
         return option;
       });
     }
-    return [];
+    return null;
   };
 
   const {
@@ -78,7 +78,7 @@ const Page = () => {
           setSelected={setSelected}
           setViewId={setViewId}
           viewId={viewId}
-          viewOptions={viewOptions?.data}
+          viewOptions={viewOptions}
           isViewListLoading={isViewListLoading}
         />
         <Box marginX={45} marginTop={8} paddingTop={1}>

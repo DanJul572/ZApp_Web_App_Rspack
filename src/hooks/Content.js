@@ -17,8 +17,8 @@ const Content = ({ isBuilder }) => {
     const res = await request.get(CApiUrl.common.detail, param);
     if (res) {
       return {
-        content: decrypt(res.content),
-        page: res.page ? decrypt(res.page) : null,
+        content: decrypt(res.data.content),
+        page: res.data.page ? decrypt(res.data.page) : null,
       };
     }
     return {
@@ -40,8 +40,8 @@ const Content = ({ isBuilder }) => {
   });
 
   return {
-    content: response?.data?.content ?? null,
-    page: response?.data?.page ?? null,
+    content: response?.content ?? null,
+    page: response?.page ?? null,
     isLoading,
     error,
   };
