@@ -27,7 +27,11 @@ const Content = ({ isBuilder }) => {
     };
   };
 
-  const { data, error, isLoading } = useQuery({
+  const {
+    data: response,
+    error,
+    isLoading,
+  } = useQuery({
     queryKey: ['view-json-content', params.id],
     queryFn: fetchContent,
     enabled: !isBuilder && !!params.id,
@@ -36,8 +40,8 @@ const Content = ({ isBuilder }) => {
   });
 
   return {
-    content: data?.content ?? null,
-    page: data?.page ?? null,
+    content: response?.data?.content ?? null,
+    page: response?.data?.page ?? null,
     isLoading,
     error,
   };

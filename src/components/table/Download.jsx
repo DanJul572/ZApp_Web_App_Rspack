@@ -7,12 +7,13 @@ import { extractFileNames } from '@/helpers/readFile';
 import Request from '@/hooks/Request';
 
 const Download = ({ label }) => {
-  const { get } = Request();
+  const request = Request();
 
   const onDownload = () => {
-    get(CApiUrl.file.download, { name: label })
+    request
+      .get(CApiUrl.file.download, { name: label })
       .then((res) => {
-        const bufferFormat = new Uint8Array(res.data.data);
+        const bufferFormat = new Uint8Array(res.data.data.data);
         downloadFileFromBuffer(
           bufferFormat,
           extractFileNames(label),

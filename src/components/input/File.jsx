@@ -17,7 +17,7 @@ import Translator from '@/hooks/Translator';
 const File = (props) => {
   const { label, onChange, name, disabled, value } = props;
 
-  const { get } = Request();
+  const request = Request();
   const translator = Translator();
   const { file, setFile } = useFile();
 
@@ -69,10 +69,15 @@ const File = (props) => {
   };
 
   const getFile = async () => {
-    return await get(CApiUrl.file.download, { name: value });
+    return await request.get(CApiUrl.file.download, { name: value });
   };
 
-  const { data, isLoading, error, isError } = useQuery({
+  const {
+    data: response,
+    isLoading,
+    error,
+    isError,
+  } = useQuery({
     queryKey: ['file-input', value],
     queryFn: getFile,
     enabled: !!value,
@@ -80,10 +85,10 @@ const File = (props) => {
   });
 
   useEffect(() => {
-    if (data) {
-      handleChange(getFileFromBuffer(data));
+    if (response.data) {
+      handleChange(getFileFromBuffer(response.data));
     }
-  }, [data]);
+  }, [response]);
 
   if (isLoading) {
     return <Typography>Loading...</Typography>;

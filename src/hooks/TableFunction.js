@@ -10,7 +10,7 @@ import Request from '@/hooks/Request';
 const TableFunction = (props) => {
   const { moduleID, actions, isBuilder, defaultFilter } = props;
 
-  const { post, get } = Request();
+  const request = Request();
   const navigate = useNavigate();
   const { setAlert } = useAlert();
   const { setLoading } = useLoading();
@@ -23,10 +23,10 @@ const TableFunction = (props) => {
   const [columnKey, setColumnKey] = useState(null);
 
   const getColumns = async () => {
-    return await get(CApiUrl.common.columns, { id: moduleID });
+    return await request.get(CApiUrl.common.columns, { id: moduleID });
   };
 
-  const { data: columns = [], isLoading: isColumnsLoading } = useQuery({
+  const { data: columns, isLoading: isColumnsLoading } = useQuery({
     queryKey: ['table-columns', moduleID],
     queryFn: getColumns,
     enabled: !!moduleID && !isBuilder,
@@ -41,7 +41,7 @@ const TableFunction = (props) => {
       sort,
       defaultFilter: defaultFilter || [],
     };
-    return await post(CApiUrl.common.rows, body);
+    return await request.post(CApiUrl.common.rows, body);
   };
 
   const {
@@ -53,11 +53,11 @@ const TableFunction = (props) => {
   } = useQuery({
     queryKey: ['table-rows', moduleID, page, filter, sort, defaultFilter],
     queryFn: fetchRows,
-    enabled: !!moduleID && !!columns && columns.length > 0,
+    enabled: !!moduleID && columns?.data?.length > 0,
     retry: 0,
   });
 
-  const rows = rowsData?.rows || [];
+  const rows = rowsData?.data?.rows || [];
   const rowCount = rowsData?.count || 0;
 
   const onDelete = () => {
@@ -69,7 +69,8 @@ const TableFunction = (props) => {
     const action = actions.find((a) => a.type === EActionType.delete.value);
     const url = action?.api || CApiUrl.common.delete;
 
-    post(url, body)
+    request
+      .post(url, body)
       .then((res) => {
         setAlert({ status: true, type: 'success', message: res });
         refetchRows();
@@ -103,8 +104,8 @@ const TableFunction = (props) => {
   };
 
   useEffect(() => {
-    if (columns.length) {
-      setColumnKey(columns.find((col) => col.identity).id);
+    if (columns?.data?.length) {
+      setColumnKey(columns.data.find((col) => col.identity).id);
     }
   }, [columns]);
 
@@ -121,7 +122,7 @@ const TableFunction = (props) => {
   return {
     actions,
     columnKey,
-    columns,
+    columns: columns?.data || [],
     isColumnsLoading,
     isRowsLoading,
     onClickRowAction,

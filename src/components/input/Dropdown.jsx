@@ -20,12 +20,12 @@ const Dropdown = (props) => {
     placeholder,
   } = props;
 
-  const { get } = Request();
+  const request = Request();
 
   const [newValue, setNewValue] = useState(!multiple ? null : []);
 
   const getOptions = async () => {
-    return await get(CApiUrl.common.options, { id: id }, false);
+    return await request.get(CApiUrl.common.options, { id: id }, false);
   };
 
   const { data: requestOptions, isLoading } = useQuery({
@@ -35,7 +35,7 @@ const Dropdown = (props) => {
     retry: 0,
   });
 
-  const finalOptions = options || requestOptions;
+  const finalOptions = options || requestOptions?.data;
 
   const handleChange = (_e, param) => {
     if (!multiple) {

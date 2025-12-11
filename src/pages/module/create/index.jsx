@@ -13,7 +13,7 @@ import FieldForm from './FieldForm';
 import ModuleForm from './ModuleForm';
 
 const Page = () => {
-  const { post } = Request();
+  const request = Request();
   const translator = Translator();
 
   const navigate = useNavigate();
@@ -56,12 +56,13 @@ const Page = () => {
       fields: fields,
     };
 
-    post(CApiUrl.module.create, data)
+    request
+      .post(CApiUrl.module.create, data)
       .then((res) => {
         setAlert({
           status: true,
           type: 'success',
-          message: res,
+          message: res.message,
         });
         navigate('/module');
       })

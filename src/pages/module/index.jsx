@@ -48,7 +48,7 @@ const Page = () => {
         const reformatModule = { ...module };
         reformatModule.createdAt = undefined;
         reformatModule.updatedAt = undefined;
-        reformatModule.fields = res
+        reformatModule.fields = res.data
           .filter((field) => field.id)
           .map((field) => {
             field.createdAt = undefined;

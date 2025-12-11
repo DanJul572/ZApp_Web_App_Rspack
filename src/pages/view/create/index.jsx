@@ -14,7 +14,7 @@ import TopBar from './topbar';
 const Page = () => {
   const [searchParams] = useSearchParams();
 
-  const { get } = Request();
+  const request = Request();
 
   const navigationType = {
     content: 'content',
@@ -34,7 +34,9 @@ const Page = () => {
   const [viewId, setViewId] = useState(null);
 
   const getViewOptions = async () => {
-    const response = await get(CApiUrl.view.options, { moduleId: moduleId });
+    const response = await request.get(CApiUrl.view.options, {
+      moduleId: moduleId,
+    });
     if (response && response.length > 0) {
       return response.map((option) => {
         option.label = `(${option.value}) - ${option.label}`;
@@ -76,7 +78,7 @@ const Page = () => {
           setSelected={setSelected}
           setViewId={setViewId}
           viewId={viewId}
-          viewOptions={viewOptions}
+          viewOptions={viewOptions?.data}
           isViewListLoading={isViewListLoading}
         />
         <Box marginX={45} marginTop={8} paddingTop={1}>

@@ -38,9 +38,9 @@ const Page = () => {
     mutationKey: ['submit-login'],
     mutationFn: onLogin,
     onSuccess: (res) => {
-      localStorage.setItem('token', res.accessToken);
+      localStorage.setItem('token', res.data.accessToken);
       setExpandedMenu([]);
-      navigate(res.afterLogin);
+      navigate(res.data.afterLogin);
     },
     onError: (err) => {
       const errorMessage = handleError(err);

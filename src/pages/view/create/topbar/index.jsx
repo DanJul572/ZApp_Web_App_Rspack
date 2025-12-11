@@ -48,7 +48,7 @@ const TopBar = (props) => {
     viewId,
   } = props;
 
-  const { get, post } = Request();
+  const request = Request();
   const translator = Translator();
 
   const navigate = useNavigate();
@@ -74,7 +74,8 @@ const TopBar = (props) => {
 
     const param = { moduleId: moduleId };
 
-    get(CApiUrl.module.detail, param)
+    request
+      .get(CApiUrl.module.detail, param)
       .then((res) => {
         const content = generateContent(res, type);
         setContent(content);
@@ -114,9 +115,10 @@ const TopBar = (props) => {
 
     if (viewId) body.rowId = viewId;
 
-    post(url, body)
+    request
+      .post(url, body)
       .then((res) => {
-        setToast({ status: true, type: 'success', message: res });
+        setToast({ status: true, type: 'success', message: res.message });
         if (!viewId) {
           getViewOptions();
         }
@@ -132,13 +134,14 @@ const TopBar = (props) => {
 
     const param = { moduleId: CModuleID.views, rowId: viewId };
 
-    get(CApiUrl.common.detail, param)
+    request
+      .get(CApiUrl.common.detail, param)
       .then((res) => {
-        const content = decrypt(res.content);
-        const page = res.page ? decrypt(res.page) : null;
+        const content = decrypt(res.data.content);
+        const page = res.data.page ? decrypt(res.data.page) : null;
         setContent(content);
         setPage(page);
-        setLabel(res.label);
+        setLabel(res.data.label);
       })
       .catch((err) => {
         setToast({ status: true, type: 'error', message: err });
@@ -149,7 +152,8 @@ const TopBar = (props) => {
   const onDelete = (confirm) => {
     if (confirm) {
       const body = { moduleId: CModuleID.views, id: viewId };
-      post(CApiUrl.common.delete, body)
+      request
+        .post(CApiUrl.common.delete, body)
         .then(() => {
           clearContent();
           getViewOptions();

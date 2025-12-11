@@ -17,7 +17,7 @@ import Translator from '@/hooks/Translator';
 
 const Page = () => {
   const theme = useTheme();
-  const { post } = Request();
+  const request = Request();
   const translator = Translator();
 
   const navigate = useNavigate();
@@ -46,7 +46,7 @@ const Page = () => {
       roleId: formData.roleId,
     };
 
-    return await post(CApiUrl.auth.register, body, false);
+    return await request.post(CApiUrl.auth.register, body, false);
   };
 
   const mutation = useMutation({

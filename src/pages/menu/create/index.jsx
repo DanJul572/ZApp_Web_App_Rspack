@@ -32,7 +32,7 @@ import Request from '@/hooks/Request';
 import Translator from '@/hooks/Translator';
 
 const Page = () => {
-  const { post, get } = Request();
+  const request = Request();
   const translator = Translator();
 
   const navigate = useNavigate();
@@ -57,7 +57,7 @@ const Page = () => {
 
   const onLoad = async () => {
     const body = { moduleId: CModuleID.menus, rowId: id };
-    return await get(CApiUrl.common.detail, body);
+    return await request.get(CApiUrl.common.detail, body);
   };
 
   const onSave = async () => {
@@ -76,7 +76,7 @@ const Page = () => {
       body.rowId = id;
     }
 
-    return post(url, body);
+    return request.post(url, body);
   };
 
   const generateNewMenu = () => {
@@ -217,7 +217,7 @@ const Page = () => {
   const mutation = useMutation({
     mutationFn: onSave,
     onSuccess: (res) => {
-      setAlert({ status: true, type: 'success', message: res });
+      setAlert({ status: true, type: 'success', message: res.message });
       localStorage.setItem('tree', JSON.stringify(tree));
       navigate('/menu');
     },
@@ -228,11 +228,11 @@ const Page = () => {
 
   useEffect(() => {
     if (treeResponse) {
-      const treeData = getTreeMenuJson(treeResponse.tree);
-      setLabel(treeResponse.label);
-      setRoleId(treeResponse.roleId);
+      const treeData = getTreeMenuJson(treeResponse.data.tree);
+      setLabel(treeResponse.data.label);
+      setRoleId(treeResponse.data.roleId);
       setTree(treeData);
-      setAfterLogin(treeResponse.afterLogin);
+      setAfterLogin(treeResponse.data.afterLogin);
     }
   }, [treeResponse]);
 

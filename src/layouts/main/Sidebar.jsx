@@ -39,7 +39,7 @@ const NotFound = ({ isEmpty }) => {
 
 const Sidebar = () => {
   const navigate = useNavigate();
-  const { get } = Request();
+  const request = Request();
 
   const [tree, setTree] = useState([]);
 
@@ -52,22 +52,27 @@ const Sidebar = () => {
   };
 
   const onLoad = async () => {
-    return await get(CApiUrl.common.menu);
+    return await request.get(CApiUrl.common.menu);
   };
 
-  const { data, isLoading, error, isError } = useQuery({
+  const {
+    data: response,
+    isLoading,
+    error,
+    isError,
+  } = useQuery({
     queryKey: ['sidebar'],
     queryFn: onLoad,
     enabled: !treeJSON.length,
   });
 
   useEffect(() => {
-    if (data) {
-      const treeData = getTreeMenuJson(data.tree);
+    if (response) {
+      const treeData = getTreeMenuJson(response.data.tree);
       localStorage.setItem('tree', JSON.stringify(treeData));
       setTree(treeData);
     }
-  }, [data]);
+  }, [response]);
 
   useEffect(() => {
     if (treeJSON.length > 0) {
