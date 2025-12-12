@@ -6,7 +6,7 @@ const Script = ({ id }) => {
   const request = Request();
 
   const {
-    data: val,
+    data: response,
     isPending,
     error,
   } = useQuery({
@@ -17,7 +17,7 @@ const Script = ({ id }) => {
   });
 
   return {
-    val: val?.data,
+    val: response?.data,
     isPending,
     error,
   };
