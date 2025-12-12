@@ -15,29 +15,7 @@
     "palette": {
       "mode": "light",
       "primary": {
-        "light": "#8324ffff",
-        "main": "#6f00ffff",
-        "dark": "#5b00d1ff"
-      },
-      "secondary": {
-        "light": "#D2E8D4",
-        "main": "#81C784",
-        "dark": "#519657"
-      },
-      "error": {
-        "light": "#EF9A9A",
-        "main": "#F44336",
-        "dark": "#D32F2F"
-      },
-      "info": {
-        "light": "#AEDFF7",
-        "main": "#4FC3F7",
-        "dark": "#0288D1"
-      },
-      "success": {
-        "light": "#C8E6C9",
-        "main": "#66BB6A",
-        "dark": "#388E3C"
+        "main": "#6f00ffff"
       }
     },
     "components": {
@@ -46,9 +24,6 @@
           "root": {
             "fontFamily": "\"Inter\", \"Roboto\", \"Helvetica\", \"Arial\", sans-serif"
           }
-        },
-        "defaultProps": {
-          "variant": "body2"
         }
       }
     }

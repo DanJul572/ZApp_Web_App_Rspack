@@ -31,5 +31,6 @@ export default {
   },
   moduleNameMapper: {
     '^@/(.*)$': '<rootDir>/src/$1',
+    '^@configs/(.*)$': '<rootDir>/src/configs/$1',
   },
 };

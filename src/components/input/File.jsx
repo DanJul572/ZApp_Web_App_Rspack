@@ -85,7 +85,7 @@ const File = (props) => {
   });
 
   useEffect(() => {
-    if (response.data) {
+    if (response) {
       handleChange(getFileFromBuffer(response.data));
     }
   }, [response]);
