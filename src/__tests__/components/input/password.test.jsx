@@ -1,5 +1,6 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
+import { act } from '@testing-library/react';
 import Password from '@/components/input/Password';
 
 describe('Password Input Component', () => {
@@ -50,7 +51,9 @@ describe('Password Input Component', () => {
 
     const preventDefaultSpy = jest.spyOn(mouseDownEvent, 'preventDefault');
 
-    toggleButton.dispatchEvent(mouseDownEvent);
+    act(() => {
+      toggleButton.dispatchEvent(mouseDownEvent);
+    });
 
     expect(preventDefaultSpy).toHaveBeenCalled();
   });

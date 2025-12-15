@@ -41,6 +41,7 @@ const Password = (props) => {
         endAdornment={
           <InputAdornment position="end">
             <IconButton
+              disableRipple
               onClick={handleClickShowPassword}
               onMouseDown={handleMouseDownPassword}
               edge="end"
