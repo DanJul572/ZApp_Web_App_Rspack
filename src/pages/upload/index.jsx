@@ -19,6 +19,7 @@ import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import Papa from 'papaparse';
 import { useMemo, useState } from 'react';
+import ShortText from '@/components/input/ShortText';
 import Alert from '@/hooks/Alert';
 
 export default function UploadPage() {
@@ -111,6 +112,9 @@ export default function UploadPage() {
         Upload CSV
       </Typography>
       <Box sx={{ marginBlock: 2 }}>
+        <ShortText label="Module" />
+      </Box>
+      <Box sx={{ marginBottom: 1, marginTop: 3 }}>
         {file && (
           <Stack direction="row" spacing={4}>
             <Typography variant="caption" color="text.secondary">
@@ -146,9 +150,19 @@ export default function UploadPage() {
           </Stack>
         )}
       </Box>
-      <Stack spacing={2}>
-        <Stack direction="row" justifyContent="space-between">
-          <Box>
+      <Box>
+        <Box
+          sx={{
+            display: 'flex',
+            gap: 2,
+            marginBottom: 2,
+          }}
+        >
+          <Box
+            sx={{
+              flex: 1,
+            }}
+          >
             {rows.length > 0 && (
               <TextField
                 placeholder="Search..."
@@ -156,6 +170,7 @@ export default function UploadPage() {
                 value={search}
                 disabled={rows.length <= 0}
                 onChange={(e) => setSearch(e.target.value)}
+                fullWidth
               />
             )}
           </Box>
@@ -190,7 +205,7 @@ export default function UploadPage() {
               Save
             </Button>
           </Box>
-        </Stack>
+        </Box>
         {rows.length <= 0 && (
           <Box
             sx={{
@@ -225,7 +240,7 @@ export default function UploadPage() {
             </TableBody>
           </Table>
         </TableContainer>
-      </Stack>
+      </Box>
     </Box>
   );
 }
