@@ -1,8 +1,15 @@
+import Archive from '@mui/icons-material/Archive';
+import Dataset from '@mui/icons-material/Dataset';
+import Description from '@mui/icons-material/Description';
+import Save from '@mui/icons-material/Save';
+import Upload from '@mui/icons-material/Upload';
+import ViewColumn from '@mui/icons-material/ViewColumn';
+import Visibility from '@mui/icons-material/Visibility';
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CircularProgress from '@mui/material/CircularProgress';
+import IconButton from '@mui/material/IconButton';
 import Paper from '@mui/material/Paper';
 import Stack from '@mui/material/Stack';
 import Table from '@mui/material/Table';
@@ -67,6 +74,34 @@ export default function UploadPage() {
     });
   };
 
+  function formatFileSize(bytes) {
+    if (bytes === 0) return '0 Bytes';
+
+    const kb = bytes / 1024;
+    const mb = kb / 1024;
+    const gb = mb / 1024;
+
+    if (gb >= 1) {
+      return `${gb.toFixed(2)} GB`;
+    } else if (mb >= 1) {
+      return `${mb.toFixed(2)} MB`;
+    } else if (kb >= 1) {
+      return `${kb.toFixed(2)} KB`;
+    } else {
+      return `${bytes.toFixed(2)} Bytes`;
+    }
+  }
+
+  const handleUpload = async () => {
+    if (!file) return;
+    const formData = new FormData();
+    formData.append('file', file);
+
+    console.log('formData', formData);
+
+    alert('File berhasil dikirim ke backend & diproses background');
+  };
+
   const filteredRows = useMemo(() => {
     if (!search) return rows;
     const q = search.toLowerCase();
@@ -75,71 +110,87 @@ export default function UploadPage() {
     );
   }, [rows, search]);
 
-  const handleUpload = async () => {
-    if (!file) return;
-    const formData = new FormData();
-    formData.append('file', file);
-    await fetch('/api/import-csv', {
-      method: 'POST',
-      body: formData,
-    });
-
-    alert('File berhasil dikirim ke backend & diproses background');
-  };
-
   return (
     <Box>
-      <Card sx={{ mb: 3 }}>
+      <Typography fontSize={20} fontWeight="bold">
+        Upload CSV
+      </Typography>
+      <Card
+        sx={{
+          marginTop: 2,
+        }}
+      >
         <CardContent>
-          <Stack spacing={2}>
-            <Typography variant="h5" fontWeight="bold">
-              Import CSV Data
-            </Typography>
-            <Button
-              variant="contained"
-              component="label"
-              disabled={totalRows > 0}
-            >
-              Pilih File CSV
-              <input
-                type="file"
-                hidden
-                accept=".csv"
-                onChange={handleFileChange}
-              />
-            </Button>
+          <Box sx={{ marginBottom: 2 }}>
             {file && (
               <Stack direction="row" spacing={4}>
-                <Typography>📄 Nama File: {file.name}</Typography>
-                <Typography>
-                  📦 Ukuran: {(file.size / 1024 / 1024).toFixed(4)} MB
+                <Typography variant="caption" color="text.secondary">
+                  <Description
+                    sx={{ fontSize: 14, verticalAlign: 'middle', mr: 0.5 }}
+                  />
+                  File: {file.name}
                 </Typography>
-                <Typography>📊 Total Data: {totalRows}</Typography>
-                <Typography>👁 Preview: {rows.length}</Typography>
-                <Typography>📐 Kolom: {columns.length}</Typography>
+                <Typography variant="caption" color="text.secondary">
+                  <Archive
+                    sx={{ fontSize: 14, verticalAlign: 'middle', mr: 0.5 }}
+                  />
+                  Size: {formatFileSize(file.size)}
+                </Typography>
+                <Typography variant="caption" color="text.secondary">
+                  <Dataset
+                    sx={{ fontSize: 14, verticalAlign: 'middle', mr: 0.5 }}
+                  />
+                  Rows: {totalRows}
+                </Typography>
+                <Typography variant="caption" color="text.secondary">
+                  <Visibility
+                    sx={{ fontSize: 14, verticalAlign: 'middle', mr: 0.5 }}
+                  />
+                  Preview: {rows.length}
+                </Typography>
+                <Typography variant="caption" color="text.secondary">
+                  <ViewColumn
+                    sx={{ fontSize: 14, verticalAlign: 'middle', mr: 0.5 }}
+                  />
+                  Columns: {columns.length}
+                </Typography>
               </Stack>
             )}
-          </Stack>
-        </CardContent>
-      </Card>
-      <Card>
-        <CardContent>
+          </Box>
           <Stack spacing={2}>
             <Stack direction="row" justifyContent="space-between">
-              <TextField
-                label="Search data"
-                size="small"
-                value={search}
-                onChange={(e) => setSearch(e.target.value)}
-              />
-              <Button
-                variant="contained"
-                color="success"
-                disabled={!file}
-                onClick={handleUpload}
-              >
-                Kirim ke Backend
-              </Button>
+              <Box>
+                <TextField
+                  placeholder="Search..."
+                  size="small"
+                  value={search}
+                  onChange={(e) => setSearch(e.target.value)}
+                />
+              </Box>
+              <Box>
+                <IconButton
+                  variant="contained"
+                  component="label"
+                  color="secondary"
+                  disabled={totalRows > 0}
+                >
+                  <Upload />
+                  <input
+                    type="file"
+                    hidden
+                    accept=".csv"
+                    onChange={handleFileChange}
+                  />
+                </IconButton>
+                <IconButton
+                  variant="contained"
+                  color="primary"
+                  disabled={!file}
+                  onClick={handleUpload}
+                >
+                  <Save />
+                </IconButton>
+              </Box>
             </Stack>
             {loading && <CircularProgress />}
             <TableContainer component={Paper} sx={{ maxHeight: 500 }}>
@@ -152,20 +203,19 @@ export default function UploadPage() {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {filteredRows.map((row) => (
-                    <TableRow key={row[columns[0]]}>
-                      {columns.map((col) => (
-                        <TableCell key={col}>{row[col]}</TableCell>
-                      ))}
-                    </TableRow>
-                  ))}
+                  {filteredRows.map((row) => {
+                    const rowKey = Object.values(row).join('|');
+                    return (
+                      <TableRow key={rowKey}>
+                        {columns.map((col) => (
+                          <TableCell key={col}>{row[col]}</TableCell>
+                        ))}
+                      </TableRow>
+                    );
+                  })}
                 </TableBody>
               </Table>
             </TableContainer>
-            <Typography variant="caption" color="text.secondary">
-              * Hanya menampilkan {MAX_PREVIEW} baris pertama untuk preview
-              (lazy load)
-            </Typography>
           </Stack>
         </CardContent>
       </Card>
