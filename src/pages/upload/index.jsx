@@ -6,7 +6,6 @@ import Upload from '@mui/icons-material/Upload';
 import ViewColumn from '@mui/icons-material/ViewColumn';
 import Visibility from '@mui/icons-material/Visibility';
 import Box from '@mui/material/Box';
-import CircularProgress from '@mui/material/CircularProgress';
 import IconButton from '@mui/material/IconButton';
 import Paper from '@mui/material/Paper';
 import Stack from '@mui/material/Stack';
@@ -156,6 +155,7 @@ export default function UploadPage() {
               placeholder="Search..."
               size="small"
               value={search}
+              disabled={totalRows <= 0}
               onChange={(e) => setSearch(e.target.value)}
             />
           </Box>
@@ -163,8 +163,8 @@ export default function UploadPage() {
             <IconButton
               variant="contained"
               component="label"
-              color="secondary"
-              disabled={totalRows > 0}
+              disabled={loading}
+              loading={loading}
             >
               <Upload />
               <input
@@ -184,7 +184,17 @@ export default function UploadPage() {
             </IconButton>
           </Box>
         </Stack>
-        {loading && <CircularProgress />}
+        {totalRows <= 0 && (
+          <Box
+            sx={{
+              textAlign: 'center',
+            }}
+          >
+            <Typography variant="body1" color="text.secondary">
+              No data to display.
+            </Typography>
+          </Box>
+        )}
         <TableContainer component={Paper} sx={{ maxHeight: 500 }}>
           <Table stickyHeader size="small">
             <TableHead>
