@@ -6,8 +6,6 @@ import Upload from '@mui/icons-material/Upload';
 import ViewColumn from '@mui/icons-material/ViewColumn';
 import Visibility from '@mui/icons-material/Visibility';
 import Box from '@mui/material/Box';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
 import CircularProgress from '@mui/material/CircularProgress';
 import IconButton from '@mui/material/IconButton';
 import Paper from '@mui/material/Paper';
@@ -115,110 +113,102 @@ export default function UploadPage() {
       <Typography fontSize={20} fontWeight="bold">
         Upload CSV
       </Typography>
-      <Card
-        sx={{
-          marginTop: 2,
-        }}
-      >
-        <CardContent>
-          <Box sx={{ marginBottom: 2 }}>
-            {file && (
-              <Stack direction="row" spacing={4}>
-                <Typography variant="caption" color="text.secondary">
-                  <Description
-                    sx={{ fontSize: 14, verticalAlign: 'middle', mr: 0.5 }}
-                  />
-                  File: {file.name}
-                </Typography>
-                <Typography variant="caption" color="text.secondary">
-                  <Archive
-                    sx={{ fontSize: 14, verticalAlign: 'middle', mr: 0.5 }}
-                  />
-                  Size: {formatFileSize(file.size)}
-                </Typography>
-                <Typography variant="caption" color="text.secondary">
-                  <Dataset
-                    sx={{ fontSize: 14, verticalAlign: 'middle', mr: 0.5 }}
-                  />
-                  Rows: {totalRows}
-                </Typography>
-                <Typography variant="caption" color="text.secondary">
-                  <Visibility
-                    sx={{ fontSize: 14, verticalAlign: 'middle', mr: 0.5 }}
-                  />
-                  Preview: {rows.length}
-                </Typography>
-                <Typography variant="caption" color="text.secondary">
-                  <ViewColumn
-                    sx={{ fontSize: 14, verticalAlign: 'middle', mr: 0.5 }}
-                  />
-                  Columns: {columns.length}
-                </Typography>
-              </Stack>
-            )}
+      <Box sx={{ marginBlock: 2 }}>
+        {file && (
+          <Stack direction="row" spacing={4}>
+            <Typography variant="caption" color="text.secondary">
+              <Description
+                sx={{ fontSize: 14, verticalAlign: 'middle', mr: 0.5 }}
+              />
+              File: {file.name}
+            </Typography>
+            <Typography variant="caption" color="text.secondary">
+              <Archive
+                sx={{ fontSize: 14, verticalAlign: 'middle', mr: 0.5 }}
+              />
+              Size: {formatFileSize(file.size)}
+            </Typography>
+            <Typography variant="caption" color="text.secondary">
+              <Dataset
+                sx={{ fontSize: 14, verticalAlign: 'middle', mr: 0.5 }}
+              />
+              Rows: {totalRows}
+            </Typography>
+            <Typography variant="caption" color="text.secondary">
+              <Visibility
+                sx={{ fontSize: 14, verticalAlign: 'middle', mr: 0.5 }}
+              />
+              Preview: {rows.length}
+            </Typography>
+            <Typography variant="caption" color="text.secondary">
+              <ViewColumn
+                sx={{ fontSize: 14, verticalAlign: 'middle', mr: 0.5 }}
+              />
+              Columns: {columns.length}
+            </Typography>
+          </Stack>
+        )}
+      </Box>
+      <Stack spacing={2}>
+        <Stack direction="row" justifyContent="space-between">
+          <Box>
+            <TextField
+              placeholder="Search..."
+              size="small"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+            />
           </Box>
-          <Stack spacing={2}>
-            <Stack direction="row" justifyContent="space-between">
-              <Box>
-                <TextField
-                  placeholder="Search..."
-                  size="small"
-                  value={search}
-                  onChange={(e) => setSearch(e.target.value)}
-                />
-              </Box>
-              <Box>
-                <IconButton
-                  variant="contained"
-                  component="label"
-                  color="secondary"
-                  disabled={totalRows > 0}
-                >
-                  <Upload />
-                  <input
-                    type="file"
-                    hidden
-                    accept=".csv"
-                    onChange={handleFileChange}
-                  />
-                </IconButton>
-                <IconButton
-                  variant="contained"
-                  color="primary"
-                  disabled={!file}
-                  onClick={handleUpload}
-                >
-                  <Save />
-                </IconButton>
-              </Box>
-            </Stack>
-            {loading && <CircularProgress />}
-            <TableContainer component={Paper} sx={{ maxHeight: 500 }}>
-              <Table stickyHeader size="small">
-                <TableHead>
-                  <TableRow>
+          <Box>
+            <IconButton
+              variant="contained"
+              component="label"
+              color="secondary"
+              disabled={totalRows > 0}
+            >
+              <Upload />
+              <input
+                type="file"
+                hidden
+                accept=".csv"
+                onChange={handleFileChange}
+              />
+            </IconButton>
+            <IconButton
+              variant="contained"
+              color="primary"
+              disabled={!file}
+              onClick={handleUpload}
+            >
+              <Save />
+            </IconButton>
+          </Box>
+        </Stack>
+        {loading && <CircularProgress />}
+        <TableContainer component={Paper} sx={{ maxHeight: 500 }}>
+          <Table stickyHeader size="small">
+            <TableHead>
+              <TableRow>
+                {columns.map((col) => (
+                  <TableCell key={col}>{col}</TableCell>
+                ))}
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {filteredRows.map((row) => {
+                const rowKey = Object.values(row).join('|');
+                return (
+                  <TableRow key={rowKey}>
                     {columns.map((col) => (
-                      <TableCell key={col}>{col}</TableCell>
+                      <TableCell key={col}>{row[col]}</TableCell>
                     ))}
                   </TableRow>
-                </TableHead>
-                <TableBody>
-                  {filteredRows.map((row) => {
-                    const rowKey = Object.values(row).join('|');
-                    return (
-                      <TableRow key={rowKey}>
-                        {columns.map((col) => (
-                          <TableCell key={col}>{row[col]}</TableCell>
-                        ))}
-                      </TableRow>
-                    );
-                  })}
-                </TableBody>
-              </Table>
-            </TableContainer>
-          </Stack>
-        </CardContent>
-      </Card>
+                );
+              })}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      </Stack>
     </Box>
   );
 }
