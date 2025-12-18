@@ -19,12 +19,14 @@ import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import Papa from 'papaparse';
 import { useMemo, useState } from 'react';
+import Alert from '@/hooks/Alert';
 
 export default function UploadPage() {
+  const alert = Alert();
+
   const [file, setFile] = useState(null);
   const [rows, setRows] = useState([]);
   const [columns, setColumns] = useState([]);
-  const [totalRows, setTotalRows] = useState(0);
   const [loading, setLoading] = useState(false);
   const [search, setSearch] = useState('');
 
@@ -36,19 +38,16 @@ export default function UploadPage() {
 
     setRows([]);
     setColumns([]);
-    setTotalRows(0);
     setLoading(true);
     setFile(file);
 
     let isFirstRow = true;
-    let rowCounter = 0;
 
     Papa.parse(file, {
       header: true,
       skipEmptyLines: true,
       worker: true,
       step: (result, _parser) => {
-        rowCounter++;
         if (isFirstRow) {
           setColumns(result.meta.fields || []);
           isFirstRow = false;
@@ -61,11 +60,10 @@ export default function UploadPage() {
         });
       },
       complete: () => {
-        setTotalRows(rowCounter);
         setLoading(false);
       },
       error: (err) => {
-        console.error(err);
+        alert.showErrorAlert(err.toString());
         setLoading(false);
       },
     });
@@ -96,7 +94,7 @@ export default function UploadPage() {
 
     console.log('formData', formData);
 
-    alert('File berhasil dikirim ke backend & diproses background');
+    alert.showSuccessAlert('Success.');
   };
 
   const filteredRows = useMemo(() => {
@@ -131,7 +129,7 @@ export default function UploadPage() {
               <Dataset
                 sx={{ fontSize: 14, verticalAlign: 'middle', mr: 0.5 }}
               />
-              Rows: {totalRows}
+              Rows: {rows.length}
             </Typography>
             <Typography variant="caption" color="text.secondary">
               <Visibility
@@ -155,7 +153,7 @@ export default function UploadPage() {
               placeholder="Search..."
               size="small"
               value={search}
-              disabled={totalRows <= 0}
+              disabled={rows.length <= 0}
               onChange={(e) => setSearch(e.target.value)}
             />
           </Box>
@@ -184,7 +182,7 @@ export default function UploadPage() {
             </IconButton>
           </Box>
         </Stack>
-        {totalRows <= 0 && (
+        {rows.length <= 0 && (
           <Box
             sx={{
               textAlign: 'center',
