@@ -6,7 +6,7 @@ import Upload from '@mui/icons-material/Upload';
 import ViewColumn from '@mui/icons-material/ViewColumn';
 import Visibility from '@mui/icons-material/Visibility';
 import Box from '@mui/material/Box';
-import IconButton from '@mui/material/IconButton';
+import Button from '@mui/material/Button';
 import Paper from '@mui/material/Paper';
 import Stack from '@mui/material/Stack';
 import Table from '@mui/material/Table';
@@ -69,7 +69,7 @@ export default function UploadPage() {
     });
   };
 
-  function formatFileSize(bytes) {
+  const formatFileSize = (bytes) => {
     if (bytes === 0) return '0 Bytes';
 
     const kb = bytes / 1024;
@@ -85,7 +85,7 @@ export default function UploadPage() {
     } else {
       return `${bytes.toFixed(2)} Bytes`;
     }
-  }
+  };
 
   const handleUpload = async () => {
     if (!file) return;
@@ -149,37 +149,46 @@ export default function UploadPage() {
       <Stack spacing={2}>
         <Stack direction="row" justifyContent="space-between">
           <Box>
-            <TextField
-              placeholder="Search..."
-              size="small"
-              value={search}
-              disabled={rows.length <= 0}
-              onChange={(e) => setSearch(e.target.value)}
-            />
+            {rows.length > 0 && (
+              <TextField
+                placeholder="Search..."
+                size="small"
+                value={search}
+                disabled={rows.length <= 0}
+                onChange={(e) => setSearch(e.target.value)}
+              />
+            )}
           </Box>
-          <Box>
-            <IconButton
-              variant="contained"
+          <Box
+            sx={{
+              display: 'flex',
+              gap: 1,
+            }}
+          >
+            <Button
+              variant="outlined"
               component="label"
               disabled={loading}
               loading={loading}
+              startIcon={<Upload />}
             >
-              <Upload />
+              Upload
               <input
                 type="file"
                 hidden
                 accept=".csv"
                 onChange={handleFileChange}
               />
-            </IconButton>
-            <IconButton
+            </Button>
+            <Button
               variant="contained"
               color="primary"
               disabled={!file}
               onClick={handleUpload}
+              startIcon={<Save />}
             >
-              <Save />
-            </IconButton>
+              Save
+            </Button>
           </Box>
         </Stack>
         {rows.length <= 0 && (
