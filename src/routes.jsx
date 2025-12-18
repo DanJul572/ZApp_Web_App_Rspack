@@ -14,6 +14,7 @@ import ModulePage from '@/pages/module';
 import CreateModulePage from '@/pages/module/create';
 import RegisterPage from '@/pages/register';
 import SettingPage from '@/pages/setting';
+import UploadPage from '@/pages/upload';
 import ViewPage from '@/pages/view';
 import CreateViewPage from '@/pages/view/create';
 
@@ -120,6 +121,16 @@ const routes = createBrowserRouter([
       <AuthenticatedGuard>
         <MainLayout>
           <SettingPage />
+        </MainLayout>
+      </AuthenticatedGuard>
+    ),
+  },
+  {
+    path: '/upload',
+    Component: () => (
+      <AuthenticatedGuard>
+        <MainLayout>
+          <UploadPage />
         </MainLayout>
       </AuthenticatedGuard>
     ),
