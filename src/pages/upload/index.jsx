@@ -108,9 +108,48 @@ export default function UploadPage() {
 
   return (
     <Box>
-      <Typography fontSize={20} fontWeight="bold">
-        Upload CSV
-      </Typography>
+      <Box
+        sx={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+        }}
+      >
+        <Typography fontSize={20} fontWeight="bold">
+          Upload CSV
+        </Typography>
+        <Box
+          sx={{
+            display: 'flex',
+            gap: 1,
+          }}
+        >
+          <Button
+            variant="outlined"
+            component="label"
+            disabled={loading}
+            loading={loading}
+            startIcon={<Upload />}
+          >
+            Upload
+            <input
+              type="file"
+              hidden
+              accept=".csv"
+              onChange={handleFileChange}
+            />
+          </Button>
+          <Button
+            variant="contained"
+            color="primary"
+            disabled={!file}
+            onClick={handleUpload}
+            startIcon={<Save />}
+          >
+            Save
+          </Button>
+        </Box>
+      </Box>
       <Box sx={{ marginBlock: 2 }}>
         <ShortText label="Module" />
       </Box>
@@ -151,61 +190,15 @@ export default function UploadPage() {
         )}
       </Box>
       <Box>
-        <Box
-          sx={{
-            display: 'flex',
-            gap: 2,
-            marginBottom: 2,
-          }}
-        >
-          <Box
-            sx={{
-              flex: 1,
-            }}
-          >
-            {rows.length > 0 && (
-              <TextField
-                placeholder="Search..."
-                size="small"
-                value={search}
-                disabled={rows.length <= 0}
-                onChange={(e) => setSearch(e.target.value)}
-                fullWidth
-              />
-            )}
-          </Box>
-          <Box
-            sx={{
-              display: 'flex',
-              gap: 1,
-            }}
-          >
-            <Button
-              variant="outlined"
-              component="label"
-              disabled={loading}
-              loading={loading}
-              startIcon={<Upload />}
-            >
-              Upload
-              <input
-                type="file"
-                hidden
-                accept=".csv"
-                onChange={handleFileChange}
-              />
-            </Button>
-            <Button
-              variant="contained"
-              color="primary"
-              disabled={!file}
-              onClick={handleUpload}
-              startIcon={<Save />}
-            >
-              Save
-            </Button>
-          </Box>
-        </Box>
+        {rows.length > 0 && (
+          <TextField
+            placeholder="Search..."
+            value={search}
+            disabled={rows.length <= 0}
+            onChange={(e) => setSearch(e.target.value)}
+            fullWidth
+          />
+        )}
         {rows.length <= 0 && (
           <Box
             sx={{
@@ -217,7 +210,7 @@ export default function UploadPage() {
             </Typography>
           </Box>
         )}
-        <TableContainer component={Paper} sx={{ maxHeight: 500 }}>
+        <TableContainer component={Paper} sx={{ maxHeight: 500, marginTop: 2 }}>
           <Table stickyHeader size="small">
             <TableHead>
               <TableRow>
