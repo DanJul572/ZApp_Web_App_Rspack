@@ -13,7 +13,7 @@
     "build": "rsbuild build",
     "dev": "rsbuild dev",
     "format": "biome check --write",
-    "lint": "biome check",
+    "check": "biome check",
     "prepare": "husky",
     "start": "rsbuild preview",
     "test": "jest",
