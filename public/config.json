@@ -13,9 +13,9 @@
   },
   "ui": {
     "palette": {
-      "mode": "light",
+      "mode": "dark",
       "primary": {
-        "main": "#6f00ffff"
+        "main": "#cb00eb"
       }
     },
     "components": {
