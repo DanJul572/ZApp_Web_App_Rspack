@@ -11,7 +11,7 @@ const Toggle = (props) => {
       <Switch
         checked={Boolean(value)}
         value={Boolean(value)}
-        onChange={() => onChange(!value)}
+        onChange={() => (!disabled ? onChange(!value) : () => {})}
         disabled={disabled}
       />
     </Box>
