@@ -1,4 +1,4 @@
-import List from '../dialog/List';
+import List from '@/components/dialog/List';
 
 const RowCustomActionDialog = (props) => {
   const {
