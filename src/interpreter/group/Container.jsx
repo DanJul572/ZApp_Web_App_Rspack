@@ -167,7 +167,7 @@ const Container = (props) => {
   if (type === EContainerType.tab.value) {
     return (
       <Tab
-        label={label}
+        labels={label}
         items={section}
         render={(childs) =>
           childs.map((component) => {

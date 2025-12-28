@@ -1,3 +1,4 @@
+import Badge from '@mui/material/Badge';
 import Box from '@mui/material/Box';
 import Tabs from '@mui/material/Tabs';
 import Typography from '@mui/material/Typography';
@@ -36,32 +37,51 @@ function a11yProps(index) {
 }
 
 const Header = (props) => {
-  const { value, setValue, label } = props;
+  const { value, setValue, labels } = props;
 
   const handleChange = (_event, newValue) => {
     setValue(newValue);
   };
 
-  if (Array.isArray(label)) {
-    return (
-      <Box
-        sx={{
-          borderBottom: 1,
-          borderColor: 'divider',
-        }}
-      >
-        <Tabs value={value} onChange={handleChange}>
-          {label &&
-            label.length > 0 &&
-            label.map((item, index) => (
-              <MuiTab key={item} label={item} {...a11yProps(index)} />
-            ))}
-        </Tabs>
-      </Box>
-    );
+  if (!Array.isArray(labels)) {
+    return <Typography>Label is not valid.</Typography>;
   }
 
-  return <Typography>Label is not valid.</Typography>;
+  return (
+    <Box
+      sx={{
+        borderBottom: 1,
+        borderColor: 'divider',
+      }}
+    >
+      <Tabs value={value} onChange={handleChange}>
+        {labels.map((item, index) => {
+          const { label, badge } = item;
+          const hasBadge = Boolean(badge);
+          const isDot = Boolean(badge?.dot);
+          return (
+            <MuiTab
+              key={label}
+              {...a11yProps(index)}
+              label={
+                hasBadge ? (
+                  <Badge
+                    color={badge.color || 'primary'}
+                    variant={isDot ? 'dot' : 'standard'}
+                    badgeContent={isDot ? null : badge.content}
+                  >
+                    {label}
+                  </Badge>
+                ) : (
+                  label
+                )
+              }
+            />
+          );
+        })}
+      </Tabs>
+    </Box>
+  );
 };
 
 const Content = (props) => {
@@ -77,13 +97,13 @@ const Content = (props) => {
 };
 
 const Tab = (props) => {
-  const { label, items, render } = props;
+  const { labels, items, render } = props;
 
   const [value, setValue] = useState(0);
 
   return (
     <Box>
-      <Header value={value} setValue={setValue} label={label} />
+      <Header value={value} setValue={setValue} labels={labels} />
       <Box padding={1}>
         <Content items={items} value={value} render={render} />
       </Box>
