@@ -5,6 +5,10 @@ import Typography from '@mui/material/Typography';
 import CodeEditor from '@uiw/react-textarea-code-editor';
 import { useState } from 'react';
 
+import '@fontsource/source-code-pro';
+import '@fontsource/source-code-pro/400.css';
+import '@fontsource/source-code-pro/400-italic.css';
+
 const Code = (props) => {
   const { label, value, onChange, disabled, withOptions } = props;
 
@@ -56,7 +60,7 @@ const Code = (props) => {
         placeholder="Write here..."
         style={{
           borderRadius: 3,
-          fontFamily: 'Consolas',
+          fontFamily: 'Source Code Pro, Consolas, monospace',
         }}
         value={value}
       />
