@@ -7,7 +7,17 @@ jest.mock('uuid', () => ({
 }));
 
 describe('Tab Component', () => {
-  const labels = ['Tab 1', 'Tab 2', 'Tab 3'];
+  const labels = [
+    {
+      label: 'Tab 1',
+    },
+    {
+      label: 'Tab 2',
+    },
+    {
+      label: 'Tab 3',
+    },
+  ];
   const items = [
     [{ id: 'c1', name: 'Component 1' }],
     [{ id: 'c2', name: 'Component 2' }],
@@ -29,10 +39,10 @@ describe('Tab Component', () => {
   });
 
   test('renders tabs and panels', () => {
-    render(<Tab label={labels} items={items} render={renderFn} />);
+    render(<Tab labels={labels} items={items} render={renderFn} />);
 
-    labels.forEach((label) => {
-      expect(screen.getByText(label)).toBeInTheDocument();
+    labels.forEach((item) => {
+      expect(screen.getByText(item.label)).toBeInTheDocument();
     });
 
     const { panel0, panel1, panel2 } = getPanels();
@@ -43,7 +53,7 @@ describe('Tab Component', () => {
   });
 
   test('switches tab on click', () => {
-    render(<Tab label={labels} items={items} render={renderFn} />);
+    render(<Tab labels={labels} items={items} render={renderFn} />);
 
     fireEvent.click(screen.getByText('Tab 2'));
 

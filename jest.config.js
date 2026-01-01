@@ -32,5 +32,6 @@ export default {
   moduleNameMapper: {
     '^@/(.*)$': '<rootDir>/src/$1',
     '^@configs/(.*)$': '<rootDir>/src/configs/$1',
+    '^@fontsource/.*$': '<rootDir>/src/__mocks__/fontsource.js',
   },
 };
