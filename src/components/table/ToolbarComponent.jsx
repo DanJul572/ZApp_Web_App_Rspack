@@ -14,19 +14,19 @@ import {
 
 const ToolBarComponent = (props) => {
   const {
-    enableSearch,
-    enableFilter,
-    enableHiding,
     enableDensityToggle,
-    enableFullScreenToggle,
     enableExport,
-    setOpenExportDialog,
+    enableFilter,
+    enableFullScreenToggle,
+    enableHiding,
+    enableSearch,
+    onExport,
     table,
   } = props;
 
   const exportButton = (
     <Tooltip arrow title="Download">
-      <IconButton color="primary" onClick={() => setOpenExportDialog(true)}>
+      <IconButton color="primary" onClick={onExport}>
         <Download />
       </IconButton>
     </Tooltip>

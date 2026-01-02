@@ -1,6 +1,6 @@
 {
   "api": {
-    "base": "https://zappserver.zcodein.com/api"
+    "base": "http://localhost:8080/api"
   },
   "app": {
     "name": "ZApp",

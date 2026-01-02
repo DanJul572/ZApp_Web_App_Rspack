@@ -2,6 +2,7 @@ import CApiUrl from '@configs/CApiUrl';
 import CModuleID from '@configs/CModuleID';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
+import { useConfig } from '@/contexts/ConfigProvider';
 import EActionType from '@/enums/EActionType';
 import { downloadJsonFile } from '@/helpers/downloadFile';
 import Alert from '@/hooks/Alert';
@@ -15,6 +16,7 @@ const Page = () => {
   const alert = Alert();
   const loader = Loader();
   const request = Request();
+  const { config } = useConfig();
 
   const actions = [
     {
@@ -72,12 +74,20 @@ const Page = () => {
     }
   };
 
+  const onExport = () => {
+    const id = 4;
+    const token = localStorage.getItem('token');
+    window.location.href = `${config.api.base}${CApiUrl.export.csv}?id=${id}&token=${token}`;
+  };
+
   return (
     <Box>
       <Typography fontSize={20} fontWeight="bold">
         Modules
       </Typography>
       <ClassicView
+        enableExport={true}
+        onExport={onExport}
         actions={actions}
         moduleID={CModuleID.modules}
         onClickRowCustomAction={onClickRowCustomAction}

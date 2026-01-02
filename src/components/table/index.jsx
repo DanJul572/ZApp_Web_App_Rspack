@@ -11,7 +11,7 @@ import dataDisplay from '@/helpers/dataDisplay';
 import Translator from '@/hooks/Translator';
 import RowCustomActionDialog from './CustomActionDialog';
 import Download from './Download';
-import ExportDialog from './ExportDialog';
+// import ExportDialog from './ExportDialog';
 import RowAction from './RowAction';
 import ToolbarAction from './ToolbarAction';
 import ToolBarComponent from './ToolbarComponent';
@@ -38,6 +38,7 @@ const Table = (props) => {
     onClickRowAction,
     onClickRowCustomAction,
     onClickToolbarAction,
+    onExport,
     onFilter,
     onSearch,
     onSelect,
@@ -60,7 +61,7 @@ const Table = (props) => {
   const [columnFilters, setColumnFilters] = useState([]);
   const [sorting, setSorting] = useState([]);
   const [rowSelection, setRowSelection] = useState([]);
-  const [openExportDialog, setOpenExportDialog] = useState(false);
+  // const [openExportDialog, setOpenExportDialog] = useState(false);
   const [openRowCustomActionDialog, setOpenRowCustomActionDialog] =
     useState(false);
   const [rowClicked, setRowClicked] = useState(null);
@@ -116,7 +117,7 @@ const Table = (props) => {
         enableDensityToggle={enableDensityToggle}
         enableFullScreenToggle={enableFullScreenToggle}
         enableExport={enableExport}
-        setOpenExportDialog={setOpenExportDialog}
+        onExport={onExport}
       />
     );
   };
@@ -217,6 +218,10 @@ const Table = (props) => {
     formattedColumns.length > 0 && (
       <Box>
         <MaterialReactTable table={table} />
+        {/*
+        |
+        | disable export dialog for now because using onExport prop
+        |
         {enableExport && (
           <ExportDialog
             table={table}
@@ -225,6 +230,7 @@ const Table = (props) => {
             setOpenExportDialog={setOpenExportDialog}
           />
         )}
+        */}
         {rowCustomAction.length > 0 && (
           <RowCustomActionDialog
             onClickRowCustomAction={onClickRowCustomAction}

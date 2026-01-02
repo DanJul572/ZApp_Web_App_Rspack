@@ -30,6 +30,9 @@ const CApiUrl = {
   file: {
     download: '/file/download',
   },
+  export: {
+    csv: '/export/csv',
+  },
 };
 
 export default CApiUrl;

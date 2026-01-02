@@ -26,7 +26,8 @@ const ClassicView = (props) => {
     setSort,
   } = TableFunction(props);
 
-  const { rowCustomAction, onClickRowCustomAction } = props;
+  const { rowCustomAction, onClickRowCustomAction, enableExport, onExport } =
+    props;
 
   if (isColumnsLoading) {
     return <ContentLoader />;
@@ -41,7 +42,7 @@ const ClassicView = (props) => {
         columnKey={columnKey}
         columns={columns}
         enableColumnResizing={true}
-        enableExport={true}
+        enableExport={enableExport}
         enableFilter={true}
         enableHiding={true}
         enablePagination={true}
@@ -54,6 +55,7 @@ const ClassicView = (props) => {
         onClickToolbarAction={onCLickToolbarAction}
         onFilter={setFilter}
         onSort={setSort}
+        onExport={onExport}
         pageIndex={0}
         rowCount={rowCount}
         rowCustomAction={rowCustomAction}
