@@ -7,7 +7,6 @@ import {
 import { useEffect, useState } from 'react';
 import EActionType from '@/enums/EActionType';
 import EInputType from '@/enums/EInputType';
-import dataDisplay from '@/helpers/dataDisplay';
 import Translator from '@/hooks/Translator';
 import RowCustomActionDialog from './CustomActionDialog';
 import Download from './Download';
@@ -84,10 +83,10 @@ const Table = (props) => {
 
   const formattedColumns = columns.map((column) => {
     column.Cell = function OrderItems({ cell }) {
-      if (column.type !== EInputType.file.value) {
-        return dataDisplay(column.type, cell.getValue());
+      if (column.type === EInputType.file.value) {
+        return <Download label={cell.getValue()} />;
       }
-      return <Download label={cell.getValue()} />;
+      return cell.getValue();
     };
     if (column.footer) {
       column.Footer = () => columnFooter(column.footer);
