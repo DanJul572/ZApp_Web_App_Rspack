@@ -5,7 +5,7 @@ import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import { useQuery } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
-import CApiUrl from '@/configs/CApiUrl';
+import { useConfig } from '@/contexts/ConfigProvider';
 import Request from '@/hooks/Request';
 
 const Dropdown = (props) => {
@@ -21,11 +21,12 @@ const Dropdown = (props) => {
   } = props;
 
   const request = Request();
+  const { config } = useConfig();
 
   const [newValue, setNewValue] = useState(!multiple ? null : []);
 
   const getOptions = async () => {
-    return await request.get(CApiUrl.common.options, { id: id }, false);
+    return await request.get(config.api.common.options, { id: id }, false);
   };
 
   const { data: requestOptions, isLoading } = useQuery({

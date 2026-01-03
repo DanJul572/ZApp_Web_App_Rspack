@@ -1,4 +1,3 @@
-import CApiUrl from '@configs/CApiUrl';
 import CFieldID from '@configs/CFieldID';
 import CModuleID from '@configs/CModuleID';
 import CreateNewFolder from '@mui/icons-material/CreateNewFolder';
@@ -25,6 +24,7 @@ import ShortText from '@/components/input/ShortText';
 import ContentLoader from '@/components/loading/ContentLoader';
 import Tree from '@/components/tree';
 import { useAlert } from '@/contexts/AlertProvider';
+import { useConfig } from '@/contexts/ConfigProvider';
 import { downloadJsonFile } from '@/helpers/downloadFile';
 import getTreeMenuJson from '@/helpers/getTreeMenuJson';
 import { readJSONFile } from '@/helpers/readFile';
@@ -38,7 +38,9 @@ const Page = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const theme = useTheme();
+
   const { setAlert } = useAlert();
+  const { config } = useConfig();
 
   const [label, setLabel] = useState(null);
   const [roleId, setRoleId] = useState([]);
@@ -57,11 +59,11 @@ const Page = () => {
 
   const onLoad = async () => {
     const body = { moduleId: CModuleID.menus, rowId: id };
-    return await request.get(CApiUrl.common.detail, body);
+    return await request.get(config.api.common.detail, body);
   };
 
   const onSave = async () => {
-    const url = id ? CApiUrl.common.update : CApiUrl.common.create;
+    const url = id ? config.api.common.update : config.api.common.create;
     const body = {
       moduleId: CModuleID.menus,
       data: {

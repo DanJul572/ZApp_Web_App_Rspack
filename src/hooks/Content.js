@@ -1,7 +1,7 @@
-import CApiUrl from '@configs/CApiUrl';
 import CModuleID from '@configs/CModuleID';
 import { useQuery } from '@tanstack/react-query';
 import { useParams } from 'react-router';
+import { useConfig } from '@/contexts/ConfigProvider';
 import { decrypt } from '@/helpers/encryption';
 import Request from './Request';
 import Translator from './Translator';
@@ -12,9 +12,11 @@ const Content = ({ isBuilder }) => {
   const request = Request();
   const translator = Translator();
 
+  const { config } = useConfig();
+
   const fetchContent = async () => {
     const param = { moduleId: CModuleID.views, rowId: params.id };
-    const res = await request.get(CApiUrl.common.detail, param);
+    const res = await request.get(config.api.common.detail, param);
     if (res) {
       return {
         content: decrypt(res.data.content),

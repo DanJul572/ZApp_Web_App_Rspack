@@ -1,10 +1,10 @@
-import CApiUrl from '@configs/CApiUrl';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import { useState } from 'react';
 import { useNavigate } from 'react-router';
 import Upload from '@/components/button/Upload';
 import { useAlert } from '@/contexts/AlertProvider';
+import { useConfig } from '@/contexts/ConfigProvider';
 import { useLoading } from '@/contexts/LoadingProvider';
 import { readJSONFile } from '@/helpers/readFile';
 import Request from '@/hooks/Request';
@@ -17,8 +17,10 @@ const Page = () => {
   const translator = Translator();
 
   const navigate = useNavigate();
+
   const { setLoading } = useLoading();
   const { setAlert } = useAlert();
+  const { config } = useConfig();
 
   const [moduleName, setModuleName] = useState(null);
   const [moduleLabel, setModuleLabel] = useState(null);
@@ -57,7 +59,7 @@ const Page = () => {
     };
 
     request
-      .post(CApiUrl.module.create, data)
+      .post(config.api.module.create, data)
       .then((res) => {
         setAlert({
           status: true,

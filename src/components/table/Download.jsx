@@ -1,7 +1,7 @@
-import CApiUrl from '@configs/CApiUrl';
 import FileDownload from '@mui/icons-material/FileDownload';
 import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
+import { useConfig } from '@/contexts/ConfigProvider';
 import { downloadFileFromBuffer } from '@/helpers/downloadFile';
 import { extractFileNames } from '@/helpers/readFile';
 import Request from '@/hooks/Request';
@@ -9,9 +9,11 @@ import Request from '@/hooks/Request';
 const Download = ({ label }) => {
   const request = Request();
 
+  const { config } = useConfig();
+
   const onDownload = () => {
     request
-      .get(CApiUrl.file.download, { name: label })
+      .get(config.api.file.download, { name: label })
       .then((res) => {
         const bufferFormat = new Uint8Array(res.data.data.data);
         downloadFileFromBuffer(

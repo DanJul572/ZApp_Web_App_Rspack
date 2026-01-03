@@ -1,8 +1,8 @@
-import CApiUrl from '@configs/CApiUrl';
 import Box from '@mui/material/Box';
 import { useQuery } from '@tanstack/react-query';
 import { useState } from 'react';
 import { useSearchParams } from 'react-router';
+import { useConfig } from '@/contexts/ConfigProvider';
 import Request from '@/hooks/Request';
 import Empty from '@/layouts/Empty';
 import Component from './component';
@@ -13,8 +13,16 @@ import TopBar from './topbar';
 
 const Page = () => {
   const [searchParams] = useSearchParams();
+  const { config } = useConfig();
 
   const request = Request();
+
+  const [content, setContent] = useState([]);
+  const [label, setLabel] = useState(null);
+  const [openPreview, setOpenPreview] = useState(false);
+  const [page, setPage] = useState(null);
+  const [selected, setSelected] = useState(null);
+  const [viewId, setViewId] = useState(null);
 
   const navigationType = {
     content: 'content',
@@ -26,15 +34,8 @@ const Page = () => {
   const activeNavigation = navigationType.content;
   const moduleId = searchParams.get('id');
 
-  const [content, setContent] = useState([]);
-  const [label, setLabel] = useState(null);
-  const [openPreview, setOpenPreview] = useState(false);
-  const [page, setPage] = useState(null);
-  const [selected, setSelected] = useState(null);
-  const [viewId, setViewId] = useState(null);
-
   const getViewOptions = async () => {
-    const response = await request.get(CApiUrl.view.options, {
+    const response = await request.get(config.api.view.options, {
       moduleId: moduleId,
     });
     if (response?.data?.length > 0) {

@@ -1,4 +1,3 @@
-import CApiUrl from '@configs/CApiUrl';
 import Close from '@mui/icons-material/Close';
 import Download from '@mui/icons-material/Download';
 import Box from '@mui/material/Box';
@@ -8,6 +7,7 @@ import { useQuery } from '@tanstack/react-query';
 import { MuiFileInput } from 'mui-file-input';
 import { useEffect } from 'react';
 import { v4 as uuidv4 } from 'uuid';
+import { useConfig } from '@/contexts/ConfigProvider';
 import { useFile } from '@/contexts/FileProvider';
 import { downloadFile } from '@/helpers/downloadFile';
 import { getFileFromBuffer } from '@/helpers/readFile';
@@ -19,7 +19,9 @@ const File = (props) => {
 
   const request = Request();
   const translator = Translator();
+
   const { file, setFile } = useFile();
+  const { config } = useConfig();
 
   const fileContent =
     file && file.length > 0 ? file.find((file) => file.name === name) : null;
@@ -69,7 +71,7 @@ const File = (props) => {
   };
 
   const getFile = async () => {
-    return await request.get(CApiUrl.file.download, { name: value });
+    return await request.get(config.api.file.download, { name: value });
   };
 
   const {

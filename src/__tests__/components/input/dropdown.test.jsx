@@ -1,7 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { fireEvent, render, screen } from '@testing-library/react';
 import Dropdown from '@/components/input/Dropdown';
-import CApiUrl from '@/configs/CApiUrl';
 import Request from '@/hooks/Request';
 
 const options = [
@@ -11,7 +10,10 @@ const options = [
 
 const config = {
   api: {
-    base: 'http://localhost:8080/api',
+    common: {
+      options: '/common/options',
+      detail: '/common/detail',
+    },
   },
 };
 
@@ -136,7 +138,7 @@ describe('Dropdown Input Component', () => {
     render(<Dropdown label="Test" id="abc" value="" onChange={() => {}} />);
 
     expect(mockedGet).toHaveBeenCalledWith(
-      CApiUrl.common.options,
+      config.api.common.options,
       { id: 'abc' },
       false,
     );

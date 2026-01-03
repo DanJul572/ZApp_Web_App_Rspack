@@ -18,6 +18,14 @@ const setFileMock = jest.fn((updater) => {
   }
 });
 
+const config = {
+  api: {
+    file: {
+      download: '/file/download',
+    },
+  },
+};
+
 jest.mock('@/contexts/FileProvider', () => ({
   useFile: jest.fn(),
 }));
@@ -64,6 +72,14 @@ jest.mock('@tanstack/react-query', () => ({
 
 jest.mock('@/helpers/readFile', () => ({
   getFileFromBuffer: jest.fn(),
+}));
+
+jest.mock('@/contexts/ConfigProvider', () => ({
+  useConfig: () => {
+    return {
+      config: config,
+    };
+  },
 }));
 
 describe('File Input Component', () => {

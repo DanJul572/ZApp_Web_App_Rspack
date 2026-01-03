@@ -1,4 +1,3 @@
-import CApiUrl from '@configs/CApiUrl';
 import CModuleID from '@configs/CModuleID';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
@@ -25,7 +24,7 @@ const Page = () => {
     },
     {
       type: EActionType.delete.value,
-      api: CApiUrl.module.delete,
+      api: config.api.module.delete,
     },
   ];
 
@@ -45,7 +44,7 @@ const Page = () => {
     };
 
     request
-      .get(CApiUrl.field.rows, param)
+      .get(config.api.field.rows, param)
       .then((res) => {
         const reformatModule = { ...module };
         reformatModule.createdAt = undefined;
@@ -77,7 +76,7 @@ const Page = () => {
   const onExport = () => {
     const id = 4;
     const token = localStorage.getItem('token');
-    window.location.href = `${config.api.base}${CApiUrl.export.csv}?id=${id}&token=${token}`;
+    window.location.href = `${config.api.base}${config.api.export.csv}?id=${id}&token=${token}`;
   };
 
   return (

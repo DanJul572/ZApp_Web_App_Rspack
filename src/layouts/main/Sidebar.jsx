@@ -1,4 +1,3 @@
-import CApiUrl from '@configs/CApiUrl';
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 import CircularProgress from '@mui/material/CircularProgress';
@@ -7,6 +6,7 @@ import { useQuery } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
 import Tree from '@/components/tree';
+import { useConfig } from '@/contexts/ConfigProvider';
 import getTreeMenuJson from '@/helpers/getTreeMenuJson';
 import Request from '@/hooks/Request';
 
@@ -40,6 +40,7 @@ const NotFound = ({ isEmpty }) => {
 const Sidebar = () => {
   const navigate = useNavigate();
   const request = Request();
+  const { config } = useConfig();
 
   const [tree, setTree] = useState([]);
 
@@ -52,7 +53,7 @@ const Sidebar = () => {
   };
 
   const onLoad = async () => {
-    return await request.get(CApiUrl.common.menu);
+    return await request.get(config.api.common.menu);
   };
 
   const {

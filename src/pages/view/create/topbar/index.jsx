@@ -1,4 +1,3 @@
-import CApiUrl from '@configs/CApiUrl';
 import CModuleID from '@configs/CModuleID';
 import ArrowBack from '@mui/icons-material/ArrowBack';
 import Delete from '@mui/icons-material/Delete';
@@ -20,6 +19,7 @@ import { useNavigate } from 'react-router';
 import Upload from '@/components/button/Upload';
 import Confirm from '@/components/dialog/Confirm';
 import List from '@/components/dialog/List';
+import { useConfig } from '@/contexts/ConfigProvider';
 import { useLoading } from '@/contexts/LoadingProvider';
 import { useToast } from '@/contexts/ToastProvider';
 import EActionType from '@/enums/EActionType';
@@ -52,9 +52,11 @@ const TopBar = (props) => {
   const translator = Translator();
 
   const navigate = useNavigate();
+  const theme = useTheme();
+
   const { setLoading } = useLoading();
   const { setToast } = useToast();
-  const theme = useTheme();
+  const { config } = useConfig();
 
   const generateTypeList = [EActionType.insert, EActionType.update];
   const hasContent = content && content.length > 0;
@@ -75,7 +77,7 @@ const TopBar = (props) => {
     const param = { moduleId: moduleId };
 
     request
-      .get(CApiUrl.module.detail, param)
+      .get(config.api.module.detail, param)
       .then((res) => {
         const content = generateContent(res, type);
         setContent(content);
@@ -102,7 +104,7 @@ const TopBar = (props) => {
   const onSave = () => {
     setLoading(true);
 
-    const url = viewId ? CApiUrl.common.update : CApiUrl.common.create;
+    const url = viewId ? config.api.common.update : config.api.common.create;
     const body = {
       moduleId: CModuleID.views,
       data: {
@@ -135,7 +137,7 @@ const TopBar = (props) => {
     const param = { moduleId: CModuleID.views, rowId: viewId };
 
     request
-      .get(CApiUrl.common.detail, param)
+      .get(config.api.common.detail, param)
       .then((res) => {
         const content = decrypt(res.data.content);
         const page = res.data.page ? decrypt(res.data.page) : null;
@@ -153,7 +155,7 @@ const TopBar = (props) => {
     if (confirm) {
       const body = { moduleId: CModuleID.views, id: viewId };
       request
-        .post(CApiUrl.common.delete, body)
+        .post(config.api.common.delete, body)
         .then(() => {
           clearContent();
           getViewOptions();

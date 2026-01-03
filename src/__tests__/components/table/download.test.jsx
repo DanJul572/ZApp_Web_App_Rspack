@@ -1,20 +1,40 @@
 import { fireEvent, render, waitFor } from '@testing-library/react';
 import Download from '@/components/table/Download';
 
-jest.mock('@configs/CApiUrl', () => ({
-  file: { download: '/api/download' },
+const config = {
+  api: {
+    base: 'http://localhost:8080/api',
+    file: {
+      download: '/api/download',
+    },
+  },
+};
+
+jest.mock('@/contexts/ConfigProvider', () => ({
+  useConfig: jest.fn(),
 }));
+
 jest.mock('@/helpers/downloadFile', () => ({
   downloadFileFromBuffer: jest.fn(),
 }));
+
 jest.mock('@/helpers/readFile', () => ({
   extractFileNames: jest.fn((label) => `extracted-${label}`),
 }));
+
 jest.mock('@/hooks/Request', () => {
   return jest.fn(() => ({
     get: jest.fn(),
   }));
 });
+
+jest.mock('@/contexts/ConfigProvider', () => ({
+  useConfig: () => {
+    return {
+      config: config,
+    };
+  },
+}));
 
 const mockRequest = require('@/hooks/Request');
 const mockDownloadFileFromBuffer =
@@ -80,7 +100,7 @@ describe('Download Table Component', () => {
     fireEvent.click(getByRole('button'));
 
     await waitFor(() => {
-      expect(mockGet).toHaveBeenCalledWith('/api/download', {
+      expect(mockGet).toHaveBeenCalledWith(config.api.file.download, {
         name: 'test-file.pdf',
       });
       expect(consoleSpy).toHaveBeenCalledWith(mockError);

@@ -1,9 +1,10 @@
-import CApiUrl from '@configs/CApiUrl';
 import { useQuery } from '@tanstack/react-query';
+import { useConfig } from '@/contexts/ConfigProvider';
 import Request from './Request';
 
 const Script = ({ id }) => {
   const request = Request();
+  const { config } = useConfig();
 
   const {
     data: response,
@@ -11,7 +12,7 @@ const Script = ({ id }) => {
     error,
   } = useQuery({
     queryKey: ['script-run', id],
-    queryFn: () => request.get(CApiUrl.script.run, { id }),
+    queryFn: () => request.get(config.api.script.run, { id }),
     enabled: !!id,
     retry: 0,
   });

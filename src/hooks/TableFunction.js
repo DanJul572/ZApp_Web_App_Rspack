@@ -1,8 +1,8 @@
-import CApiUrl from '@configs/CApiUrl';
 import { useQuery } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
 import { useAlert } from '@/contexts/AlertProvider';
+import { useConfig } from '@/contexts/ConfigProvider';
 import { useLoading } from '@/contexts/LoadingProvider';
 import EActionType from '@/enums/EActionType';
 import Request from '@/hooks/Request';
@@ -11,9 +11,12 @@ const TableFunction = (props) => {
   const { moduleID, actions, isBuilder, defaultFilter } = props;
 
   const request = Request();
-  const navigate = useNavigate();
+
   const { setAlert } = useAlert();
   const { setLoading } = useLoading();
+  const { config } = useConfig();
+
+  const navigate = useNavigate();
 
   const [page, setPage] = useState(1);
   const [filter, setFilter] = useState([]);
@@ -23,7 +26,7 @@ const TableFunction = (props) => {
   const [columnKey, setColumnKey] = useState(null);
 
   const getColumns = async () => {
-    return await request.get(CApiUrl.common.columns, { id: moduleID });
+    return await request.get(config.api.common.columns, { id: moduleID });
   };
 
   const { data: columns, isLoading: isColumnsLoading } = useQuery({
@@ -41,7 +44,7 @@ const TableFunction = (props) => {
       sort,
       defaultFilter: defaultFilter || [],
     };
-    return await request.post(CApiUrl.common.rows, body);
+    return await request.post(config.api.common.rows, body);
   };
 
   const {
@@ -67,7 +70,7 @@ const TableFunction = (props) => {
       id: selectedRow[columnKey],
     };
     const action = actions.find((a) => a.type === EActionType.delete.value);
-    const url = action?.api || CApiUrl.common.delete;
+    const url = action?.api || config.api.common.delete;
 
     request
       .post(url, body)

@@ -1,4 +1,3 @@
-import CApiUrl from '@configs/CApiUrl';
 import CFieldID from '@configs/CFieldID';
 import { ArrowBack } from '@mui/icons-material';
 import { Card, useTheme } from '@mui/material';
@@ -11,6 +10,7 @@ import { Link, useNavigate } from 'react-router';
 import Dropdown from '@/components/input/Dropdown';
 import Password from '@/components/input/Password';
 import ShortText from '@/components/input/ShortText';
+import { useConfig } from '@/contexts/ConfigProvider';
 import { useToast } from '@/contexts/ToastProvider';
 import Request from '@/hooks/Request';
 import Translator from '@/hooks/Translator';
@@ -21,7 +21,9 @@ const Page = () => {
   const translator = Translator();
 
   const navigate = useNavigate();
+
   const { setToast } = useToast();
+  const { config } = useConfig();
 
   const [formData, setFormData] = useState({
     name: '',
@@ -46,7 +48,7 @@ const Page = () => {
       roleId: formData.roleId,
     };
 
-    return await request.post(CApiUrl.auth.register, body, false);
+    return await request.post(config.api.auth.register, body, false);
   };
 
   const mutation = useMutation({

@@ -1,4 +1,3 @@
-import CApiUrl from '@configs/CApiUrl';
 import { ArrowBack } from '@mui/icons-material';
 import { useTheme } from '@mui/material';
 import Box from '@mui/material/Box';
@@ -10,6 +9,7 @@ import { useState } from 'react';
 import { Link, useNavigate } from 'react-router';
 import Password from '@/components/input/Password';
 import ShortText from '@/components/input/ShortText';
+import { useConfig } from '@/contexts/ConfigProvider';
 import { useExpandedMenu } from '@/contexts/ExpandedMenuProvider';
 import { useToast } from '@/contexts/ToastProvider';
 import handleError from '@/helpers/handleError';
@@ -20,18 +20,20 @@ const Page = () => {
   const theme = useTheme();
 
   const navigate = useNavigate();
-  const request = Request();
-  const translator = Translator();
 
   const { setExpandedMenu } = useExpandedMenu();
   const { setToast } = useToast();
+  const { config } = useConfig();
+
+  const request = Request();
+  const translator = Translator();
 
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
 
   const onLogin = async () => {
     const body = { email: email, password: password };
-    return await request.post(CApiUrl.auth.login, body, false);
+    return await request.post(config.api.auth.login, body, false);
   };
 
   const mutation = useMutation({
