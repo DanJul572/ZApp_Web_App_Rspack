@@ -8,7 +8,7 @@ const NonAuthenticatedGuard = ({ children }) => {
   const { user, isReady } = useAuth();
 
   useEffect(() => {
-    if (user && !isReady) {
+    if (user && isReady) {
       navigate(user.afterLogin, { replace: true });
     }
   }, [user, isReady]);

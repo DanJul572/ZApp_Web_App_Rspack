@@ -1,6 +1,7 @@
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { createContext, useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
+import { clearLocalStorage } from '@/helpers/clearLocalStorage';
 import Request from '@/hooks/Request';
 import { useConfig } from './ConfigProvider';
 
@@ -29,7 +30,7 @@ export const AuthProvider = ({ children }) => {
     mutationKey: ['auth-logout'],
     onSuccess: () => {
       setUser(null);
-      localStorage.removeItem('tree');
+      clearLocalStorage();
       navigate('/login', { replace: true });
     },
   });
@@ -45,11 +46,11 @@ export const AuthProvider = ({ children }) => {
   const value = {
     isAuthenticated: !!user,
     isLoading,
+    isReady,
     logout,
     refetch,
-    user,
     setUser,
-    isReady,
+    user,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

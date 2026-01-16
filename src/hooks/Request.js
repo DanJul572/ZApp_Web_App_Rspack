@@ -3,6 +3,7 @@ import { useEffect, useMemo } from 'react';
 import { useNavigate } from 'react-router';
 import { useConfig } from '@/contexts/ConfigProvider';
 import statusCode from '@/enums/EStatusCode';
+import { clearLocalStorage } from '@/helpers/clearLocalStorage';
 
 const Request = () => {
   const navigate = useNavigate();
@@ -31,7 +32,7 @@ const Request = () => {
 
           case statusCode.UNAUTHORIZED:
           case statusCode.FORBIDDEN:
-            localStorage.removeItem('tree');
+            clearLocalStorage();
             navigate('/login', { replace: true });
             break;
 

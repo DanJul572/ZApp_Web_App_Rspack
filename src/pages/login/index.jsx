@@ -38,12 +38,18 @@ const Page = () => {
     return await request.post(config.api.auth.login, body, false);
   };
 
+  const setLocalStorage = (data) => {
+    localStorage.setItem('expiredIn', data.expiredIn);
+    localStorage.setItem('expiredAt', data.expiredAt);
+  };
+
   const mutation = useMutation({
     mutationKey: ['submit-login'],
     mutationFn: onLogin,
     onSuccess: (res) => {
       refreshUserData().then(() => {
         setExpandedMenu([]);
+        setLocalStorage(res.data);
         navigate(res.data.afterLogin);
       });
     },

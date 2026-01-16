@@ -49,7 +49,7 @@
   },
   "ui": {
     "palette": {
-      "mode": "dark",
+      "mode": "light",
       "primary": {
         "main": "#cb00eb"
       }
