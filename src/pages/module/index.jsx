@@ -75,8 +75,7 @@ const Page = () => {
 
   const onExport = () => {
     const id = 4;
-    const token = localStorage.getItem('token');
-    window.location.href = `${config.api.base}${config.api.export.csv}?id=${id}&token=${token}`;
+    window.location.href = `${config.api.base}${config.api.export.csv}?id=${id}`;
   };
 
   return (

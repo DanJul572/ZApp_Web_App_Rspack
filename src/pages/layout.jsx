@@ -1,7 +1,9 @@
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Suspense, useEffect } from 'react';
+import { Outlet } from 'react-router';
 
 import { AlertProvider } from '@/contexts/AlertProvider';
+import { AuthProvider } from '@/contexts/AuthProvider';
 import { useConfig } from '@/contexts/ConfigProvider';
 import { ExpandedMenuProvider } from '@/contexts/ExpandedMenuProvider';
 import { FileProvider } from '@/contexts/FileProvider';
@@ -14,7 +16,7 @@ import { version } from '../../package.json';
 
 const queryClient = new QueryClient();
 
-export default function Layout({ children }) {
+export default function Layout() {
   const { config } = useConfig();
 
   useEffect(() => {
@@ -22,6 +24,10 @@ export default function Layout({ children }) {
       document.title = `${config.app.name} v${version}`;
     }
   }, [config]);
+
+  if (!config) {
+    return;
+  }
 
   return (
     <Suspense>
@@ -33,7 +39,11 @@ export default function Layout({ children }) {
                 <FileProvider>
                   <UIStoreProvider>
                     <JSReportProvider>
-                      <ExpandedMenuProvider>{children}</ExpandedMenuProvider>
+                      <AuthProvider>
+                        <ExpandedMenuProvider>
+                          <Outlet />
+                        </ExpandedMenuProvider>
+                      </AuthProvider>
                     </JSReportProvider>
                   </UIStoreProvider>
                 </FileProvider>

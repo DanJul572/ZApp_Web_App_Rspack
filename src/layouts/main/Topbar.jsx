@@ -3,23 +3,20 @@ import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import { useState } from 'react';
-import { useNavigate } from 'react-router';
+import { useAuth } from '@/contexts/AuthProvider';
 import { useConfig } from '@/contexts/ConfigProvider';
 import { useExpandedMenu } from '@/contexts/ExpandedMenuProvider';
-import auth from '@/helpers/auth';
-import getUserData from '@/helpers/getUserData';
 import UserOptions from './UserOptions';
 
 const Topbar = () => {
-  const navigate = useNavigate();
   const theme = useTheme();
   const { setExpandedMenu } = useExpandedMenu();
   const { config } = useConfig();
+  const { user: userData, logout: logoutMutation } = useAuth();
 
   const [anchorEl, setAnchorEl] = useState(null);
 
   const open = Boolean(anchorEl);
-  const userData = getUserData();
   const avatarLabel = userData?.userName
     ? userData.userName.trim().charAt(0).toUpperCase()
     : null;
@@ -33,11 +30,8 @@ const Topbar = () => {
   };
 
   const logout = () => {
-    auth.logout();
+    logoutMutation.mutate();
     setExpandedMenu([]);
-    navigate('/login', {
-      replace: true,
-    });
   };
 
   return (
@@ -81,6 +75,7 @@ const Topbar = () => {
         open={open}
         onClose={handleClose}
         anchorEl={anchorEl}
+        loading={logoutMutation.isPending}
         logout={logout}
       />
     </Box>

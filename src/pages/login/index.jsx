@@ -9,6 +9,7 @@ import { useState } from 'react';
 import { Link, useNavigate } from 'react-router';
 import Password from '@/components/input/Password';
 import ShortText from '@/components/input/ShortText';
+import { useAuth } from '@/contexts/AuthProvider';
 import { useConfig } from '@/contexts/ConfigProvider';
 import { useExpandedMenu } from '@/contexts/ExpandedMenuProvider';
 import { useToast } from '@/contexts/ToastProvider';
@@ -24,6 +25,7 @@ const Page = () => {
   const { setExpandedMenu } = useExpandedMenu();
   const { setToast } = useToast();
   const { config } = useConfig();
+  const { refetch: refreshUserData } = useAuth();
 
   const request = Request();
   const translator = Translator();
@@ -40,9 +42,10 @@ const Page = () => {
     mutationKey: ['submit-login'],
     mutationFn: onLogin,
     onSuccess: (res) => {
-      localStorage.setItem('token', res.data.accessToken);
-      setExpandedMenu([]);
-      navigate(res.data.afterLogin);
+      refreshUserData().then(() => {
+        setExpandedMenu([]);
+        navigate(res.data.afterLogin);
+      });
     },
     onError: (err) => {
       const errorMessage = handleError(err);

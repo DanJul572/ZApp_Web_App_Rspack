@@ -9,7 +9,7 @@ import { useId } from 'react';
 import { useNavigate } from 'react-router';
 
 const UserOptions = (props) => {
-  const { open, onClose, anchorEl, logout } = props;
+  const { open, onClose, anchorEl, loading, logout } = props;
 
   const navigate = useNavigate();
 
@@ -67,7 +67,7 @@ const UserOptions = (props) => {
         </ListItemIcon>
         Settings
       </MenuItem>
-      <MenuItem onClick={logout}>
+      <MenuItem onClick={logout} disabled={loading}>
         <ListItemIcon>
           <Logout fontSize="small" />
         </ListItemIcon>

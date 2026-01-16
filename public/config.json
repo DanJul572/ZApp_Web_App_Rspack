@@ -3,6 +3,8 @@
     "base": "http://localhost:8080/api",
     "auth": {
       "login": "/auth/login",
+      "logout": "auth/logout",
+      "me": "/auth/me",
       "register": "/auth/register"
     },
     "common": {

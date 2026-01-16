@@ -1,16 +1,17 @@
 import { useEffect } from 'react';
-import { useLocation, useNavigate } from 'react-router';
+import { useNavigate } from 'react-router';
+import { useAuth } from '@/contexts/AuthProvider';
 
 const AuthenticatedGuard = ({ children }) => {
   const navigate = useNavigate();
-  const location = useLocation();
+
+  const { user, isReady } = useAuth();
 
   useEffect(() => {
-    const token = localStorage.getItem('token');
-    if (!token) {
+    if (!user && isReady) {
       navigate('/login', { replace: true });
     }
-  }, [navigate, location]);
+  }, [user, isReady]);
 
   return <>{children}</>;
 };
