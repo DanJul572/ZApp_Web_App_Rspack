@@ -3,7 +3,6 @@ import { useEffect, useMemo } from 'react';
 import { useNavigate } from 'react-router';
 import { useConfig } from '@/contexts/ConfigProvider';
 import statusCode from '@/enums/EStatusCode';
-import auth from '@/helpers/auth';
 
 const Request = () => {
   const navigate = useNavigate();
@@ -32,7 +31,7 @@ const Request = () => {
 
           case statusCode.UNAUTHORIZED:
           case statusCode.FORBIDDEN:
-            auth.logout();
+            localStorage.removeItem('tree');
             navigate('/login', { replace: true });
             break;
 
