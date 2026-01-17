@@ -12,6 +12,7 @@ import { JSReportProvider } from '@/contexts/JSReport';
 import { LoadingProvider } from '@/contexts/LoadingProvider';
 import { ToastProvider } from '@/contexts/ToastProvider';
 import { UIStoreProvider } from '@/contexts/UIStoreProvider';
+import { UserDataProvider } from '@/contexts/UserDataProvider';
 import { version } from '../../package.json';
 
 const queryClient = new QueryClient();
@@ -32,25 +33,27 @@ export default function Layout() {
   return (
     <Suspense>
       <QueryClientProvider client={queryClient}>
-        <LoadingProvider>
-          <AlertProvider>
-            <ToastProvider>
-              <FormDataProvider>
-                <FileProvider>
-                  <UIStoreProvider>
-                    <JSReportProvider>
-                      <AuthProvider>
-                        <ExpandedMenuProvider>
-                          <Outlet />
-                        </ExpandedMenuProvider>
-                      </AuthProvider>
-                    </JSReportProvider>
-                  </UIStoreProvider>
-                </FileProvider>
-              </FormDataProvider>
-            </ToastProvider>
-          </AlertProvider>
-        </LoadingProvider>
+        <UserDataProvider>
+          <LoadingProvider>
+            <AlertProvider>
+              <ToastProvider>
+                <FormDataProvider>
+                  <FileProvider>
+                    <UIStoreProvider>
+                      <JSReportProvider>
+                        <AuthProvider>
+                          <ExpandedMenuProvider>
+                            <Outlet />
+                          </ExpandedMenuProvider>
+                        </AuthProvider>
+                      </JSReportProvider>
+                    </UIStoreProvider>
+                  </FileProvider>
+                </FormDataProvider>
+              </ToastProvider>
+            </AlertProvider>
+          </LoadingProvider>
+        </UserDataProvider>
       </QueryClientProvider>
     </Suspense>
   );

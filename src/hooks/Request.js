@@ -2,12 +2,15 @@ import axios from 'axios';
 import { useEffect, useMemo } from 'react';
 import { useNavigate } from 'react-router';
 import { useConfig } from '@/contexts/ConfigProvider';
+import { useUserData } from '@/contexts/UserDataProvider';
 import statusCode from '@/enums/EStatusCode';
 import { clearLocalStorage } from '@/helpers/clearLocalStorage';
 
 const Request = () => {
   const navigate = useNavigate();
   const { config } = useConfig();
+
+  const { setUserData } = useUserData();
 
   const api = useMemo(() => {
     return axios.create({
@@ -23,7 +26,7 @@ const Request = () => {
     const responseInterceptor = api.interceptors.response.use(
       (response) => response,
       (error) => {
-        const status = error.response.status;
+        const status = error?.status;
 
         switch (status) {
           case statusCode.INTERNAL_SERVER_ERROR:
@@ -33,6 +36,7 @@ const Request = () => {
           case statusCode.UNAUTHORIZED:
           case statusCode.FORBIDDEN:
             clearLocalStorage();
+            setUserData(null);
             navigate('/login', { replace: true });
             break;
 

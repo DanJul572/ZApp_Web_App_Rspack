@@ -6,13 +6,15 @@ import { useState } from 'react';
 import { useAuth } from '@/contexts/AuthProvider';
 import { useConfig } from '@/contexts/ConfigProvider';
 import { useExpandedMenu } from '@/contexts/ExpandedMenuProvider';
+import { useUserData } from '@/contexts/UserDataProvider';
 import UserOptions from './UserOptions';
 
 const Topbar = () => {
   const theme = useTheme();
-  const { setExpandedMenu } = useExpandedMenu();
   const { config } = useConfig();
-  const { user: userData, logout: logoutMutation } = useAuth();
+  const { logout: logoutMutation } = useAuth();
+  const { setExpandedMenu } = useExpandedMenu();
+  const { userData } = useUserData();
 
   const [anchorEl, setAnchorEl] = useState(null);
 

@@ -7,6 +7,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
 import Tree from '@/components/tree';
 import { useConfig } from '@/contexts/ConfigProvider';
+import { useUserData } from '@/contexts/UserDataProvider';
 import getTreeMenuJson from '@/helpers/getTreeMenuJson';
 import Request from '@/hooks/Request';
 
@@ -41,6 +42,7 @@ const Sidebar = () => {
   const navigate = useNavigate();
   const request = Request();
   const { config } = useConfig();
+  const { userData } = useUserData();
 
   const [tree, setTree] = useState([]);
 
@@ -58,13 +60,13 @@ const Sidebar = () => {
 
   const {
     data: response,
-    isLoading,
     error,
     isError,
+    isLoading,
   } = useQuery({
     queryKey: ['sidebar'],
     queryFn: onLoad,
-    enabled: !treeJSON.length,
+    enabled: !treeJSON.length && !!userData,
   });
 
   useEffect(() => {

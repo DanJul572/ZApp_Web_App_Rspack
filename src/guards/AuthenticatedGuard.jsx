@@ -1,17 +1,17 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router';
-import { useAuth } from '@/contexts/AuthProvider';
+import { useUserData } from '@/contexts/UserDataProvider';
 
 const AuthenticatedGuard = ({ children }) => {
   const navigate = useNavigate();
 
-  const { user, isReady } = useAuth();
+  const { userData } = useUserData();
 
   useEffect(() => {
-    if (!user && isReady) {
+    if (!userData) {
       navigate('/login', { replace: true });
     }
-  }, [user, isReady]);
+  }, [userData]);
 
   return <>{children}</>;
 };

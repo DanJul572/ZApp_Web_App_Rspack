@@ -55,7 +55,6 @@
     "jspdf-autotable": "^5.0.7",
     "material-react-table": "^3.2.1",
     "mui-file-input": "^7.0.0",
-    "papaparse": "^5.5.3",
     "prop-types": "^15.8.1",
     "react": "^19.2.3",
     "react-dom": "^19.2.3",
