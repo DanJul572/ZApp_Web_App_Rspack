@@ -24,7 +24,7 @@ const File = (props) => {
   const { config } = useConfig();
 
   const fileContent =
-    file && file.length > 0 ? file.find((file) => file.name === name) : null;
+    file && file.length > 0 ? file.find((file) => file.id === name) : null;
 
   const handleChange = (file) => {
     if (file) {

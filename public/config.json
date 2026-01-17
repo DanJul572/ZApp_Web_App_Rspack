@@ -36,6 +36,9 @@
     },
     "export": {
       "csv": "/export/csv"
+    },
+    "import": {
+      "excel": "/import/excel"
     }
   },
   "app": {

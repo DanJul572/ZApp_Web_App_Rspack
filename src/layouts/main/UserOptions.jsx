@@ -9,7 +9,7 @@ import MenuItem from '@mui/material/MenuItem';
 import Typography from '@mui/material/Typography';
 import { useId } from 'react';
 import { useNavigate } from 'react-router';
-import { useAuth } from '@/contexts/AuthProvider';
+import { useUserData } from '@/contexts/UserDataProvider';
 import CountdownSession from '@/hooks/CountdownSession';
 
 const UserOptions = (props) => {
@@ -17,7 +17,7 @@ const UserOptions = (props) => {
 
   const timeLeft = CountdownSession();
 
-  const { user } = useAuth();
+  const { userData } = useUserData();
 
   const navigate = useNavigate();
 
@@ -64,7 +64,7 @@ const UserOptions = (props) => {
       <MenuItem onClick={onClose}>
         <Avatar />
         <Box>
-          <Typography variant="subtitle1">{user?.userName}</Typography>
+          <Typography variant="subtitle1">{userData?.userName}</Typography>
           <Typography variant="caption">{timeLeft}</Typography>
         </Box>
       </MenuItem>

@@ -5,6 +5,9 @@ const CFieldID = {
   users: {
     roleId: 59,
   },
+  files: {
+    moduleId: 37,
+  },
 };
 
 export default CFieldID;
