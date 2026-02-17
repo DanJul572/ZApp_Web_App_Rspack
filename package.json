@@ -51,7 +51,7 @@
     "dayjs": "^1.11.19",
     "export-to-csv": "^1.4.0",
     "express-rate-limit": "^8.2.1",
-    "i18next": "^25.8.7",
+    "i18next": "^25.8.10",
     "jspdf": "^4.1.0",
     "jspdf-autotable": "^5.0.7",
     "material-react-table": "^3.2.1",
@@ -64,7 +64,7 @@
     "uuid": "^13.0.0"
   },
   "devDependencies": {
-    "@biomejs/biome": "^2.3.15",
+    "@biomejs/biome": "^2.4.2",
     "@rsbuild/core": "^1.7.3",
     "@rsbuild/plugin-react": "^1.4.5",
     "@swc/core": "^1.15.11",
