@@ -14,7 +14,7 @@ import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
 import { useMutation, useQuery } from '@tanstack/react-query';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router';
 import { v4 as uuidv4 } from 'uuid';
 import Upload from '@/components/button/Upload';
@@ -54,6 +54,15 @@ const Page = () => {
     child: [],
   });
 
+  // Ref to hold the latest activeMenu for use inside debounced callbacks
+  const activeMenuRef = useRef(activeMenu);
+  useEffect(() => {
+    activeMenuRef.current = activeMenu;
+  }, [activeMenu]);
+
+  // Debounce timer ref for changeMenuValue
+  const debounceTimer = useRef(null);
+
   const id = searchParams.get('id');
   const actionType = { add: 1, edit: 2, delete: 3, up: 4, down: 5 };
 
@@ -85,60 +94,74 @@ const Page = () => {
     return { id: uuidv4(), label: 'New Item', url: '', icon: null };
   };
 
-  const changeMenuItem = (menu, type, itemParam = null) => {
-    if (activeMenu.id) {
-      for (let x = 0; x < menu.length; x++) {
-        const item = menu[x];
-        if (item.id === activeMenu.id) {
-          const newItem = {
-            id: activeMenu.id,
-            label: activeMenu.label,
-            url: activeMenu.url,
-            icon: activeMenu.icon,
-          };
+  const changeMenuItem = useCallback(
+    (menu, type, itemParam = null, latestActiveMenu = null) => {
+      const current = latestActiveMenu ?? activeMenuRef.current;
+      if (current.id) {
+        for (let x = 0; x < menu.length; x++) {
+          const item = menu[x];
+          if (item.id === current.id) {
+            const newItem = {
+              id: current.id,
+              label: current.label,
+              url: current.url,
+              icon: current.icon,
+            };
+            if (item.child && item.child.length > 0) {
+              newItem.child = item.child;
+            }
+            if (type === actionType.edit) {
+              menu.splice(x, 1, newItem);
+            } else if (type === actionType.add) {
+              if (!item.child) {
+                item.child = [];
+              }
+              item.child.push(itemParam);
+            } else if (type === actionType.up) {
+              if (x > 0) {
+                [menu[x], menu[x - 1]] = [menu[x - 1], menu[x]];
+              }
+            } else if (type === actionType.down) {
+              if (x < menu.length - 1) {
+                [menu[x], menu[x + 1]] = [menu[x + 1], menu[x]];
+              }
+            } else {
+              menu.splice(x, 1);
+            }
+            return menu;
+          }
           if (item.child && item.child.length > 0) {
-            newItem.child = item.child;
+            changeMenuItem(item.child, type, itemParam, current);
           }
-          if (type === actionType.edit) {
-            menu.splice(x, 1, newItem);
-          } else if (type === actionType.add) {
-            if (!item.child) {
-              item.child = [];
-            }
-            item.child.push(itemParam);
-          } else if (type === actionType.up) {
-            if (x > 0) {
-              [menu[x], menu[x - 1]] = [menu[x - 1], menu[x]];
-            }
-          } else if (type === actionType.down) {
-            if (x < menu.length - 1) {
-              [menu[x], menu[x + 1]] = [menu[x + 1], menu[x]];
-            }
-          } else {
-            menu.splice(x, 1);
-          }
-          return menu;
-        }
-        if (item.child && item.child.length > 0) {
-          changeMenuItem(item.child, type, itemParam);
         }
       }
-    }
-    return menu;
-  };
+      return menu;
+    },
+    [actionType.add, actionType.down, actionType.edit, actionType.up],
+  );
 
   const changeMenuValue = (key, value) => {
-    if (key === 'icon' && value === activeMenu.icon) {
-      setActiveMenu((prev) => ({
+    // Update activeMenu state immediately so the UI stays responsive
+    setActiveMenu((prev) => {
+      const updated = {
         ...prev,
-        [key]: null,
-      }));
-    } else {
-      setActiveMenu((prev) => ({
-        ...prev,
-        [key]: value,
-      }));
+        [key]: key === 'icon' && value === prev.icon ? null : value,
+      };
+      // Keep ref in sync right away so the debounced onEdit uses latest values
+      activeMenuRef.current = updated;
+      return updated;
+    });
+
+    // Debounce the tree update by 500ms
+    if (debounceTimer.current) {
+      clearTimeout(debounceTimer.current);
     }
+    debounceTimer.current = setTimeout(() => {
+      setTree((prevTree) => {
+        const result = changeMenuItem([...prevTree], actionType.edit);
+        return result;
+      });
+    }, 500);
   };
 
   const onClick = (menu) => {
@@ -146,8 +169,15 @@ const Page = () => {
   };
 
   const onEdit = () => {
-    const result = changeMenuItem([...tree], actionType.edit);
-    setTree(result);
+    // Clear any pending debounce and apply immediately on blur
+    if (debounceTimer.current) {
+      clearTimeout(debounceTimer.current);
+      debounceTimer.current = null;
+    }
+    setTree((prevTree) => {
+      const result = changeMenuItem([...prevTree], actionType.edit);
+      return result;
+    });
   };
 
   const onAddRootMenu = () => {
@@ -243,6 +273,15 @@ const Page = () => {
       setAlert({ status: true, type: 'error', message: treeError });
     }
   }, [treeIsError]);
+
+  // Cleanup debounce timer on unmount
+  useEffect(() => {
+    return () => {
+      if (debounceTimer.current) {
+        clearTimeout(debounceTimer.current);
+      }
+    };
+  }, []);
 
   if (treeLoading) {
     return <ContentLoader />;
