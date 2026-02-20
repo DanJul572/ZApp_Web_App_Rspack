@@ -78,7 +78,7 @@ const Page = () => {
       body.rowId = id;
     }
 
-    return request.post(url, body);
+    return request.post(url, body, [], false);
   };
 
   const generateNewMenu = () => {

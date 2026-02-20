@@ -118,7 +118,7 @@ const TopBar = (props) => {
     if (viewId) body.rowId = viewId;
 
     request
-      .post(url, body)
+      .post(url, body, [], false)
       .then((res) => {
         setToast({ status: true, type: 'success', message: res.message });
         if (!viewId) {

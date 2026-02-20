@@ -58,10 +58,8 @@ const Request = () => {
     return data;
   };
 
-  const post = async (url, body, files = []) => {
-    const hasFiles = Array.isArray(files) && files.length > 0;
-
-    if (hasFiles) {
+  const post = async (url, body, files = [], isJsonBody = true) => {
+    if (!isJsonBody) {
       const formData = new FormData();
 
       files.forEach((file) => {

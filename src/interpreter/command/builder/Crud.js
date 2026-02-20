@@ -9,11 +9,11 @@ const Crud = () => {
   const { config } = useConfig();
 
   const create = (body) => {
-    return request.post(config.api.common.create, body, true, file);
+    return request.post(config.api.common.create, body, file);
   };
 
   const update = (body) => {
-    return request.post(config.api.common.update, body, true, file);
+    return request.post(config.api.common.update, body, file);
   };
 
   const detail = (param) => {
