@@ -35,7 +35,7 @@ const Page = () => {
 
   const onLogin = async () => {
     const body = { email: email, password: password };
-    return await request.post(config.api.auth.login, body, false);
+    return await request.post(config.api.auth.login, body);
   };
 
   const setLocalStorage = (data) => {

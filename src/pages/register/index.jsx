@@ -48,7 +48,7 @@ const Page = () => {
       roleId: formData.roleId,
     };
 
-    return await request.post(config.api.auth.register, body, false);
+    return await request.post(config.api.auth.register, body);
   };
 
   const mutation = useMutation({

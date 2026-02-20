@@ -59,18 +59,33 @@ const Request = () => {
   };
 
   const post = async (url, body, files = []) => {
-    const formData = new FormData();
+    const hasFiles = Array.isArray(files) && files.length > 0;
 
-    if (files.length) {
-      files?.forEach((file) => {
+    if (hasFiles) {
+      const formData = new FormData();
+
+      files.forEach((file) => {
         formData.append('files', file.file, file.id);
       });
+
+      formData.append('data', JSON.stringify(body));
+
+      const { data } = await api.post(url, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+
+      return data;
+    } else {
+      const { data } = await api.post(url, body, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      return data;
     }
-
-    formData.append('data', JSON.stringify(body));
-
-    const { data } = await api.post(url, formData);
-    return data;
   };
 
   return { get, post };

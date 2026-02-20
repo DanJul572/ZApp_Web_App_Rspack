@@ -26,7 +26,7 @@ const Dropdown = (props) => {
   const [newValue, setNewValue] = useState(!multiple ? null : []);
 
   const getOptions = async () => {
-    return await request.get(config.api.common.options, { id: id }, false);
+    return await request.get(config.api.common.options, { id: id });
   };
 
   const { data: requestOptions, isLoading } = useQuery({
