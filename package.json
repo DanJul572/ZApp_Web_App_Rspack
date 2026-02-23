@@ -60,7 +60,7 @@
     "react": "^19.2.4",
     "react-dom": "^19.2.4",
     "react-email-editor": "^1.7.11",
-    "react-router": "^7.13.0",
+    "react-router": "^7.13.1",
     "react-virtualized": "^9.22.6",
     "uuid": "^13.0.0"
   },
@@ -68,7 +68,7 @@
     "@biomejs/biome": "^2.4.4",
     "@rsbuild/core": "^1.7.3",
     "@rsbuild/plugin-react": "^1.4.5",
-    "@swc/core": "^1.15.11",
+    "@swc/core": "^1.15.13",
     "@swc/jest": "^0.2.39",
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^16.3.2",
