@@ -97,7 +97,7 @@ const EmailBuilder = () => {
   const mutation = useMutation({
     mutationFn: saveEmailTemplate,
     mutationKey: ['save-email-template'],
-    onSuccess: (res) => {
+    onSuccess: () => {
       toaster.showSuccessToast('Email template saved successfully');
     },
     onError: (err) => {
