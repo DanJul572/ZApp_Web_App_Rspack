@@ -1,3 +1,4 @@
+import { PeopleAlt } from '@mui/icons-material';
 import AttachFileIcon from '@mui/icons-material/AttachFile';
 import CloseIcon from '@mui/icons-material/Close';
 import CodeIcon from '@mui/icons-material/Code';
@@ -5,7 +6,6 @@ import DataObjectIcon from '@mui/icons-material/DataObject';
 import EmailIcon from '@mui/icons-material/Email';
 import EventRepeatIcon from '@mui/icons-material/EventRepeat';
 import LayersIcon from '@mui/icons-material/Layers';
-import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
 import PreviewIcon from '@mui/icons-material/Preview';
 import SettingsIcon from '@mui/icons-material/Settings';
 import Box from '@mui/material/Box';
@@ -15,13 +15,17 @@ import Chip from '@mui/material/Chip';
 import Divider from '@mui/material/Divider';
 import Stack from '@mui/material/Stack';
 import Switch from '@mui/material/Switch';
-import TextField from '@mui/material/TextField';
 import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
+import { useMutation } from '@tanstack/react-query';
 import { MuiFileInput } from 'mui-file-input';
 import { useRef, useState } from 'react';
 import EmailEditor from 'react-email-editor';
-
+import LongText from '@/components/input/LongText';
+import ShortText from '@/components/input/ShortText';
+import { useConfig } from '@/contexts/ConfigProvider';
+import Request from '@/hooks/Request';
+import Toaster from '@/hooks/Toaster';
 import CcBccDrawer from './components/CcBccDrawer';
 import EmailSettingsDrawer from './components/EmailSettingsDrawer';
 import MergeTagsDrawer from './components/MergeTagsDrawer';
@@ -36,6 +40,10 @@ const EmailBuilder = () => {
 
   const request = Request();
   const { config } = useConfig();
+  const toaster = Toaster();
+
+  const [emailName, setEmailName] = useState('');
+  const [emailDescription, setEmailDescription] = useState('');
 
   const [previewHtml, setPreviewHtml] = useState('');
 
@@ -90,10 +98,10 @@ const EmailBuilder = () => {
     mutationFn: saveEmailTemplate,
     mutationKey: ['save-email-template'],
     onSuccess: (res) => {
-      console.log(res);
+      toaster.showSuccessToast('Email template saved successfully');
     },
     onError: (err) => {
-      console.log(err);
+      toaster.showErrorToast(err.message);
     },
   });
 
@@ -123,7 +131,7 @@ const EmailBuilder = () => {
     }
   };
 
-  const onReady = () => console.log('Editor is ready');
+  const onReady = () => toaster.showSuccessToast('Editor is ready');
 
   const hasPrimary = !!(primarySource.name || primarySource.sql);
   const hasOptional = optionalSources.length > 0;
@@ -175,7 +183,30 @@ const EmailBuilder = () => {
         </Box>
       </Box>
 
-      {/* ── Row 1: Email Fields ───────────────────────────────── */}
+      <Box
+        sx={{
+          px: 3,
+          py: 2,
+          display: 'flex',
+          flexDirection: 'column',
+          gap: 2,
+          borderBottom: '1px solid',
+          borderColor: 'divider',
+        }}
+      >
+        <ShortText
+          label="Email Name"
+          value={emailName}
+          onChange={setEmailName}
+        />
+        <LongText
+          label="Email Description"
+          rows={6}
+          value={emailDescription}
+          onChange={setEmailDescription}
+        />
+      </Box>
+
       <Box
         sx={{
           px: 3,
@@ -189,37 +220,24 @@ const EmailBuilder = () => {
           backgroundColor: 'background.default',
         }}
       >
-        <TextField
-          label="Email To"
-          placeholder="recipient@example.com"
-          size="small"
-          fullWidth
-          value={emailTo}
-          onChange={(e) => setEmailTo(e.target.value)}
-        />
-        <TextField
+        <ShortText label="Email To" value={emailTo} onChange={setEmailTo} />
+        <ShortText
           label="Email Subject"
-          placeholder="Your subject here..."
-          size="small"
-          fullWidth
           value={emailSubject}
-          onChange={(e) => setEmailSubject(e.target.value)}
+          onChange={setEmailSubject}
         />
-
-        {/* CC/BCC inline badge */}
-        <Button
-          variant={ccBccCount > 0 ? 'contained' : 'outlined'}
-          size="small"
-          startIcon={<PeopleAltIcon />}
-          onClick={() => setCcBccOpen(true)}
-          sx={{ whiteSpace: 'nowrap', minWidth: 110 }}
-        >
-          CC / BCC
-          {ccBccCount > 0 && ` (${ccBccCount})`}
-        </Button>
+        <Box sx={{ alignSelf: 'flex-end' }}>
+          <ToolbarBtn
+            icon={<PeopleAlt fontSize="small" />}
+            label="CC / BCC"
+            badge={ccBccCount}
+            active={ccBccCount > 0}
+            tooltip={`${ccBccCount} CC / BCC configured`}
+            onClick={() => setCcBccOpen(true)}
+          />
+        </Box>
       </Box>
 
-      {/* ── Row 2: Feature Toolbar ────────────────────────────── */}
       <Box
         sx={{
           px: 3,
@@ -265,7 +283,6 @@ const EmailBuilder = () => {
 
         <Divider orientation="vertical" flexItem sx={{ mx: 0.5 }} />
 
-        {/* Scheduler with inline switch */}
         <Box
           sx={{
             display: 'flex',
@@ -323,7 +340,6 @@ const EmailBuilder = () => {
         />
       </Box>
 
-      {/* ── Row 3: Attachments ────────────────────────────────── */}
       <Box
         sx={{
           px: 3,
@@ -381,7 +397,6 @@ const EmailBuilder = () => {
         )}
       </Box>
 
-      {/* ── Email Editor ──────────────────────────────────────── */}
       <EmailEditor
         style={{
           flex: 1,
@@ -394,7 +409,6 @@ const EmailBuilder = () => {
         options={{ displayMode: 'email' }}
       />
 
-      {/* ── Drawers ───────────────────────────────────────────── */}
       <CcBccDrawer
         open={ccBccOpen}
         onClose={() => setCcBccOpen(false)}

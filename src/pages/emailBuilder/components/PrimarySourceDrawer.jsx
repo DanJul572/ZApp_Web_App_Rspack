@@ -4,36 +4,21 @@ import Button from '@mui/material/Button';
 import Divider from '@mui/material/Divider';
 import Drawer from '@mui/material/Drawer';
 import IconButton from '@mui/material/IconButton';
-import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import Code from '@/components/input/Code';
+import ShortText from '@/components/input/ShortText';
 
-/**
- * PrimarySourceDrawer
- *
- * Props:
- *   open       : boolean
- *   onClose    : () => void
- *   value      : { name: string, sql: string }
- *   onChange   : (value: { name: string, sql: string }) => void
- */
 const PrimarySourceDrawer = ({ open, onClose, value, onChange }) => {
-  const handleNameChange = (e) => {
-    onChange({ ...value, name: e.target.value });
+  const handleNameChange = (name) => {
+    onChange({ ...value, name: name });
   };
 
   const handleSqlChange = (sql) => {
-    onChange({ ...value, sql });
+    onChange({ ...value, sql: sql });
   };
 
   return (
-    <Drawer
-      anchor="right"
-      open={open}
-      onClose={onClose}
-      PaperProps={{ sx: { width: 480, p: 0 } }}
-    >
-      {/* Header */}
+    <Drawer anchor="right" open={open} onClose={onClose}>
       <Box
         sx={{
           display: 'flex',
@@ -53,7 +38,6 @@ const PrimarySourceDrawer = ({ open, onClose, value, onChange }) => {
         </IconButton>
       </Box>
 
-      {/* Body */}
       <Box
         sx={{
           px: 3,
@@ -65,11 +49,8 @@ const PrimarySourceDrawer = ({ open, onClose, value, onChange }) => {
           overflowY: 'auto',
         }}
       >
-        <TextField
+        <ShortText
           label="Name"
-          placeholder="e.g. main_query"
-          fullWidth
-          size="small"
           value={value?.name ?? ''}
           onChange={handleNameChange}
         />
@@ -82,7 +63,6 @@ const PrimarySourceDrawer = ({ open, onClose, value, onChange }) => {
         />
       </Box>
 
-      {/* Footer */}
       <Divider />
       <Box
         sx={{
