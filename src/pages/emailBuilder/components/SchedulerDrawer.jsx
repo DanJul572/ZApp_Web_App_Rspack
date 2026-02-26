@@ -12,16 +12,6 @@ import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import Datetime from '@/components/input/Datetime';
 
-/**
- * SchedulerDrawer
- *
- * Props:
- *   open     : boolean
- *   onClose  : () => void
- *   value    : { startTime: string, endTime: string, type: 'days' | 'month' | 'year' }
- *   onChange : (value) => void
- */
-
 const TYPES = [
   { label: 'Days', value: 'days', icon: <TodayIcon fontSize="small" /> },
   { label: 'Month', value: 'month', icon: <DateRangeIcon fontSize="small" /> },
@@ -38,13 +28,7 @@ const SchedulerDrawer = ({ open, onClose, value, onChange }) => {
   const handleType = (type) => onChange({ ...value, type });
 
   return (
-    <Drawer
-      anchor="right"
-      open={open}
-      onClose={onClose}
-      PaperProps={{ sx: { width: 420, p: 0 } }}
-    >
-      {/* Header */}
+    <Drawer anchor="right" open={open} onClose={onClose}>
       <Box
         sx={{
           display: 'flex',
@@ -64,7 +48,6 @@ const SchedulerDrawer = ({ open, onClose, value, onChange }) => {
         </IconButton>
       </Box>
 
-      {/* Body */}
       <Box
         sx={{
           px: 3,
@@ -76,7 +59,6 @@ const SchedulerDrawer = ({ open, onClose, value, onChange }) => {
           gap: 3,
         }}
       >
-        {/* Repeat Type */}
         <Box>
           <Typography variant="body2" fontWeight={500} mb={1}>
             Repeat Type
@@ -101,21 +83,18 @@ const SchedulerDrawer = ({ open, onClose, value, onChange }) => {
 
         <Divider />
 
-        {/* Start Time */}
         <Datetime
           label="Start Time"
           value={value?.startTime ?? null}
           onChange={handleStartTime}
         />
 
-        {/* End Time */}
         <Datetime
           label="End Time"
           value={value?.endTime ?? null}
           onChange={handleEndTime}
         />
 
-        {/* Summary */}
         {value?.type && value?.startTime && value?.endTime && (
           <Box
             sx={{
@@ -138,7 +117,6 @@ const SchedulerDrawer = ({ open, onClose, value, onChange }) => {
         )}
       </Box>
 
-      {/* Footer */}
       <Divider />
       <Box
         sx={{

@@ -39,6 +39,9 @@
     },
     "import": {
       "excel": "/import/excel"
+    },
+    "email": {
+      "save": "/email/save"
     }
   },
   "app": {

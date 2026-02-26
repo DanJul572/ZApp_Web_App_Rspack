@@ -15,21 +15,6 @@ import Stack from '@mui/material/Stack';
 import Switch from '@mui/material/Switch';
 import Typography from '@mui/material/Typography';
 
-/**
- * EmailSettingsDrawer
- *
- * Props:
- *   open     : boolean
- *   onClose  : () => void
- *   value    : {
- *     priority        : 'high' | 'normal' | 'low'
- *     openTracking    : boolean
- *     clickTracking   : boolean
- *     unsubscribeLink : boolean
- *   }
- *   onChange : (value) => void
- */
-
 const PRIORITIES = [
   {
     value: 'high',
@@ -119,13 +104,7 @@ const EmailSettingsDrawer = ({ open, onClose, value, onChange }) => {
   ).length;
 
   return (
-    <Drawer
-      anchor="right"
-      open={open}
-      onClose={onClose}
-      PaperProps={{ sx: { width: 460, p: 0 } }}
-    >
-      {/* Header */}
+    <Drawer anchor="right" open={open} onClose={onClose}>
       <Box
         sx={{
           display: 'flex',
@@ -150,7 +129,6 @@ const EmailSettingsDrawer = ({ open, onClose, value, onChange }) => {
         </IconButton>
       </Box>
 
-      {/* Body */}
       <Box
         sx={{
           px: 3,
@@ -162,7 +140,6 @@ const EmailSettingsDrawer = ({ open, onClose, value, onChange }) => {
           gap: 4,
         }}
       >
-        {/* ── Priority ── */}
         <Box>
           <Typography variant="body2" fontWeight={600} mb={0.5}>
             Priority Level
@@ -219,7 +196,6 @@ const EmailSettingsDrawer = ({ open, onClose, value, onChange }) => {
 
         <Divider />
 
-        {/* ── Tracking ── */}
         <Box>
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 1.5 }}>
             <TrackChangesIcon fontSize="small" color="action" />
@@ -256,7 +232,6 @@ const EmailSettingsDrawer = ({ open, onClose, value, onChange }) => {
 
         <Divider />
 
-        {/* ── Compliance ── */}
         <Box>
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 1.5 }}>
             <NotificationsActiveIcon fontSize="small" color="action" />
@@ -293,7 +268,6 @@ const EmailSettingsDrawer = ({ open, onClose, value, onChange }) => {
         </Box>
       </Box>
 
-      {/* Footer */}
       <Divider />
       <Box
         sx={{

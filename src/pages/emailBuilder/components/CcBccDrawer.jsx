@@ -11,16 +11,6 @@ import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
 import { useState } from 'react';
 
-/**
- * CcBccDrawer
- *
- * Props:
- *   open     : boolean
- *   onClose  : () => void
- *   value    : { cc: string[], bcc: string[] }
- *   onChange : (value) => void
- */
-
 const isValidEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim());
 
 const EmailChipInput = ({ label, description, emails, onAdd, onRemove }) => {
@@ -69,7 +59,6 @@ const EmailChipInput = ({ label, description, emails, onAdd, onRemove }) => {
         </Typography>
       )}
 
-      {/* Chips */}
       {emails.length > 0 && (
         <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.75, mb: 1.5 }}>
           {emails.map((email) => (
@@ -87,7 +76,6 @@ const EmailChipInput = ({ label, description, emails, onAdd, onRemove }) => {
         </Box>
       )}
 
-      {/* Input */}
       <TextField
         size="small"
         fullWidth
@@ -132,13 +120,7 @@ const CcBccDrawer = ({ open, onClose, value, onChange }) => {
   const totalCount = cc.length + bcc.length;
 
   return (
-    <Drawer
-      anchor="right"
-      open={open}
-      onClose={onClose}
-      PaperProps={{ sx: { width: 460, p: 0 } }}
-    >
-      {/* Header */}
+    <Drawer anchor="right" open={open} onClose={onClose}>
       <Box
         sx={{
           display: 'flex',
@@ -165,7 +147,6 @@ const CcBccDrawer = ({ open, onClose, value, onChange }) => {
         </IconButton>
       </Box>
 
-      {/* Body */}
       <Box
         sx={{
           px: 3,
@@ -196,7 +177,6 @@ const CcBccDrawer = ({ open, onClose, value, onChange }) => {
         />
       </Box>
 
-      {/* Footer */}
       <Divider />
       <Box
         sx={{

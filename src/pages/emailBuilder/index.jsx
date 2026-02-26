@@ -29,95 +29,30 @@ import OptionalSourceDrawer from './components/OptionalSourceDrawer';
 import PreviewSendDrawer from './components/PreviewSendDrawer';
 import PrimarySourceDrawer from './components/PrimarySourceDrawer';
 import SchedulerDrawer from './components/SchedulerDrawer';
-
-// ─── Reusable toolbar icon button ─────────────────────────────
-const ToolbarBtn = ({ icon, label, badge, active, onClick, tooltip }) => (
-  <Tooltip title={tooltip || label} placement="bottom">
-    <Box
-      onClick={onClick}
-      sx={{
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        gap: 0.3,
-        px: 1.5,
-        py: 1,
-        borderRadius: 2,
-        cursor: 'pointer',
-        border: '1px solid',
-        borderColor: active ? 'primary.main' : 'divider',
-        backgroundColor: active ? 'primary.50' : 'transparent',
-        transition: 'all 0.15s',
-        position: 'relative',
-        '&:hover': {
-          borderColor: 'primary.main',
-          backgroundColor: 'primary.50',
-        },
-        minWidth: 72,
-      }}
-    >
-      <Box sx={{ color: active ? 'primary.main' : 'text.secondary' }}>
-        {icon}
-      </Box>
-      <Typography
-        variant="caption"
-        sx={{
-          fontSize: 10,
-          color: active ? 'primary.main' : 'text.secondary',
-          fontWeight: active ? 600 : 400,
-          whiteSpace: 'nowrap',
-        }}
-      >
-        {label}
-      </Typography>
-      {badge !== undefined && badge > 0 && (
-        <Box
-          sx={{
-            position: 'absolute',
-            top: -6,
-            right: -6,
-            width: 16,
-            height: 16,
-            borderRadius: '50%',
-            backgroundColor: 'primary.main',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}
-        >
-          <Typography sx={{ fontSize: 9, color: 'white', fontWeight: 700 }}>
-            {badge}
-          </Typography>
-        </Box>
-      )}
-    </Box>
-  </Tooltip>
-);
+import ToolbarBtn from './components/ToolbarBtn';
 
 const EmailBuilder = () => {
   const emailEditorRef = useRef(null);
+
+  const request = Request();
+  const { config } = useConfig();
+
   const [previewHtml, setPreviewHtml] = useState('');
 
-  // ── Email fields ──────────────────────────────────────────────
   const [emailTo, setEmailTo] = useState('');
   const [emailSubject, setEmailSubject] = useState('');
 
-  // ── CC & BCC ──────────────────────────────────────────────────
   const [ccBcc, setCcBcc] = useState({ cc: [], bcc: [] });
   const [ccBccOpen, setCcBccOpen] = useState(false);
 
-  // ── Attachments ───────────────────────────────────────────────
   const [attachments, setAttachments] = useState([]);
 
-  // ── Primary Source ────────────────────────────────────────────
   const [primarySource, setPrimarySource] = useState({ name: '', sql: '' });
   const [primaryOpen, setPrimaryOpen] = useState(false);
 
-  // ── Optional Sources ──────────────────────────────────────────
   const [optionalSources, setOptionalSources] = useState([]);
   const [optionalOpen, setOptionalOpen] = useState(false);
 
-  // ── Scheduler ─────────────────────────────────────────────────
   const [useScheduler, setUseScheduler] = useState(false);
   const [scheduler, setScheduler] = useState({
     startTime: null,
@@ -126,14 +61,11 @@ const EmailBuilder = () => {
   });
   const [schedulerOpen, setSchedulerOpen] = useState(false);
 
-  // ── Merge Tags ────────────────────────────────────────────────
   const [mergeTags, setMergeTags] = useState([]);
   const [mergeTagsOpen, setMergeTagsOpen] = useState(false);
 
-  // ── Preview & Send ────────────────────────────────────────────
   const [previewOpen, setPreviewOpen] = useState(false);
 
-  // ── Email Settings (priority, tracking) ───────────────────────
   const [emailSettings, setEmailSettings] = useState({
     priority: 'normal',
     openTracking: false,
@@ -142,7 +74,29 @@ const EmailBuilder = () => {
   });
   const [settingsOpen, setSettingsOpen] = useState(false);
 
-  // ── Attachment handlers ───────────────────────────────────────
+  const saveEmailTemplate = () => {
+    request.post(config.api.email.save, {
+      emailTo,
+      emailSubject,
+      ccBcc,
+      attachments,
+      primarySource,
+      optionalSources,
+      mergeTags,
+    });
+  };
+
+  const mutation = useMutation({
+    mutationFn: saveEmailTemplate,
+    mutationKey: ['save-email-template'],
+    onSuccess: (res) => {
+      console.log(res);
+    },
+    onError: (err) => {
+      console.log(err);
+    },
+  });
+
   const handleAttachmentChange = (newFiles) => {
     if (!newFiles) return;
     const incoming = Array.isArray(newFiles) ? newFiles : [newFiles];
@@ -157,7 +111,6 @@ const EmailBuilder = () => {
   const removeAttachment = (index) =>
     setAttachments((prev) => prev.filter((_, i) => i !== index));
 
-  // ── Open Preview ──────────────────────────────────────────────
   const handleOpenPreview = () => {
     const editor = emailEditorRef.current?.editor;
     if (editor) {
@@ -170,32 +123,8 @@ const EmailBuilder = () => {
     }
   };
 
-  // ── Save ──────────────────────────────────────────────────────
-  const saveTemplate = () => {
-    const editor = emailEditorRef.current?.editor;
-    if (!editor) return;
-    editor.exportHtml(async (data) => {
-      const { html, design } = data;
-      const payload = {
-        emailTo,
-        emailSubject,
-        ccBcc,
-        attachments,
-        primarySource,
-        optionalSources,
-        mergeTags,
-        scheduler: useScheduler ? scheduler : null,
-        emailSettings,
-        html,
-        design,
-      };
-      console.log('Payload:', payload);
-    });
-  };
-
   const onReady = () => console.log('Editor is ready');
 
-  // ── Derived state ─────────────────────────────────────────────
   const hasPrimary = !!(primarySource.name || primarySource.sql);
   const hasOptional = optionalSources.length > 0;
   const hasScheduler =
@@ -210,7 +139,6 @@ const EmailBuilder = () => {
 
   return (
     <Card>
-      {/* ── Top Bar ───────────────────────────────────────────── */}
       <Box
         sx={{
           px: 3,
@@ -236,7 +164,12 @@ const EmailBuilder = () => {
           >
             Preview
           </Button>
-          <Button variant="contained" onClick={saveTemplate}>
+          <Button
+            variant="contained"
+            onClick={mutation.mutate}
+            loading={mutation.isPending}
+            disabled={mutation.isPending}
+          >
             Save
           </Button>
         </Box>
@@ -263,7 +196,6 @@ const EmailBuilder = () => {
           fullWidth
           value={emailTo}
           onChange={(e) => setEmailTo(e.target.value)}
-          InputProps={{ type: 'email' }}
         />
         <TextField
           label="Email Subject"
