@@ -129,7 +129,7 @@ describe('File Input Component', () => {
 
   it('handles file download', () => {
     useFile.mockReturnValue({
-      file: [{ name: 'test', file: mockFile }],
+      file: [{ id: 'test', name: 'test', file: mockFile }],
       setFile: setFileMock,
     });
 
