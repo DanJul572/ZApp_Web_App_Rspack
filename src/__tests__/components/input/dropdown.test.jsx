@@ -137,11 +137,9 @@ describe('Dropdown Input Component', () => {
 
     render(<Dropdown label="Test" id="abc" value="" onChange={() => {}} />);
 
-    expect(mockedGet).toHaveBeenCalledWith(
-      config.api.common.options,
-      { id: 'abc' },
-      false,
-    );
+    expect(mockedGet).toHaveBeenCalledWith(config.api.common.options, {
+      id: 'abc',
+    });
   });
 
   it('sets correct value when single selection and value matches option', () => {

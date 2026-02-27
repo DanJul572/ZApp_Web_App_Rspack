@@ -116,6 +116,7 @@ const EmailBuilder = () => {
       ];
     });
   };
+
   const removeAttachment = (index) =>
     setAttachments((prev) => prev.filter((_, i) => i !== index));
 
