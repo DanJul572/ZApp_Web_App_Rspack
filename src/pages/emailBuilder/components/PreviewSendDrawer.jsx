@@ -57,7 +57,7 @@ const PreviewSendDrawer = ({
       setSendStatus('success');
     } catch (err) {
       setSendStatus('error');
-      setErrorMsg(err?.message || 'Gagal mengirim email. Coba lagi.');
+      setErrorMsg(err?.message || 'Failed to send email. Please try again.');
     }
   };
 
@@ -94,7 +94,7 @@ const PreviewSendDrawer = ({
         }}
       >
         <Typography variant="h6" fontWeight={600}>
-          Preview & Send Test
+          Preview & Send Test Email
         </Typography>
         <IconButton onClick={onClose} size="small">
           <CloseIcon fontSize="small" />
@@ -214,7 +214,7 @@ const PreviewSendDrawer = ({
                 }}
               >
                 <Typography color="text.disabled" variant="body2">
-                  Email content belum tersedia. Klik "Save" terlebih dahulu.
+                  Email content is not available. Please click "Save" first.
                 </Typography>
               </Box>
             )}
@@ -247,15 +247,15 @@ const PreviewSendDrawer = ({
                 display="block"
                 mb={0.5}
               >
-                EMAIL YANG AKAN DIKIRIM
+                EMAIL TO BE SENT
               </Typography>
               <Typography variant="body2">
                 <strong>To:</strong>{' '}
-                {emailTo || <em style={{ color: '#aaa' }}>Belum diisi</em>}
+                {emailTo || <em style={{ color: '#aaa' }}>Not filled</em>}
               </Typography>
               <Typography variant="body2">
                 <strong>Subject:</strong>{' '}
-                {emailSubject || <em style={{ color: '#aaa' }}>Belum diisi</em>}
+                {emailSubject || <em style={{ color: '#aaa' }}>Not filled</em>}
               </Typography>
             </Box>
           </Box>
@@ -265,7 +265,7 @@ const PreviewSendDrawer = ({
           {/* Send to test address */}
           <Box>
             <Typography variant="body2" fontWeight={600} mb={0.5}>
-              Kirim Test Ke
+              Send Test Email To
             </Typography>
             <Typography
               variant="caption"
@@ -273,8 +273,8 @@ const PreviewSendDrawer = ({
               display="block"
               mb={1.5}
             >
-              Email akan dikirim ke alamat ini untuk keperluan testing. Data
-              merge tags mungkin tidak terisi.
+              Email will be sent to this address for testing purposes. Data
+              merge tags might not be filled.
             </Typography>
 
             <TextField
@@ -313,10 +313,10 @@ const PreviewSendDrawer = ({
                   fontWeight={600}
                   color="success.main"
                 >
-                  Email terkirim!
+                  Email sent!
                 </Typography>
                 <Typography variant="caption" color="text.secondary">
-                  Cek inbox <strong>{testEmail}</strong>
+                  Check inbox <strong>{testEmail}</strong>
                 </Typography>
               </Box>
             </Box>
@@ -338,7 +338,7 @@ const PreviewSendDrawer = ({
               <ErrorOutlineIcon color="error" />
               <Box>
                 <Typography variant="body2" fontWeight={600} color="error.main">
-                  Gagal mengirim
+                  Failed to send
                 </Typography>
                 <Typography variant="caption" color="text.secondary">
                   {errorMsg}
@@ -360,12 +360,12 @@ const PreviewSendDrawer = ({
             onClick={handleSendTest}
             fullWidth
           >
-            {sendStatus === 'loading' ? 'Mengirim...' : 'Kirim Test Email'}
+            {sendStatus === 'loading' ? 'Sending...' : 'Send Test Email'}
           </Button>
 
           {sendStatus === 'success' && (
             <Button variant="text" size="small" onClick={resetSend} fullWidth>
-              Kirim ke alamat lain
+              Send to another address
             </Button>
           )}
         </Box>

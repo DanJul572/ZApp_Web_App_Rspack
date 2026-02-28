@@ -60,12 +60,7 @@ const OptionalSourceDrawer = ({ open, onClose, value = [], onChange }) => {
   };
 
   return (
-    <Drawer
-      anchor="right"
-      open={open}
-      onClose={onClose}
-      PaperProps={{ sx: { width: 520, p: 0 } }}
-    >
+    <Drawer anchor="right" open={open} onClose={onClose}>
       {/* Header */}
       <Box
         sx={{
@@ -76,6 +71,7 @@ const OptionalSourceDrawer = ({ open, onClose, value = [], onChange }) => {
           py: 2,
           borderBottom: '1px solid',
           borderColor: 'divider',
+          width: '30vw',
         }}
       >
         <Typography variant="h6" fontWeight={600}>

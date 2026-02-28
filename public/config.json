@@ -61,10 +61,21 @@
       }
     },
     "components": {
+      "MuiTextField": {
+        "defaultProps": {
+          "size": "small"
+        }
+      },
+      "MuiOutlinedInput": {
+        "defaultProps": {
+          "size": "small"
+        }
+      },
       "MuiTypography": {
         "styleOverrides": {
           "root": {
-            "fontFamily": "\"Inter\", \"Roboto\", \"Helvetica\", \"Arial\", sans-serif"
+            "fontFamily": "\"Inter\", \"Roboto\", \"Helvetica\", \"Arial\", sans-serif",
+            "fontSize": 14
           }
         }
       }

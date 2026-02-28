@@ -57,6 +57,7 @@ const SchedulerDrawer = ({ open, onClose, value, onChange }) => {
           display: 'flex',
           flexDirection: 'column',
           gap: 3,
+          width: '30vw',
         }}
       >
         <Box>

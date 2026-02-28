@@ -28,6 +28,7 @@ const PrimarySourceDrawer = ({ open, onClose, value, onChange }) => {
           py: 2,
           borderBottom: '1px solid',
           borderColor: 'divider',
+          width: '30vw',
         }}
       >
         <Typography variant="h6" fontWeight={600}>

@@ -19,20 +19,19 @@ const PRIORITIES = [
   {
     value: 'high',
     label: 'High',
-    description: 'Tandai sebagai urgent. Muncul di atas inbox.',
+    description: 'Mark as urgent. Appears at the top of the inbox.',
     color: 'error',
   },
   {
     value: 'normal',
     label: 'Normal',
-    description:
-      'Prioritas standar. Direkomendasikan untuk sebagian besar email.',
+    description: 'Standard priority. Recommended for most emails.',
     color: 'primary',
   },
   {
     value: 'low',
     label: 'Low',
-    description: 'Email non-urgent seperti newsletter atau notifikasi ringan.',
+    description: 'Non-urgent email like newsletter or light notification.',
     color: 'default',
   },
 ];
@@ -138,6 +137,7 @@ const EmailSettingsDrawer = ({ open, onClose, value, onChange }) => {
           display: 'flex',
           flexDirection: 'column',
           gap: 4,
+          width: '30vw',
         }}
       >
         <Box>
@@ -150,7 +150,7 @@ const EmailSettingsDrawer = ({ open, onClose, value, onChange }) => {
             display="block"
             mb={1.5}
           >
-            Mengatur header X-Priority pada email yang dikirim.
+            Sets the X-Priority header on sent emails.
           </Typography>
           <Stack direction="row" spacing={1}>
             {PRIORITIES.map((p) => (
@@ -204,7 +204,7 @@ const EmailSettingsDrawer = ({ open, onClose, value, onChange }) => {
             </Typography>
             {activeCount > 0 && (
               <Chip
-                label={`${activeCount} aktif`}
+                label={`${activeCount} active`}
                 size="small"
                 color="primary"
               />
@@ -215,7 +215,7 @@ const EmailSettingsDrawer = ({ open, onClose, value, onChange }) => {
             <SettingRow
               icon={<VisibilityIcon fontSize="small" sx={{ color: 'white' }} />}
               title="Open Tracking"
-              description="Lacak siapa yang membuka email ini dan kapan."
+              description="Track who opened this email and when."
               checked={openTracking}
               onChange={(val) => set('openTracking', val)}
             />
@@ -223,7 +223,7 @@ const EmailSettingsDrawer = ({ open, onClose, value, onChange }) => {
             <SettingRow
               icon={<MouseIcon fontSize="small" sx={{ color: 'white' }} />}
               title="Click Tracking"
-              description="Lacak link mana yang diklik oleh penerima."
+              description="Track which link was clicked by the recipient."
               checked={clickTracking}
               onChange={(val) => set('clickTracking', val)}
             />
@@ -243,7 +243,7 @@ const EmailSettingsDrawer = ({ open, onClose, value, onChange }) => {
           <SettingRow
             icon={<LinkOffIcon fontSize="small" sx={{ color: 'white' }} />}
             title="Unsubscribe Link"
-            description="Otomatis tambahkan footer unsubscribe (direkomendasikan untuk newsletter & marketing. Wajib untuk CAN-SPAM / GDPR compliance)."
+            description="Automatically add unsubscribe footer (recommended for newsletters & marketing. Required for CAN-SPAM / GDPR compliance)."
             checked={unsubscribeLink}
             onChange={(val) => set('unsubscribeLink', val)}
           />
@@ -260,8 +260,8 @@ const EmailSettingsDrawer = ({ open, onClose, value, onChange }) => {
               }}
             >
               <Typography variant="caption" color="warning.dark">
-                ⚠️ Pastikan endpoint unsubscribe sudah dikonfigurasi di sisi
-                backend sebelum mengirim email ke publik.
+                ⚠️ Make sure the unsubscribe endpoint is configured on the
+                backend side before sending emails to the public.
               </Typography>
             </Box>
           )}

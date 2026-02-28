@@ -44,7 +44,11 @@ const EmailChipInput = ({ label, description, emails, onAdd, onRemove }) => {
   };
 
   return (
-    <Box>
+    <Box
+      sx={{
+        width: '30vw',
+      }}
+    >
       <Typography variant="body2" fontWeight={600} mb={0.5}>
         {label}
       </Typography>
