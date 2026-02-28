@@ -12,17 +12,69 @@ const config = {
   api: {
     common: {
       options: '/common/options',
-      detail: '/common/detail',
     },
   },
 };
 
-jest.mock('@/contexts/ConfigProvider', () => ({
-  useConfig: () => {
-    return {
-      config: config,
+jest.mock('@mui/material/Box', () => ({ children, sx: _sx, ...rest }) => (
+  <div {...rest}>{children}</div>
+));
+
+jest.mock('@mui/material/Typography', () => ({ children, ...rest }) => (
+  <span {...rest}>{children}</span>
+));
+
+jest.mock('@mui/material/TextField', () => ({ placeholder, inputProps }) => (
+  <input placeholder={placeholder} {...inputProps} />
+));
+
+jest.mock('@mui/material/List', () => ({ children, ...rest }) => (
+  <li {...rest}>{children}</li>
+));
+
+jest.mock('@mui/material/Autocomplete', () => ({
+  __esModule: true,
+  default: ({ options, onChange, value, disabled, multiple, renderInput }) => {
+    const handleChange = (e) => {
+      if (multiple) {
+        const selected = Array.from(e.target.selectedOptions).map((o) =>
+          options.find((opt) => opt.value === o.value),
+        );
+        onChange(e, selected);
+      } else {
+        const selected =
+          options.find((o) => o.value === e.target.value) ?? null;
+        onChange(e, selected);
+      }
     };
+
+    const selectValue = multiple
+      ? (value ?? []).map((v) => v?.value ?? v)
+      : (value?.value ?? '');
+
+    return (
+      <div>
+        {renderInput({ inputProps: { 'data-testid': 'autocomplete-input' } })}
+        <select
+          data-testid="autocomplete-select"
+          disabled={disabled}
+          multiple={multiple}
+          onChange={handleChange}
+          value={selectValue}
+        >
+          {(options ?? []).map((opt) => (
+            <option key={opt.value} value={opt.value}>
+              {opt.label}
+            </option>
+          ))}
+        </select>
+      </div>
+    );
   },
+}));
+
+jest.mock('@/contexts/ConfigProvider', () => ({
+  useConfig: () => ({ config }),
 }));
 
 jest.mock('@/hooks/Request', () => ({
@@ -37,15 +89,13 @@ jest.mock('@tanstack/react-query', () => ({
   useQuery: jest.fn(),
 }));
 
-describe('Dropdown Input Component', () => {
-  beforeEach(() => {
-    useQuery.mockReturnValue({
-      data: options,
-      isLoading: false,
-    });
-  });
+const defaultQuery = (override = {}) =>
+  useQuery.mockReturnValue({ data: undefined, isLoading: false, ...override });
 
-  it('renders label and options', () => {
+describe('Dropdown Component', () => {
+  beforeEach(() => defaultQuery());
+
+  it('renders label and combobox', () => {
     render(
       <Dropdown
         label="Test Label"
@@ -54,11 +104,45 @@ describe('Dropdown Input Component', () => {
         onChange={() => {}}
       />,
     );
+
     expect(screen.getByText('Test Label')).toBeInTheDocument();
-    expect(screen.getByRole('combobox')).toBeInTheDocument();
+    expect(screen.getByTestId('autocomplete-select')).toBeInTheDocument();
   });
 
-  it('renders with disabled prop', () => {
+  it('renders all provided options', () => {
+    render(
+      <Dropdown label="Test" options={options} value="" onChange={() => {}} />,
+    );
+
+    options.forEach(({ label }) => {
+      expect(screen.getByRole('option', { name: label })).toBeInTheDocument();
+    });
+  });
+
+  it('renders loading state when isLoading is true', () => {
+    defaultQuery({ isLoading: true });
+
+    render(<Dropdown label="Test" value="" onChange={() => {}} />);
+
+    expect(screen.getByText('Loading...')).toBeInTheDocument();
+    expect(screen.queryByTestId('autocomplete-select')).not.toBeInTheDocument();
+  });
+
+  it('renders placeholder text', () => {
+    render(
+      <Dropdown
+        label="Test"
+        options={options}
+        value=""
+        onChange={() => {}}
+        placeholder="Pick one"
+      />,
+    );
+
+    expect(screen.getByPlaceholderText('Pick one')).toBeInTheDocument();
+  });
+
+  it('disables the select when disabled prop is true', () => {
     render(
       <Dropdown
         label="Disabled"
@@ -68,81 +152,55 @@ describe('Dropdown Input Component', () => {
         disabled
       />,
     );
-    expect(screen.getByRole('combobox')).toBeDisabled();
+
+    expect(screen.getByTestId('autocomplete-select')).toBeDisabled();
   });
 
-  it('calls onChange when option is selected (single)', () => {
+  it('is not disabled by default', () => {
+    render(
+      <Dropdown label="Test" options={options} value="" onChange={() => {}} />,
+    );
+
+    expect(screen.getByTestId('autocomplete-select')).not.toBeDisabled();
+  });
+
+  it('calls onChange with the option value on single selection', () => {
     const handleChange = jest.fn();
     render(
       <Dropdown
-        label="Test Label"
+        label="Test"
         options={options}
         value=""
         onChange={handleChange}
       />,
     );
-    const input = screen.getByRole('combobox');
 
-    fireEvent.change(input, { target: { value: 'Option 1' } });
-    fireEvent.keyDown(input, { key: 'ArrowDown' });
-    fireEvent.keyDown(input, { key: 'Enter' });
+    fireEvent.change(screen.getByTestId('autocomplete-select'), {
+      target: { value: '1' },
+    });
 
-    expect(handleChange).toHaveBeenCalled();
+    expect(handleChange).toHaveBeenCalledWith('1');
   });
 
-  it('supports multiple selection', () => {
+  it('calls onChange with null when selection is cleared (single)', () => {
     const handleChange = jest.fn();
     render(
       <Dropdown
-        label="Multi"
+        label="Test"
         options={options}
-        value=""
+        value="1"
         onChange={handleChange}
-        multiple
       />,
     );
-    const input = screen.getByRole('combobox');
 
-    fireEvent.change(input, { target: { value: 'Option 1' } });
-    fireEvent.keyDown(input, { key: 'ArrowDown' });
-    fireEvent.keyDown(input, { key: 'Enter' });
-
-    expect(handleChange).toHaveBeenCalled();
-  });
-
-  it('renders loading state', () => {
-    useQuery.mockReturnValueOnce({
-      data: [],
-      isLoading: true,
+    fireEvent.change(screen.getByTestId('autocomplete-select'), {
+      target: { value: '' },
     });
 
-    render(<Dropdown label="Test" value="" onChange={() => {}} />);
-
-    expect(screen.getByText('Loading...')).toBeInTheDocument();
+    expect(handleChange).toHaveBeenCalledWith(null);
   });
 
-  it('fetches options via API when id is provided and no options prop', async () => {
-    const mockedGet = jest
-      .fn()
-      .mockResolvedValue([{ value: '3', label: 'Fetched 3' }]);
-
-    Request.mockReturnValue({
-      get: mockedGet,
-    });
-
-    useQuery.mockImplementation(({ queryFn }) => ({
-      data: queryFn(),
-      isLoading: false,
-    }));
-
-    render(<Dropdown label="Test" id="abc" value="" onChange={() => {}} />);
-
-    expect(mockedGet).toHaveBeenCalledWith(config.api.common.options, {
-      id: 'abc',
-    });
-  });
-
-  it('sets correct value when single selection and value matches option', () => {
+  it('reflects the current value in single mode', () => {
     render(
       <Dropdown
         label="Test"
@@ -155,22 +213,87 @@ describe('Dropdown Input Component', () => {
       />,
     );
 
-    const combobox = screen.getByRole('combobox');
-
-    expect(combobox.value).toBe('Twenty');
+    expect(screen.getByTestId('autocomplete-select')).toHaveValue('20');
   });
-  it('executes isOptionEqualToValue comparator', () => {
-    const opts = [
-      { value: '1', label: 'One' },
-      { value: '2', label: 'Two' },
-    ];
 
+  it('calls onChange with pipe-separated values in multiple mode', () => {
+    const handleChange = jest.fn();
     render(
-      <Dropdown label="Test" options={opts} value="1" onChange={() => {}} />,
+      <Dropdown
+        label="Multi"
+        options={options}
+        value=""
+        onChange={handleChange}
+        multiple
+      />,
     );
 
-    const ac = screen.getByRole('combobox');
+    const select = screen.getByTestId('autocomplete-select');
 
-    expect(ac.value).toBe('One');
+    Array.from(select.options).forEach((opt) => {
+      opt.selected = true;
+    });
+    fireEvent.change(select);
+
+    expect(handleChange).toHaveBeenCalledWith('1|2');
+  });
+
+  it('renders a multiple select element when multiple prop is true', () => {
+    render(
+      <Dropdown
+        label="Multi"
+        options={options}
+        value=""
+        onChange={() => {}}
+        multiple
+      />,
+    );
+
+    expect(screen.getByTestId('autocomplete-select')).toHaveAttribute(
+      'multiple',
+    );
+  });
+
+  it('fetches options via API when id is provided and no options prop', () => {
+    const mockedGet = jest
+      .fn()
+      .mockResolvedValue({ data: [{ value: '3', label: 'Fetched 3' }] });
+
+    Request.mockReturnValue({ get: mockedGet });
+
+    useQuery.mockImplementation(({ queryFn, enabled }) => {
+      if (enabled) queryFn();
+      return { data: undefined, isLoading: false };
+    });
+
+    render(<Dropdown label="Test" id="abc" value="" onChange={() => {}} />);
+
+    expect(mockedGet).toHaveBeenCalledWith(config.api.common.options, {
+      id: 'abc',
+    });
+  });
+
+  it('does not fetch from API when options prop is provided', () => {
+    const mockedGet = jest.fn();
+    Request.mockReturnValue({ get: mockedGet });
+
+    let capturedEnabled;
+    useQuery.mockImplementation(({ enabled }) => {
+      capturedEnabled = enabled;
+      return { data: undefined, isLoading: false };
+    });
+
+    render(
+      <Dropdown
+        label="Test"
+        id="abc"
+        options={options}
+        value=""
+        onChange={() => {}}
+      />,
+    );
+
+    expect(capturedEnabled).toBe(false);
+    expect(mockedGet).not.toHaveBeenCalled();
   });
 });

@@ -1,5 +1,22 @@
-import { fireEvent, render, screen } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import DateField from '@/components/input/DateField';
+
+jest.mock('@mui/x-date-pickers/DatePicker', () => ({
+  DatePicker: ({ onChange, value, disabled }) => (
+    <div>
+      <input
+        data-testid="mock-date-input"
+        value={value ? value.format('DD/MM/YYYY') : ''}
+        disabled={disabled}
+        readOnly
+      />
+      <button type="button" onClick={() => onChange(new Date('2024-06-01'))}>
+        Change Date
+      </button>
+    </div>
+  ),
+}));
 
 describe('DateField Input Component', () => {
   it('renders label', () => {
@@ -9,32 +26,25 @@ describe('DateField Input Component', () => {
 
   it('renders with initial value', () => {
     render(<DateField label="Date" value="2024-06-01" />);
-    const input = document.getElementsByClassName(
-      'MuiPickersInputBase-input',
-    )[0];
+    const input = screen.getByTestId('mock-date-input');
     expect(input).toHaveValue('01/06/2024');
   });
 
   it('calls onChange with formatted date', async () => {
+    const user = userEvent.setup();
     const handleChange = jest.fn();
+
     render(<DateField label="Date" onChange={handleChange} />);
 
-    const button = document.getElementsByClassName('MuiButtonBase-root')[0];
-    expect(button).toBeInTheDocument();
-    fireEvent.click(button);
+    const button = screen.getByText('Change Date');
+    await user.click(button);
 
-    const dayButton = screen.getByText('1');
-    expect(dayButton).toBeInTheDocument();
-    fireEvent.click(dayButton);
-
-    expect(handleChange).toHaveBeenCalled();
+    expect(handleChange).toHaveBeenCalledWith('2024-06-01T00:00:00');
   });
 
   it('disables input when disabled prop is true', () => {
     render(<DateField label="Date" disabled />);
-    const input = document.getElementsByClassName(
-      'MuiPickersInputBase-input',
-    )[0];
+    const input = screen.getByTestId('mock-date-input');
     expect(input).toBeDisabled();
   });
 });
