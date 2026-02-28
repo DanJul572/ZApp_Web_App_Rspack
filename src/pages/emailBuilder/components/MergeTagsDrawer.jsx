@@ -36,11 +36,9 @@ const createTag = () => ({
 });
 
 const SUGGESTED_TAGS = [
-  { tag: 'nama', column: 'name' },
-  { tag: 'email', column: 'email' },
-  { tag: 'tanggal', column: 'date' },
-  { tag: 'perusahaan', column: 'company' },
-  { tag: 'jumlah', column: 'amount' },
+  { tag: 'name', column: 'user.name' },
+  { tag: 'email', column: 'user.email' },
+  { tag: 'role', column: 'user.role_id' },
 ];
 
 const MergeTagsDrawer = ({
@@ -211,7 +209,9 @@ const MergeTagsDrawer = ({
           {/* Tag list */}
           {value.length === 0 ? (
             <Box sx={{ textAlign: 'center', py: 4, color: 'text.disabled' }}>
-              <Typography variant="body2">Belum ada merge tag.</Typography>
+              <Typography variant="body2">
+                There are no merge tags yet.
+              </Typography>
               <Typography variant="caption">
                 Click "+ Add Tag" to start.
               </Typography>
