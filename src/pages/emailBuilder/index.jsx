@@ -84,6 +84,8 @@ const EmailBuilder = () => {
 
   const saveEmailTemplate = () => {
     request.post(config.api.email.save, {
+      emailName,
+      emailDescription,
       emailTo,
       emailSubject,
       ccBcc,
