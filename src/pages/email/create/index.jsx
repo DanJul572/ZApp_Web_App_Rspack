@@ -384,18 +384,21 @@ const EmailBuilder = () => {
         </Box>
         {attachments.length > 0 && (
           <Stack direction="row" flexWrap="wrap" gap={1} mt={1.5}>
-            {attachments.map((file, index) => (
-              <Chip
-                key={`${file.name}_${index}`}
-                icon={<AttachFileIcon />}
-                label={`${file.name} · ${(file.size / 1024).toFixed(1)} KB`}
-                size="small"
-                variant="outlined"
-                onDelete={() => removeAttachment(index)}
-                deleteIcon={<CloseIcon fontSize="small" />}
-                sx={{ maxWidth: 280 }}
-              />
-            ))}
+            {attachments.map((file, index) => {
+              const key = `${file.name}_${Date.now()}`;
+              return (
+                <Chip
+                  key={key}
+                  icon={<AttachFileIcon />}
+                  label={`${file.name} · ${(file.size / 1024).toFixed(1)} KB`}
+                  size="small"
+                  variant="outlined"
+                  onDelete={() => removeAttachment(index)}
+                  deleteIcon={<CloseIcon fontSize="small" />}
+                  sx={{ maxWidth: 280 }}
+                />
+              );
+            })}
           </Stack>
         )}
       </Box>
