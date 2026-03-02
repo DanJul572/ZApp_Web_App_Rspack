@@ -18,7 +18,7 @@ export default function Main({ children }) {
     return <FullAppLoader />;
   }
 
-  const theme = createTheme(config.ui);
+  const theme = createTheme(config.mui);
 
   return (
     <ThemeProvider theme={theme}>

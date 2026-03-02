@@ -1,4 +1,8 @@
 {
+  "app": {
+    "name": "ZApp",
+    "language": "en"
+  },
   "api": {
     "base": "http://localhost:8080/api",
     "auth": {
@@ -13,47 +17,38 @@
       "delete": "/common/delete",
       "detail": "/common/detail",
       "menu": "/common/menu",
-      "rows": "/common/rows",
       "options": "/common/options",
+      "rows": "/common/rows",
       "update": "/common/update"
     },
-    "module": {
-      "detail": "/module/detail",
-      "create": "/module/create",
-      "delete": "/module/delete"
-    },
-    "field": {
-      "rows": "/field/rows"
-    },
-    "view": {
-      "options": "/view/options"
-    },
-    "script": {
-      "run": "/script/run"
-    },
-    "file": {
-      "download": "/file/download"
+    "email": {
+      "save": "/email/save"
     },
     "export": {
       "csv": "/export/csv"
     },
+    "field": {
+      "rows": "/field/rows"
+    },
+    "file": {
+      "download": "/file/download"
+    },
     "import": {
       "excel": "/import/excel"
     },
-    "email": {
-      "save": "/email/save"
+    "module": {
+      "create": "/module/create",
+      "delete": "/module/delete",
+      "detail": "/module/detail"
+    },
+    "script": {
+      "run": "/script/run"
+    },
+    "view": {
+      "options": "/view/options"
     }
   },
-  "app": {
-    "name": "ZApp",
-    "language": "en"
-  },
-  "report": {
-    "jsreport": {
-      "url": "http://localhost:8081"
-    }
-  },
-  "ui": {
+  "mui": {
     "palette": {
       "mode": "light",
       "primary": {
