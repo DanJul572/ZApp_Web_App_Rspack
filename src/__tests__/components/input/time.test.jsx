@@ -3,14 +3,6 @@ import '@testing-library/jest-dom';
 import dayjs from 'dayjs';
 import Time from '@/components/input/Time';
 
-// Mock date format config
-jest.mock('@/configs/CDateTimeFormat', () => ({
-  time: {
-    value: 'HH:mm',
-    display: 'HH:mm',
-  },
-}));
-
 // Mock TimePicker
 jest.mock('@mui/x-date-pickers', () => ({
   TimePicker: jest.fn((props) => {
