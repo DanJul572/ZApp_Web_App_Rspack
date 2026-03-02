@@ -4,7 +4,8 @@ import NonAuthenticatedGuard from '@/guards/NonAuthenticatedGuard';
 import EmptyLayout from '@/layouts/Empty';
 import MainLayout from '@/layouts/main';
 import WelcomePage from '@/pages';
-import EmailBuilderPage from '@/pages/emailBuilder';
+import EmailPage from '@/pages/email';
+import CreateEmailPage from '@/pages/email/create';
 import NotFoundPage from '@/pages/error/NotFoundPage';
 import ServerErrorPage from '@/pages/error/ServerErrorPage';
 import ContextContaner from '@/pages/layout';
@@ -141,6 +142,26 @@ const routes = createBrowserRouter([
         ),
       },
       {
+        path: '/email',
+        Component: () => (
+          <AuthenticatedGuard>
+            <MainLayout>
+              <EmailPage />
+            </MainLayout>
+          </AuthenticatedGuard>
+        ),
+      },
+      {
+        path: '/email/create',
+        Component: () => (
+          <AuthenticatedGuard>
+            <MainLayout>
+              <CreateEmailPage />
+            </MainLayout>
+          </AuthenticatedGuard>
+        ),
+      },
+      {
         path: '/not-found',
         Component: () => (
           <EmptyLayout>
@@ -154,16 +175,6 @@ const routes = createBrowserRouter([
           <EmptyLayout>
             <ServerErrorPage />
           </EmptyLayout>
-        ),
-      },
-      {
-        path: '/email-builder',
-        Component: () => (
-          <AuthenticatedGuard>
-            <MainLayout>
-              <EmailBuilderPage />
-            </MainLayout>
-          </AuthenticatedGuard>
         ),
       },
     ],
