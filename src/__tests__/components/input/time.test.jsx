@@ -3,6 +3,31 @@ import '@testing-library/jest-dom';
 import dayjs from 'dayjs';
 import Time from '@/components/input/Time';
 
+const config = {
+  format: {
+    time: {
+      display: 'HH:mm:ss',
+      value: '1901-01-01THH:mm:ss',
+    },
+    date: {
+      display: 'DD/MM/YYYY',
+      value: 'YYYY-MM-DDT00:00:00',
+    },
+    datetime: {
+      display: 'DD MMM YYYY HH:mm:ss',
+      value: 'YYYY-MM-DDTHH:mm:ss',
+    },
+  },
+};
+
+jest.mock('@/contexts/ConfigProvider', () => ({
+  useConfig: () => {
+    return {
+      config: config,
+    };
+  },
+}));
+
 // Mock TimePicker
 jest.mock('@mui/x-date-pickers', () => ({
   TimePicker: jest.fn((props) => {
@@ -65,7 +90,7 @@ describe('Time Input Component', () => {
       target: { value: '09:45' },
     });
 
-    expect(handleChange).toHaveBeenCalledWith('09:45');
+    expect(handleChange).toHaveBeenCalledWith('1901-01-01T09:45:00');
   });
 
   it('handles null value safely', () => {
