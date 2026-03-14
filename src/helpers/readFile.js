@@ -40,4 +40,4 @@ const getFileFromBuffer = (data) => {
   return file;
 };
 
-export { readJSONFile, extractFileNames, getFileFromBuffer };
+export { extractFileNames, getFileFromBuffer, readJSONFile };

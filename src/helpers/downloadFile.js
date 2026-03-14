@@ -45,4 +45,4 @@ function downloadFile(file) {
   URL.revokeObjectURL(url);
 }
 
-export { downloadJsonFile, downloadFileFromBuffer, downloadFile };
+export { downloadFile, downloadFileFromBuffer, downloadJsonFile };

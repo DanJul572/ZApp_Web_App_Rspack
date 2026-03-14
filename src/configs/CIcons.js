@@ -23,9 +23,9 @@ export {
   Key,
   Label,
   Person,
+  QueryBuilder,
   Save,
   Storage,
-  QueryBuilder,
   ViewQuilt,
   Warning,
 };

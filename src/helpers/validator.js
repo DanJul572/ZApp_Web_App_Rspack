@@ -100,4 +100,4 @@ const validator = (rules, value) => {
   return error;
 };
 
-export { validator, generateValidation };
+export { generateValidation, validator };
