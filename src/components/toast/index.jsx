@@ -18,7 +18,7 @@ const Toast = () => {
   const handleClose = () => setToast(false);
 
   const renderToast = () => {
-    if (!toast || !toast.status) return false;
+    if (!toast?.status) return false;
 
     return (
       <Snackbar

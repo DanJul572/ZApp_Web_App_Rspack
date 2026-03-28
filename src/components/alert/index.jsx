@@ -8,7 +8,7 @@ const Alert = () => {
   const { alert, setAlert } = useAlert();
   const translator = Translator();
 
-  if (!alert || !alert.status) {
+  if (!alert?.status) {
     return false;
   }
 

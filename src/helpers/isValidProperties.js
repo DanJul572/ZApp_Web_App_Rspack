@@ -7,7 +7,7 @@ const isValidProperties = (name, group, type) => {
 
   const validate = EValidProperty[name];
 
-  if (!validate || !validate[group]) {
+  if (!validate?.[group]) {
     return false;
   }
 

@@ -8,7 +8,7 @@ const Line = (props) => {
 
   const translator = Translator();
 
-  if (!labels || !labels.length || !values || !values.length) {
+  if (!labels?.length || !values?.length) {
     return (
       <Container sx={{ padding: 0 }}>
         <Typography fontWeight="bold">{translator('empty_content')}</Typography>

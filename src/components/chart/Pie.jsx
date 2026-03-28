@@ -8,7 +8,7 @@ const Pie = (props) => {
 
   const translator = Translator();
 
-  if (!values || !values.length) {
+  if (!values?.length) {
     return (
       <Container sx={{ padding: 0 }}>
         <Typography fontWeight="bold">{translator('empty_content')}</Typography>
