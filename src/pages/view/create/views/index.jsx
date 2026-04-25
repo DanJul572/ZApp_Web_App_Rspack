@@ -6,7 +6,7 @@ const ViewList = (props) => {
   const { viewId, setViewId, viewOptions } = props;
 
   return (
-    <Box paddingX={2} paddingTop={2}>
+    <Box sx={{ paddingX: 2, paddingTop: 2 }}>
       <Dropdown
         placeholder="Select View"
         value={viewId}

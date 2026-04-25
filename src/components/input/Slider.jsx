@@ -14,7 +14,11 @@ const Slider = (props) => {
   return (
     <Box>
       <Typography>{label}</Typography>
-      <Box padding={1}>
+      <Box
+        sx={{
+          padding: 1,
+        }}
+      >
         <MuiSlider
           color={color || 'primary'}
           disabled={disabled}

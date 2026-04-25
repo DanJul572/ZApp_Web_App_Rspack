@@ -32,7 +32,13 @@ const OnLoad = (props) => {
 
   return (
     <Box>
-      <Box display="flex" justifyContent="space-between" alignItems="center">
+      <Box
+        sx={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+        }}
+      >
         <Typography>On Load</Typography>
         <IconButton sx={{ padding: 0 }} onClick={() => setOpen(true)}>
           <InsertLink />
@@ -45,7 +51,7 @@ const OnLoad = (props) => {
       >
         <DialogTitle>On Load</DialogTitle>
         <DialogContent>
-          <Box width={500}>
+          <Box sx={{ width: 500 }}>
             <Code value={onLoad} onChange={setOnLoad} />
           </Box>
         </DialogContent>

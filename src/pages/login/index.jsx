@@ -61,14 +61,16 @@ const Page = () => {
 
   return (
     <Box
-      alignItems="center"
-      bottom={0}
-      display="flex"
-      justifyContent="center"
-      left={0}
-      position="absolute"
-      right={0}
-      top={0}
+      sx={{
+        alignItems: 'center',
+        bottom: 0,
+        display: 'flex',
+        justifyContent: 'center',
+        left: 0,
+        position: 'absolute',
+        right: 0,
+        top: 0,
+      }}
     >
       <Card
         sx={{
@@ -85,7 +87,14 @@ const Page = () => {
         >
           Back
         </Button>
-        <Box marginBottom={3} display="flex" flexDirection="column" gap={1}>
+        <Box
+          sx={{
+            marginBottom: 3,
+            display: 'flex',
+            flexDirection: 'column',
+            gap: 1,
+          }}
+        >
           <ShortText
             label="Email"
             name="email"
@@ -107,7 +116,13 @@ const Page = () => {
         >
           {translator('login')}
         </Button>
-        <Box display="flex" justifyContent="flex-end" marginTop={2}>
+        <Box
+          sx={{
+            display: 'flex',
+            justifyContent: 'flex-end',
+            marginTop: 2,
+          }}
+        >
           <Typography>
             {translator("don't_have_an_account")}
             <Link

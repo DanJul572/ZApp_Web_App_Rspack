@@ -11,7 +11,9 @@ const Bar = (props) => {
   if (!labels?.length || !values?.length) {
     return (
       <Container sx={{ padding: 0 }}>
-        <Typography fontWeight="bold">{translator('empty_content')}</Typography>
+        <Typography sx={{ fontWeight: 'bold' }}>
+          {translator('empty_content')}
+        </Typography>
       </Container>
     );
   }

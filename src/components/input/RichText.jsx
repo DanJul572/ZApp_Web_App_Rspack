@@ -32,7 +32,7 @@ const Richtext = (props) => {
         holder: editorId,
         autofocus: !disabled,
         placeholder: !disabled ? 'Write Here' : null,
-        data: defaultValue || {}, // apply default value
+        data: defaultValue || {},
         tools: {
           header: {
             class: Header,
@@ -98,7 +98,7 @@ const Richtext = (props) => {
     try {
       await editorInstance.current.clear();
       if (onChange) {
-        onChange({ blocks: [] }); // emit kosong
+        onChange({ blocks: [] });
       }
     } catch (error) {
       console.error('Clear Failed:', error);

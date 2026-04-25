@@ -24,9 +24,7 @@ const Drawer = (props) => {
       anchor={anchor || 'right'}
       sx={{ zIndex: 9998 }}
     >
-      <Box padding={2} {...drawerSize}>
-        {children}
-      </Box>
+      <Box sx={{ padding: 2, ...drawerSize }}>{children}</Box>
     </MuiDrawer>
   );
 };

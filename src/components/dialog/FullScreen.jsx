@@ -31,7 +31,7 @@ const FullScreen = (props) => {
           </IconButton>
         </Toolbar>
       </AppBar>
-      <Box padding={2}>{children}</Box>
+      <Box sx={{ padding: 2 }}>{children}</Box>
     </Dialog>
   );
 };

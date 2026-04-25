@@ -10,14 +10,14 @@ import MapLoop from '../extra/MapLoop';
 const Text = (props, key = null) => {
   return (
     <Typography
-      fontSize={props.size ? props.size : 'inherit'} // validasi langsung
-      key={key}
       sx={{
+        fontSize: props.size ? props.size : 'inherit',
         color: props.color,
         fontStyle: props.italic,
         fontWeight: props.bold,
         textDecoration: props.underline,
       }}
+      key={key}
     >
       {props.label}
     </Typography>

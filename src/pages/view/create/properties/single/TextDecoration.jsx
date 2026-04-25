@@ -114,12 +114,14 @@ const TextDecoration = (props) => {
 
   return (
     validComponent() && (
-      <Box paddingX={2}>
+      <Box sx={{ paddingX: 2 }}>
         <Box
-          marginTop={1}
-          display="flex"
-          justifyContent="space-between"
-          alignItems="center"
+          sx={{
+            marginTop: 1,
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+          }}
         >
           {items.map(element)}
         </Box>

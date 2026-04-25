@@ -185,7 +185,9 @@ const EmailSettingsDrawer = ({ open, onClose, value, onChange }) => {
                   variant="caption"
                   color="text.secondary"
                   display="block"
-                  lineHeight={1.3}
+                  sx={{
+                    lineHeight: 1.3,
+                  }}
                 >
                   {p.description}
                 </Typography>

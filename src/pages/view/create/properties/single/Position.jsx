@@ -108,10 +108,12 @@ const Position = (props) => {
     selected && (
       <Box>
         <Box
-          paddingX={2}
-          display="flex"
-          justifyContent="space-between"
-          alignItems="center"
+          sx={{
+            paddingX: 2,
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+          }}
         >
           <Typography>Position</Typography>
           <Box>
@@ -137,7 +139,14 @@ const Position = (props) => {
         >
           <DialogTitle>Position</DialogTitle>
           <DialogContent>
-            <Box display="flex" flexDirection="column" gap={1} paddingY={1}>
+            <Box
+              sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                gap: 1,
+                paddingY: 1,
+              }}
+            >
               <ShortText
                 label="Container ID"
                 value={containerID}

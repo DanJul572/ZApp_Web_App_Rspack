@@ -4,7 +4,13 @@ const MapLoop = (props) => {
   const { items, render } = props;
 
   return (
-    <Box gap={1} display="flex" flexDirection="column">
+    <Box
+      sx={{
+        gap: 1,
+        display: 'flex',
+        flexDirection: 'column',
+      }}
+    >
       {items.map(render)}
     </Box>
   );

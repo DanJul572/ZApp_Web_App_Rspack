@@ -95,18 +95,20 @@ const TableAction = (props) => {
   return (
     validComponent() && (
       <Box>
-        <Box paddingX={2}>
+        <Box sx={{ paddingX: 2 }}>
           <Typography marginBottom={1}>Actions</Typography>
           <Divider />
           <Box>
             {actions.map((action) => {
               return (
                 <Box
-                  display="flex"
-                  justifyContent="space-between"
-                  alignItems="center"
+                  sx={{
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                    marginTop: 1,
+                  }}
                   key={action.type}
-                  marginTop={1}
                 >
                   <Toggle
                     value={Boolean(checkAction(action))}

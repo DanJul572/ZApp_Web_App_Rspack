@@ -20,7 +20,13 @@ const LeftBorderCard = (props) => {
       }}
     >
       <CardContent>
-        <Box display="flex" justifyContent="space-between" alignItems="center">
+        <Box
+          sx={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+          }}
+        >
           <Box>
             <Typography
               variant="caption"

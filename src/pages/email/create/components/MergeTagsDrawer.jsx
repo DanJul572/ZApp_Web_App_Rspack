@@ -1,7 +1,7 @@
 import AddIcon from '@mui/icons-material/Add';
 import CloseIcon from '@mui/icons-material/Close';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
-import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
+import DeleteOutlined from '@mui/icons-material/DeleteOutlined';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -269,7 +269,7 @@ const MergeTagsDrawer = ({
                         onClick={() => handleDelete(tag.id)}
                         sx={{ color: 'error.main' }}
                       >
-                        <DeleteOutlineIcon fontSize="small" />
+                        <DeleteOutlined fontSize="small" />
                       </IconButton>
                     </Box>
                   </Box>
@@ -293,7 +293,7 @@ const MergeTagsDrawer = ({
                           e.target.value.replace(/\s/g, '_').toLowerCase(),
                         )
                       }
-                      InputProps={{
+                      slotProps={{
                         startAdornment: (
                           <InputAdornment
                             position="start"

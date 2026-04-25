@@ -22,7 +22,7 @@ const PageSettings = (props) => {
   }, [localLabel, setLabel]);
 
   return (
-    <Box padding={2} display="flex" flexDirection="column" gap={2}>
+    <Box sx={{ padding: 2, display: 'flex', flexDirection: 'column', gap: 2 }}>
       <ShortText value={localLabel} label="Label" onChange={setLocalLabel} />
       <OnLoad page={page} setPage={setPage} />
     </Box>

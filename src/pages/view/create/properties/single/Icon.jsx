@@ -61,7 +61,7 @@ const Icon = (props) => {
 
   return (
     validComponent() && (
-      <Box padding={2}>
+      <Box sx={{ padding: 2 }}>
         <Button variant="contained" fullWidth onClick={() => setOpen(true)}>
           Select Icon
         </Button>

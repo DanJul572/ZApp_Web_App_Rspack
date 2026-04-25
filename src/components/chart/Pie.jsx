@@ -11,7 +11,9 @@ const Pie = (props) => {
   if (!values?.length) {
     return (
       <Container sx={{ padding: 0 }}>
-        <Typography fontWeight="bold">{translator('empty_content')}</Typography>
+        <Typography sx={{ fontWeight: 'bold' }}>
+          {translator('empty_content')}
+        </Typography>
       </Container>
     );
   }

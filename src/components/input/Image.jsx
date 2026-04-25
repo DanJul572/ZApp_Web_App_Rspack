@@ -37,16 +37,16 @@ const Image = () => {
 
   return (
     <Box
-      display="flex"
-      flexDirection="column"
-      gap={2}
-      alignItems="center"
       sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 2,
+        alignItems: 'center',
         width: '260px',
       }}
     >
       {preview ? (
-        <Box position="relative" sx={{ width: 220 }}>
+        <Box sx={{ position: 'relative', width: 220 }}>
           <IconButton
             onClick={handleDelete}
             sx={{
@@ -75,9 +75,6 @@ const Image = () => {
         </Box>
       ) : (
         <Box
-          display="flex"
-          justifyContent="center"
-          alignItems="center"
           sx={{
             width: '100%',
             height: 150,
@@ -85,6 +82,9 @@ const Image = () => {
             border: `2px dashed ${theme.palette.text.disabled}`,
             color: theme.palette.text.disabled,
             fontSize: 48,
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
           }}
         >
           <PhotoCameraIcon fontSize="inherit" />
@@ -92,19 +92,19 @@ const Image = () => {
       )}
 
       <Box
-        display="flex"
-        flexDirection="row"
-        alignItems="center"
-        sx={{ width: '100%', maxWidth: 280 }}
+        sx={{
+          display: 'flex',
+          flexDirection: 'row',
+          alignItems: 'center',
+          width: '100%',
+          maxWidth: 280,
+        }}
       >
         <Button
           variant="text"
           fullWidth
           component="label"
-          sx={{
-            borderTopRightRadius: 0,
-            borderBottomRightRadius: 0,
-          }}
+          sx={{ borderTopRightRadius: 0, borderBottomRightRadius: 0 }}
         >
           Select
           <input

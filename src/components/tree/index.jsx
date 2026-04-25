@@ -181,7 +181,12 @@ const Tree = (props) => {
   return (
     <Box>
       {isSidebar && (
-        <Box paddingX={1} marginBottom={1}>
+        <Box
+          sx={{
+            paddingX: 1,
+            marginBottom: 1,
+          }}
+        >
           <ShortText
             value={searchTerm}
             onChange={setSearchTerm}

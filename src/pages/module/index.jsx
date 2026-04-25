@@ -80,7 +80,12 @@ const Page = () => {
 
   return (
     <Box>
-      <Typography fontSize={20} fontWeight="bold">
+      <Typography
+        sx={{
+          fontSize: 20,
+          fontWeight: 'bold',
+        }}
+      >
         Modules
       </Typography>
       <ClassicView
