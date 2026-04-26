@@ -130,15 +130,17 @@ const Display = (props) => {
     return (
       <Box
         key={index}
-        border={1}
-        borderRadius={1}
-        borderColor={isActive(display) ? primaryColor : fontColor}
-        width={25}
-        height={25}
-        display="flex"
-        alignItems="center"
-        justifyContent="center"
-        sx={{ cursor: 'pointer' }}
+        sx={{
+          border: 1,
+          borderRadius: 1,
+          borderColor: isActive(display) ? primaryColor : fontColor,
+          width: 25,
+          height: 25,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          cursor: 'pointer',
+        }}
         onClick={() => onApply(display)}
       >
         {icon(display)}
@@ -158,21 +160,23 @@ const Display = (props) => {
 
   return (
     validComponent() && (
-      <Box paddingX={2}>
+      <Box sx={{ paddingX: 2 }}>
         <Typography>Display</Typography>
         <Box
-          marginTop={1}
-          display="flex"
-          justifyContent="space-between"
-          alignItems="center"
+          sx={{
+            marginTop: 1,
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+          }}
         >
           {horizontal.map(poisiton)}
         </Box>
         {/*
-                <Box marginTop={1} display="flex" justifyContent="space-between" alignItems="center">
-                    {vertical.map(poisiton)}
-                </Box>
-            */}
+        <Box marginTop={1} display="flex" justifyContent="space-between" alignItems="center">
+            {vertical.map(poisiton)}
+        </Box>
+        */}
       </Box>
     )
   );

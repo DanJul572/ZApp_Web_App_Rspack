@@ -1,7 +1,6 @@
-import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
+import CheckCircleOutlined from '@mui/icons-material/CheckCircleOutlined';
 import CloseIcon from '@mui/icons-material/Close';
 import DesktopWindowsIcon from '@mui/icons-material/DesktopWindows';
-import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
 import SendIcon from '@mui/icons-material/Send';
 import SmartphoneIcon from '@mui/icons-material/Smartphone';
 import Box from '@mui/material/Box';
@@ -306,7 +305,7 @@ const PreviewSendDrawer = ({
                 borderColor: 'success.200',
               }}
             >
-              <CheckCircleOutlineIcon color="success" />
+              <CheckCircleOutlined color="success" />
               <Box>
                 <Typography
                   variant="body2"

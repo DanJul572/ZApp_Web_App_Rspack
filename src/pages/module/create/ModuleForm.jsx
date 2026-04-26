@@ -22,7 +22,14 @@ const ModuleForm = (props) => {
       }}
     >
       <Grid container="true" spacing={2}>
-        <Grid display="flex" flexDirection="column" gap={2} size={6}>
+        <Grid
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            gap: 2,
+          }}
+          size={6}
+        >
           <ShortText
             label="Module Name"
             onChange={setModuleName}

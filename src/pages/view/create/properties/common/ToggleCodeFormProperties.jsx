@@ -78,10 +78,12 @@ const ToggleCodeFormProperties = (props) => {
           placement="left"
         >
           <Box
-            paddingX={2}
-            display="flex"
-            justifyContent="space-between"
-            alignItems="center"
+            sx={{
+              paddingX: 2,
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+            }}
           >
             <Toggle
               value={value.isBind ? false : value.value}
@@ -101,7 +103,7 @@ const ToggleCodeFormProperties = (props) => {
         >
           <DialogTitle>{label}</DialogTitle>
           <DialogContent>
-            <Box width={500} paddingY={1}>
+            <Box sx={{ width: 500, paddingY: 1 }}>
               <Code
                 value={!value.isBind ? null : value.value}
                 onChange={(value) => onChange(true, value)}

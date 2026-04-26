@@ -92,7 +92,7 @@ const EmailChipInput = ({ label, description, emails, onAdd, onRemove }) => {
         onKeyDown={handleKeyDown}
         error={!!error}
         helperText={error || 'Press Enter or comma to add'}
-        InputProps={{
+        slotProps={{
           endAdornment: (
             <InputAdornment position="end">
               <IconButton

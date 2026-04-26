@@ -358,10 +358,12 @@ const FieldForm = (props) => {
       >
         <Box padding={2}>
           <Box
-            display="flex"
-            justifyContent="flex-end"
-            gap={2}
-            marginBottom={2}
+            sx={{
+              display: 'flex',
+              justifyContent: 'flex-end',
+              gap: 2,
+              marginBottom: 2,
+            }}
           >
             <Button variant="contained" onClick={onSave}>
               {translator('add')}
@@ -370,7 +372,14 @@ const FieldForm = (props) => {
               {translator('cancel')}
             </Button>
           </Box>
-          <Box width={500} display="flex" flexDirection="column" gap={2}>
+          <Box
+            sx={{
+              width: 500,
+              display: 'flex',
+              flexDirection: 'column',
+              gap: 2,
+            }}
+          >
             <ShortText label="Name" value={fieldName} onChange={setFieldName} />
             <ShortText
               label="Label"

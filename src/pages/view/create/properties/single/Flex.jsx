@@ -44,10 +44,12 @@ const Flex = (props) => {
   return (
     validComponent() && (
       <Box
-        paddingX={2}
-        display="flex"
-        justifyContent="space-between"
-        alignItems="center"
+        sx={{
+          paddingX: 2,
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+        }}
       >
         <Toggle value={flex} label="Flex" onChange={onChange} />
       </Box>

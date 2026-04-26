@@ -33,7 +33,13 @@ const ShortText = (props) => {
 
   return (
     <Box>
-      <Box display="flex" justifyContent="space-between" alignItems="center">
+      <Box
+        sx={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+        }}
+      >
         <Typography>{label}</Typography>
         {tooltip && (
           <Tooltip title={tooltip} arrow placement="top">

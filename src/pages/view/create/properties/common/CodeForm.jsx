@@ -39,10 +39,12 @@ const CodeForm = (props) => {
     isValidProperties(name, group, type) && (
       <Box>
         <Box
-          paddingX={2}
-          display="flex"
-          justifyContent="space-between"
-          alignItems="center"
+          sx={{
+            paddingX: 2,
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+          }}
         >
           <Typography>{label}</Typography>
           <IconButton sx={{ padding: 0 }} onClick={() => setOpen(true)}>
@@ -56,7 +58,7 @@ const CodeForm = (props) => {
         >
           <DialogTitle>{label}</DialogTitle>
           <DialogContent>
-            <Box width={500}>
+            <Box sx={{ width: 500 }}>
               <Code value={value} onChange={setValue} />
             </Box>
           </DialogContent>

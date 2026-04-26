@@ -196,7 +196,14 @@ const Properties = (props) => {
             />
           </CustomTabPanel>
           <CustomTabPanel value={value} index={1}>
-            <Box display="flex" flexDirection="column" gap={2} paddingTop={3}>
+            <Box
+              sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                gap: 2,
+                paddingTop: 3,
+              }}
+            >
               <Identity selected={selected} />
               <Delete
                 content={content}

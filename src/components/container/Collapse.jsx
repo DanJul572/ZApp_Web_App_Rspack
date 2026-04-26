@@ -16,14 +16,15 @@ const Collapse = (props) => {
   const finalColor = color || theme.palette.primary.main;
 
   return (
-    <Box border={1} borderColor={finalColor} borderRadius={1}>
+    <Box sx={{ border: 1, borderColor: finalColor, borderRadius: 1 }}>
       <Box
-        borderBottom={1}
-        borderColor={finalColor}
-        display="flex"
-        justifyContent="space-between"
-        padding={1}
-        sx={{ backgroundColor: finalColor }}
+        sx={{
+          borderBottom: 1,
+          borderColor: finalColor,
+          display: 'flex',
+          justifyContent: 'space-between',
+          padding: 1,
+        }}
       >
         <Typography
           fontWeight="bold"
@@ -46,7 +47,7 @@ const Collapse = (props) => {
           )}
         </IconButton>
       </Box>
-      <MuiCollapse in={open} sx={{ padding: 1 }}>
+      <MuiCollapse in={open} sx={{ padding: 1, backgroundColor: finalColor }}>
         {children}
       </MuiCollapse>
     </Box>

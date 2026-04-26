@@ -11,7 +11,12 @@ const Wrapper = (props) => {
 
   if (!isBuilder) {
     return (
-      <Box key={component.id} marginBottom={1}>
+      <Box
+        key={component.id}
+        sx={{
+          marginBottom: 1,
+        }}
+      >
         {children}
       </Box>
     );
@@ -20,12 +25,14 @@ const Wrapper = (props) => {
   const selectedBorder = selected && component.id === selected.id ? 1 : 0;
   return (
     <Box
-      border={selectedBorder}
-      borderColor={theme.palette.primary.main}
-      borderRadius={1}
+      sx={{
+        border: selectedBorder,
+        borderColor: theme.palette.primary.main,
+        borderRadius: 1,
+        padding: 1,
+        paddingBottom: 0,
+      }}
       key={component.id}
-      padding={1}
-      paddingBottom={0}
     >
       {children}
       <Tooltip arrow title={component.type.label} placement="left">

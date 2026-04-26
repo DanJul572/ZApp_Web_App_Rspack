@@ -1,6 +1,6 @@
 import AddIcon from '@mui/icons-material/Add';
 import CloseIcon from '@mui/icons-material/Close';
-import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
+import DeleteOutlined from '@mui/icons-material/DeleteOutlined';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import Box from '@mui/material/Box';
@@ -142,7 +142,7 @@ const OptionalSourceDrawer = ({ open, onClose, value = [], onChange }) => {
                 }}
                 sx={{ color: 'error.main', mr: 0.5 }}
               >
-                <DeleteOutlineIcon fontSize="small" />
+                <DeleteOutlined fontSize="small" />
               </IconButton>
               {isExpanded(item.id) ? (
                 <ExpandLessIcon

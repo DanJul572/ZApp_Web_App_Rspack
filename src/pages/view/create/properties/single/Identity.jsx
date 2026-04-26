@@ -22,7 +22,9 @@ const Identity = (props) => {
   return (
     validComponent() && (
       <Box>
-        <Box paddingX={2} display="flex" justifyContent="space-between">
+        <Box
+          sx={{ paddingX: 2, display: 'flex', justifyContent: 'space-between' }}
+        >
           <Typography>{selected.id}</Typography>
           <IconButton sx={{ padding: 0 }} onClick={onCoppy}>
             <ContentPaste />

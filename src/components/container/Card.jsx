@@ -16,8 +16,14 @@ const Card = (props) => {
   }
 
   return (
-    <Box border={border || 0} borderColor={color || grey[300]} borderRadius={1}>
-      <Box {...comProps} padding={padding || 1}>
+    <Box
+      sx={{
+        border: border || 0,
+        borderColor: color || grey[300],
+        borderRadius: 1,
+      }}
+    >
+      <Box {...comProps} sx={{ padding: padding || 1 }}>
         {children}
       </Box>
     </Box>
