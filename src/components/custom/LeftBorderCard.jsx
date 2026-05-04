@@ -1,4 +1,10 @@
-import { Box, Card, CardContent, Typography, useTheme } from '@mui/material';
+import { useTheme } from '@mui/material';
+
+import Box from '@mui/material/Box';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import Typography from '@mui/material/Typography';
+
 import { cloneElement } from 'react';
 
 const LeftBorderCard = (props) => {

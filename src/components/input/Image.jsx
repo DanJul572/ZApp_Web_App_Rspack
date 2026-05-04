@@ -1,6 +1,10 @@
 import DeleteIcon from '@mui/icons-material/Delete';
 import PhotoCameraIcon from '@mui/icons-material/PhotoCamera';
-import { Box, Button, Divider, IconButton, useTheme } from '@mui/material';
+import { useTheme } from '@mui/material';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import Divider from '@mui/material/Divider';
+import IconButton from '@mui/material/IconButton';
 import { useRef, useState } from 'react';
 
 const Image = () => {

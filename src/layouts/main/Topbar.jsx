@@ -1,4 +1,5 @@
-import { Avatar, useTheme } from '@mui/material';
+import { useTheme } from '@mui/material';
+import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
