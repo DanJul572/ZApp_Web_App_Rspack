@@ -52,7 +52,9 @@ const TableRenderer = (props) => {
 
   if (isBuilder) {
     return (
-      <Typography textAlign="center">{translator('empty_content')}</Typography>
+      <Typography sx={{ textAlign: 'center' }}>
+        {translator('empty_content')}
+      </Typography>
     );
   }
 

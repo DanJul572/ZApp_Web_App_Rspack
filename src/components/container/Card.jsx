@@ -23,9 +23,7 @@ const Card = (props) => {
         borderRadius: 1,
       }}
     >
-      <Box {...comProps} sx={{ padding: padding || 1 }}>
-        {children}
-      </Box>
+      <Box sx={{ ...comProps, padding: padding || 1 }}>{children}</Box>
     </Box>
   );
 };

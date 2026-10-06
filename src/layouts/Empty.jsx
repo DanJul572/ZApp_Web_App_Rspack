@@ -1,9 +1,10 @@
-import { createTheme, ThemeProvider } from '@mui/material';
+import { ThemeProvider } from '@mui/material';
 import CssBaseline from '@mui/material/CssBaseline';
 import FullAppLoader from '@/components/loading/FullAppLoader';
 import FullCoverLoader from '@/components/loading/FullCoverLoader';
 import Toast from '@/components/toast';
 import { useConfig } from '@/contexts/ConfigProvider';
+import createAppTheme from '@/theme';
 
 const Empty = ({ children }) => {
   const { config, loading } = useConfig();
@@ -12,7 +13,7 @@ const Empty = ({ children }) => {
     return <FullAppLoader />;
   }
 
-  const theme = createTheme(config.mui);
+  const theme = createAppTheme(config.mui);
 
   return (
     <ThemeProvider theme={theme}>

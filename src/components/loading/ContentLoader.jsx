@@ -6,13 +6,13 @@ const ContentLoader = () => {
     <Box
       sx={{
         display: 'flex',
-        height: '70vh',
+        height: '60vh',
         width: '100%',
         justifyContent: 'center',
         alignItems: 'center',
       }}
     >
-      <CircularProgress />
+      <CircularProgress size={32} thickness={4} />
     </Box>
   );
 };

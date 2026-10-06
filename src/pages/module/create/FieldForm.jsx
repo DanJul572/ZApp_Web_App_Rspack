@@ -1,13 +1,15 @@
+import ListAlt from '@mui/icons-material/ListAlt';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import { grey } from '@mui/material/colors';
-import Drawer from '@mui/material/Drawer';
+import Typography from '@mui/material/Typography';
 import { useState } from 'react';
 import Confirm from '@/components/dialog/Confirm';
 import Dropdown from '@/components/input/Dropdown';
 import NumberField from '@/components/input/NumberField';
 import ShortText from '@/components/input/ShortText';
 import Toggle from '@/components/input/Toggle';
+import SectionCard from '@/components/page/SectionCard';
+import SideDrawer from '@/components/page/SideDrawer';
 import Table from '@/components/table';
 import EActionType from '@/enums/EActionType';
 import EDataType from '@/enums/EDataType';
@@ -213,7 +215,7 @@ const FieldForm = (props) => {
       return false;
 
     return (
-      <Box display="flex" flexDirection="column" gap={2}>
+      <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
         <Dropdown
           label="Data Type"
           options={dataTypeOptions}
@@ -319,29 +321,47 @@ const FieldForm = (props) => {
     if (!inputType) return false;
 
     return (
-      <Box
-        marginY={2}
-        border={1}
-        padding={2}
-        borderRadius={1}
-        borderColor={grey[300]}
-        display="flex"
-        flexDirection="column"
-        gap={2}
-      >
-        {refTableSettings()}
-        <Box display="flex" alignItems="center" gap={2}>
-          {identitySetting()}
-          {autoIncrementSetting()}
-          {notNullSetting()}
-          {uniqueSetting()}
+      <Box>
+        <Typography variant="overline" color="textSecondary">
+          Field Settings
+        </Typography>
+        <Box
+          sx={{
+            mt: 1,
+            p: 2,
+            border: '1px solid',
+            borderColor: 'divider',
+            borderRadius: '10px',
+            backgroundColor: 'background.default',
+            display: 'flex',
+            flexDirection: 'column',
+            gap: 2,
+          }}
+        >
+          {refTableSettings()}
+          <Box
+            sx={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(2, minmax(0, 1fr))',
+              gap: 2,
+            }}
+          >
+            {identitySetting()}
+            {autoIncrementSetting()}
+            {notNullSetting()}
+            {uniqueSetting()}
+          </Box>
         </Box>
       </Box>
     );
   };
 
   return (
-    <Box>
+    <SectionCard
+      icon={<ListAlt />}
+      title="Fields"
+      subtitle={`${fieldRows.length} field${fieldRows.length !== 1 ? 's' : ''} configured`}
+    >
       <Table
         action={action}
         columnKey={'id'}
@@ -351,56 +371,46 @@ const FieldForm = (props) => {
         rows={fieldRows}
         toolbarCustomAction={toolbarCustomAction}
       />
-      <Drawer
-        anchor="right"
+      <SideDrawer
         open={openFieldForm}
         onClose={() => setOpenFieldForm(false)}
-      >
-        <Box padding={2}>
-          <Box
-            sx={{
-              display: 'flex',
-              justifyContent: 'flex-end',
-              gap: 2,
-              marginBottom: 2,
-            }}
-          >
-            <Button variant="contained" onClick={onSave}>
-              {translator('add')}
-            </Button>
+        title="Add New Field"
+        subtitle="Choose an input type to see its available settings"
+        actions={
+          <>
             <Button onClick={() => setOpenFieldForm(false)} variant="outlined">
               {translator('cancel')}
             </Button>
-          </Box>
-          <Box
-            sx={{
-              width: 500,
-              display: 'flex',
-              flexDirection: 'column',
-              gap: 2,
-            }}
-          >
-            <ShortText label="Name" value={fieldName} onChange={setFieldName} />
-            <ShortText
-              label="Label"
-              value={fieldLabel}
-              onChange={setFieldLabel}
-            />
-            <Dropdown
-              label="Input Type"
-              onChange={onChangeInputType}
-              options={inputTypeOptions}
-              value={inputType}
-            />
-            <NumberField
-              label="Sequence"
-              value={sequence}
-              onChange={setSequence}
-            />
-          </Box>
-          {fieldSettingsComponent()}
+            <Button variant="contained" onClick={onSave}>
+              {translator('add')}
+            </Button>
+          </>
+        }
+      >
+        <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+          <Typography variant="overline" color="textSecondary">
+            General
+          </Typography>
+          <ShortText label="Name" value={fieldName} onChange={setFieldName} />
+          <ShortText
+            label="Label"
+            value={fieldLabel}
+            onChange={setFieldLabel}
+          />
+          <Dropdown
+            label="Input Type"
+            onChange={onChangeInputType}
+            options={inputTypeOptions}
+            value={inputType}
+          />
+          <NumberField
+            label="Sequence"
+            value={sequence}
+            onChange={setSequence}
+          />
         </Box>
-      </Drawer>
+        {fieldSettingsComponent()}
+      </SideDrawer>
 
       <Confirm
         cancelButton={translator('cancel')}
@@ -410,7 +420,7 @@ const FieldForm = (props) => {
         text={translator('confirm_delete')}
         title={translator('delete_data')}
       />
-    </Box>
+    </SectionCard>
   );
 };
 

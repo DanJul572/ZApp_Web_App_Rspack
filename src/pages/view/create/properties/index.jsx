@@ -1,13 +1,16 @@
+import AdsClick from '@mui/icons-material/AdsClick';
 import Box from '@mui/material/Box';
-import Card from '@mui/material/Card';
 import Tab from '@mui/material/Tab';
 import Tabs from '@mui/material/Tabs';
 import PropTypes from 'prop-types';
 import { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
+import EmptyState from '@/components/page/EmptyState';
 import EComponentGroupType from '@/enums/EComponentGroupType';
 import EProperties from '@/enums/EProperties';
 import Translator from '@/hooks/Translator';
+import { TOPBAR_HEIGHT } from '@/layouts/main/constants';
+import { PANEL_WIDTH } from '../constants';
 import CodeForm from './common/CodeForm';
 import ShortTextForm from './common/ShortTextForm';
 import ToggleCodeFormProperties from './common/ToggleCodeFormProperties';
@@ -162,27 +165,34 @@ const Properties = (props) => {
   };
 
   return (
-    <Card
+    <Box
+      component="aside"
       sx={{
-        borderRadius: 0,
+        backgroundColor: 'background.paper',
+        borderLeft: '1px solid',
+        borderColor: 'divider',
         bottom: 0,
-        marginTop: 8,
         overflow: 'auto',
         position: 'fixed',
         right: 0,
-        top: 0,
-        width: 350,
+        top: TOPBAR_HEIGHT,
+        width: PANEL_WIDTH,
+        pb: 3,
       }}
     >
       {activeNavigation === navigationType.content && (
         <Box sx={{ width: '100%' }}>
           <Box
             sx={{
+              position: 'sticky',
+              top: 0,
+              zIndex: 1,
+              backgroundColor: 'background.paper',
               borderBottom: 1,
               borderColor: 'divider',
             }}
           >
-            <Tabs value={value} onChange={handleChange} centered>
+            <Tabs value={value} onChange={handleChange} variant="fullWidth">
               <Tab label={translator('page')} {...a11yProps(0)} />
               <Tab label={translator('property')} {...a11yProps(1)} />
             </Tabs>
@@ -196,6 +206,13 @@ const Properties = (props) => {
             />
           </CustomTabPanel>
           <CustomTabPanel value={value} index={1}>
+            {!selected && (
+              <EmptyState
+                icon={<AdsClick />}
+                title="No component selected"
+                description="Click a component on the canvas, or add one from the left panel, to edit its properties."
+              />
+            )}
             <Box
               sx={{
                 display: 'flex',
@@ -259,7 +276,7 @@ const Properties = (props) => {
           </CustomTabPanel>
         </Box>
       )}
-    </Card>
+    </Box>
   );
 };
 

@@ -39,13 +39,15 @@ const Color = (props) => {
 
   return (
     isValidProperties(name, group, type) && (
-      <Box paddingX={2}>
+      <Box sx={{ paddingX: 2 }}>
         <Box
-          display="flex"
-          justifyContent="space-between"
-          alignItems="center"
-          gap={2}
-          marginTop={1}
+          sx={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            gap: 2,
+            marginTop: 1,
+          }}
         >
           {colors.map((color) => {
             return (

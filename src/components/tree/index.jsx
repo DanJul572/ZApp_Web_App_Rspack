@@ -1,9 +1,11 @@
-import Folder from '@mui/icons-material/Folder';
-import FolderOpen from '@mui/icons-material/FolderOpen';
+import KeyboardArrowDown from '@mui/icons-material/KeyboardArrowDown';
+import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
+import Search from '@mui/icons-material/Search';
 
-import { useTheme } from '@mui/material';
 import Box from '@mui/material/Box';
+import InputAdornment from '@mui/material/InputAdornment';
 import { styled } from '@mui/material/styles';
+import TextField from '@mui/material/TextField';
 
 import { SimpleTreeView } from '@mui/x-tree-view/SimpleTreeView';
 import { TreeItem, treeItemClasses } from '@mui/x-tree-view/TreeItem';
@@ -14,34 +16,53 @@ import * as Icon from '@/configs/CIcons';
 
 import { useExpandedMenu } from '@/contexts/ExpandedMenuProvider';
 
-import ShortText from '../input/ShortText';
-
 const CustomTreeItem = forwardRef((props, ref) => (
   <TreeItem {...props} ref={ref} />
 ));
 CustomTreeItem.displayName = 'CustomTreeItem';
 
 const StyledTreeItem = styled(CustomTreeItem)(({ theme }) => ({
+  [`& .${treeItemClasses.content}`]: {
+    borderRadius: 8,
+    padding: theme.spacing(0.75, 1),
+    marginBottom: 2,
+    gap: theme.spacing(1),
+    color: theme.palette.text.secondary,
+    transition: 'background-color 0.15s, color 0.15s',
+    '&:hover': {
+      backgroundColor: theme.palette.action.hover,
+      color: theme.palette.text.primary,
+    },
+    '&[data-selected], &[data-selected][data-focused]': {
+      backgroundColor: theme.palette.primary[50],
+      color: theme.palette.primary.main,
+    },
+    [`&[data-selected] .${treeItemClasses.label}`]: {
+      fontWeight: 600,
+    },
+  },
   [`& .${treeItemClasses.label}`]: {
-    fontSize: 15,
-    color: theme.palette.text.primary,
+    fontSize: 14,
+    fontWeight: 500,
+    color: 'inherit',
+  },
+  [`& .${treeItemClasses.iconContainer} .MuiSvgIcon-root`]: {
+    fontSize: 20,
+  },
+  [`& .${treeItemClasses.groupTransition}`]: {
+    marginLeft: 14,
+    paddingLeft: 6,
+    borderLeft: `1px dashed ${theme.palette.divider}`,
   },
 }));
 
-const ExpandIcon = (props) => {
-  const theme = useTheme();
-  return <Folder {...props} sx={{ color: theme.palette.primary.main }} />;
-};
+const ExpandIcon = (props) => <KeyboardArrowRight {...props} />;
 
-const CollapseIcon = (props) => {
-  const theme = useTheme();
-  return <FolderOpen {...props} sx={{ color: theme.palette.primary.main }} />;
-};
+const CollapseIcon = (props) => <KeyboardArrowDown {...props} />;
 
 const Tree = (props) => {
   const { onChildClick, onParentClick, tree, isSidebar, setTree } = props;
 
-  const theme = useTheme();
   const location = useLocation();
 
   const { expandedMenu, setExpandedMenu } = useExpandedMenu();
@@ -92,7 +113,9 @@ const Tree = (props) => {
   };
 
   const search = (value) => {
-    if (tree.length > 0) {
+    // Search filters the cached sidebar menu; other trees (e.g. the menu
+    // editor) must keep their own data.
+    if (isSidebar && tree.length > 0) {
       const newTree = filterMenusByLabel(treeJSON, value);
       setTree(newTree);
     }
@@ -106,6 +129,8 @@ const Tree = (props) => {
         const expanded = [...expandedMenu].filter((item) => item !== menu.id);
         setExpandedMenu(expanded);
       }
+    } else {
+      setSelectedItems([menu.id]);
     }
 
     if (onParentClick) {
@@ -144,12 +169,15 @@ const Tree = (props) => {
         itemId={menu.id}
         label={menu.label}
         slots={{
-          endIcon: menu.icon
-            ? () => <SelectedIcon sx={{ color: theme.palette.primary.main }} />
+          endIcon: SelectedIcon
+            ? () => <SelectedIcon sx={{ color: 'inherit' }} />
             : null,
         }}
         onClick={(event) => {
           event.stopPropagation();
+          if (!isSidebar) {
+            setSelectedItems([menu.id]);
+          }
           onChildClick(menu);
         }}
       />
@@ -181,16 +209,26 @@ const Tree = (props) => {
   return (
     <Box>
       {isSidebar && (
-        <Box
-          sx={{
-            paddingX: 1,
-            marginBottom: 1,
-          }}
-        >
-          <ShortText
+        <Box sx={{ px: 0.5, mb: 1.5 }}>
+          <TextField
+            fullWidth
             value={searchTerm}
-            onChange={setSearchTerm}
-            placeholder="Search..."
+            onChange={(event) => setSearchTerm(event.target.value)}
+            placeholder="Search menu..."
+            slotProps={{
+              input: {
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <Search fontSize="small" />
+                  </InputAdornment>
+                ),
+              },
+            }}
+            sx={{
+              '& .MuiOutlinedInput-root': {
+                backgroundColor: 'background.default',
+              },
+            }}
           />
         </Box>
       )}
@@ -201,7 +239,7 @@ const Tree = (props) => {
           collapseIcon: CollapseIcon,
         }}
         selectedItems={selectedItems}
-        sx={{ overflowX: 'hidden', padding: 1 }}
+        sx={{ overflowX: 'hidden', p: 0.5 }}
         {...treeProps}
       >
         {tree && tree.length > 0 && tree.map((menu) => treeMenu(menu))}

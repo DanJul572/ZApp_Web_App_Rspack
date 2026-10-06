@@ -13,7 +13,12 @@ const Slider = (props) => {
 
   return (
     <Box>
-      <Typography>{label}</Typography>
+      <Typography
+        variant="body2"
+        sx={{ fontWeight: 500, mb: label ? 0.75 : 0 }}
+      >
+        {label}
+      </Typography>
       <Box
         sx={{
           padding: 1,

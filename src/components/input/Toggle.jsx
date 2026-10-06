@@ -7,7 +7,12 @@ const Toggle = (props) => {
 
   return (
     <Box>
-      <Typography>{label}</Typography>
+      <Typography
+        variant="body2"
+        sx={{ fontWeight: 500, mb: label ? 0.75 : 0 }}
+      >
+        {label}
+      </Typography>
       <Switch
         checked={Boolean(value)}
         value={Boolean(value)}

@@ -173,7 +173,7 @@ const Display = (props) => {
           {horizontal.map(poisiton)}
         </Box>
         {/*
-        <Box marginTop={1} display="flex" justifyContent="space-between" alignItems="center">
+        <Box sx={{ marginTop: 1, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             {vertical.map(poisiton)}
         </Box>
         */}

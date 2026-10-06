@@ -1,16 +1,15 @@
 import CModuleID from '@configs/CModuleID';
 import ArrowBack from '@mui/icons-material/ArrowBack';
-import Delete from '@mui/icons-material/Delete';
+import Dashboard from '@mui/icons-material/Dashboard';
+import Delete from '@mui/icons-material/DeleteOutlined';
 import Download from '@mui/icons-material/Download';
 import FileUpload from '@mui/icons-material/FileUpload';
 import RemoveRedEye from '@mui/icons-material/RemoveRedEye';
 import Save from '@mui/icons-material/Save';
 import ViewComfy from '@mui/icons-material/ViewComfy';
-import { useTheme } from '@mui/material';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import ButtonGroup from '@mui/material/ButtonGroup';
-import Card from '@mui/material/Card';
+import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
@@ -19,6 +18,7 @@ import { useNavigate } from 'react-router';
 import Upload from '@/components/button/Upload';
 import Confirm from '@/components/dialog/Confirm';
 import List from '@/components/dialog/List';
+import IconTile from '@/components/page/IconTile';
 import { useConfig } from '@/contexts/ConfigProvider';
 import { useLoading } from '@/contexts/LoadingProvider';
 import { useToast } from '@/contexts/ToastProvider';
@@ -32,6 +32,7 @@ import {
 import { readJSONFile } from '@/helpers/readFile';
 import Request from '@/hooks/Request';
 import Translator from '@/hooks/Translator';
+import { TOPBAR_HEIGHT } from '@/layouts/main/constants';
 
 const TopBar = (props) => {
   const {
@@ -52,7 +53,6 @@ const TopBar = (props) => {
   const translator = Translator();
 
   const navigate = useNavigate();
-  const theme = useTheme();
 
   const { setLoading } = useLoading();
   const { setToast } = useToast();
@@ -189,78 +189,111 @@ const TopBar = (props) => {
     }
   }, [viewId]);
 
+  const iconButtonSx = {
+    border: '1px solid',
+    borderColor: 'divider',
+    width: 38,
+    height: 38,
+  };
+
   return (
     <Box>
-      <Card
-        elevation={1}
+      <Box
         sx={{
           alignItems: 'center',
-          backgroundColor: theme.palette.background.paper,
-          borderRadius: 0,
+          backgroundColor: 'background.paper',
+          borderBottom: '1px solid',
+          borderColor: 'divider',
           display: 'flex',
+          height: TOPBAR_HEIGHT,
           justifyContent: 'space-between',
           left: 0,
-          padding: 2,
+          px: 2,
           position: 'fixed',
           right: 0,
           top: 0,
-          zIndex: 2,
+          zIndex: (theme) => theme.zIndex.appBar,
         }}
       >
-        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-          <IconButton
-            sx={{ padding: 0 }}
-            color="primary"
-            onClick={() => navigate('/view')}
-          >
-            <ArrowBack sx={{ color: theme.palette.primary.main }} />
-          </IconButton>
-          <Typography sx={{ fontWeight: 'bold' }}>
-            {translator('view_builder')}
-          </Typography>
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
+          <Tooltip title={translator('back')}>
+            <IconButton
+              size="small"
+              sx={iconButtonSx}
+              onClick={() => navigate('/view')}
+            >
+              <ArrowBack fontSize="small" />
+            </IconButton>
+          </Tooltip>
+          <IconTile size={38}>
+            <Dashboard />
+          </IconTile>
+          <Box sx={{ minWidth: 0 }}>
+            <Typography variant="subtitle1" sx={{ lineHeight: 1.3 }}>
+              {translator('view_builder')}
+            </Typography>
+            <Typography variant="caption" color="textSecondary" noWrap>
+              {label || 'Untitled view'}
+            </Typography>
+          </Box>
         </Box>
-        <ButtonGroup>
-          <Tooltip title="Upload" arrow>
-            <Upload label={<FileUpload />} onUpload={onUpload} type=".json" />
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+          <Tooltip title={translator('upload')}>
+            <Upload
+              label={<FileUpload fontSize="small" />}
+              onUpload={onUpload}
+              type=".json"
+              sx={{
+                ...iconButtonSx,
+                minWidth: 0,
+                p: 0,
+                color: 'text.secondary',
+              }}
+            />
           </Tooltip>
           {hasContent && (
-            <Tooltip title={translator('download')} arrow>
-              <Button variant="outlined" onClick={onDownload}>
-                <Download />
-              </Button>
+            <Tooltip title={translator('download')}>
+              <IconButton sx={iconButtonSx} onClick={onDownload}>
+                <Download fontSize="small" />
+              </IconButton>
             </Tooltip>
           )}
-          <Tooltip title={translator('generate')} arrow>
-            <Button
-              variant="outlined"
+          <Tooltip title={translator('generate')}>
+            <IconButton
+              sx={iconButtonSx}
               onClick={() => setOpenGenerateDialog(true)}
             >
-              <ViewComfy />
-            </Button>
+              <ViewComfy fontSize="small" />
+            </IconButton>
           </Tooltip>
-          {hasContent && (
-            <Tooltip title={translator('preview')} arrow>
-              <Button variant="outlined" onClick={onPreview}>
-                <RemoveRedEye />
-              </Button>
-            </Tooltip>
-          )}
           {viewId && (
-            <Tooltip title={translator('delete')} arrow>
-              <Button variant="outlined" onClick={setOpenConfirmDialog}>
-                <Delete />
-              </Button>
+            <Tooltip title={translator('delete')}>
+              <IconButton
+                color="error"
+                sx={iconButtonSx}
+                onClick={setOpenConfirmDialog}
+              >
+                <Delete fontSize="small" />
+              </IconButton>
             </Tooltip>
           )}
           {hasContent && (
-            <Tooltip title={translator('save')} arrow>
-              <Button variant="outlined" onClick={onSave}>
-                <Save />
+            <>
+              <Divider orientation="vertical" flexItem sx={{ mx: 0.5 }} />
+              <Button
+                variant="outlined"
+                startIcon={<RemoveRedEye />}
+                onClick={onPreview}
+              >
+                {translator('preview')}
               </Button>
-            </Tooltip>
+              <Button variant="contained" startIcon={<Save />} onClick={onSave}>
+                {translator('save')}
+              </Button>
+            </>
           )}
-        </ButtonGroup>
-      </Card>
+        </Box>
+      </Box>
       <Confirm
         cancelButton={translator('cancel')}
         confirmButton={translator('delete')}

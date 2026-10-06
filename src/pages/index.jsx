@@ -1,11 +1,9 @@
+import Login from '@mui/icons-material/Login';
+import PersonAddAlt from '@mui/icons-material/PersonAddAlt';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import ButtonGroup from '@mui/material/ButtonGroup';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import Stack from '@mui/material/Stack';
-import Typography from '@mui/material/Typography';
 import { useNavigate } from 'react-router';
+import AuthShell from '@/components/page/AuthShell';
 import { useConfig } from '@/contexts/ConfigProvider';
 
 export default function Page() {
@@ -13,36 +11,28 @@ export default function Page() {
   const { config } = useConfig();
 
   return (
-    <Box
-      sx={{
-        minHeight: '100vh',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        p: 2,
-      }}
+    <AuthShell
+      title={`Welcome to ${config.app.name || 'ZApp'}`}
+      subtitle="Sign in to continue, or create a new account to get started."
     >
-      <Card elevation={6} sx={{ maxWidth: 420, width: '100%' }}>
-        <CardContent>
-          <Stack spacing={3} alignItems="center" textAlign="center">
-            <Typography variant="h4" component="h1" fontWeight={700}>
-              {config.app.name || 'ZApp'}
-            </Typography>
-            <ButtonGroup
-              variant="text"
-              aria-label="login register actions"
-              fullWidth
-            >
-              <Button sx={{ flex: 1 }} onClick={() => navigate('/login')}>
-                Login
-              </Button>
-              <Button sx={{ flex: 1 }} onClick={() => navigate('/register')}>
-                Register
-              </Button>
-            </ButtonGroup>
-          </Stack>
-        </CardContent>
-      </Card>
-    </Box>
+      <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1.5 }}>
+        <Button
+          variant="contained"
+          size="large"
+          startIcon={<Login />}
+          onClick={() => navigate('/login')}
+        >
+          Login
+        </Button>
+        <Button
+          variant="outlined"
+          size="large"
+          startIcon={<PersonAddAlt />}
+          onClick={() => navigate('/register')}
+        >
+          Register
+        </Button>
+      </Box>
+    </AuthShell>
   );
 }

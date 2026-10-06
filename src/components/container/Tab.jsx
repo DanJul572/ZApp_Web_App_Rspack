@@ -104,7 +104,7 @@ const Tab = (props) => {
   return (
     <Box>
       <Header value={value} setValue={setValue} labels={labels} />
-      <Box padding={1}>
+      <Box sx={{ padding: 1 }}>
         <Content items={items} value={value} render={render} />
       </Box>
     </Box>

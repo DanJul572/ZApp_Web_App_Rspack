@@ -83,8 +83,7 @@
       "MuiTypography": {
         "styleOverrides": {
           "root": {
-            "fontFamily": "\"Inter\", \"Roboto\", \"Helvetica\", \"Arial\", sans-serif",
-            "fontSize": 14
+            "fontFamily": "\"Inter\", \"Roboto\", \"Helvetica\", \"Arial\", sans-serif"
           }
         }
       }

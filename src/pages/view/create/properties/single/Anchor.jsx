@@ -87,15 +87,15 @@ const Anchor = (props) => {
     return (
       <Box
         key={index}
-        border={1}
-        borderRadius={1}
-        borderColor={isActive(anchor) ? primaryColor : fontColor}
-        width={25}
-        height={25}
-        display="flex"
-        alignItems="center"
-        justifyContent="center"
         sx={{
+          border: 1,
+          borderRadius: 1,
+          borderColor: isActive(anchor) ? primaryColor : fontColor,
+          width: 25,
+          height: 25,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
           cursor: 'pointer',
         }}
         onClick={() => onApply(anchor)}
@@ -113,13 +113,15 @@ const Anchor = (props) => {
 
   return (
     validComponent() && (
-      <Box paddingX={2}>
+      <Box sx={{ paddingX: 2 }}>
         <Typography>Anchor</Typography>
         <Box
-          marginTop={1}
-          display="flex"
-          justifyContent="space-between"
-          alignItems="center"
+          sx={{
+            marginTop: 1,
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+          }}
         >
           {anchors.map(item)}
         </Box>

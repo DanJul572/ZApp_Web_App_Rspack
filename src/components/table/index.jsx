@@ -80,6 +80,35 @@ const Table = (props) => {
     !enablePagination && !onChangePage ? { style: { display: 'none' } } : false;
   const muiTableContainerProps = { sx: { maxHeight: '500px' } };
   const muiTablePaginationProps = { showRowsPerPage: false };
+  const muiTablePaperProps = {
+    elevation: 0,
+    sx: {
+      border: '1px solid',
+      borderColor: 'divider',
+      borderRadius: '12px',
+      overflow: 'hidden',
+    },
+  };
+  const muiTopToolbarProps = {
+    sx: {
+      px: 1,
+      py: 0.5,
+      borderBottom: '1px solid',
+      borderColor: 'divider',
+    },
+  };
+  const muiTableHeadCellProps = {
+    sx: (theme) => ({
+      backgroundColor:
+        theme.palette.mode === 'dark'
+          ? theme.palette.background.paper
+          : '#f8f9fc',
+    }),
+  };
+  const muiTableBodyRowProps = {
+    hover: true,
+    sx: { '&:last-child td': { borderBottom: 0 } },
+  };
 
   const formattedColumns = columns.map((column) => {
     column.Cell = function OrderItems({ cell }) {
@@ -139,7 +168,7 @@ const Table = (props) => {
     if (!footer) return false;
     return (
       <Stack>
-        {footer.label} :<Box color="warning.main">{footer.value}</Box>
+        {footer.label} :<Box sx={{ color: 'warning.main' }}>{footer.value}</Box>
       </Stack>
     );
   };
@@ -172,8 +201,15 @@ const Table = (props) => {
     manualPagination: true,
     manualSorting: true,
     muiBottomToolbarProps: muiBottomToolbarProps,
+    mrtTheme: (theme) => ({
+      baseBackgroundColor: theme.palette.background.paper,
+    }),
     muiPaginationProps: muiTablePaginationProps,
+    muiTableBodyRowProps: muiTableBodyRowProps,
     muiTableContainerProps: muiTableContainerProps,
+    muiTableHeadCellProps: muiTableHeadCellProps,
+    muiTablePaperProps: muiTablePaperProps,
+    muiTopToolbarProps: muiTopToolbarProps,
     onColumnFiltersChange: setColumnFilters,
     onGlobalFilterChange: onSearch,
     onPaginationChange: setPagination,

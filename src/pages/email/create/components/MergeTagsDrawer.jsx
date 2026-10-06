@@ -103,10 +103,10 @@ const MergeTagsDrawer = ({
           }}
         >
           <Box>
-            <Typography variant="h6" fontWeight={600}>
+            <Typography variant="h6" sx={{ fontWeight: 600 }}>
               Variable / Merge Tags
             </Typography>
-            <Typography variant="caption" color="text.secondary">
+            <Typography variant="caption" color="textSecondary">
               Use {'{{tag}}'} syntax inside the email template
             </Typography>
           </Box>
@@ -144,14 +144,13 @@ const MergeTagsDrawer = ({
               sx={{ color: 'info.main', mt: 0.2, flexShrink: 0 }}
             />
             <Box>
-              <Typography variant="body2" fontWeight={600} color="info.main">
+              <Typography variant="body2" color="info" sx={{ fontWeight: 600 }}>
                 How to use
               </Typography>
               <Typography
                 variant="caption"
-                color="text.secondary"
-                display="block"
-                mt={0.3}
+                color="textSecondary"
+                sx={{ display: 'block', mt: 0.3 }}
               >
                 Add a tag then type <strong>{'{{tag_name}}'}</strong> inside the
                 email editor. The column must match the name of the SQL result
@@ -163,7 +162,7 @@ const MergeTagsDrawer = ({
           {/* Source info */}
           {primarySource?.name && (
             <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-              <Typography variant="caption" color="text.secondary">
+              <Typography variant="caption" color="textSecondary">
                 Active source:
               </Typography>
               <Chip
@@ -179,13 +178,12 @@ const MergeTagsDrawer = ({
           <Box>
             <Typography
               variant="body2"
-              fontWeight={500}
-              color="text.secondary"
-              mb={1}
+              color="textSecondary"
+              sx={{ fontWeight: 500, mb: 1 }}
             >
               Quick add
             </Typography>
-            <Stack direction="row" flexWrap="wrap" gap={0.75}>
+            <Stack direction="row" sx={{ flexWrap: 'wrap', gap: 0.75 }}>
               {SUGGESTED_TAGS.map((s) => {
                 const exists = value.find((t) => t.tag === s.tag);
                 return (
@@ -234,8 +232,8 @@ const MergeTagsDrawer = ({
                   >
                     <Typography
                       variant="caption"
-                      color="text.secondary"
-                      fontWeight={500}
+                      color="textSecondary"
+                      sx={{ fontWeight: 500 }}
                     >
                       TAG #{index + 1}
                     </Typography>
@@ -357,16 +355,16 @@ const MergeTagsDrawer = ({
                     >
                       <Typography
                         variant="caption"
-                        fontFamily="monospace"
-                        color="primary.main"
+                        color="primary"
+                        sx={{ fontFamily: 'monospace' }}
                       >
                         {`{{${tag.tag}}}`}
                       </Typography>
                       {tag.column && (
                         <Typography
                           variant="caption"
-                          color="text.secondary"
-                          ml={1}
+                          color="textSecondary"
+                          sx={{ ml: 1 }}
                         >
                           → column: <strong>{tag.column}</strong>
                         </Typography>
@@ -405,7 +403,7 @@ const MergeTagsDrawer = ({
             alignItems: 'center',
           }}
         >
-          <Typography variant="caption" color="text.secondary">
+          <Typography variant="caption" color="textSecondary">
             {value.length} tag{value.length !== 1 ? 's' : ''} added
           </Typography>
           <Box sx={{ display: 'flex', gap: 1 }}>

@@ -1,5 +1,6 @@
 import Logout from '@mui/icons-material/Logout';
 import Settings from '@mui/icons-material/Settings';
+import Timer from '@mui/icons-material/Timer';
 import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
@@ -32,43 +33,36 @@ const UserOptions = (props) => {
       onClick={onClose}
       slotProps={{
         paper: {
-          elevation: 0,
-          sx: {
-            overflow: 'visible',
-            filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
-            mt: 1.5,
-            '& .MuiAvatar-root': {
-              width: 32,
-              height: 32,
-              ml: -0.5,
-              mr: 1,
-            },
-            '&::before': {
-              content: '""',
-              display: 'block',
-              position: 'absolute',
-              top: 0,
-              right: 12,
-              width: 10,
-              height: 10,
-              bgcolor: 'background.paper',
-              transform: 'translateY(-50%) rotate(45deg)',
-              zIndex: 0,
-            },
-          },
+          sx: { mt: 1, minWidth: 240 },
         },
       }}
       transformOrigin={{ horizontal: 'right', vertical: 'top' }}
       anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
     >
-      <MenuItem onClick={onClose}>
-        <Avatar />
-        <Box>
-          <Typography variant="subtitle1">{userData?.userName}</Typography>
-          <Typography variant="caption">{timeLeft}</Typography>
+      <Box
+        sx={{ px: 2, py: 1.5, display: 'flex', alignItems: 'center', gap: 1.5 }}
+      >
+        <Avatar sx={{ width: 40, height: 40, bgcolor: 'primary.main' }}>
+          {userData?.userName?.trim().charAt(0).toUpperCase()}
+        </Avatar>
+        <Box sx={{ minWidth: 0 }}>
+          <Typography variant="subtitle2" noWrap>
+            {userData?.userName}
+          </Typography>
+          <Box
+            sx={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: 0.5,
+              color: 'text.secondary',
+            }}
+          >
+            <Timer sx={{ fontSize: 14 }} />
+            <Typography variant="caption">Session {timeLeft}</Typography>
+          </Box>
         </Box>
-      </MenuItem>
-      <Divider />
+      </Box>
+      <Divider sx={{ my: 0.5 }} />
 
       <MenuItem
         onClick={() => {
@@ -78,13 +72,17 @@ const UserOptions = (props) => {
         <ListItemIcon>
           <Settings fontSize="small" />
         </ListItemIcon>
-        <Typography variant="subtitle2">Settings</Typography>
+        Settings
       </MenuItem>
-      <MenuItem onClick={logout} disabled={loading}>
-        <ListItemIcon>
+      <MenuItem
+        onClick={logout}
+        disabled={loading}
+        sx={{ color: 'error.main' }}
+      >
+        <ListItemIcon sx={{ color: 'inherit' }}>
           <Logout fontSize="small" />
         </ListItemIcon>
-        <Typography variant="subtitle2">Logout</Typography>
+        Logout
       </MenuItem>
     </Menu>
   );

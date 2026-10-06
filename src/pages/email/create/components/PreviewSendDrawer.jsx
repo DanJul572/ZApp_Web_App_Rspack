@@ -92,7 +92,7 @@ const PreviewSendDrawer = ({
           borderColor: 'divider',
         }}
       >
-        <Typography variant="h6" fontWeight={600}>
+        <Typography variant="h6" sx={{ fontWeight: 600 }}>
           Preview & Send Test Email
         </Typography>
         <IconButton onClick={onClose} size="small">
@@ -155,7 +155,7 @@ const PreviewSendDrawer = ({
             <Divider orientation="vertical" flexItem sx={{ mx: 0.5 }} />
             <Box sx={{ flex: 1 }}>
               {emailSubject && (
-                <Typography variant="body2" noWrap color="text.secondary">
+                <Typography variant="body2" noWrap color="textSecondary">
                   Subject: <strong>{emailSubject}</strong>
                 </Typography>
               )}
@@ -212,7 +212,7 @@ const PreviewSendDrawer = ({
                   flex: 1,
                 }}
               >
-                <Typography color="text.disabled" variant="body2">
+                <Typography color="textDisabled" variant="body2">
                   Email content is not available. Please click "Save" first.
                 </Typography>
               </Box>
@@ -241,10 +241,8 @@ const PreviewSendDrawer = ({
             >
               <Typography
                 variant="caption"
-                color="text.secondary"
-                fontWeight={600}
-                display="block"
-                mb={0.5}
+                color="textSecondary"
+                sx={{ fontWeight: 600, display: 'block', mb: 0.5 }}
               >
                 EMAIL TO BE SENT
               </Typography>
@@ -263,14 +261,13 @@ const PreviewSendDrawer = ({
 
           {/* Send to test address */}
           <Box>
-            <Typography variant="body2" fontWeight={600} mb={0.5}>
+            <Typography variant="body2" sx={{ fontWeight: 600, mb: 0.5 }}>
               Send Test Email To
             </Typography>
             <Typography
               variant="caption"
-              color="text.secondary"
-              display="block"
-              mb={1.5}
+              color="textSecondary"
+              sx={{ display: 'block', mb: 1.5 }}
             >
               Email will be sent to this address for testing purposes. Data
               merge tags might not be filled.
@@ -309,12 +306,12 @@ const PreviewSendDrawer = ({
               <Box>
                 <Typography
                   variant="body2"
-                  fontWeight={600}
-                  color="success.main"
+                  color="success"
+                  sx={{ fontWeight: 600 }}
                 >
                   Email sent!
                 </Typography>
-                <Typography variant="caption" color="text.secondary">
+                <Typography variant="caption" color="textSecondary">
                   Check inbox <strong>{testEmail}</strong>
                 </Typography>
               </Box>
@@ -336,10 +333,14 @@ const PreviewSendDrawer = ({
             >
               <ErrorOutlineIcon color="error" />
               <Box>
-                <Typography variant="body2" fontWeight={600} color="error.main">
+                <Typography
+                  variant="body2"
+                  color="error"
+                  sx={{ fontWeight: 600 }}
+                >
                   Failed to send
                 </Typography>
-                <Typography variant="caption" color="text.secondary">
+                <Typography variant="caption" color="textSecondary">
                   {errorMsg}
                 </Typography>
               </Box>

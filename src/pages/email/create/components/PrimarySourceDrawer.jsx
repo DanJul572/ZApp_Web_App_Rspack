@@ -31,7 +31,7 @@ const PrimarySourceDrawer = ({ open, onClose, value, onChange }) => {
           width: '30vw',
         }}
       >
-        <Typography variant="h6" fontWeight={600}>
+        <Typography variant="h6" sx={{ fontWeight: 600 }}>
           Primary Source
         </Typography>
         <IconButton onClick={onClose} size="small">

@@ -49,15 +49,14 @@ const EmailChipInput = ({ label, description, emails, onAdd, onRemove }) => {
         width: '30vw',
       }}
     >
-      <Typography variant="body2" fontWeight={600} mb={0.5}>
+      <Typography variant="body2" sx={{ fontWeight: 600, mb: 0.5 }}>
         {label}
       </Typography>
       {description && (
         <Typography
           variant="caption"
-          color="text.secondary"
-          display="block"
-          mb={1}
+          color="textSecondary"
+          sx={{ display: 'block', mb: 1 }}
         >
           {description}
         </Typography>
@@ -137,11 +136,11 @@ const CcBccDrawer = ({ open, onClose, value, onChange }) => {
         }}
       >
         <Box>
-          <Typography variant="h6" fontWeight={600}>
+          <Typography variant="h6" sx={{ fontWeight: 600 }}>
             CC & BCC
           </Typography>
           {totalCount > 0 && (
-            <Typography variant="caption" color="text.secondary">
+            <Typography variant="caption" color="textSecondary">
               {totalCount} recipient{totalCount !== 1 ? 's' : ''} configured
             </Typography>
           )}

@@ -1,8 +1,12 @@
+import FileUpload from '@mui/icons-material/FileUpload';
+import Save from '@mui/icons-material/Save';
+import ViewModule from '@mui/icons-material/ViewModule';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import { useState } from 'react';
 import { useNavigate } from 'react-router';
 import Upload from '@/components/button/Upload';
+import PageHeader from '@/components/page/PageHeader';
 import { useAlert } from '@/contexts/AlertProvider';
 import { useConfig } from '@/contexts/ConfigProvider';
 import { useLoading } from '@/contexts/LoadingProvider';
@@ -80,15 +84,26 @@ const Page = () => {
 
   return (
     <Box>
-      <Box sx={{ display: 'flex', justifyContent: 'flex-end', gap: 1 }}>
-        <Button variant="outlined" onClick={onBack}>
-          {translator('back')}
-        </Button>
-        <Upload label={translator('upload')} onUpload={onUpload} type=".json" />
-        <Button variant="contained" onClick={onSave}>
-          {translator('save')}
-        </Button>
-      </Box>
+      <PageHeader
+        sticky
+        onBack={onBack}
+        icon={<ViewModule />}
+        title="Create Module"
+        subtitle="Describe the module, then add the fields it should store"
+        actions={
+          <>
+            <Upload
+              label={translator('upload')}
+              onUpload={onUpload}
+              type=".json"
+              startIcon={<FileUpload />}
+            />
+            <Button variant="contained" onClick={onSave} startIcon={<Save />}>
+              {translator('save')}
+            </Button>
+          </>
+        }
+      />
       <ModuleForm
         moduleDescription={moduleDescription}
         moduleLabel={moduleLabel}

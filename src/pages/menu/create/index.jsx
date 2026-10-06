@@ -1,15 +1,18 @@
 import CFieldID from '@configs/CFieldID';
 import CModuleID from '@configs/CModuleID';
+import AccountTree from '@mui/icons-material/AccountTree';
 import CreateNewFolder from '@mui/icons-material/CreateNewFolder';
-import Delete from '@mui/icons-material/Delete';
+import Delete from '@mui/icons-material/DeleteOutlined';
+import Download from '@mui/icons-material/Download';
+import FileUpload from '@mui/icons-material/FileUpload';
+import InfoOutlined from '@mui/icons-material/InfoOutlined';
 import North from '@mui/icons-material/North';
 import NoteAdd from '@mui/icons-material/NoteAdd';
+import Save from '@mui/icons-material/Save';
 import South from '@mui/icons-material/South';
-import { useTheme } from '@mui/material';
+import TouchApp from '@mui/icons-material/TouchApp';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import Card from '@mui/material/Card';
-import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
@@ -22,6 +25,9 @@ import IconPicker from '@/components/iconPicker';
 import Dropdown from '@/components/input/Dropdown';
 import ShortText from '@/components/input/ShortText';
 import ContentLoader from '@/components/loading/ContentLoader';
+import EmptyState from '@/components/page/EmptyState';
+import PageHeader from '@/components/page/PageHeader';
+import SectionCard from '@/components/page/SectionCard';
 import Tree from '@/components/tree';
 import { useAlert } from '@/contexts/AlertProvider';
 import { useConfig } from '@/contexts/ConfigProvider';
@@ -37,7 +43,6 @@ const Page = () => {
 
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
-  const theme = useTheme();
 
   const { setAlert } = useAlert();
   const { config } = useConfig();
@@ -287,59 +292,86 @@ const Page = () => {
     return <ContentLoader />;
   }
 
+  const hasActiveMenu = !!activeMenu.id;
+
+  const structureActions = [
+    {
+      title: 'Move Up',
+      icon: <North fontSize="small" />,
+      onClick: () => onMove(actionType.up),
+      disabled: !hasActiveMenu,
+    },
+    {
+      title: 'Move Down',
+      icon: <South fontSize="small" />,
+      onClick: () => onMove(actionType.down),
+      disabled: !hasActiveMenu,
+    },
+    {
+      title: 'Add Root Menu',
+      icon: <CreateNewFolder fontSize="small" />,
+      onClick: onAddRootMenu,
+    },
+    {
+      title: 'Add Sub Menu',
+      icon: <NoteAdd fontSize="small" />,
+      onClick: onAdd,
+      disabled: !hasActiveMenu,
+    },
+    {
+      title: 'Delete',
+      icon: <Delete fontSize="small" />,
+      onClick: onDelete,
+      disabled: !hasActiveMenu,
+      color: 'error',
+    },
+  ];
+
   return (
     <Box>
-      <Box
-        sx={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          position: 'fixed',
-          right: 0,
-          padding: '15px',
-          gap: '5px',
-          left: '301px',
-          top: '67px',
-          zIndex: 2,
-          backgroundColor: theme.palette.background.default,
-          borderBottom: '1px solid',
-          borderColor: theme.palette.divider,
-        }}
+      <PageHeader
+        sticky
+        onBack={onBack}
+        icon={<AccountTree />}
+        title={id ? 'Edit Menu' : 'Create Menu'}
+        subtitle="Build the navigation tree shown in the sidebar"
+        actions={
+          <>
+            <Upload
+              label={translator('upload')}
+              onUpload={onUpload}
+              type=".json"
+              startIcon={<FileUpload />}
+            />
+            <Button
+              variant="outlined"
+              onClick={onDownload}
+              startIcon={<Download />}
+            >
+              {translator('download')}
+            </Button>
+            <Button
+              variant="contained"
+              loading={mutation.isPending}
+              onClick={mutation.mutate}
+              startIcon={<Save />}
+            >
+              {translator('save')}
+            </Button>
+          </>
+        }
+      />
+
+      <SectionCard
+        icon={<InfoOutlined />}
+        title="Menu Information"
+        subtitle="Who can see this menu and where they land after login"
       >
-        <Typography variant="h6">Create Menu</Typography>
         <Box
           sx={{
-            display: 'flex',
-            gap: '5px',
-          }}
-        >
-          <Upload
-            label={translator('upload')}
-            onUpload={onUpload}
-            type=".json"
-          />
-          <Button variant="outlined" onClick={onDownload}>
-            {translator('download')}
-          </Button>
-          <Button variant="outlined" onClick={onBack}>
-            {translator('back')}
-          </Button>
-          <Button
-            variant="contained"
-            loading={mutation.isPending}
-            onClick={mutation.mutate}
-          >
-            {translator('save')}
-          </Button>
-        </Box>
-      </Box>
-      <Box sx={{ marginTop: '67px' }}>
-        <Box
-          sx={{
+            display: 'grid',
+            gridTemplateColumns: { xs: '1fr', md: 'repeat(3, minmax(0, 1fr))' },
             gap: 2,
-            display: 'flex',
-            flexDirection: 'column',
-            marginBottom: 2,
           }}
         >
           <ShortText value={label} label="Label" onChange={setLabel} />
@@ -355,46 +387,49 @@ const Page = () => {
             onChange={setAfterLogin}
           />
         </Box>
-        <Card>
-          <Box sx={{ p: 1 }}>
-            <Tooltip arrow title="Move To Up">
-              <IconButton color="primary" onClick={() => onMove(actionType.up)}>
-                <North />
-              </IconButton>
-            </Tooltip>
-            <Tooltip arrow title="Move To Down">
-              <IconButton
-                color="primary"
-                onClick={() => onMove(actionType.down)}
-              >
-                <South />
-              </IconButton>
-            </Tooltip>
-            <Tooltip arrow title="Add Root Menu">
-              <IconButton
-                color="primary"
-                variant="outlined"
-                onClick={onAddRootMenu}
-              >
-                <CreateNewFolder />
-              </IconButton>
-            </Tooltip>
-            <Tooltip arrow title="Add Sub Menu">
-              <IconButton color="primary" variant="outlined" onClick={onAdd}>
-                <NoteAdd />
-              </IconButton>
-            </Tooltip>
-            <Tooltip arrow title="Delete">
-              <IconButton color="primary" variant="outlined" onClick={onDelete}>
-                <Delete />
-              </IconButton>
-            </Tooltip>
-          </Box>
+      </SectionCard>
 
-          <Divider sx={{ backgroundColor: theme.palette.primary.main }} />
-
-          <Box sx={{ gap: 2, display: 'flex' }}>
-            <Box sx={{ p: 1, flex: 1 }}>
+      <SectionCard
+        icon={<AccountTree />}
+        title="Menu Structure"
+        subtitle="Select an item to edit it, or add a new root menu"
+        disablePadding
+        actions={structureActions.map((action) => (
+          <Tooltip key={action.title} title={action.title}>
+            <span>
+              <IconButton
+                color={action.color || 'primary'}
+                onClick={action.onClick}
+                disabled={action.disabled}
+                sx={{ border: '1px solid', borderColor: 'divider' }}
+              >
+                {action.icon}
+              </IconButton>
+            </span>
+          </Tooltip>
+        ))}
+      >
+        <Box
+          sx={{
+            display: 'grid',
+            gridTemplateColumns: {
+              xs: '1fr',
+              md: 'minmax(0, 2fr) minmax(0, 3fr)',
+            },
+            minHeight: 420,
+          }}
+        >
+          <Box
+            sx={(theme) => ({
+              p: 2,
+              borderRight: { md: `1px solid ${theme.palette.divider}` },
+              borderBottom: {
+                xs: `1px solid ${theme.palette.divider}`,
+                md: 'none',
+              },
+            })}
+          >
+            {tree.length > 0 ? (
               <Tree
                 tree={tree}
                 onParentClick={onClick}
@@ -402,43 +437,63 @@ const Page = () => {
                 isSidebar={false}
                 setTree={setTree}
               />
-            </Box>
-
-            <Box
-              sx={{
-                p: 2,
-                display: 'flex',
-                flexDirection: 'column',
-                gap: 2,
-                flex: 1,
-              }}
-            >
-              <ShortText
-                value={activeMenu.label}
-                label="Label"
-                onChange={(value) => changeMenuValue('label', value)}
-                onBlur={onEdit}
+            ) : (
+              <EmptyState
+                icon={<CreateNewFolder />}
+                title="No menu items"
+                description="Start by adding a root menu."
+                action={
+                  <Button
+                    variant="outlined"
+                    startIcon={<CreateNewFolder />}
+                    onClick={onAddRootMenu}
+                  >
+                    Add Root Menu
+                  </Button>
+                }
               />
-              <ShortText
-                value={activeMenu.url}
-                label="URL"
-                onChange={(value) => changeMenuValue('url', value)}
-                onBlur={onEdit}
-              />
-              {!activeMenu.child?.length && (
-                <Box>
-                  <Typography>Icon</Typography>
-                  <IconPicker
-                    active={activeMenu.icon}
-                    onSelect={(value) => changeMenuValue('icon', value)}
-                    onBlur={onEdit}
-                  />
-                </Box>
-              )}
-            </Box>
+            )}
           </Box>
-        </Card>
-      </Box>
+
+          <Box sx={{ p: 3 }}>
+            {hasActiveMenu ? (
+              <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+                <Typography variant="overline" color="textSecondary">
+                  Selected Item
+                </Typography>
+                <ShortText
+                  value={activeMenu.label}
+                  label="Label"
+                  onChange={(value) => changeMenuValue('label', value)}
+                  onBlur={onEdit}
+                />
+                <ShortText
+                  value={activeMenu.url}
+                  label="URL"
+                  onChange={(value) => changeMenuValue('url', value)}
+                  onBlur={onEdit}
+                />
+                {!activeMenu.child?.length && (
+                  <Box>
+                    <Typography sx={{ mb: 1 }}>Icon</Typography>
+                    <IconPicker
+                      active={activeMenu.icon}
+                      onSelect={(value) => changeMenuValue('icon', value)}
+                      onBlur={onEdit}
+                    />
+                  </Box>
+                )}
+              </Box>
+            ) : (
+              <EmptyState
+                icon={<TouchApp />}
+                title="No item selected"
+                description="Pick a menu item from the tree to edit its label, URL and icon."
+              />
+            )}
+          </Box>
+        </Box>
+      </SectionCard>
     </Box>
   );
 };

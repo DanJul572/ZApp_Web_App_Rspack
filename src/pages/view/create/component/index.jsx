@@ -1,3 +1,4 @@
+import Add from '@mui/icons-material/Add';
 import BarChart from '@mui/icons-material/BarChart';
 import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
@@ -7,13 +8,13 @@ import SpaceDashboard from '@mui/icons-material/SpaceDashboard';
 import TableChart from '@mui/icons-material/TableChart';
 import TextFields from '@mui/icons-material/TextFields';
 import Box from '@mui/material/Box';
-import Card from '@mui/material/Card';
 import Collapse from '@mui/material/Collapse';
 import List from '@mui/material/List';
 import ListItemButton from '@mui/material/ListItemButton';
 import Typography from '@mui/material/Typography';
 import { useEffect, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
+import IconTile from '@/components/page/IconTile';
 import EButtonType from '@/enums/EButtonType';
 import EChartType from '@/enums/EChartType';
 import EComponentGroupType from '@/enums/EComponentGroupType';
@@ -22,6 +23,8 @@ import ECustomType from '@/enums/ECustomType';
 import EInputType from '@/enums/EInputType';
 import ETableType from '@/enums/ETableType';
 import CVisualElement from '@/enums/EVisualElementType';
+import { TOPBAR_HEIGHT } from '@/layouts/main/constants';
+import { PANEL_WIDTH } from '../constants';
 import ViewList from '../views';
 
 const Component = (props) => {
@@ -108,26 +111,26 @@ const Component = (props) => {
 
   const icon = (type) => {
     if (type === EComponentGroupType.button.value) {
-      return <SmartButton color="primary" />;
+      return <SmartButton />;
     }
 
     if (type === EComponentGroupType.container.value) {
-      return <SpaceDashboard color="primary" />;
+      return <SpaceDashboard />;
     }
 
     if (type === EComponentGroupType.chart.value) {
-      return <BarChart color="primary" />;
+      return <BarChart />;
     }
 
     if (type === EComponentGroupType.fieldControl.value) {
-      return <ShortTextOutlined color="primary" />;
+      return <ShortTextOutlined />;
     }
 
     if (type === EComponentGroupType.table.value) {
-      return <TableChart color="primary" />;
+      return <TableChart />;
     }
 
-    return <TextFields color="primary" />;
+    return <TextFields />;
   };
 
   useEffect(() => {
@@ -146,20 +149,32 @@ const Component = (props) => {
   }, []);
 
   return (
-    <Card
+    <Box
+      component="aside"
       sx={{
-        borderRadius: 0,
+        backgroundColor: 'background.paper',
+        borderRight: '1px solid',
+        borderColor: 'divider',
         bottom: 0,
         left: 0,
-        marginTop: 8,
         overflow: 'auto',
         position: 'fixed',
-        top: 0,
-        width: 350,
+        top: TOPBAR_HEIGHT,
+        width: PANEL_WIDTH,
+        p: 2,
       }}
     >
+      <Typography
+        variant="overline"
+        color="textSecondary"
+        sx={{ display: 'block', mb: 1 }}
+      >
+        View
+      </Typography>
       {isViewListLoading && (
-        <Typography sx={{ marginLeft: 2, marginTop: 2 }}>Loading...</Typography>
+        <Typography variant="body2" color="textSecondary">
+          Loading...
+        </Typography>
       )}
       {!isViewListLoading && (
         <ViewList
@@ -168,36 +183,77 @@ const Component = (props) => {
           viewOptions={viewOptions}
         />
       )}
-      <Box paddingTop={2}>
+      <Typography
+        variant="overline"
+        color="textSecondary"
+        sx={{ display: 'block', mt: 3, mb: 1 }}
+      >
+        Components
+      </Typography>
+      <Box sx={{ display: 'flex', flexDirection: 'column', gap: 0.5 }}>
         {componentList.length > 0 &&
           componentList.map((group) => (
             <List key={group.value} disablePadding>
               <ListItemButton
                 onClick={() => handleCollapse(group.value)}
-                sx={{ display: 'flex', justifyContent: 'space-between' }}
+                sx={{
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  px: 1,
+                  py: 0.75,
+                }}
               >
-                <Box display="flex" gap={1} alignItems="center">
-                  {icon(group.value)}
-                  <Typography fontWeight="bold">{group.label}</Typography>
+                <Box sx={{ display: 'flex', gap: 1.5, alignItems: 'center' }}>
+                  <IconTile size={30}>{icon(group.value)}</IconTile>
+                  <Typography variant="subtitle2">{group.label}</Typography>
                 </Box>
                 {open[group.value] ? (
-                  <ExpandLess color="primary" />
+                  <ExpandLess
+                    fontSize="small"
+                    sx={{ color: 'text.secondary' }}
+                  />
                 ) : (
-                  <ExpandMore color="primary" />
+                  <ExpandMore
+                    fontSize="small"
+                    sx={{ color: 'text.secondary' }}
+                  />
                 )}
               </ListItemButton>
               <Collapse in={open[group.value]}>
-                <List disablePadding>
+                <List
+                  disablePadding
+                  sx={{
+                    ml: 2.75,
+                    pl: 1.5,
+                    my: 0.5,
+                    borderLeft: '1px dashed',
+                    borderColor: 'divider',
+                  }}
+                >
                   {group.components.map((component) => (
                     <ListItemButton
                       key={component.value}
                       onClick={() =>
                         handleSelected(groupTypeValue(group), component)
                       }
+                      sx={{
+                        py: 0.5,
+                        px: 1,
+                        justifyContent: 'space-between',
+                        color: 'text.secondary',
+                        '& .add-icon': { opacity: 0 },
+                        '&:hover': { color: 'primary.main' },
+                        '&:hover .add-icon': { opacity: 1 },
+                      }}
                     >
-                      <Typography sx={{ marginLeft: 1 }}>
+                      <Typography variant="body2" sx={{ color: 'inherit' }}>
                         {component.label}
                       </Typography>
+                      <Add
+                        className="add-icon"
+                        fontSize="small"
+                        sx={{ transition: 'opacity 0.15s' }}
+                      />
                     </ListItemButton>
                   ))}
                 </List>
@@ -205,7 +261,7 @@ const Component = (props) => {
             </List>
           ))}
       </Box>
-    </Card>
+    </Box>
   );
 };
 

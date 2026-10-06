@@ -33,9 +33,14 @@ const Code = (props) => {
 
   return (
     <Box>
-      <Typography>{label}</Typography>
+      <Typography
+        variant="body2"
+        sx={{ fontWeight: 500, mb: label ? 0.75 : 0 }}
+      >
+        {label}
+      </Typography>
       {withOptions && (
-        <Stack direction="row" spacing={1} marginY={1}>
+        <Stack direction="row" spacing={1} sx={{ marginY: 1 }}>
           {languages.map((language) => {
             return (
               <Chip

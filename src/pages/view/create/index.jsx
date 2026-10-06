@@ -5,7 +5,9 @@ import { useSearchParams } from 'react-router';
 import { useConfig } from '@/contexts/ConfigProvider';
 import Request from '@/hooks/Request';
 import Empty from '@/layouts/Empty';
+import { TOPBAR_HEIGHT } from '@/layouts/main/constants';
 import Component from './component';
+import { PANEL_WIDTH } from './constants';
 import Content from './content';
 import Preview from './preview';
 import Properties from './properties';
@@ -82,12 +84,22 @@ const Page = () => {
           viewOptions={viewOptions}
           isViewListLoading={isViewListLoading}
         />
-        <Box marginX={45} marginTop={8} paddingTop={1}>
-          <Content
-            content={content}
-            selected={selected}
-            setSelected={setSelected}
-          />
+        <Box
+          sx={{
+            ml: `${PANEL_WIDTH}px`,
+            mr: `${PANEL_WIDTH}px`,
+            pt: `${TOPBAR_HEIGHT}px`,
+            minHeight: '100vh',
+            backgroundColor: 'background.default',
+          }}
+        >
+          <Box sx={{ p: 3 }}>
+            <Content
+              content={content}
+              selected={selected}
+              setSelected={setSelected}
+            />
+          </Box>
         </Box>
         <Properties
           activeNavigation={activeNavigation}

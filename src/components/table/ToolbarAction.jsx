@@ -1,3 +1,4 @@
+import Add from '@mui/icons-material/Add';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import EActionType from '@/enums/EActionType';
@@ -21,8 +22,8 @@ const ToolbarAction = (props) => {
     <Box
       sx={{
         display: 'flex',
-        gap: '1rem',
-        p: '0.5rem',
+        gap: 1,
+        p: 0.5,
         flexWrap: 'wrap',
       }}
     >
@@ -30,6 +31,7 @@ const ToolbarAction = (props) => {
         <Button
           onClick={() => onClickToolbarAction(insertAction)}
           variant="contained"
+          startIcon={<Add />}
         >
           {translator('add_new_data')}
         </Button>
@@ -39,6 +41,7 @@ const ToolbarAction = (props) => {
           key={action.type}
           onClick={() => onClickToolbarAction(action)}
           variant="contained"
+          startIcon={<Add />}
         >
           {action.label}
         </Button>

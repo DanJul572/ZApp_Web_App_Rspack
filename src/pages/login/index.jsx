@@ -1,14 +1,13 @@
-import { ArrowBack } from '@mui/icons-material';
 import { useTheme } from '@mui/material';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import Card from '@mui/material/Card';
 import Typography from '@mui/material/Typography';
 import { useMutation } from '@tanstack/react-query';
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router';
 import Password from '@/components/input/Password';
 import ShortText from '@/components/input/ShortText';
+import AuthShell from '@/components/page/AuthShell';
 import { useAuth } from '@/contexts/AuthProvider';
 import { useConfig } from '@/contexts/ConfigProvider';
 import { useExpandedMenu } from '@/contexts/ExpandedMenuProvider';
@@ -59,40 +58,40 @@ const Page = () => {
     },
   });
 
+  const onSubmit = (event) => {
+    event.preventDefault();
+    mutation.mutate();
+  };
+
   return (
-    <Box
-      sx={{
-        alignItems: 'center',
-        bottom: 0,
-        display: 'flex',
-        justifyContent: 'center',
-        left: 0,
-        position: 'absolute',
-        right: 0,
-        top: 0,
-      }}
+    <AuthShell
+      title="Sign in"
+      subtitle={`Welcome back to ${config.app.name || 'ZApp'}. Enter your credentials to continue.`}
+      onBack={() => navigate(-1)}
+      footer={
+        <Typography variant="body2">
+          {translator("don't_have_an_account")}
+          <Link
+            to="/register"
+            style={{
+              color: theme.palette.primary.main,
+              fontWeight: 600,
+              marginLeft: 4,
+              textDecoration: 'none',
+            }}
+          >
+            {translator('register')}
+          </Link>
+        </Typography>
+      }
     >
-      <Card
-        sx={{
-          display: 'flex',
-          flexDirection: 'column',
-          padding: 2,
-          width: 450,
-        }}
-      >
-        <Button
-          startIcon={<ArrowBack />}
-          onClick={() => navigate(-1)}
-          sx={{ alignSelf: 'flex-start', mb: 2 }}
-        >
-          Back
-        </Button>
+      <Box component="form" onSubmit={onSubmit} noValidate>
         <Box
           sx={{
-            marginBottom: 3,
+            mb: 3,
             display: 'flex',
             flexDirection: 'column',
-            gap: 1,
+            gap: 2,
           }}
         >
           <ShortText
@@ -109,32 +108,17 @@ const Page = () => {
           />
         </Box>
         <Button
+          type="submit"
           variant="contained"
-          onClick={mutation.mutate}
+          size="large"
+          fullWidth
           loading={mutation.isPending}
           disabled={mutation.isPending}
         >
           {translator('login')}
         </Button>
-        <Box
-          sx={{
-            display: 'flex',
-            justifyContent: 'flex-end',
-            marginTop: 2,
-          }}
-        >
-          <Typography>
-            {translator("don't_have_an_account")}
-            <Link
-              to="/register"
-              style={{ color: theme.palette.primary.main, marginLeft: 3 }}
-            >
-              {translator('register')}
-            </Link>
-          </Typography>
-        </Box>
-      </Card>
-    </Box>
+      </Box>
+    </AuthShell>
   );
 };
 

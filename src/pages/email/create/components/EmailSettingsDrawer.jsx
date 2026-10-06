@@ -74,10 +74,10 @@ const SettingRow = ({
       {icon}
     </Box>
     <Box sx={{ flex: 1 }}>
-      <Typography variant="body2" fontWeight={600}>
+      <Typography variant="body2" sx={{ fontWeight: 600 }}>
         {title}
       </Typography>
-      <Typography variant="caption" color="text.secondary">
+      <Typography variant="caption" color="textSecondary">
         {description}
       </Typography>
     </Box>
@@ -116,10 +116,10 @@ const EmailSettingsDrawer = ({ open, onClose, value, onChange }) => {
         }}
       >
         <Box>
-          <Typography variant="h6" fontWeight={600}>
+          <Typography variant="h6" sx={{ fontWeight: 600 }}>
             Email Settings
           </Typography>
-          <Typography variant="caption" color="text.secondary">
+          <Typography variant="caption" color="textSecondary">
             Priority, tracking & compliance
           </Typography>
         </Box>
@@ -141,14 +141,13 @@ const EmailSettingsDrawer = ({ open, onClose, value, onChange }) => {
         }}
       >
         <Box>
-          <Typography variant="body2" fontWeight={600} mb={0.5}>
+          <Typography variant="body2" sx={{ fontWeight: 600, mb: 0.5 }}>
             Priority Level
           </Typography>
           <Typography
             variant="caption"
-            color="text.secondary"
-            display="block"
-            mb={1.5}
+            color="textSecondary"
+            sx={{ display: 'block', mb: 1.5 }}
           >
             Sets the X-Priority header on sent emails.
           </Typography>
@@ -183,11 +182,8 @@ const EmailSettingsDrawer = ({ open, onClose, value, onChange }) => {
                 />
                 <Typography
                   variant="caption"
-                  color="text.secondary"
-                  display="block"
-                  sx={{
-                    lineHeight: 1.3,
-                  }}
+                  color="textSecondary"
+                  sx={{ display: 'block', lineHeight: 1.3 }}
                 >
                   {p.description}
                 </Typography>
@@ -201,7 +197,7 @@ const EmailSettingsDrawer = ({ open, onClose, value, onChange }) => {
         <Box>
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 1.5 }}>
             <TrackChangesIcon fontSize="small" color="action" />
-            <Typography variant="body2" fontWeight={600}>
+            <Typography variant="body2" sx={{ fontWeight: 600 }}>
               Tracking
             </Typography>
             {activeCount > 0 && (
@@ -237,7 +233,7 @@ const EmailSettingsDrawer = ({ open, onClose, value, onChange }) => {
         <Box>
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 1.5 }}>
             <NotificationsActiveIcon fontSize="small" color="action" />
-            <Typography variant="body2" fontWeight={600}>
+            <Typography variant="body2" sx={{ fontWeight: 600 }}>
               Compliance
             </Typography>
           </Box>
@@ -261,7 +257,7 @@ const EmailSettingsDrawer = ({ open, onClose, value, onChange }) => {
                 borderColor: 'warning.200',
               }}
             >
-              <Typography variant="caption" color="warning.dark">
+              <Typography variant="caption" sx={{ color: 'warning.dark' }}>
                 ⚠️ Make sure the unsubscribe endpoint is configured on the
                 backend side before sending emails to the public.
               </Typography>

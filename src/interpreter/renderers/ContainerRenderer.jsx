@@ -57,7 +57,7 @@ const ContainerRenderer = (props) => {
 
       return (
         <Card>
-          <Box {...flexProps} padding={padding || 0}>
+          <Box sx={{ ...flexProps, padding: padding || 0 }}>
             {renderSections()}
           </Box>
         </Card>
@@ -117,7 +117,7 @@ const ContainerRenderer = (props) => {
     case EContainerType.view.value:
       if (isBuilder) {
         return (
-          <Typography textAlign="center">
+          <Typography sx={{ textAlign: 'center' }}>
             {translator('empty_content')}
           </Typography>
         );

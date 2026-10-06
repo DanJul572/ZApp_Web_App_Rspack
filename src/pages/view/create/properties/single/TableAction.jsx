@@ -96,7 +96,7 @@ const TableAction = (props) => {
     validComponent() && (
       <Box>
         <Box sx={{ paddingX: 2 }}>
-          <Typography marginBottom={1}>Actions</Typography>
+          <Typography sx={{ marginBottom: 1 }}>Actions</Typography>
           <Divider />
           <Box>
             {actions.map((action) => {
@@ -136,7 +136,7 @@ const TableAction = (props) => {
         >
           <DialogTitle>{open.label}</DialogTitle>
           <DialogContent>
-            <Box width={500}>
+            <Box sx={{ width: 500 }}>
               <Code value={open.onClick} onChange={changeOnClick} />
             </Box>
           </DialogContent>

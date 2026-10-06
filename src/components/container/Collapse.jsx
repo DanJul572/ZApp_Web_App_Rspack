@@ -27,8 +27,8 @@ const Collapse = (props) => {
         }}
       >
         <Typography
-          fontWeight="bold"
           color={theme.palette.getContrastText(finalColor)}
+          sx={{ fontWeight: 'bold' }}
         >
           {label}
         </Typography>

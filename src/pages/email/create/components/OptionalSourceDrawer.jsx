@@ -74,7 +74,7 @@ const OptionalSourceDrawer = ({ open, onClose, value = [], onChange }) => {
           width: '30vw',
         }}
       >
-        <Typography variant="h6" fontWeight={600}>
+        <Typography variant="h6" sx={{ fontWeight: 600 }}>
           Optional Sources
         </Typography>
         <IconButton onClick={onClose} size="small">
@@ -217,7 +217,7 @@ const OptionalSourceDrawer = ({ open, onClose, value = [], onChange }) => {
           alignItems: 'center',
         }}
       >
-        <Typography variant="caption" color="text.secondary">
+        <Typography variant="caption" color="textSecondary">
           {value.length} source{value.length !== 1 ? 's' : ''} configured
         </Typography>
         <Box sx={{ display: 'flex', gap: 1 }}>

@@ -75,15 +75,17 @@ const TextDecoration = (props) => {
     return (
       <Box
         key={index}
-        border={1}
-        borderRadius={1}
-        borderColor={isActive(decoration) ? primaryColor : fontColor}
-        width={25}
-        height={25}
-        display="flex"
-        alignItems="center"
-        justifyContent="center"
-        sx={{ cursor: 'pointer' }}
+        sx={{
+          border: 1,
+          borderRadius: 1,
+          borderColor: isActive(decoration) ? primaryColor : fontColor,
+          width: 25,
+          height: 25,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          cursor: 'pointer',
+        }}
         onClick={() => onApply(decoration)}
       >
         {icon(decoration)}

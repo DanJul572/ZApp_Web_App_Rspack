@@ -1,6 +1,7 @@
 import CModuleID from '@configs/CModuleID';
+import AccountTree from '@mui/icons-material/AccountTree';
 import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
+import PageHeader from '@/components/page/PageHeader';
 import EActionType from '@/enums/EActionType';
 import ClassicView from '@/templates/ClassicView';
 
@@ -21,14 +22,11 @@ const Page = () => {
 
   return (
     <Box>
-      <Typography
-        sx={{
-          fontSize: 20,
-          fontWeight: 'bold',
-        }}
-      >
-        Menus
-      </Typography>
+      <PageHeader
+        icon={<AccountTree />}
+        title="Menus"
+        subtitle="Organize navigation trees and assign them to roles"
+      />
       <ClassicView moduleID={CModuleID.menus} actions={actions} />
     </Box>
   );

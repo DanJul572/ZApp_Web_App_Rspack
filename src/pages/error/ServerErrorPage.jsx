@@ -1,38 +1,15 @@
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
-import { useNavigate } from 'react-router';
+import ReportProblem from '@mui/icons-material/ReportProblem';
+import StatusPage from '@/components/page/StatusPage';
 
 const ServerErrorPage = () => {
-  const navigate = useNavigate();
-
   return (
-    <Box
-      sx={{
-        minHeight: '100vh',
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'center',
-        textAlign: 'center',
-        p: 3,
-      }}
-    >
-      <Typography variant="h1" sx={{ fontSize: { xs: '4rem', md: '8rem' } }}>
-        500
-      </Typography>
-      <Typography variant="h5" sx={{ mb: 2 }}>
-        Internal Server Error
-      </Typography>
-      <Typography sx={{ mb: 4, color: 'gray', maxWidth: 400 }}>
-        Something went wrong on our server. We are working to fix it. Please try
-        again later.
-      </Typography>
-
-      <Button variant="contained" size="large" onClick={() => navigate('/')}>
-        Back to Home
-      </Button>
-    </Box>
+    <StatusPage
+      code="500"
+      color="error"
+      icon={<ReportProblem />}
+      title="Internal Server Error"
+      description="Something went wrong on our server. We are working to fix it. Please try again later."
+    />
   );
 };
 

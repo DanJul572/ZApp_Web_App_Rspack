@@ -40,7 +40,7 @@ const SchedulerDrawer = ({ open, onClose, value, onChange }) => {
           borderColor: 'divider',
         }}
       >
-        <Typography variant="h6" fontWeight={600}>
+        <Typography variant="h6" sx={{ fontWeight: 600 }}>
           Scheduler
         </Typography>
         <IconButton onClick={onClose} size="small">
@@ -61,7 +61,7 @@ const SchedulerDrawer = ({ open, onClose, value, onChange }) => {
         }}
       >
         <Box>
-          <Typography variant="body2" fontWeight={500} mb={1}>
+          <Typography variant="body2" sx={{ fontWeight: 500, mb: 1 }}>
             Repeat Type
           </Typography>
           <Stack direction="row" spacing={1}>
@@ -106,10 +106,14 @@ const SchedulerDrawer = ({ open, onClose, value, onChange }) => {
               borderColor: 'primary.200',
             }}
           >
-            <Typography variant="caption" color="primary.main" fontWeight={600}>
+            <Typography
+              variant="caption"
+              color="primary"
+              sx={{ fontWeight: 600 }}
+            >
               SCHEDULE SUMMARY
             </Typography>
-            <Typography variant="body2" mt={0.5}>
+            <Typography variant="body2" sx={{ mt: 0.5 }}>
               Runs every <strong>{value.type}</strong> from{' '}
               <strong>{value.startTime}</strong> to{' '}
               <strong>{value.endTime}</strong>

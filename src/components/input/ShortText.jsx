@@ -40,7 +40,12 @@ const ShortText = (props) => {
           alignItems: 'center',
         }}
       >
-        <Typography>{label}</Typography>
+        <Typography
+          variant="body2"
+          sx={{ fontWeight: 500, mb: label ? 0.75 : 0 }}
+        >
+          {label}
+        </Typography>
         {tooltip && (
           <Tooltip title={tooltip} arrow placement="top">
             <Help />

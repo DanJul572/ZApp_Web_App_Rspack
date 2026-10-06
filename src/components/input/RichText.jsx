@@ -107,7 +107,11 @@ const Richtext = (props) => {
 
   return (
     <Box>
-      {label && <Typography style={{ marginBottom: 8 }}>{label}</Typography>}
+      {label && (
+        <Typography variant="body2" sx={{ fontWeight: 500, mb: 1 }}>
+          {label}
+        </Typography>
+      )}
       <Card>
         <CardContent>
           <div

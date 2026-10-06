@@ -1,6 +1,7 @@
 import CModuleID from '@configs/CModuleID';
+import ViewModule from '@mui/icons-material/ViewModule';
 import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
+import PageHeader from '@/components/page/PageHeader';
 import { useConfig } from '@/contexts/ConfigProvider';
 import EActionType from '@/enums/EActionType';
 import { downloadJsonFile } from '@/helpers/downloadFile';
@@ -80,14 +81,11 @@ const Page = () => {
 
   return (
     <Box>
-      <Typography
-        sx={{
-          fontSize: 20,
-          fontWeight: 'bold',
-        }}
-      >
-        Modules
-      </Typography>
+      <PageHeader
+        icon={<ViewModule />}
+        title="Modules"
+        subtitle="Define data structures, fields and their behavior"
+      />
       <ClassicView
         enableExport={true}
         onExport={onExport}
