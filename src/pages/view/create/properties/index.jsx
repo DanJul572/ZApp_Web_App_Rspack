@@ -7,6 +7,7 @@ import { useEffect, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import EmptyState from '@/components/page/EmptyState';
 import EComponentGroupType from '@/enums/EComponentGroupType';
+import EContainerType from '@/enums/EContainerType';
 import EProperties from '@/enums/EProperties';
 import Translator from '@/hooks/Translator';
 import { TOPBAR_HEIGHT } from '@/layouts/main/constants';
@@ -135,10 +136,16 @@ const Properties = (props) => {
           const section = component.section[x];
           deleteComponent(section);
         }
-        for (let y = 0; y < component.section.length; y++) {
-          if (component.section[y].length === 0) {
-            component.section.splice(y, 1);
-          }
+        // Kolom grid dan panel tab bersifat posisional: section kosong tetap
+        // dipertahankan agar komponen di section berikutnya tidak bergeser
+        const isPositional = [
+          EContainerType.grid.value,
+          EContainerType.tab.value,
+        ].includes(component.type.value);
+        if (!isPositional) {
+          component.section = component.section.filter(
+            (section) => section.length > 0,
+          );
         }
       }
     }

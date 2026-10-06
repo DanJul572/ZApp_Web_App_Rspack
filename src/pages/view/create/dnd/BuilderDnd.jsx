@@ -7,6 +7,7 @@ import {
 import DragIndicator from '@mui/icons-material/DragIndicator';
 import Box from '@mui/material/Box';
 import { useEffect, useMemo, useRef } from 'react';
+import { BuilderActionsContext } from '@/interpreter/layout/BuilderActions';
 import {
   DND_ITEM_SELECTOR,
   DND_SECTION_SELECTOR,
@@ -18,10 +19,13 @@ import {
   findComponent,
   insertComponent,
   moveComponent,
+  updateComponent,
 } from './tree';
 
 const INTERACTIVE_SELECTOR =
-  'input, textarea, select, [contenteditable="true"]';
+  'input, textarea, select, [contenteditable="true"], [data-dnd-ignore]';
+// Class di body selama drag, dipakai kontrol canvas untuk menyembunyikan diri
+const DRAGGING_CLASS = 'builder-dragging';
 const DRAG_DISTANCE = 4;
 const SCROLL_EDGE = 80;
 const SCROLL_MAX_SPEED = 20;
@@ -209,6 +213,7 @@ const createDragEngine = (refs) => {
     frame = 0;
     drag = null;
     document.body.style.cursor = '';
+    document.body.classList.remove(DRAGGING_CLASS);
 
     for (const element of [chip, highlight, line]) {
       if (element.current) element.current.style.display = 'none';
@@ -231,6 +236,7 @@ const createDragEngine = (refs) => {
     chip.current.style.display = 'flex';
     moveChip();
     document.body.style.cursor = 'grabbing';
+    document.body.classList.add(DRAGGING_CLASS);
 
     window.addEventListener('pointermove', onPointerMove, { passive: true });
     window.addEventListener('scroll', schedule, {
@@ -305,6 +311,22 @@ const BuilderDnd = (props) => {
 
   useEffect(() => engine.stop, []);
 
+  const actions = useMemo(
+    () => ({
+      updateComponent: (id, updater) => {
+        const { content, setContent, setSelected } = latest.current;
+        const next = updateComponent(content, id, updater);
+        if (next === content) return;
+
+        setContent(next);
+        // Properties mengedit objek `selected` secara langsung; segarkan
+        // referensinya agar perubahan ini tidak tertimpa versi lama
+        setSelected((prev) => (prev && findComponent(next, prev.id)) || prev);
+      },
+    }),
+    [],
+  );
+
   return (
     <DndContext
       autoScroll={false}
@@ -313,7 +335,9 @@ const BuilderDnd = (props) => {
       onDragEnd={engine.onDragEnd}
       onDragCancel={engine.onDragCancel}
     >
-      {children}
+      <BuilderActionsContext.Provider value={actions}>
+        {children}
+      </BuilderActionsContext.Provider>
       <Box
         ref={highlight}
         sx={{

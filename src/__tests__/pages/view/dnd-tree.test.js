@@ -3,6 +3,7 @@ import {
   findComponent,
   insertComponent,
   moveComponent,
+  updateComponent,
 } from '@/pages/view/create/dnd/tree';
 
 let counter = 0;
@@ -112,5 +113,22 @@ describe('view builder dnd tree', () => {
 
     expect(findComponent(content, 'a')).toBe(a);
     expect(findComponent(content, 'missing')).toBeNull();
+  });
+});
+
+describe('view builder updateComponent', () => {
+  it('replaces a nested component and copies only its path', () => {
+    const untouched = leaf('x');
+    const content = [untouched, grid('g', [[leaf('a')], [leaf('b')]])];
+
+    const next = updateComponent(content, 'b', (component) => ({
+      ...component,
+      properties: { label: 'B' },
+    }));
+
+    expect(next[0]).toBe(untouched);
+    expect(next[1].section[0]).toBe(content[1].section[0]);
+    expect(next[1].section[1][0].properties).toEqual({ label: 'B' });
+    expect(updateComponent(content, 'missing', (c) => c)).toBe(content);
   });
 });

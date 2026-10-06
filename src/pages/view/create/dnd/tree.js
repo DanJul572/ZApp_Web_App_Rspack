@@ -101,6 +101,22 @@ const updateSection = (list, containerId, colIndex, updater) => {
   return list;
 };
 
+/** Ganti komponen `id` dengan hasil `updater`; `list` sama jika tidak ada. */
+export const updateComponent = (list, id, updater) => {
+  for (let i = 0; i < list.length; i++) {
+    const component = list[i];
+    if (component.id === id) return replaceAt(list, i, updater(component));
+    if (!hasSection(component)) continue;
+
+    for (let s = 0; s < component.section.length; s++) {
+      const section = component.section[s];
+      const updated = updateComponent(section, id, updater);
+      if (updated !== section) return replaceSection(list, i, s, updated);
+    }
+  }
+  return list;
+};
+
 const removeComponent = (list, id) => {
   const index = list.findIndex((component) => component.id === id);
   if (index !== -1) {

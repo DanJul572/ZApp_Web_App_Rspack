@@ -1,6 +1,5 @@
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
-import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import Collapse from '@/components/container/Collapse';
 import Drawer from '@/components/container/Drawer';
@@ -14,6 +13,7 @@ import DropSection, {
   dropSectionProps,
   emptySectionSx,
 } from '../layout/DropSection';
+import GridLayout from '../layout/GridLayout';
 import PageLifecycle from '../layout/PageLifecycle';
 import ScriptEngine from '../script/ScriptEngine';
 
@@ -105,45 +105,16 @@ const ContainerRenderer = (props) => {
       );
     }
 
-    case EContainerType.grid.value: {
-      const columnSizes = properties.size ? properties.size.split(',') : [];
-      const defaultSize = 12 / (section.length > 0 ? section.length : 1);
-
+    case EContainerType.grid.value:
       return (
-        <Grid container>
-          {section?.map((components, index) => {
-            const isColumnEmpty = isBuilder && components.length === 0;
-
-            return (
-              <Grid
-                size={
-                  columnSizes.length > 0
-                    ? Number.parseInt(columnSizes[index], 10)
-                    : defaultSize
-                }
-                // Kolom grid bersifat posisional dan tidak punya id sendiri
-                // biome-ignore lint/suspicious/noArrayIndexKey: column order is the identity
-                key={index}
-                {...dropSectionProps(isBuilder, componentId, index)}
-                sx={emptySectionSx(isColumnEmpty)}
-              >
-                {renderComponents(components)}
-                {isColumnEmpty && <DropHint />}
-              </Grid>
-            );
-          })}
-          {isBuilder && !section?.length && (
-            <Grid
-              size={12}
-              {...dropSectionProps(isBuilder, componentId, 0)}
-              sx={emptySectionSx(true)}
-            >
-              <DropHint />
-            </Grid>
-          )}
-        </Grid>
+        <GridLayout
+          componentId={componentId}
+          isBuilder={isBuilder}
+          properties={properties}
+          renderComponents={renderComponents}
+          section={section}
+        />
       );
-    }
 
     case EContainerType.collapse.value:
       return (
@@ -162,12 +133,23 @@ const ContainerRenderer = (props) => {
         </Drawer>
       );
 
-    case EContainerType.tab.value:
+    case EContainerType.tab.value: {
+      // Tiap label punya panel sendiri walau section-nya belum ada, agar
+      // tab yang masih kosong tetap bisa menjadi area drop
+      const tabCount = Math.max(
+        Array.isArray(label) ? label.length : 0,
+        section?.length ?? 0,
+      );
+      const tabs = Array.from(
+        { length: tabCount },
+        (_, i) => section?.[i] ?? [],
+      );
+
       return (
         <>
           <Tab
             labels={label}
-            items={section}
+            items={tabs}
             render={(components, index) => (
               <DropSection
                 isBuilder={isBuilder}
@@ -179,11 +161,12 @@ const ContainerRenderer = (props) => {
               </DropSection>
             )}
           />
-          {isBuilder && !section?.length && (
+          {isBuilder && tabCount === 0 && (
             <DropSection isBuilder containerId={componentId} isEmpty />
           )}
         </>
       );
+    }
 
     case EContainerType.view.value:
       if (isBuilder) {

@@ -36,11 +36,10 @@ const Position = (props) => {
         const component = content[x];
         const id = component.id.toString();
         if (id === containerID) {
-          if (!component.section[columnIndex]) {
-            component.section.push([selected]);
-          } else {
-            component.section[columnIndexInt].splice(rowIndexInt, 0, selected);
-          }
+          const column = Number.isNaN(columnIndexInt) ? 0 : columnIndexInt;
+          // Buat kolom kosong di antaranya agar komponen masuk ke kolom yang dituju
+          while (component.section.length <= column) component.section.push([]);
+          component.section[column].splice(rowIndexInt || 0, 0, selected);
         }
         if (component.group.value === EComponentGroupType.container.value) {
           for (let y = 0; y < component.section.length; y++) {
