@@ -1,6 +1,6 @@
 import North from '@mui/icons-material/North';
-import ShortTextOutlined from '@mui/icons-material/ShortTextOutlined';
 import South from '@mui/icons-material/South';
+import Tune from '@mui/icons-material/Tune';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
@@ -8,13 +8,12 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import Grid from '@mui/material/Grid';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
 import { useEffect, useState } from 'react';
 import NumberField from '@/components/input/NumberField';
 import ShortText from '@/components/input/ShortText';
 import EComponentGroupType from '@/enums/EComponentGroupType';
 import Translator from '@/hooks/Translator';
+import { PropertyRow, RowAction } from '../common/PropertyUI';
 
 const Position = (props) => {
   const { selected, content, setContent, setSelected, deleteComponent } = props;
@@ -107,30 +106,17 @@ const Position = (props) => {
   return (
     selected && (
       <Box>
-        <Box
-          sx={{
-            paddingX: 2,
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-          }}
-        >
-          <Typography>Position</Typography>
-          <Box>
-            <IconButton sx={{ padding: 0 }} onClick={() => onClickArrow('up')}>
-              <North />
-            </IconButton>
-            <IconButton
-              sx={{ padding: 0 }}
-              onClick={() => onClickArrow('down')}
-            >
-              <South />
-            </IconButton>
-            <IconButton sx={{ padding: 0 }} onClick={() => setOpen(true)}>
-              <ShortTextOutlined />
-            </IconButton>
-          </Box>
-        </Box>
+        <PropertyRow label="Position">
+          <RowAction title="Move up" onClick={() => onClickArrow('up')}>
+            <North />
+          </RowAction>
+          <RowAction title="Move down" onClick={() => onClickArrow('down')}>
+            <South />
+          </RowAction>
+          <RowAction title="Set position" onClick={() => setOpen(true)}>
+            <Tune />
+          </RowAction>
+        </PropertyRow>
         <Dialog
           aria-hidden={open ? 'false' : 'true'}
           onClose={() => setOpen(false)}

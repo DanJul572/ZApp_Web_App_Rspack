@@ -5,14 +5,14 @@ import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
-import IconButton from '@mui/material/IconButton';
-import Tooltip from '@mui/material/Tooltip';
+import Switch from '@mui/material/Switch';
+import Typography from '@mui/material/Typography';
 import { useEffect, useState } from 'react';
 import Code from '@/components/input/Code';
-import Toggle from '@/components/input/Toggle';
 
 import isValidProperties from '@/helpers/isValidProperties';
 import Translator from '@/hooks/Translator';
+import { PropertyRow, RowAction } from './PropertyUI';
 
 const ToggleCodeFormProperties = (props) => {
   const { content, selected, editComponent, setContent, label, name } = props;
@@ -72,30 +72,26 @@ const ToggleCodeFormProperties = (props) => {
   return (
     isValidProperties(name, group, type) && (
       <Box>
-        <Tooltip
-          arrow
-          title={value.isBind ? 'Is Bindding' : null}
-          placement="left"
-        >
-          <Box
-            sx={{
-              paddingX: 2,
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-            }}
+        <PropertyRow label={label}>
+          {value.isBind && (
+            <Typography variant="caption" color="primary">
+              Bound
+            </Typography>
+          )}
+          <RowAction
+            title={value.isBind ? 'Edit binding' : 'Bind to code'}
+            color={value.isBind ? 'primary.main' : 'text.secondary'}
+            onClick={() => setOpen(true)}
           >
-            <Toggle
-              value={value.isBind ? false : value.value}
-              label={label}
-              onChange={(value) => onChange(false, value)}
-              disabled={value.isBind}
-            />
-            <IconButton sx={{ padding: 0 }} onClick={() => setOpen(true)}>
-              <InsertLink />
-            </IconButton>
-          </Box>
-        </Tooltip>
+            <InsertLink />
+          </RowAction>
+          <Switch
+            size="small"
+            checked={value.isBind ? false : Boolean(value.value)}
+            disabled={value.isBind}
+            onChange={() => onChange(false, !value.value)}
+          />
+        </PropertyRow>
         <Dialog
           open={open}
           onClose={() => setOpen(false)}

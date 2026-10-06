@@ -37,6 +37,7 @@ const ComponentRenderer = ({ component, selected, setSelected, isBuilder }) => {
       setSelected={setSelected}
     >
       <Renderer
+        componentId={component.id}
         type={type}
         properties={component.properties}
         isBuilder={isBuilder}

@@ -1,15 +1,14 @@
-import InsertLink from '@mui/icons-material/InsertLink';
+import DataObject from '@mui/icons-material/DataObject';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
 import { useEffect, useState } from 'react';
 import Code from '@/components/input/Code';
 import Translator from '@/hooks/Translator';
+import { PropertyRow, ValuePreview } from '../common/PropertyUI';
 
 const OnLoad = (props) => {
   const { page, setPage } = props;
@@ -32,18 +31,10 @@ const OnLoad = (props) => {
 
   return (
     <Box>
-      <Box
-        sx={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-        }}
-      >
-        <Typography>On Load</Typography>
-        <IconButton sx={{ padding: 0 }} onClick={() => setOpen(true)}>
-          <InsertLink />
-        </IconButton>
-      </Box>
+      <PropertyRow label="On Load" onClick={() => setOpen(true)}>
+        <ValuePreview value={page?.onLoad} mono />
+        <DataObject />
+      </PropertyRow>
       <Dialog
         open={open}
         onClose={() => setOpen(false)}

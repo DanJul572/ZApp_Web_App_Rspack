@@ -1,17 +1,16 @@
-import InsertLink from '@mui/icons-material/InsertLink';
+import DataObject from '@mui/icons-material/DataObject';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
 import { useEffect, useState } from 'react';
 import Code from '@/components/input/Code';
 
 import isValidProperties from '@/helpers/isValidProperties';
 import Translator from '@/hooks/Translator';
+import { PropertyRow, ValuePreview } from './PropertyUI';
 
 const CodeForm = (props) => {
   const { content, selected, editComponent, setContent, label, name } = props;
@@ -38,19 +37,10 @@ const CodeForm = (props) => {
   return (
     isValidProperties(name, group, type) && (
       <Box>
-        <Box
-          sx={{
-            paddingX: 2,
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-          }}
-        >
-          <Typography>{label}</Typography>
-          <IconButton sx={{ padding: 0 }} onClick={() => setOpen(true)}>
-            <InsertLink />
-          </IconButton>
-        </Box>
+        <PropertyRow label={label} onClick={() => setOpen(true)}>
+          <ValuePreview value={selected.properties[name]} mono />
+          <DataObject />
+        </PropertyRow>
         <Dialog
           open={open}
           onClose={() => setOpen(false)}

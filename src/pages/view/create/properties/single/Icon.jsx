@@ -1,5 +1,5 @@
+import ChevronRight from '@mui/icons-material/ChevronRight';
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
 import Modal from '@mui/material/Modal';
 import { useEffect, useState } from 'react';
@@ -10,6 +10,7 @@ import Toggle from '@/components/input/Toggle';
 import EButtonType from '@/enums/EButtonType';
 import EComponentGroupType from '@/enums/EComponentGroupType';
 import ECustomType from '@/enums/ECustomType';
+import { PropertyRow, ValuePreview } from '../common/PropertyUI';
 
 const Icon = (props) => {
   const { content, selected, editComponent, setContent } = props;
@@ -61,10 +62,11 @@ const Icon = (props) => {
 
   return (
     validComponent() && (
-      <Box sx={{ padding: 2 }}>
-        <Button variant="contained" fullWidth onClick={() => setOpen(true)}>
-          Select Icon
-        </Button>
+      <Box>
+        <PropertyRow label="Icon" onClick={() => setOpen(true)}>
+          <ValuePreview value={active?.name} />
+          <ChevronRight />
+        </PropertyRow>
         <Modal
           sx={{
             display: 'flex',

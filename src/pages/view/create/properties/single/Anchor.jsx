@@ -2,28 +2,27 @@ import ArrowDropDown from '@mui/icons-material/ArrowDropDown';
 import ArrowDropUp from '@mui/icons-material/ArrowDropUp';
 import ArrowLeft from '@mui/icons-material/ArrowLeft';
 import ArrowRight from '@mui/icons-material/ArrowRight';
-import { useTheme } from '@mui/material';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
 import { useEffect, useState } from 'react';
 import EComponentGroupType from '@/enums/EComponentGroupType';
 import EContainerType from '@/enums/EContainerType';
+import { OptionButtons, PropertyRow } from '../common/PropertyUI';
+
+const anchors = [
+  { key: 'left', label: 'Left', icon: <ArrowLeft /> },
+  { key: 'top', label: 'Top', icon: <ArrowDropUp /> },
+  { key: 'right', label: 'Right', icon: <ArrowRight /> },
+  { key: 'bottom', label: 'Bottom', icon: <ArrowDropDown /> },
+];
 
 const Anchor = (props) => {
   const { content, selected, editComponent, setContent } = props;
 
-  const theme = useTheme();
-  const fontColor = theme.palette.text.secondary;
-  const primaryColor = theme.palette.primary.main;
-
   const [anchor, setAnchor] = useState(null);
 
-  const anchors = ['left', 'top', 'right', 'bottom'];
-
-  const onApply = (value) => {
-    const newContent = editComponent('anchor', value, content);
+  const onApply = (option) => {
+    const newContent = editComponent('anchor', option.key, content);
     setContent([...newContent]);
-    setAnchor(value);
+    setAnchor(option.key);
   };
 
   const validComponent = () => {
@@ -40,70 +39,7 @@ const Anchor = (props) => {
     return false;
   };
 
-  const isActive = (value) => Boolean(anchor === value);
-
-  const icon = (value) => {
-    if (value === 'left') {
-      return (
-        <ArrowLeft
-          sx={{
-            fontSize: 15,
-            color: isActive(value) ? primaryColor : fontColor,
-          }}
-        />
-      );
-    }
-    if (value === 'top') {
-      return (
-        <ArrowDropUp
-          sx={{
-            fontSize: 15,
-            color: isActive(value) ? primaryColor : fontColor,
-          }}
-        />
-      );
-    }
-    if (value === 'right') {
-      return (
-        <ArrowRight
-          sx={{
-            fontSize: 15,
-            color: isActive(value) ? primaryColor : fontColor,
-          }}
-        />
-      );
-    }
-    return (
-      <ArrowDropDown
-        sx={{
-          fontSize: 15,
-          color: isActive(value) ? primaryColor : fontColor,
-        }}
-      />
-    );
-  };
-
-  const item = (anchor, index) => {
-    return (
-      <Box
-        key={index}
-        sx={{
-          border: 1,
-          borderRadius: 1,
-          borderColor: isActive(anchor) ? primaryColor : fontColor,
-          width: 25,
-          height: 25,
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          cursor: 'pointer',
-        }}
-        onClick={() => onApply(anchor)}
-      >
-        {icon(anchor)}
-      </Box>
-    );
-  };
+  const isActive = (option) => anchor === option.key;
 
   useEffect(() => {
     if (selected) {
@@ -113,19 +49,13 @@ const Anchor = (props) => {
 
   return (
     validComponent() && (
-      <Box sx={{ paddingX: 2 }}>
-        <Typography>Anchor</Typography>
-        <Box
-          sx={{
-            marginTop: 1,
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-          }}
-        >
-          {anchors.map(item)}
-        </Box>
-      </Box>
+      <PropertyRow label="Anchor">
+        <OptionButtons
+          options={anchors}
+          isActive={isActive}
+          onSelect={onApply}
+        />
+      </PropertyRow>
     )
   );
 };

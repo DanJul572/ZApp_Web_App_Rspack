@@ -1,19 +1,17 @@
-import InsertLink from '@mui/icons-material/InsertLink';
+import DataObject from '@mui/icons-material/DataObject';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
-import Divider from '@mui/material/Divider';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
+import Switch from '@mui/material/Switch';
 import { useEffect, useState } from 'react';
 import Code from '@/components/input/Code';
-import Toggle from '@/components/input/Toggle';
 import EActionType from '@/enums/EActionType';
 import EComponentGroupType from '@/enums/EComponentGroupType';
 import Translator from '@/hooks/Translator';
+import { PropertyRow, RowAction } from '../common/PropertyUI';
 
 const TableAction = (props) => {
   const { content, selected, editComponent, setContent } = props;
@@ -95,40 +93,24 @@ const TableAction = (props) => {
   return (
     validComponent() && (
       <Box>
-        <Box sx={{ paddingX: 2 }}>
-          <Typography sx={{ marginBottom: 1 }}>Actions</Typography>
-          <Divider />
-          <Box>
-            {actions.map((action) => {
-              return (
-                <Box
-                  sx={{
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    alignItems: 'center',
-                    marginTop: 1,
-                  }}
-                  key={action.type}
-                >
-                  <Toggle
-                    value={Boolean(checkAction(action))}
-                    label={action.label}
-                    onChange={() => changeActions(action, true)}
-                  />
-                  {action.type !== EActionType.delete.value && (
-                    <IconButton
-                      sx={{ padding: 0 }}
-                      onClick={() => setOpen(getValue(action))}
-                      disabled={!checkAction(action)}
-                    >
-                      <InsertLink />
-                    </IconButton>
-                  )}
-                </Box>
-              );
-            })}
-          </Box>
-        </Box>
+        {actions.map((action) => (
+          <PropertyRow key={action.type} label={action.label}>
+            {action.type !== EActionType.delete.value && (
+              <RowAction
+                title="Edit on click"
+                onClick={() => setOpen(getValue(action))}
+                disabled={!checkAction(action)}
+              >
+                <DataObject />
+              </RowAction>
+            )}
+            <Switch
+              size="small"
+              checked={Boolean(checkAction(action))}
+              onChange={() => changeActions(action, true)}
+            />
+          </PropertyRow>
+        ))}
         <Dialog
           open={Boolean(open)}
           onClose={() => setOpen(false)}

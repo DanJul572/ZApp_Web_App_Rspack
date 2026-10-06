@@ -3,7 +3,7 @@ import Box from '@mui/material/Box';
 import Tab from '@mui/material/Tab';
 import Tabs from '@mui/material/Tabs';
 import PropTypes from 'prop-types';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import EmptyState from '@/components/page/EmptyState';
 import EComponentGroupType from '@/enums/EComponentGroupType';
@@ -12,6 +12,7 @@ import Translator from '@/hooks/Translator';
 import { TOPBAR_HEIGHT } from '@/layouts/main/constants';
 import { PANEL_WIDTH } from '../constants';
 import CodeForm from './common/CodeForm';
+import { PropertySection } from './common/PropertyUI';
 import ShortTextForm from './common/ShortTextForm';
 import ToggleCodeFormProperties from './common/ToggleCodeFormProperties';
 import Anchor from './single/Anchor';
@@ -76,6 +77,12 @@ const Properties = (props) => {
   const handleChange = (_event, newValue) => {
     setValue(newValue);
   };
+
+  // Komponen yang baru dipilih (klik, tambah, atau drop) langsung
+  // menampilkan tab properti
+  useEffect(() => {
+    if (selected) setValue(1);
+  }, [selected?.id]);
 
   const changeComponentID = (component) => {
     const id = uuidv4();
@@ -213,66 +220,74 @@ const Properties = (props) => {
                 description="Click a component on the canvas, or add one from the left panel, to edit its properties."
               />
             )}
-            <Box
-              sx={{
-                display: 'flex',
-                flexDirection: 'column',
-                gap: 2,
-                paddingTop: 3,
-              }}
-            >
-              <Identity selected={selected} />
-              <Delete
-                content={content}
-                deleteComponent={deleteComponent}
-                duplicateComponent={duplicateComponent}
-                selected={selected}
-                setContent={setContent}
-                setSelected={setSelected}
-              />
-              <Position
-                {...compProps}
-                deleteComponent={deleteComponent}
-                setSelected={setSelected}
-              />
-              {EProperties.CShortTextFormProperties.map((property) => {
-                return (
-                  <ShortTextForm
+            {selected && (
+              <Box
+                sx={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: 2.5,
+                  paddingY: 2,
+                }}
+              >
+                <Delete
+                  content={content}
+                  deleteComponent={deleteComponent}
+                  duplicateComponent={duplicateComponent}
+                  selected={selected}
+                  setContent={setContent}
+                  setSelected={setSelected}
+                />
+                <PropertySection title="General">
+                  <Identity selected={selected} />
+                  <Position
                     {...compProps}
-                    key={property.name}
-                    label={property.label}
-                    name={property.name}
+                    deleteComponent={deleteComponent}
+                    setSelected={setSelected}
                   />
-                );
-              })}
-              {EProperties.CCodeFormProperties.map((property) => {
-                return (
-                  <CodeForm
-                    {...compProps}
-                    key={property.name}
-                    label={property.label}
-                    name={property.name}
-                  />
-                );
-              })}
-              {EProperties.CToggleCodeFormProperties.map((property) => {
-                return (
-                  <ToggleCodeFormProperties
-                    {...compProps}
-                    key={property.name}
-                    label={property.label}
-                    name={property.name}
-                  />
-                );
-              })}
-              <Flex {...compProps} />
-              <Display {...compProps} />
-              <TextDecoration {...compProps} />
-              <Anchor {...compProps} />
-              <Color {...compProps} name="color" />
-              <TableAction {...compProps} />
-              <Icon {...compProps} />
-            </Box>
+                </PropertySection>
+                <PropertySection title="Properties">
+                  {EProperties.CShortTextFormProperties.map((property) => (
+                    <ShortTextForm
+                      {...compProps}
+                      key={property.name}
+                      label={property.label}
+                      name={property.name}
+                    />
+                  ))}
+                  {EProperties.CCodeFormProperties.map((property) => (
+                    <CodeForm
+                      {...compProps}
+                      key={property.name}
+                      label={property.label}
+                      name={property.name}
+                    />
+                  ))}
+                </PropertySection>
+                <PropertySection title="State">
+                  {EProperties.CToggleCodeFormProperties.map((property) => (
+                    <ToggleCodeFormProperties
+                      {...compProps}
+                      key={property.name}
+                      label={property.label}
+                      name={property.name}
+                    />
+                  ))}
+                </PropertySection>
+                <PropertySection title="Layout">
+                  <Flex {...compProps} />
+                  <Display {...compProps} />
+                  <Anchor {...compProps} />
+                </PropertySection>
+                <PropertySection title="Style">
+                  <TextDecoration {...compProps} />
+                  <Color {...compProps} name="color" />
+                  <Icon {...compProps} />
+                </PropertySection>
+                <PropertySection title="Table Actions">
+                  <TableAction {...compProps} />
+                </PropertySection>
+              </Box>
+            )}
           </CustomTabPanel>
         </Box>
       )}

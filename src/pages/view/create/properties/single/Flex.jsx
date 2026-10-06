@@ -1,10 +1,8 @@
-import Box from '@mui/material/Box';
+import Switch from '@mui/material/Switch';
 import { useEffect, useState } from 'react';
-
-import Toggle from '@/components/input/Toggle';
-
 import EComponentGroupType from '@/enums/EComponentGroupType';
 import EContainerType from '@/enums/EContainerType';
+import { PropertyRow } from '../common/PropertyUI';
 
 const Flex = (props) => {
   const { content, selected, editComponent, setContent } = props;
@@ -43,16 +41,13 @@ const Flex = (props) => {
 
   return (
     validComponent() && (
-      <Box
-        sx={{
-          paddingX: 2,
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-        }}
-      >
-        <Toggle value={flex} label="Flex" onChange={onChange} />
-      </Box>
+      <PropertyRow label="Flex">
+        <Switch
+          size="small"
+          checked={Boolean(flex)}
+          onChange={() => onChange(!flex)}
+        />
+      </PropertyRow>
     )
   );
 };

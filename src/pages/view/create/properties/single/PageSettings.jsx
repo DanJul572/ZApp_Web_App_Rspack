@@ -2,6 +2,7 @@ import Box from '@mui/material/Box';
 import { useEffect, useState } from 'react';
 
 import ShortText from '@/components/input/ShortText';
+import { PropertySection } from '../common/PropertyUI';
 import OnLoad from './OnLoad';
 
 const PageSettings = (props) => {
@@ -22,9 +23,17 @@ const PageSettings = (props) => {
   }, [localLabel, setLabel]);
 
   return (
-    <Box sx={{ padding: 2, display: 'flex', flexDirection: 'column', gap: 2 }}>
-      <ShortText value={localLabel} label="Label" onChange={setLocalLabel} />
-      <OnLoad page={page} setPage={setPage} />
+    <Box sx={{ py: 2 }}>
+      <PropertySection title="Page">
+        <Box sx={{ px: 1, pb: 1 }}>
+          <ShortText
+            value={localLabel}
+            label="Label"
+            onChange={setLocalLabel}
+          />
+        </Box>
+        <OnLoad page={page} setPage={setPage} />
+      </PropertySection>
     </Box>
   );
 };

@@ -9,6 +9,7 @@ import { TOPBAR_HEIGHT } from '@/layouts/main/constants';
 import Component from './component';
 import { PANEL_WIDTH } from './constants';
 import Content from './content';
+import BuilderDnd from './dnd/BuilderDnd';
 import Preview from './preview';
 import Properties from './properties';
 import TopBar from './topbar';
@@ -74,46 +75,52 @@ const Page = () => {
         setViewId={setViewId}
         viewId={viewId}
       />
-      <Box container="true">
-        <Component
-          content={content}
-          setContent={setContent}
-          setSelected={setSelected}
-          setViewId={setViewId}
-          viewId={viewId}
-          viewOptions={viewOptions}
-          isViewListLoading={isViewListLoading}
-        />
-        <Box
-          sx={{
-            ml: `${PANEL_WIDTH}px`,
-            mr: `${PANEL_WIDTH}px`,
-            pt: `${TOPBAR_HEIGHT}px`,
-            minHeight: '100vh',
-            backgroundColor: 'background.default',
-          }}
-        >
-          <Box sx={{ p: 3 }}>
-            <Content
-              content={content}
-              selected={selected}
-              setSelected={setSelected}
-            />
+      <BuilderDnd
+        content={content}
+        setContent={setContent}
+        setSelected={setSelected}
+      >
+        <Box container="true">
+          <Component
+            content={content}
+            setContent={setContent}
+            setSelected={setSelected}
+            setViewId={setViewId}
+            viewId={viewId}
+            viewOptions={viewOptions}
+            isViewListLoading={isViewListLoading}
+          />
+          <Box
+            sx={{
+              ml: `${PANEL_WIDTH}px`,
+              mr: `${PANEL_WIDTH}px`,
+              pt: `${TOPBAR_HEIGHT}px`,
+              minHeight: '100vh',
+              backgroundColor: 'background.default',
+            }}
+          >
+            <Box sx={{ p: 3 }}>
+              <Content
+                content={content}
+                selected={selected}
+                setSelected={setSelected}
+              />
+            </Box>
           </Box>
+          <Properties
+            activeNavigation={activeNavigation}
+            content={content}
+            navigationType={navigationType}
+            selected={selected}
+            setContent={setContent}
+            label={label}
+            setLabel={setLabel}
+            page={page}
+            setPage={setPage}
+            setSelected={setSelected}
+          />
         </Box>
-        <Properties
-          activeNavigation={activeNavigation}
-          content={content}
-          navigationType={navigationType}
-          selected={selected}
-          setContent={setContent}
-          label={label}
-          setLabel={setLabel}
-          page={page}
-          setPage={setPage}
-          setSelected={setSelected}
-        />
-      </Box>
+      </BuilderDnd>
       <Preview
         open={openPreview}
         setOpen={setOpenPreview}

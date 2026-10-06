@@ -1,19 +1,13 @@
+import { useDraggable } from '@dnd-kit/core';
 import Add from '@mui/icons-material/Add';
-import BarChart from '@mui/icons-material/BarChart';
 import ExpandLess from '@mui/icons-material/ExpandLess';
 import ExpandMore from '@mui/icons-material/ExpandMore';
-import ShortTextOutlined from '@mui/icons-material/ShortTextOutlined';
-import SmartButton from '@mui/icons-material/SmartButton';
-import SpaceDashboard from '@mui/icons-material/SpaceDashboard';
-import TableChart from '@mui/icons-material/TableChart';
-import TextFields from '@mui/icons-material/TextFields';
 import Box from '@mui/material/Box';
 import Collapse from '@mui/material/Collapse';
 import List from '@mui/material/List';
 import ListItemButton from '@mui/material/ListItemButton';
 import Typography from '@mui/material/Typography';
 import { useEffect, useState } from 'react';
-import { v4 as uuidv4 } from 'uuid';
 import IconTile from '@/components/page/IconTile';
 import EButtonType from '@/enums/EButtonType';
 import EChartType from '@/enums/EChartType';
@@ -25,7 +19,49 @@ import ETableType from '@/enums/ETableType';
 import CVisualElement from '@/enums/EVisualElementType';
 import { TOPBAR_HEIGHT } from '@/layouts/main/constants';
 import { PANEL_WIDTH } from '../constants';
+import { createComponent } from '../dnd/tree';
+import groupIcon from '../groupIcon';
 import ViewList from '../views';
+
+/**
+ * Item palette: klik untuk menambah di akhir canvas, atau drag ke posisi
+ * tertentu di canvas.
+ */
+const PaletteItem = (props) => {
+  const { group, type, onAdd } = props;
+
+  const { listeners, setNodeRef } = useDraggable({
+    id: `palette-${group.value}-${type.value}`,
+    data: { kind: 'new', group, type, label: type.label },
+  });
+
+  return (
+    <ListItemButton
+      ref={setNodeRef}
+      {...listeners}
+      onClick={() => onAdd(group, type)}
+      sx={{
+        py: 0.5,
+        px: 1,
+        justifyContent: 'space-between',
+        color: 'text.secondary',
+        cursor: 'grab',
+        '& .add-icon': { opacity: 0 },
+        '&:hover': { color: 'primary.main' },
+        '&:hover .add-icon': { opacity: 1 },
+      }}
+    >
+      <Typography variant="body2" sx={{ color: 'inherit' }}>
+        {type.label}
+      </Typography>
+      <Add
+        className="add-icon"
+        fontSize="small"
+        sx={{ transition: 'opacity 0.15s' }}
+      />
+    </ListItemButton>
+  );
+};
 
 const Component = (props) => {
   const {
@@ -76,14 +112,7 @@ const Component = (props) => {
   const handleSelected = (group, type) => {
     if (!group && !type) return;
 
-    const component = { group, type };
-
-    component.id = uuidv4();
-    component.properties = {};
-
-    if (group.value === EComponentGroupType.container.value) {
-      component.section = [];
-    }
+    const component = createComponent(group, type);
 
     setSelected(component);
     setContent([...content, component]);
@@ -107,30 +136,6 @@ const Component = (props) => {
     groupType.custom.components = custom;
 
     setComponentList(Object.values(groupType));
-  };
-
-  const icon = (type) => {
-    if (type === EComponentGroupType.button.value) {
-      return <SmartButton />;
-    }
-
-    if (type === EComponentGroupType.container.value) {
-      return <SpaceDashboard />;
-    }
-
-    if (type === EComponentGroupType.chart.value) {
-      return <BarChart />;
-    }
-
-    if (type === EComponentGroupType.fieldControl.value) {
-      return <ShortTextOutlined />;
-    }
-
-    if (type === EComponentGroupType.table.value) {
-      return <TableChart />;
-    }
-
-    return <TextFields />;
   };
 
   useEffect(() => {
@@ -204,7 +209,7 @@ const Component = (props) => {
                 }}
               >
                 <Box sx={{ display: 'flex', gap: 1.5, alignItems: 'center' }}>
-                  <IconTile size={30}>{icon(group.value)}</IconTile>
+                  <IconTile size={30}>{groupIcon(group.value)}</IconTile>
                   <Typography variant="subtitle2">{group.label}</Typography>
                 </Box>
                 {open[group.value] ? (
@@ -231,30 +236,12 @@ const Component = (props) => {
                   }}
                 >
                   {group.components.map((component) => (
-                    <ListItemButton
+                    <PaletteItem
                       key={component.value}
-                      onClick={() =>
-                        handleSelected(groupTypeValue(group), component)
-                      }
-                      sx={{
-                        py: 0.5,
-                        px: 1,
-                        justifyContent: 'space-between',
-                        color: 'text.secondary',
-                        '& .add-icon': { opacity: 0 },
-                        '&:hover': { color: 'primary.main' },
-                        '&:hover .add-icon': { opacity: 1 },
-                      }}
-                    >
-                      <Typography variant="body2" sx={{ color: 'inherit' }}>
-                        {component.label}
-                      </Typography>
-                      <Add
-                        className="add-icon"
-                        fontSize="small"
-                        sx={{ transition: 'opacity 0.15s' }}
-                      />
-                    </ListItemButton>
+                      group={groupTypeValue(group)}
+                      type={component}
+                      onAdd={handleSelected}
+                    />
                   ))}
                 </List>
               </Collapse>

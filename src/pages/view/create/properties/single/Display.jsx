@@ -1,62 +1,35 @@
 import AlignHorizontalCenter from '@mui/icons-material/AlignHorizontalCenter';
 import AlignHorizontalLeft from '@mui/icons-material/AlignHorizontalLeft';
 import AlignHorizontalRight from '@mui/icons-material/AlignHorizontalRight';
-import { useTheme } from '@mui/material';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
 import { useEffect, useState } from 'react';
-
-/*
-import AlignVerticalBottom from '@mui/icons-material/AlignVerticalBottom';
-import AlignVerticalCenter from '@mui/icons-material/AlignVerticalCenter';
-import AlignVerticalTop from '@mui/icons-material/AlignVerticalTop';
-*/
-
 import EComponentGroupType from '@/enums/EComponentGroupType';
 import EContainerType from '@/enums/EContainerType';
+import { OptionButtons, PropertyRow } from '../common/PropertyUI';
+
+// Nilai yang disimpan ke properties.display tetap { name, value, type }
+const horizontal = [
+  { name: 'left', value: 'flex-start', type: 'horizontal' },
+  { name: 'horizontalCenter', value: 'center', type: 'horizontal' },
+  { name: 'right', value: 'flex-end', type: 'horizontal' },
+];
+
+const options = [
+  { key: 'left', label: 'Left', icon: <AlignHorizontalLeft /> },
+  { key: 'horizontalCenter', label: 'Center', icon: <AlignHorizontalCenter /> },
+  { key: 'right', label: 'Right', icon: <AlignHorizontalRight /> },
+];
 
 const Display = (props) => {
   const { content, selected, editComponent, setContent } = props;
 
-  const theme = useTheme();
-  const fontColor = theme.palette.text.secondary;
-  const primaryColor = theme.palette.primary.main;
-
   const [display, setDisplay] = useState({
     vertical: null,
-    // horizontal: null,
   });
 
-  const horizontal = [
-    { name: 'left', value: 'flex-start', type: 'horizontal' },
-    { name: 'horizontalCenter', value: 'center', type: 'horizontal' },
-    { name: 'right', value: 'flex-end', type: 'horizontal' },
-  ];
-
-  /*
-    const vertical = [
-        {
-            name: 'top',
-            value: 'flex-start',
-            type: 'vertical',
-        },
-        {
-            name: 'verticalCenter',
-            value: 'center',
-            type: 'vertical',
-        },
-        {
-            name: 'bottom',
-            value: 'flex-end',
-            type: 'vertical',
-        },
-    ];
-    */
-
-  const onApply = (value) => {
+  const onApply = (option) => {
+    const value = horizontal.find((item) => item.name === option.key);
     const newDisplay = {
       horizontal: display.horizontal,
-      // vertical: display.vertical,
     };
     newDisplay[value.type] =
       newDisplay[value.type] && newDisplay[value.type].name === value.name
@@ -82,77 +55,12 @@ const Display = (props) => {
     return false;
   };
 
-  const isActive = (value) =>
-    Boolean(
-      display
-        ? display[value.type] && display[value.type].name === value.name
-        : false,
-    );
-
-  const icon = (value) => {
-    if (value.name === 'left')
-      return (
-        <AlignHorizontalLeft
-          sx={{
-            fontSize: 15,
-            color: isActive(value) ? primaryColor : fontColor,
-          }}
-        />
-      );
-    if (value.name === 'horizontalCenter')
-      return (
-        <AlignHorizontalCenter
-          sx={{
-            fontSize: 15,
-            color: isActive(value) ? primaryColor : fontColor,
-          }}
-        />
-      );
-
-    return (
-      <AlignHorizontalRight
-        sx={{
-          fontSize: 15,
-          color: isActive(value) ? primaryColor : fontColor,
-        }}
-      />
-    );
-    /*
-        else if (value.name === 'top')
-            return <AlignVerticalTop sx={{fontSize: 15, color: isActive(value) ? primaryColor : fontColor}} />;
-        else if (value.name === 'verticalCenter')
-            return <AlignVerticalCenter sx={{fontSize: 15, color: isActive(value) ? primaryColor : fontColor}} />;
-        else return <AlignVerticalBottom sx={{fontSize: 15, color: isActive(value) ? primaryColor : fontColor}} />;
-        */
-  };
-
-  const poisiton = (display, index) => {
-    return (
-      <Box
-        key={index}
-        sx={{
-          border: 1,
-          borderRadius: 1,
-          borderColor: isActive(display) ? primaryColor : fontColor,
-          width: 25,
-          height: 25,
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          cursor: 'pointer',
-        }}
-        onClick={() => onApply(display)}
-      >
-        {icon(display)}
-      </Box>
-    );
-  };
+  const isActive = (option) => display?.horizontal?.name === option.key;
 
   useEffect(() => {
     if (selected) {
       const emptyValue = {
         vertical: null,
-        // horizontal: null,
       };
       setDisplay(selected.properties.display || emptyValue);
     }
@@ -160,24 +68,13 @@ const Display = (props) => {
 
   return (
     validComponent() && (
-      <Box sx={{ paddingX: 2 }}>
-        <Typography>Display</Typography>
-        <Box
-          sx={{
-            marginTop: 1,
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-          }}
-        >
-          {horizontal.map(poisiton)}
-        </Box>
-        {/*
-        <Box sx={{ marginTop: 1, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            {vertical.map(poisiton)}
-        </Box>
-        */}
-      </Box>
+      <PropertyRow label="Align">
+        <OptionButtons
+          options={options}
+          isActive={isActive}
+          onSelect={onApply}
+        />
+      </PropertyRow>
     )
   );
 };

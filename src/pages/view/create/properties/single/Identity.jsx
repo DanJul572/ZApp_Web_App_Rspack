@@ -1,14 +1,12 @@
 import ContentPaste from '@mui/icons-material/ContentPaste';
-import Box from '@mui/material/Box';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
 import EComponentGroupType from '@/enums/EComponentGroupType';
+import { PropertyRow, RowAction, ValuePreview } from '../common/PropertyUI';
 
 const Identity = (props) => {
   const { selected } = props;
 
   const onCoppy = () => {
-    if (!selected && !navigator.clipboard) return;
+    if (!selected || !navigator.clipboard) return;
     navigator.clipboard.writeText(selected.id);
   };
 
@@ -21,16 +19,12 @@ const Identity = (props) => {
 
   return (
     validComponent() && (
-      <Box>
-        <Box
-          sx={{ paddingX: 2, display: 'flex', justifyContent: 'space-between' }}
-        >
-          <Typography>{selected.id}</Typography>
-          <IconButton sx={{ padding: 0 }} onClick={onCoppy}>
-            <ContentPaste />
-          </IconButton>
-        </Box>
-      </Box>
+      <PropertyRow label="Container ID">
+        <ValuePreview value={selected.id} mono />
+        <RowAction title="Copy ID" onClick={onCoppy}>
+          <ContentPaste />
+        </RowAction>
+      </PropertyRow>
     )
   );
 };

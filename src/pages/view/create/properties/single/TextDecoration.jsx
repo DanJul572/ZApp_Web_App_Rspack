@@ -1,18 +1,19 @@
 import FormatBold from '@mui/icons-material/FormatBold';
 import FormatItalic from '@mui/icons-material/FormatItalic';
 import FormatUnderlined from '@mui/icons-material/FormatUnderlined';
-import { useTheme } from '@mui/material';
-import Box from '@mui/material/Box';
 import { useEffect, useState } from 'react';
 import EComponentGroupType from '@/enums/EComponentGroupType';
 import CVisualElement from '@/enums/EVisualElementType';
+import { OptionButtons, PropertyRow } from '../common/PropertyUI';
+
+const items = [
+  { key: 'bold', label: 'Bold', icon: <FormatBold /> },
+  { key: 'italic', label: 'Italic', icon: <FormatItalic /> },
+  { key: 'underline', label: 'Underline', icon: <FormatUnderlined /> },
+];
 
 const TextDecoration = (props) => {
   const { content, selected, editComponent, setContent } = props;
-
-  const theme = useTheme();
-  const fontColor = theme.palette.text.secondary;
-  const primaryColor = theme.palette.primary.main;
 
   const [decoration, setDecoration] = useState({
     bold: false,
@@ -20,15 +21,13 @@ const TextDecoration = (props) => {
     underline: false,
   });
 
-  const items = ['bold', 'italic', 'underline'];
-
-  const onApply = (param) => {
+  const onApply = (option) => {
     const newDecoration = {
       bold: decoration.bold,
       italic: decoration.italic,
       underline: decoration.underline,
     };
-    newDecoration[param] = !newDecoration[param];
+    newDecoration[option.key] = !newDecoration[option.key];
 
     const newContent = editComponent('textDecoration', newDecoration, content);
 
@@ -36,62 +35,7 @@ const TextDecoration = (props) => {
     setDecoration(newDecoration);
   };
 
-  const isActive = (param) => {
-    return Boolean(decoration[param]);
-  };
-
-  const icon = (value) => {
-    if (value === 'bold') {
-      return (
-        <FormatBold
-          sx={{
-            fontSize: 15,
-            color: isActive(value) ? primaryColor : fontColor,
-          }}
-        />
-      );
-    }
-    if (value === 'italic') {
-      return (
-        <FormatItalic
-          sx={{
-            fontSize: 15,
-            color: isActive(value) ? primaryColor : fontColor,
-          }}
-        />
-      );
-    }
-    return (
-      <FormatUnderlined
-        sx={{
-          fontSize: 15,
-          color: isActive(value) ? primaryColor : fontColor,
-        }}
-      />
-    );
-  };
-
-  const element = (decoration, index) => {
-    return (
-      <Box
-        key={index}
-        sx={{
-          border: 1,
-          borderRadius: 1,
-          borderColor: isActive(decoration) ? primaryColor : fontColor,
-          width: 25,
-          height: 25,
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          cursor: 'pointer',
-        }}
-        onClick={() => onApply(decoration)}
-      >
-        {icon(decoration)}
-      </Box>
-    );
-  };
+  const isActive = (option) => Boolean(decoration[option.key]);
 
   const validComponent = () => {
     if (!selected) return false;
@@ -116,18 +60,9 @@ const TextDecoration = (props) => {
 
   return (
     validComponent() && (
-      <Box sx={{ paddingX: 2 }}>
-        <Box
-          sx={{
-            marginTop: 1,
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-          }}
-        >
-          {items.map(element)}
-        </Box>
-      </Box>
+      <PropertyRow label="Text">
+        <OptionButtons options={items} isActive={isActive} onSelect={onApply} />
+      </PropertyRow>
     )
   );
 };

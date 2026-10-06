@@ -22,7 +22,7 @@ const baseOptions = (mode) => {
   return {
     palette: {
       mode,
-      primary: { main: '#6d28d9' },
+      primary: { main: '#475569' },
       background: isDark
         ? { default: '#0f1117', paper: '#171a23' }
         : { default: '#f5f6fa', paper: '#ffffff' },

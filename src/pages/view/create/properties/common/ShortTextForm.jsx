@@ -1,16 +1,16 @@
-import ShortTextOutlined from '@mui/icons-material/ShortTextOutlined';
+import EditOutlined from '@mui/icons-material/EditOutlined';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
+import DialogTitle from '@mui/material/DialogTitle';
 import { useEffect, useState } from 'react';
 import ShortText from '@/components/input/ShortText';
 
 import isValidProperties from '@/helpers/isValidProperties';
 import Translator from '@/hooks/Translator';
+import { PropertyRow, ValuePreview } from './PropertyUI';
 
 const ShortTextForm = (props) => {
   const { content, selected, editComponent, setContent, label, name } = props;
@@ -37,25 +37,17 @@ const ShortTextForm = (props) => {
   return (
     isValidProperties(name, group, type) && (
       <Box>
-        <Box
-          sx={{
-            paddingX: 2,
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-          }}
-        >
-          <Typography>{label}</Typography>
-          <IconButton sx={{ padding: 0 }} onClick={() => setOpen(true)}>
-            <ShortTextOutlined />
-          </IconButton>
-        </Box>
+        <PropertyRow label={label} onClick={() => setOpen(true)}>
+          <ValuePreview value={selected.properties[name]} />
+          <EditOutlined />
+        </PropertyRow>
         <Dialog
           open={open}
           onClose={() => setOpen(false)}
           aria-hidden={open ? 'false' : 'true'}
           fullWidth
         >
+          <DialogTitle>{label}</DialogTitle>
           <DialogContent>
             <ShortText label={label} value={value} onChange={setValue} />
           </DialogContent>

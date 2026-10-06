@@ -4,7 +4,6 @@ import Tabs from '@mui/material/Tabs';
 import Typography from '@mui/material/Typography';
 import PropTypes from 'prop-types';
 import { useState } from 'react';
-import { v4 as uuidv4 } from 'uuid';
 import MuiTab from '@/aliases/MuiTab';
 
 const CustomTabPanel = (props) => {
@@ -89,7 +88,13 @@ const Content = (props) => {
 
   if (items && items.length > 0) {
     return items.map((item, index) => (
-      <CustomTabPanel key={uuidv4()} value={value} index={index}>
+      <CustomTabPanel
+        // Panel tab bersifat posisional dan tidak punya id sendiri
+        // biome-ignore lint/suspicious/noArrayIndexKey: tab order is the identity
+        key={index}
+        value={value}
+        index={index}
+      >
         {render(item, index)}
       </CustomTabPanel>
     ));

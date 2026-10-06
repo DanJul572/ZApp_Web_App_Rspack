@@ -1,8 +1,10 @@
 import { useTheme } from '@mui/material';
 import Box from '@mui/material/Box';
-import { grey } from '@mui/material/colors';
+import ButtonBase from '@mui/material/ButtonBase';
+import Tooltip from '@mui/material/Tooltip';
 import { useEffect, useState } from 'react';
 import isValidProperties from '@/helpers/isValidProperties';
+import { PropertyRow } from '../common/PropertyUI';
 
 const Color = (props) => {
   const { content, selected, editComponent, setContent, name } = props;
@@ -39,35 +41,33 @@ const Color = (props) => {
 
   return (
     isValidProperties(name, group, type) && (
-      <Box sx={{ paddingX: 2 }}>
-        <Box
-          sx={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            gap: 2,
-            marginTop: 1,
-          }}
-        >
+      <PropertyRow label="Color">
+        <Box sx={{ display: 'flex', gap: 0.75 }}>
           {colors.map((color) => {
+            const isActive = active?.name === color.name;
+
             return (
-              <Box
-                key={color.value}
-                sx={{
-                  borderRadius: '50%',
-                  width: 15,
-                  height: 15,
-                  backgroundColor: color.value,
-                  cursor: 'pointer',
-                  border: active && color.name === active.name ? 2 : 0,
-                  borderColor: grey[300],
-                }}
-                onClick={() => onApply(color)}
-              />
+              <Tooltip key={color.name} title={color.label}>
+                <ButtonBase
+                  aria-label={color.label}
+                  aria-pressed={isActive}
+                  onClick={() => onApply(color)}
+                  sx={{
+                    backgroundColor: color.value,
+                    borderRadius: '50%',
+                    height: 18,
+                    width: 18,
+                    // Ring dua lapis agar terlihat di atas warna apa pun
+                    boxShadow: isActive
+                      ? `0 0 0 2px ${theme.palette.background.paper}, 0 0 0 3.5px ${color.value}`
+                      : 'none',
+                  }}
+                />
+              </Tooltip>
             );
           })}
         </Box>
-      </Box>
+      </PropertyRow>
     )
   );
 };

@@ -9,11 +9,24 @@ import EContainerType from '@/enums/EContainerType';
 import Content from '@/hooks/Content';
 import Translator from '@/hooks/Translator';
 import ComponentRenderer from '../ComponentRenderer';
+import DropSection, {
+  DropHint,
+  dropSectionProps,
+  emptySectionSx,
+} from '../layout/DropSection';
 import PageLifecycle from '../layout/PageLifecycle';
 import ScriptEngine from '../script/ScriptEngine';
 
 const ContainerRenderer = (props) => {
-  const { type, section, properties, isBuilder, selected, setSelected } = props;
+  const {
+    componentId,
+    type,
+    section,
+    properties,
+    isBuilder,
+    selected,
+    setSelected,
+  } = props;
 
   const scriptEngine = ScriptEngine({ isBuilder });
   const translator = Translator();
@@ -27,6 +40,10 @@ const ContainerRenderer = (props) => {
   const padding = Number.parseInt(properties.padding, 10);
   const size = properties.size;
   const viewID = properties.viewID;
+
+  // Di builder, container tanpa isi tetap diberi area drop yang terlihat
+  const isEmpty =
+    isBuilder && !section?.some((components) => components.length > 0);
 
   const { content, page } = Content({
     params: { id: viewID },
@@ -48,6 +65,17 @@ const ContainerRenderer = (props) => {
     section?.length > 0 &&
     section.map((components) => renderComponents(components));
 
+  // Container non-grid merender semua section dalam satu area drop
+  const renderDropSections = () => (
+    <DropSection
+      isBuilder={isBuilder}
+      containerId={componentId}
+      isEmpty={isEmpty}
+    >
+      {renderSections()}
+    </DropSection>
+  );
+
   switch (type) {
     case EContainerType.card.value: {
       const justifyContent = display?.horizontal
@@ -57,8 +85,21 @@ const ContainerRenderer = (props) => {
 
       return (
         <Card>
-          <Box sx={{ ...flexProps, padding: padding || 0 }}>
+          <Box
+            {...dropSectionProps(
+              isBuilder,
+              componentId,
+              0,
+              flex ? 'row' : 'column',
+            )}
+            sx={{
+              ...flexProps,
+              padding: padding || 0,
+              ...emptySectionSx(isEmpty),
+            }}
+          >
             {renderSections()}
+            {isEmpty && <DropHint />}
           </Box>
         </Card>
       );
@@ -70,20 +111,36 @@ const ContainerRenderer = (props) => {
 
       return (
         <Grid container>
-          {section?.map((components, index) => (
+          {section?.map((components, index) => {
+            const isColumnEmpty = isBuilder && components.length === 0;
+
+            return (
+              <Grid
+                size={
+                  columnSizes.length > 0
+                    ? Number.parseInt(columnSizes[index], 10)
+                    : defaultSize
+                }
+                // Kolom grid bersifat posisional dan tidak punya id sendiri
+                // biome-ignore lint/suspicious/noArrayIndexKey: column order is the identity
+                key={index}
+                {...dropSectionProps(isBuilder, componentId, index)}
+                sx={emptySectionSx(isColumnEmpty)}
+              >
+                {renderComponents(components)}
+                {isColumnEmpty && <DropHint />}
+              </Grid>
+            );
+          })}
+          {isBuilder && !section?.length && (
             <Grid
-              size={
-                columnSizes.length > 0
-                  ? Number.parseInt(columnSizes[index], 10)
-                  : defaultSize
-              }
-              // Kolom grid bersifat posisional dan tidak punya id sendiri
-              // biome-ignore lint/suspicious/noArrayIndexKey: column order is the identity
-              key={index}
+              size={12}
+              {...dropSectionProps(isBuilder, componentId, 0)}
+              sx={emptySectionSx(true)}
             >
-              {renderComponents(components)}
+              <DropHint />
             </Grid>
-          ))}
+          )}
         </Grid>
       );
     }
@@ -91,13 +148,13 @@ const ContainerRenderer = (props) => {
     case EContainerType.collapse.value:
       return (
         <Collapse label={label || EContainerType.collapse.label} color={color}>
-          {renderSections()}
+          {renderDropSections()}
         </Collapse>
       );
 
     case EContainerType.drawer.value:
       if (isBuilder) {
-        return <Card>{renderSections()}</Card>;
+        return <Card>{renderDropSections()}</Card>;
       }
       return (
         <Drawer anchor={anchor} open={Boolean(open)} size={size}>
@@ -107,11 +164,25 @@ const ContainerRenderer = (props) => {
 
     case EContainerType.tab.value:
       return (
-        <Tab
-          labels={label}
-          items={section}
-          render={(components) => renderComponents(components)}
-        />
+        <>
+          <Tab
+            labels={label}
+            items={section}
+            render={(components, index) => (
+              <DropSection
+                isBuilder={isBuilder}
+                containerId={componentId}
+                colIndex={index}
+                isEmpty={isBuilder && components.length === 0}
+              >
+                {renderComponents(components)}
+              </DropSection>
+            )}
+          />
+          {isBuilder && !section?.length && (
+            <DropSection isBuilder containerId={componentId} isEmpty />
+          )}
+        </>
       );
 
     case EContainerType.view.value:
