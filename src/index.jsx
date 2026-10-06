@@ -11,6 +11,12 @@ import '@fontsource/inter/600.css';
 import '@fontsource/inter/700.css';
 import '@fontsource/inter/800.css';
 
+// Self-hosted Material Symbols for DynamicIcon; the .woff2 files are only
+// downloaded when an icon of that family is rendered.
+import 'material-symbols/outlined.css';
+import 'material-symbols/rounded.css';
+import 'material-symbols/sharp.css';
+
 import 'react-virtualized/styles.css';
 
 import { ConfigProvider } from './contexts/ConfigProvider';

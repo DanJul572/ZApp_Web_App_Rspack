@@ -12,8 +12,7 @@ import { TreeItem, treeItemClasses } from '@mui/x-tree-view/TreeItem';
 import { forwardRef, useEffect, useState } from 'react';
 import { useLocation } from 'react-router';
 
-import * as Icon from '@/configs/CIcons';
-
+import DynamicIcon from '@/components/dynamicIcon';
 import { useExpandedMenu } from '@/contexts/ExpandedMenuProvider';
 
 const CustomTreeItem = forwardRef((props, ref) => (
@@ -46,9 +45,10 @@ const StyledTreeItem = styled(CustomTreeItem)(({ theme }) => ({
     fontWeight: 500,
     color: 'inherit',
   },
-  [`& .${treeItemClasses.iconContainer} .MuiSvgIcon-root`]: {
-    fontSize: 20,
-  },
+  [`& .${treeItemClasses.iconContainer} :is(.MuiSvgIcon-root, .MuiIcon-root)`]:
+    {
+      fontSize: 20,
+    },
   [`& .${treeItemClasses.groupTransition}`]: {
     marginLeft: 14,
     paddingLeft: 6,
@@ -144,9 +144,6 @@ const Tree = (props) => {
   };
 
   const treeMenu = (menu) => {
-    // biome-ignore lint/performance/noDynamicNamespaceImportAccess: dynamic import needed here
-    const SelectedIcon = Icon[menu.icon];
-
     if (menu.child) {
       return (
         <StyledTreeItem
@@ -169,8 +166,8 @@ const Tree = (props) => {
         itemId={menu.id}
         label={menu.label}
         slots={{
-          endIcon: SelectedIcon
-            ? () => <SelectedIcon sx={{ color: 'inherit' }} />
+          endIcon: menu.icon
+            ? () => <DynamicIcon name={menu.icon} sx={{ color: 'inherit' }} />
             : null,
         }}
         onClick={(event) => {

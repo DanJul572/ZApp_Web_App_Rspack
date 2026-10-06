@@ -2,7 +2,7 @@ import Box from '@mui/material/Box';
 import Link from '@mui/material/Link';
 import MuiButton from '@/aliases/MuiButton';
 import Group from '@/components/button/Group';
-import * as Icon from '@/configs/CIcons';
+import DynamicIcon from '@/components/dynamicIcon';
 import EButtonType from '@/enums/EButtonType';
 import ScriptEngine from '../script/ScriptEngine';
 
@@ -33,11 +33,7 @@ const ButtonRenderer = (props) => {
   const iconName = properties.icon?.name;
   const isIconRight = properties.icon?.isRight;
 
-  // biome-ignore lint/performance/noDynamicNamespaceImportAccess: dynamic import needed here
-  const EndIcon = iconName && isIconRight ? Icon[iconName] : null;
-
-  // biome-ignore lint/performance/noDynamicNamespaceImportAccess: dynamic import needed here
-  const StartIcon = iconName && !isIconRight ? Icon[iconName] : null;
+  const iconElement = iconName ? <DynamicIcon name={iconName} /> : null;
 
   const handleClick = () => {
     if (!isBuilder) {
@@ -58,8 +54,8 @@ const ButtonRenderer = (props) => {
             disabled={disabled}
             loading={loading}
             color={color}
-            endIcon={EndIcon ? <EndIcon /> : null}
-            startIcon={StartIcon ? <StartIcon /> : null}
+            endIcon={isIconRight ? iconElement : null}
+            startIcon={isIconRight ? null : iconElement}
           >
             {label || EButtonType.button.label}
           </MuiButton>

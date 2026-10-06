@@ -6,12 +6,30 @@ import Select from '@mui/material/Select';
 import TextField from '@mui/material/TextField';
 import { useEffect, useMemo, useState } from 'react';
 import { AutoSizer, Grid } from 'react-virtualized';
-import * as Icon from '@/configs/CIcons';
+import DynamicIcon from '@/components/dynamicIcon';
+import { formatIconName, parseIconName } from '@/helpers/parseIconName';
 
 const IconPicker = ({ active, onSelect, onBlur }) => {
-  const [filter, setFilter] = useState('filled');
+  const activeIcon = parseIconName(active);
+  const activeName = activeIcon
+    ? formatIconName(activeIcon.symbol, activeIcon.variant)
+    : null;
+
+  const [allNames, setAllNames] = useState(null);
+  const [filter, setFilter] = useState(activeIcon?.variant ?? 'filled');
   const [searchInput, setSearchInput] = useState('');
   const [searchTerm, setSearchTerm] = useState('');
+
+  useEffect(() => {
+    let ignore = false;
+    // Loaded on demand so the ~60KB name list stays out of the main bundle
+    import('@/configs/iconNames.json').then((module) => {
+      if (!ignore) setAllNames(module.default);
+    });
+    return () => {
+      ignore = true;
+    };
+  }, []);
 
   useEffect(() => {
     const handler = setTimeout(() => {
@@ -21,32 +39,19 @@ const IconPicker = ({ active, onSelect, onBlur }) => {
   }, [searchInput]);
 
   const iconNames = useMemo(() => {
-    let names = Object.keys(Icon);
+    if (!allNames) return [];
 
-    if (filter !== 'filled') {
-      const suffix =
-        filter === 'twoTone'
-          ? 'TwoTone'
-          : filter.charAt(0).toUpperCase() + filter.slice(1);
+    const term = searchTerm
+      .trim()
+      .replace(/([a-z0-9])([A-Z])/g, '$1_$2')
+      .replace(/[\s-]+/g, '_')
+      .toLowerCase();
+    const symbols = term
+      ? allNames.filter((name) => name.includes(term))
+      : allNames;
 
-      names = names.filter((name) => name.endsWith(suffix));
-    } else {
-      names = names.filter(
-        (name) =>
-          !name.endsWith('Outlined') &&
-          !name.endsWith('Rounded') &&
-          !name.endsWith('TwoTone') &&
-          !name.endsWith('Sharp'),
-      );
-    }
-
-    if (searchTerm) {
-      names = names.filter((name) =>
-        name.toLowerCase().includes(searchTerm.toLowerCase()),
-      );
-    }
-    return names;
-  }, [filter, searchTerm]);
+    return symbols.map((symbol) => formatIconName(symbol, filter));
+  }, [allNames, filter, searchTerm]);
 
   const rowHeight = 60;
 
@@ -56,18 +61,17 @@ const IconPicker = ({ active, onSelect, onBlur }) => {
     if (iconIndex >= iconNames.length) return null;
 
     const iconName = iconNames[iconIndex];
-    // biome-ignore lint/performance/noDynamicNamespaceImportAccess: dynamic import needed here
-    const IconComponent = Icon[iconName];
 
     return (
       <div key={key} style={style}>
         <IconButton
           data-testid={`icon-button-${iconName}`}
-          color={active === iconName ? 'primary' : 'inherit'}
+          title={parseIconName(iconName).symbol}
+          color={activeName === iconName ? 'primary' : 'inherit'}
           onClick={onSelect ? () => onSelect(iconName) : undefined}
           onBlur={onBlur ? () => onBlur(iconName) : undefined}
         >
-          <IconComponent />
+          <DynamicIcon name={iconName} />
         </IconButton>
       </div>
     );
@@ -81,7 +85,6 @@ const IconPicker = ({ active, onSelect, onBlur }) => {
             <MenuItem value="filled">Filled</MenuItem>
             <MenuItem value="outlined">Outlined</MenuItem>
             <MenuItem value="rounded">Rounded</MenuItem>
-            <MenuItem value="twoTone">TwoTone</MenuItem>
             <MenuItem value="sharp">Sharp</MenuItem>
           </Select>
         </FormControl>
@@ -96,7 +99,7 @@ const IconPicker = ({ active, onSelect, onBlur }) => {
       </Box>
 
       <Box sx={{ height: 300 }}>
-        {iconNames.length === 0 ? (
+        {!allNames || iconNames.length === 0 ? (
           <Box
             sx={{
               height: '100%',
@@ -107,7 +110,7 @@ const IconPicker = ({ active, onSelect, onBlur }) => {
               fontSize: 14,
             }}
           >
-            No icon found.
+            {allNames ? 'No icon found.' : 'Loading icons...'}
           </Box>
         ) : (
           <AutoSizer>

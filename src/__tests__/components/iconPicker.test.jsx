@@ -1,6 +1,5 @@
 import { act, fireEvent, render, screen } from '@testing-library/react';
 import IconPicker from '@/components/iconPicker';
-import * as Icons from '@/configs/CIcons';
 
 jest.mock('@mui/material/Box', () => ({ children, sx: _sx, ...rest }) => (
   <div {...rest}>{children}</div>
@@ -53,6 +52,13 @@ jest.mock(
     ),
 );
 
+jest.mock('@/configs/iconNames.json', () => [
+  'home',
+  'format_list_bulleted',
+  'folder',
+  'delete',
+]);
+
 jest.mock('react-virtualized', () => ({
   AutoSizer: ({ children }) => children({ width: 300, height: 300 }),
   Grid: ({ cellRenderer, columnCount, rowCount }) => (
@@ -80,224 +86,150 @@ describe('IconPicker Component', () => {
     jest.useRealTimers();
   });
 
-  test('renders filter select and search input', () => {
+  const search = (value) => {
+    fireEvent.change(screen.getByPlaceholderText('Search...'), {
+      target: { value },
+    });
+    act(() => jest.advanceTimersByTime(1000));
+  };
+
+  test('renders filter select and search input', async () => {
     render(<IconPicker />);
     expect(screen.getByRole('combobox')).toBeInTheDocument();
     expect(screen.getByPlaceholderText('Search...')).toBeInTheDocument();
+    await screen.findByTestId('icon-button-home');
   });
 
-  test('renders filled icons from CIcons by default', () => {
+  test('shows loading text until icon names are loaded', async () => {
     render(<IconPicker />);
-    const filledIcons = Object.keys(Icons).filter(
-      (name) =>
-        !name.endsWith('Outlined') &&
-        !name.endsWith('Rounded') &&
-        !name.endsWith('TwoTone') &&
-        !name.endsWith('Sharp'),
-    );
-    filledIcons.forEach((iconName) => {
-      expect(screen.getByTestId(`icon-button-${iconName}`)).toBeInTheDocument();
-    });
+    expect(screen.getByText('Loading icons...')).toBeInTheDocument();
+    await screen.findByTestId('icon-button-home');
+    expect(screen.queryByText('Loading icons...')).not.toBeInTheDocument();
   });
 
-  test('calls onSelect with icon name when an icon button is clicked', () => {
+  test('renders all icons as filled by default', async () => {
+    render(<IconPicker />);
+    for (const name of ['home', 'format_list_bulleted', 'folder', 'delete']) {
+      expect(
+        await screen.findByTestId(`icon-button-${name}`),
+      ).toBeInTheDocument();
+    }
+  });
+
+  test('does not offer the TwoTone filter', () => {
+    render(<IconPicker />);
+    expect(screen.queryByText('TwoTone')).not.toBeInTheDocument();
+  });
+
+  test('calls onSelect with icon name when an icon button is clicked', async () => {
     const onSelect = jest.fn();
     render(<IconPicker onSelect={onSelect} />);
 
-    const firstFilledIcon = Object.keys(Icons).find(
-      (name) =>
-        !name.endsWith('Outlined') &&
-        !name.endsWith('Rounded') &&
-        !name.endsWith('TwoTone') &&
-        !name.endsWith('Sharp'),
-    );
-
-    fireEvent.click(screen.getByTestId(`icon-button-${firstFilledIcon}`));
-    expect(onSelect).toHaveBeenCalledWith(firstFilledIcon);
+    fireEvent.click(await screen.findByTestId('icon-button-home'));
+    expect(onSelect).toHaveBeenCalledWith('home');
   });
 
-  test('calls onBlur with icon name when an icon button loses focus', () => {
+  test('calls onBlur with icon name when an icon button loses focus', async () => {
     const onBlur = jest.fn();
     render(<IconPicker onBlur={onBlur} />);
 
-    const firstFilledIcon = Object.keys(Icons).find(
-      (name) =>
-        !name.endsWith('Outlined') &&
-        !name.endsWith('Rounded') &&
-        !name.endsWith('TwoTone') &&
-        !name.endsWith('Sharp'),
-    );
-    const btn = screen.getByTestId(`icon-button-${firstFilledIcon}`);
-
+    const btn = await screen.findByTestId('icon-button-folder');
     act(() => {
       btn.focus();
       fireEvent.blur(btn);
     });
 
-    expect(onBlur).toHaveBeenCalledWith(firstFilledIcon);
+    expect(onBlur).toHaveBeenCalledWith('folder');
   });
 
-  test('filters icons by search term after debounce delay', () => {
+  test('filters icons by search term after debounce delay', async () => {
     render(<IconPicker />);
+    await screen.findByTestId('icon-button-home');
 
-    fireEvent.change(screen.getByPlaceholderText('Search...'), {
-      target: { value: 'zzz_no_match_yet' },
-    });
+    search('folder');
 
-    act(() => jest.advanceTimersByTime(1000));
+    expect(screen.getByTestId('icon-button-folder')).toBeInTheDocument();
+    expect(screen.queryByTestId('icon-button-home')).not.toBeInTheDocument();
+  });
+
+  test('search accepts spaces and PascalCase', async () => {
+    render(<IconPicker />);
+    await screen.findByTestId('icon-button-home');
+
+    search('list bulleted');
+    expect(
+      screen.getByTestId('icon-button-format_list_bulleted'),
+    ).toBeInTheDocument();
+
+    search('FormatList');
+    expect(
+      screen.getByTestId('icon-button-format_list_bulleted'),
+    ).toBeInTheDocument();
+  });
+
+  test('shows "No icon found." when search yields no results', async () => {
+    render(<IconPicker />);
+    await screen.findByTestId('icon-button-home');
+
+    search('xxx_not_existing');
 
     expect(screen.getByText('No icon found.')).toBeInTheDocument();
   });
 
-  test('shows matching icon after debounce when search term matches', () => {
-    const filledIcons = Object.keys(Icons).filter(
-      (name) =>
-        !name.endsWith('Outlined') &&
-        !name.endsWith('Rounded') &&
-        !name.endsWith('TwoTone') &&
-        !name.endsWith('Sharp'),
-    );
-    const targetIcon = filledIcons[0];
-
-    render(<IconPicker />);
-
-    fireEvent.change(screen.getByPlaceholderText('Search...'), {
-      target: { value: targetIcon },
-    });
-
-    act(() => jest.advanceTimersByTime(1000));
-
-    expect(screen.getByTestId(`icon-button-${targetIcon}`)).toBeInTheDocument();
-  });
-
-  test('shows "No icon found." when search yields no results', () => {
-    render(<IconPicker />);
-
-    fireEvent.change(screen.getByPlaceholderText('Search...'), {
-      target: { value: 'xxx_not_existing' },
-    });
-
-    act(() => jest.advanceTimersByTime(1000));
-
-    expect(screen.getByText('No icon found.')).toBeInTheDocument();
-  });
-
-  test('filter select: choosing "TwoTone" shows only TwoTone icons', () => {
-    render(<IconPicker />);
+  test.each([
+    'outlined',
+    'rounded',
+    'sharp',
+  ])('filter select: choosing "%s" suffixes icon names with the variant', async (variant) => {
+    const onSelect = jest.fn();
+    render(<IconPicker onSelect={onSelect} />);
+    await screen.findByTestId('icon-button-home');
 
     fireEvent.change(screen.getByRole('combobox'), {
-      target: { value: 'twoTone' },
+      target: { value: variant },
     });
 
-    const twoToneIcons = Object.keys(Icons).filter((i) =>
-      i.endsWith('TwoTone'),
-    );
-    twoToneIcons.forEach((name) => {
-      expect(screen.getByTestId(`icon-button-${name}`)).toBeInTheDocument();
-    });
-
-    const nonTwoTone = Object.keys(Icons).filter((i) => !i.endsWith('TwoTone'));
-    nonTwoTone.forEach((name) => {
-      expect(
-        screen.queryByTestId(`icon-button-${name}`),
-      ).not.toBeInTheDocument();
-    });
+    expect(screen.queryByTestId('icon-button-home')).not.toBeInTheDocument();
+    fireEvent.click(screen.getByTestId(`icon-button-home:${variant}`));
+    expect(onSelect).toHaveBeenCalledWith(`home:${variant}`);
   });
 
-  test('filter select: choosing "Outlined" shows only Outlined icons', () => {
+  test('combining filter and search term narrows results correctly', async () => {
     render(<IconPicker />);
+    await screen.findByTestId('icon-button-home');
 
     fireEvent.change(screen.getByRole('combobox'), {
       target: { value: 'outlined' },
     });
+    search('del');
 
-    const outlinedIcons = Object.keys(Icons).filter((i) =>
-      i.endsWith('Outlined'),
-    );
-    outlinedIcons.forEach((name) => {
-      expect(screen.getByTestId(`icon-button-${name}`)).toBeInTheDocument();
-    });
-
-    const nonOutlined = Object.keys(Icons).filter(
-      (i) => !i.endsWith('Outlined'),
-    );
-    nonOutlined.forEach((name) => {
-      expect(
-        screen.queryByTestId(`icon-button-${name}`),
-      ).not.toBeInTheDocument();
-    });
+    expect(
+      screen.getByTestId('icon-button-delete:outlined'),
+    ).toBeInTheDocument();
+    expect(
+      screen.queryByTestId('icon-button-folder:outlined'),
+    ).not.toBeInTheDocument();
   });
 
-  test('filter select: choosing "Rounded" shows only Rounded icons', () => {
-    render(<IconPicker />);
-
-    fireEvent.change(screen.getByRole('combobox'), {
-      target: { value: 'rounded' },
-    });
-
-    const roundedIcons = Object.keys(Icons).filter((i) =>
-      i.endsWith('Rounded'),
-    );
-    roundedIcons.forEach((name) => {
-      expect(screen.getByTestId(`icon-button-${name}`)).toBeInTheDocument();
-    });
+  test('initial filter follows the variant of the active icon', async () => {
+    render(<IconPicker active="folder:sharp" />);
+    expect(screen.getByRole('combobox')).toHaveValue('sharp');
+    expect(
+      await screen.findByTestId('icon-button-folder:sharp'),
+    ).toBeInTheDocument();
   });
 
-  test('filter select: choosing "Sharp" shows only Sharp icons', () => {
-    render(<IconPicker />);
-
-    fireEvent.change(screen.getByRole('combobox'), {
-      target: { value: 'sharp' },
-    });
-
-    const sharpIcons = Object.keys(Icons).filter((i) => i.endsWith('Sharp'));
-    sharpIcons.forEach((name) => {
-      expect(screen.getByTestId(`icon-button-${name}`)).toBeInTheDocument();
-    });
+  test('legacy MUI active name selects the matching filter', async () => {
+    render(<IconPicker active="FolderOutlined" />);
+    expect(screen.getByRole('combobox')).toHaveValue('outlined');
+    expect(
+      await screen.findByTestId('icon-button-folder:outlined'),
+    ).toBeInTheDocument();
   });
 
-  test('combining filter and search term narrows results correctly', () => {
-    const outlinedIcons = Object.keys(Icons).filter((i) =>
-      i.endsWith('Outlined'),
-    );
-    if (outlinedIcons.length === 0) return; // skip if no outlined icons exist
-
-    const targetIcon = outlinedIcons[0]; // e.g. "AccessAlarmOutlined"
-    const baseName = targetIcon.replace('Outlined', ''); // e.g. "AccessAlarm"
-
+  test('clicking an icon does not throw when onSelect is not provided', async () => {
     render(<IconPicker />);
-
-    fireEvent.change(screen.getByRole('combobox'), {
-      target: { value: 'outlined' },
-    });
-
-    fireEvent.change(screen.getByPlaceholderText('Search...'), {
-      target: { value: baseName },
-    });
-
-    act(() => jest.advanceTimersByTime(1000));
-
-    expect(screen.getByTestId(`icon-button-${targetIcon}`)).toBeInTheDocument();
-
-    const filledExists = Object.keys(Icons).some((i) => i === baseName);
-    if (filledExists) {
-      expect(
-        screen.queryByTestId(`icon-button-${baseName}`),
-      ).not.toBeInTheDocument();
-    }
-  });
-
-  test('onSelect is not called when clicking icon if onSelect prop is not provided', () => {
-    render(<IconPicker />);
-    const firstFilledIcon = Object.keys(Icons).find(
-      (name) =>
-        !name.endsWith('Outlined') &&
-        !name.endsWith('Rounded') &&
-        !name.endsWith('TwoTone') &&
-        !name.endsWith('Sharp'),
-    );
-    expect(() =>
-      fireEvent.click(screen.getByTestId(`icon-button-${firstFilledIcon}`)),
-    ).not.toThrow();
+    const btn = await screen.findByTestId('icon-button-home');
+    expect(() => fireEvent.click(btn)).not.toThrow();
   });
 });

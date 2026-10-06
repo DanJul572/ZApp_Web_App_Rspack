@@ -1,6 +1,6 @@
 import { useTheme } from '@mui/material';
 import LeftBorderCard from '@/components/custom/LeftBorderCard';
-import * as Icon from '@/configs/CIcons';
+import DynamicIcon from '@/components/dynamicIcon';
 import ECustomType from '@/enums/ECustomType';
 import ScriptEngine from '../script/ScriptEngine';
 
@@ -17,8 +17,6 @@ const CustomRenderer = (props) => {
   const color = properties.color
     ? properties.color.value
     : theme.palette.primary.main;
-  // biome-ignore lint/performance/noDynamicNamespaceImportAccess: dynamic import needed here
-  const IconComponent = iconName ? Icon[iconName] : null;
 
   if (type === ECustomType.leftBorderCard.value) {
     return (
@@ -26,7 +24,7 @@ const CustomRenderer = (props) => {
         color={color}
         title={attribute?.[0]?.title}
         value={attribute?.[0]?.value}
-        icon={IconComponent ? <IconComponent /> : null}
+        icon={iconName ? <DynamicIcon name={iconName} /> : null}
       />
     );
   }
