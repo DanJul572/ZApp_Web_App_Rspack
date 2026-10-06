@@ -1,11 +1,14 @@
 import ClassicQuery from './ClassicQuery';
 import Crud from './Crud';
 
-const Builder = () => {
+/**
+ * Diekspos ke script user sebagai `zbuilder`.
+ */
+const BuilderContext = () => {
   return {
     classicQuery: ClassicQuery(),
     crud: Crud(),
   };
 };
 
-export default Builder;
+export default BuilderContext;

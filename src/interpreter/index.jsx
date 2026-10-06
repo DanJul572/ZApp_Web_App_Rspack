@@ -1,6 +1,6 @@
 import ContentLoader from '@/components/loading/ContentLoader';
-import Page from './extra/Page';
-import GroupComponent from './group';
+import ComponentRenderer from './ComponentRenderer';
+import PageLifecycle from './layout/PageLifecycle';
 
 const Interpreter = (props) => {
   const {
@@ -18,21 +18,19 @@ const Interpreter = (props) => {
   }
 
   return (
-    <Page isBuilder={isBuilder} page={page} isPreview={isPreview}>
+    <PageLifecycle isBuilder={isBuilder} page={page} isPreview={isPreview}>
       {content?.length > 0 && Array.isArray(content)
-        ? content.map((component) => {
-            return (
-              <GroupComponent
-                key={component.id}
-                component={component}
-                selected={selected}
-                setSelected={setSelected}
-                isBuilder={isBuilder}
-              />
-            );
-          })
+        ? content.map((component) => (
+            <ComponentRenderer
+              key={component.id}
+              component={component}
+              selected={selected}
+              setSelected={setSelected}
+              isBuilder={isBuilder}
+            />
+          ))
         : content}
-    </Page>
+    </PageLifecycle>
   );
 };
 

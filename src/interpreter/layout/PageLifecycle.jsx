@@ -2,22 +2,23 @@ import { useEffect } from 'react';
 import { useFile } from '@/contexts/FileProvider';
 import FormData from '@/hooks/FormData';
 import UIStore from '@/hooks/UIStore';
+import ScriptEngine from '../script/ScriptEngine';
 
-import Waiter from '@/interpreter/waiter';
-
-const Page = (props) => {
+/**
+ * Menjalankan `page.onLoad` saat halaman dibuka dan membersihkan
+ * form data, UI store, serta file saat halaman ditinggalkan.
+ */
+const PageLifecycle = (props) => {
   const { page, isBuilder, children, isPreview } = props;
 
-  const waiter = Waiter({ isBuilder });
+  const scriptEngine = ScriptEngine({ isBuilder });
   const file = useFile();
   const formData = FormData();
   const uiStore = UIStore();
 
   useEffect(() => {
-    if (!isBuilder && !isPreview) {
-      if (page?.onLoad) {
-        waiter.order(page.onLoad);
-      }
+    if (!isBuilder && !isPreview && page?.onLoad) {
+      scriptEngine.execute(page.onLoad);
     }
     return () => {
       formData.removeAll();
@@ -29,4 +30,4 @@ const Page = (props) => {
   return children;
 };
 
-export default Page;
+export default PageLifecycle;

@@ -7,7 +7,10 @@ import Toaster from '@/hooks/Toaster';
 import Translator from '@/hooks/Translator';
 import UIStore from '@/hooks/UIStore';
 
-const Core = () => {
+/**
+ * Diekspos ke script user sebagai `zcore`.
+ */
+const CoreContext = () => {
   return {
     alert: Alert(),
     uiStore: UIStore(),
@@ -20,4 +23,4 @@ const Core = () => {
   };
 };
 
-export default Core;
+export default CoreContext;

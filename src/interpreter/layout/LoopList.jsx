@@ -1,6 +1,9 @@
 import Box from '@mui/material/Box';
 
-const MapLoop = (props) => {
+/**
+ * Render `items` secara vertikal memakai fungsi `render(item, index)`.
+ */
+const LoopList = (props) => {
   const { items, render } = props;
 
   return (
@@ -16,4 +19,4 @@ const MapLoop = (props) => {
   );
 };
 
-export default MapLoop;
+export default LoopList;
