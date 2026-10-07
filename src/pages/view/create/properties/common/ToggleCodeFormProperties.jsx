@@ -1,65 +1,41 @@
 import InsertLink from '@mui/icons-material/InsertLink';
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogTitle from '@mui/material/DialogTitle';
 import Switch from '@mui/material/Switch';
 import Typography from '@mui/material/Typography';
 import { useEffect, useState } from 'react';
-import Code from '@/components/input/Code';
 
 import isValidProperties from '@/helpers/isValidProperties';
-import Translator from '@/hooks/Translator';
+import CodeDialog from '../code/CodeDialog';
+import getCodeSpec from '../code/codeSpecs';
 import { PropertyRow, RowAction } from './PropertyUI';
+
+const unboundValue = (value) => ({ isBind: false, value });
 
 const ToggleCodeFormProperties = (props) => {
   const { content, selected, editComponent, setContent, label, name } = props;
-
-  const translator = Translator();
 
   const type = selected ? selected.type.value : false;
   const group = selected ? selected.group.value : false;
 
   const [open, setOpen] = useState(false);
-  const [value, setValue] = useState({
-    isBind: false,
-    value: null,
-  });
-
-  const onApply = () => {
-    callChangeProperties(value);
-    setOpen(false);
-  };
-
-  const onChange = (isBind, value) => {
-    if (isBind) {
-      setValue({
-        isBind: true,
-        value: value,
-      });
-    } else {
-      const temValue = {
-        isBind: false,
-        value: value,
-      };
-      callChangeProperties(temValue);
-    }
-  };
-
-  const onRemove = () => {
-    const temValue = {
-      isBind: false,
-      value: false,
-    };
-    callChangeProperties(temValue);
-    setOpen(false);
-  };
+  const [value, setValue] = useState(unboundValue(null));
 
   const callChangeProperties = (val) => {
     const newContent = editComponent([name], val, content);
     setContent([...newContent]);
+  };
+
+  // Editor dikosongkan = binding dilepas
+  const onApply = (code) => {
+    callChangeProperties(
+      code ? { isBind: true, value: code } : unboundValue(false),
+    );
+    setOpen(false);
+  };
+
+  const onRemove = () => {
+    callChangeProperties(unboundValue(false));
+    setOpen(false);
   };
 
   useEffect(() => {
@@ -89,35 +65,18 @@ const ToggleCodeFormProperties = (props) => {
             size="small"
             checked={value.isBind ? false : Boolean(value.value)}
             disabled={value.isBind}
-            onChange={() => onChange(false, !value.value)}
+            onChange={() => callChangeProperties(unboundValue(!value.value))}
           />
         </PropertyRow>
-        <Dialog
+        <CodeDialog
           open={open}
           onClose={() => setOpen(false)}
-          aria-hidden={open ? 'false' : 'true'}
-        >
-          <DialogTitle>{label}</DialogTitle>
-          <DialogContent>
-            <Box sx={{ width: 500, paddingY: 1 }}>
-              <Code
-                value={!value.isBind ? null : value.value}
-                onChange={(value) => onChange(true, value)}
-              />
-            </Box>
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={() => setOpen(false)} variant="outlined">
-              {translator('cancel')}
-            </Button>
-            <Button onClick={onRemove} variant="outlined">
-              {translator('delete')}
-            </Button>
-            <Button onClick={onApply} variant="contained">
-              {translator('apply')}
-            </Button>
-          </DialogActions>
-        </Dialog>
+          title={label}
+          value={value.isBind ? value.value : null}
+          spec={getCodeSpec(name, { group, type })}
+          onApply={onApply}
+          onRemove={value.isBind ? onRemove : null}
+        />
       </Box>
     )
   );

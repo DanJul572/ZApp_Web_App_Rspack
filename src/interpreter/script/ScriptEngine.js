@@ -3,12 +3,15 @@ import CoreContext from './context/CoreContext';
 import QueryContext from './context/QueryContext';
 import ReportContext from './context/ReportContext';
 import runInSandbox from './sandbox';
+import { toExpressionScript } from './scriptSyntax';
 
 /**
  * Menjalankan script & expression milik user yang tersimpan di konfigurasi view.
  *
  * Nama variabel di sandbox (zcore, zbuilder, zquery, zreport, param) adalah
- * API publik yang dipakai script user — jangan diubah.
+ * API publik yang dipakai script user — jangan diubah. Jika menambah
+ * variabel, perbarui juga SCRIPT_VARIABLES di scriptSyntax.js dan
+ * apiCatalog.js.
  */
 const ScriptEngine = ({ isBuilder } = {}) => {
   const zcore = CoreContext();
@@ -53,17 +56,32 @@ const ScriptEngine = ({ isBuilder } = {}) => {
 
       if (typeof property === 'object') {
         if (!property.isBind) return property.value;
-        if (property.value) return run(`return ${property.value}`, param);
+        if (property.value) {
+          return run(toExpressionScript(property.value), param);
+        }
         return null;
       }
 
-      return run(`return ${property}`, param);
+      return run(toExpressionScript(property), param);
     } catch (error) {
       console.log(`Error : ${error.message}`);
     }
   };
 
-  return { execute, evaluate };
+  /**
+   * Uji expression dari editor builder. Dipanggil di luar render, jadi
+   * `zquery` (yang memanggil hook) diganti stub yang selalu null.
+   * Error dilempar apa adanya agar bisa ditampilkan ke user.
+   */
+  const test = (code, param = null) => {
+    return runInSandbox(toExpressionScript(code), {
+      ...sandboxContext,
+      zquery: () => null,
+      param,
+    });
+  };
+
+  return { execute, evaluate, test };
 };
 
 export default ScriptEngine;

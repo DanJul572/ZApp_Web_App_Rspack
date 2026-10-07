@@ -12,4 +12,17 @@ const runInSandbox = (code, context = {}) => {
   );
 };
 
+/**
+ * Cek sintaks kode user tanpa menjalankannya.
+ * Mengembalikan pesan error, atau null jika valid.
+ */
+export const checkSyntax = (code, contextKeys = []) => {
+  try {
+    new Function(...contextKeys, `"use strict";\n${code}`);
+    return null;
+  } catch (error) {
+    return error.message;
+  }
+};
+
 export default runInSandbox;

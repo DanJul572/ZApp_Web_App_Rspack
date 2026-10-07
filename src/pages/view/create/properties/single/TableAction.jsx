@@ -1,22 +1,15 @@
 import DataObject from '@mui/icons-material/DataObject';
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogTitle from '@mui/material/DialogTitle';
 import Switch from '@mui/material/Switch';
 import { useEffect, useState } from 'react';
-import Code from '@/components/input/Code';
 import EActionType from '@/enums/EActionType';
 import EComponentGroupType from '@/enums/EComponentGroupType';
-import Translator from '@/hooks/Translator';
+import CodeDialog from '../code/CodeDialog';
+import getCodeSpec from '../code/codeSpecs';
 import { PropertyRow, RowAction } from '../common/PropertyUI';
 
 const TableAction = (props) => {
   const { content, selected, editComponent, setContent } = props;
-
-  const translator = Translator();
 
   const [open, setOpen] = useState(false);
   const [selectedAction, setSelectedAction] = useState([]);
@@ -62,14 +55,8 @@ const TableAction = (props) => {
     setContent([...newContent]);
   };
 
-  const changeOnClick = (type) => {
-    const newOpen = { ...open };
-    newOpen.onClick = type;
-    setOpen(newOpen);
-  };
-
-  const applyOnClick = () => {
-    changeActions(open, false);
+  const applyOnClick = (onClick) => {
+    changeActions({ ...open, onClick }, false);
   };
 
   const getValue = (param) => {
@@ -111,26 +98,17 @@ const TableAction = (props) => {
             />
           </PropertyRow>
         ))}
-        <Dialog
+        <CodeDialog
           open={Boolean(open)}
           onClose={() => setOpen(false)}
-          aria-hidden={open ? 'false' : 'true'}
-        >
-          <DialogTitle>{open.label}</DialogTitle>
-          <DialogContent>
-            <Box sx={{ width: 500 }}>
-              <Code value={open.onClick} onChange={changeOnClick} />
-            </Box>
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={() => setOpen(false)} variant="outlined">
-              {translator('cancel')}
-            </Button>
-            <Button onClick={applyOnClick} variant="contained">
-              {translator('apply')}
-            </Button>
-          </DialogActions>
-        </Dialog>
+          title={`${open.label} - On Click`}
+          value={open.onClick}
+          spec={getCodeSpec('onClick', {
+            group: EComponentGroupType.table.value,
+            actionType: open.type,
+          })}
+          onApply={applyOnClick}
+        />
       </Box>
     )
   );
