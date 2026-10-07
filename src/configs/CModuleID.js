@@ -14,6 +14,9 @@ const CModuleID = {
   validationTime: 13,
   validation: 14,
   logError: 15,
+  jsReportDataSchemas: 16,
+  auditTrail: 17,
+  auditLogin: 18,
 };
 
 export default CModuleID;

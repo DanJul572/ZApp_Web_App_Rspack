@@ -4,12 +4,17 @@ import NonAuthenticatedGuard from '@/guards/NonAuthenticatedGuard';
 import EmptyLayout from '@/layouts/Empty';
 import MainLayout from '@/layouts/main';
 import WelcomePage from '@/pages';
+import AuditTrailPage from '@/pages/audit-trail';
+import AuditTrailDetailPage from '@/pages/audit-trail/detail';
 import EmailPage from '@/pages/email';
 import CreateEmailPage from '@/pages/email/create';
 import NotFoundPage from '@/pages/error/NotFoundPage';
 import ServerErrorPage from '@/pages/error/ServerErrorPage';
+import ErrorLogPage from '@/pages/error-log';
+import ErrorLogDetailPage from '@/pages/error-log/detail';
 import ContextContaner from '@/pages/layout';
 import LoginPage from '@/pages/login';
+import LoginHistoryPage from '@/pages/login-history';
 import MainPage from '@/pages/main';
 import MenuPage from '@/pages/menu';
 import CreateMenuPage from '@/pages/menu/create';
@@ -157,6 +162,56 @@ const routes = createBrowserRouter([
           <AuthenticatedGuard>
             <MainLayout>
               <CreateEmailPage />
+            </MainLayout>
+          </AuthenticatedGuard>
+        ),
+      },
+      {
+        path: '/audit-trail',
+        Component: () => (
+          <AuthenticatedGuard>
+            <MainLayout>
+              <AuditTrailPage />
+            </MainLayout>
+          </AuthenticatedGuard>
+        ),
+      },
+      {
+        path: '/audit-trail/detail',
+        Component: () => (
+          <AuthenticatedGuard>
+            <MainLayout>
+              <AuditTrailDetailPage />
+            </MainLayout>
+          </AuthenticatedGuard>
+        ),
+      },
+      {
+        path: '/login-history',
+        Component: () => (
+          <AuthenticatedGuard>
+            <MainLayout>
+              <LoginHistoryPage />
+            </MainLayout>
+          </AuthenticatedGuard>
+        ),
+      },
+      {
+        path: '/error-log',
+        Component: () => (
+          <AuthenticatedGuard>
+            <MainLayout>
+              <ErrorLogPage />
+            </MainLayout>
+          </AuthenticatedGuard>
+        ),
+      },
+      {
+        path: '/error-log/detail',
+        Component: () => (
+          <AuthenticatedGuard>
+            <MainLayout>
+              <ErrorLogDetailPage />
             </MainLayout>
           </AuthenticatedGuard>
         ),

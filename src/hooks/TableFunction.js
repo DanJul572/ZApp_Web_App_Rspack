@@ -8,7 +8,7 @@ import EActionType from '@/enums/EActionType';
 import Request from '@/hooks/Request';
 
 const TableFunction = (props) => {
-  const { moduleID, actions, isBuilder, defaultFilter } = props;
+  const { moduleID, actions, isBuilder, defaultFilter, defaultSort } = props;
 
   const request = Request();
 
@@ -41,7 +41,7 @@ const TableFunction = (props) => {
       id: moduleID,
       page,
       filter,
-      sort,
+      sort: sort.length ? sort : defaultSort || [],
       defaultFilter: defaultFilter || [],
     };
     return await request.post(config.api.common.rows, body);
@@ -94,7 +94,10 @@ const TableFunction = (props) => {
     if (data.action.type === EActionType.delete.value) {
       setSelectedRow(data.row);
       setOpenConfirmDialog(true);
-    } else if (data.action.type === EActionType.update.value) {
+    } else if (
+      data.action.type === EActionType.update.value ||
+      data.action.type === EActionType.detail.value
+    ) {
       navigate(`${data.action.path}?${columnKey}=${data.row[columnKey]}`);
     }
   };
