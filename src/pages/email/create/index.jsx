@@ -263,6 +263,22 @@ const EmailBuilder = () => {
 
   const onReady = () => setEditorReady(true);
 
+  // The test email is built on the server from the saved template and the
+  // first record of its primary source.
+  const handleSendTest = async (recipient) => {
+    if (!isEdit) {
+      throw new Error('Save the template first, then send a test email.');
+    }
+    try {
+      await request.post(config.api.email.sendTest, {
+        id: Number(emailId),
+        recipient,
+      });
+    } catch (err) {
+      throw new Error(getErrorMessage(err, 'Failed to send the test email'));
+    }
+  };
+
   if (isEdit && isLoading) {
     return <ContentLoader />;
   }
@@ -589,6 +605,7 @@ const EmailBuilder = () => {
           htmlContent={previewHtml}
           emailTo={emailTo}
           emailSubject={emailSubject}
+          onSendTest={handleSendTest}
         />
 
         <EmailSettingsDrawer

@@ -8,6 +8,8 @@ import AuditTrailPage from '@/pages/audit-trail';
 import AuditTrailDetailPage from '@/pages/audit-trail/detail';
 import EmailPage from '@/pages/email';
 import CreateEmailPage from '@/pages/email/create';
+import EmailLogPage from '@/pages/email-log';
+import EmailLogDetailPage from '@/pages/email-log/detail';
 import NotFoundPage from '@/pages/error/NotFoundPage';
 import ServerErrorPage from '@/pages/error/ServerErrorPage';
 import ErrorLogPage from '@/pages/error-log';
@@ -212,6 +214,26 @@ const routes = createBrowserRouter([
           <AuthenticatedGuard>
             <MainLayout>
               <ErrorLogDetailPage />
+            </MainLayout>
+          </AuthenticatedGuard>
+        ),
+      },
+      {
+        path: '/email-log',
+        Component: () => (
+          <AuthenticatedGuard>
+            <MainLayout>
+              <EmailLogPage />
+            </MainLayout>
+          </AuthenticatedGuard>
+        ),
+      },
+      {
+        path: '/email-log/detail',
+        Component: () => (
+          <AuthenticatedGuard>
+            <MainLayout>
+              <EmailLogDetailPage />
             </MainLayout>
           </AuthenticatedGuard>
         ),

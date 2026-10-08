@@ -272,8 +272,9 @@ const PreviewSendDrawer = ({
               color="textSecondary"
               sx={{ display: 'block', mb: 1.5 }}
             >
-              Email will be sent to this address for testing purposes. Data
-              merge tags might not be filled.
+              Sends the last saved version of this template to this address
+              only, with the merge tags filled from the first record of the
+              primary source. CC and BCC are left out.
             </Typography>
 
             <TextField
@@ -312,10 +313,11 @@ const PreviewSendDrawer = ({
                   color="success"
                   sx={{ fontWeight: 600 }}
                 >
-                  Email sent!
+                  Test email queued!
                 </Typography>
                 <Typography variant="caption" color="textSecondary">
-                  Check inbox <strong>{testEmail}</strong>
+                  It arrives at <strong>{testEmail}</strong> shortly. Its status
+                  is shown in the Email Log.
                 </Typography>
               </Box>
             </Box>

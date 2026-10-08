@@ -5,6 +5,7 @@ import Email from '@mui/icons-material/Email';
 import EventRepeat from '@mui/icons-material/EventRepeat';
 import MarkEmailRead from '@mui/icons-material/MarkEmailRead';
 import Search from '@mui/icons-material/Search';
+import SendOutlined from '@mui/icons-material/SendOutlined';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Chip from '@mui/material/Chip';
@@ -53,6 +54,7 @@ const EmailViewPage = () => {
   const [searchInput, setSearchInput] = useState('');
   const [search, setSearch] = useState('');
   const [deleteTarget, setDeleteTarget] = useState(null);
+  const [sendTarget, setSendTarget] = useState(null);
 
   useEffect(() => {
     const timeout = setTimeout(() => {
@@ -99,12 +101,27 @@ const EmailViewPage = () => {
     },
   });
 
+  const sendMutation = useMutation({
+    mutationFn: (id) => request.post(config.api.email.send, { id }),
+    onSuccess: (res) => {
+      toaster.showSuccessToast(`${res.message}. Track them in the Email Log.`);
+    },
+    onError: (err) => {
+      toaster.showErrorToast(getErrorMessage(err, 'Failed to send the email'));
+    },
+  });
+
   const onCreate = () => navigate('/email/create');
   const onEdit = (id) => navigate(`/email/create?id=${id}`);
 
   const onConfirmDelete = (confirmed) => {
     if (confirmed) deleteMutation.mutate(deleteTarget.id);
     setDeleteTarget(null);
+  };
+
+  const onConfirmSend = (confirmed) => {
+    if (confirmed) sendMutation.mutate(sendTarget.id);
+    setSendTarget(null);
   };
 
   const rows = data?.rows ?? [];
@@ -225,6 +242,16 @@ const EmailViewPage = () => {
                           )}
                         </TableCell>
                         <TableCell align="right" sx={{ whiteSpace: 'nowrap' }}>
+                          <Tooltip title="Send now">
+                            <IconButton
+                              size="small"
+                              onClick={() => setSendTarget(row)}
+                              disabled={sendMutation.isPending}
+                              color="primary"
+                            >
+                              <SendOutlined fontSize="small" />
+                            </IconButton>
+                          </Tooltip>
                           <Tooltip title="Edit">
                             <IconButton
                               size="small"
@@ -269,6 +296,15 @@ const EmailViewPage = () => {
         confirmButton="Delete"
         cancelButton="Cancel"
         onConfirm={onConfirmDelete}
+      />
+
+      <Confirm
+        open={!!sendTarget}
+        title="Send email now"
+        text={`"${sendTarget?.name ?? ''}" will be sent to every record of its primary source. The emails are queued and their progress is shown in the Email Log.`}
+        confirmButton="Send"
+        cancelButton="Cancel"
+        onConfirm={onConfirmSend}
       />
     </Box>
   );

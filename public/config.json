@@ -26,7 +26,12 @@
       "create": "/email/create",
       "delete": "/email/delete",
       "detail": "/email/detail",
+      "execution": "/email/execution",
+      "executions": "/email/executions",
+      "retry": "/email/execution/retry",
       "rows": "/email/rows",
+      "send": "/email/send",
+      "sendTest": "/email/send-test",
       "update": "/email/update"
     },
     "export": {
