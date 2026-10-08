@@ -1,25 +1,22 @@
-import Alert from '@/hooks/Alert';
-import FormData from '@/hooks/FormData';
-import Loader from '@/hooks/Loader';
-import Parameter from '@/hooks/Parameter';
-import Redirect from '@/hooks/Redirect';
-import Toaster from '@/hooks/Toaster';
-import Translator from '@/hooks/Translator';
-import UIStore from '@/hooks/UIStore';
+import { createFormData } from '@/hooks/FormData';
+import { createParameter } from '@/hooks/Parameter';
+import { createUIStore } from '@/hooks/UIStore';
 
 /**
  * Diekspos ke script user sebagai `zcore`.
+ *
+ * Aksi (alert, loader, redirect, ...) dibuat sekali di runtime. Bagian
+ * yang membaca state (formData, uiStore, parameter) dibuat per `read`
+ * agar ScriptEngine tahu nilai apa saja yang dipakai sebuah komponen.
  */
-const CoreContext = () => {
+const CoreContext = (runtime, read) => {
+  const { actions, stores } = runtime;
+
   return {
-    alert: Alert(),
-    uiStore: UIStore(),
-    loader: Loader(),
-    parameter: Parameter(),
-    redirect: Redirect(),
-    toaster: Toaster(),
-    translator: Translator(),
-    formData: FormData(),
+    ...actions,
+    formData: createFormData(stores.formData, read),
+    parameter: createParameter(stores.parameter, read),
+    uiStore: createUIStore(stores.uiStore, read),
   };
 };
 

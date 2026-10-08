@@ -1,46 +1,26 @@
-import { useToast } from '@/contexts/ToastProvider';
+import { useMemo } from 'react';
+import { useSetToast } from '@/contexts/ToastProvider';
 
-const Toaster = () => {
-  const { setToast } = useToast();
-
-  const showSuccessToast = (message) => {
+export const createToaster = (setToast) => {
+  const show = (type) => (message) => {
     setToast({
       status: true,
-      type: 'success',
-      message: message,
-    });
-  };
-
-  const showErrorToast = (message) => {
-    setToast({
-      status: true,
-      type: 'error',
-      message: message,
-    });
-  };
-
-  const showWarningToast = (message) => {
-    setToast({
-      status: true,
-      type: 'warning',
-      message: message,
-    });
-  };
-
-  const showInfoToast = (message) => {
-    setToast({
-      status: true,
-      type: 'info',
+      type: type,
       message: message,
     });
   };
 
   return {
-    showErrorToast,
-    showInfoToast,
-    showSuccessToast,
-    showWarningToast,
+    showErrorToast: show('error'),
+    showInfoToast: show('info'),
+    showSuccessToast: show('success'),
+    showWarningToast: show('warning'),
   };
+};
+
+const Toaster = () => {
+  const setToast = useSetToast();
+  return useMemo(() => createToaster(setToast), [setToast]);
 };
 
 export default Toaster;

@@ -1,51 +1,27 @@
-import { useAlert } from '@/contexts/AlertProvider';
+import { useMemo } from 'react';
+import { useSetAlert } from '@/contexts/AlertProvider';
 
-const Alert = () => {
-  const { setAlert } = useAlert();
-
-  const showSuccessAlert = (message) => {
+export const createAlert = (setAlert) => {
+  const show = (type) => (message) => {
     setAlert({
       status: true,
-      type: 'success',
+      type: type,
       message: message,
     });
-  };
-
-  const showErrorAlert = (message) => {
-    setAlert({
-      status: true,
-      type: 'error',
-      message: message,
-    });
-  };
-
-  const showWarningAlert = (message) => {
-    setAlert({
-      status: true,
-      type: 'warning',
-      message: message,
-    });
-  };
-
-  const showInfoAlert = (message) => {
-    setAlert({
-      status: true,
-      type: 'info',
-      message: message,
-    });
-  };
-
-  const hideAlert = () => {
-    setAlert(false);
   };
 
   return {
-    hideAlert,
-    showErrorAlert,
-    showInfoAlert,
-    showSuccessAlert,
-    showWarningAlert,
+    hideAlert: () => setAlert(false),
+    showErrorAlert: show('error'),
+    showInfoAlert: show('info'),
+    showSuccessAlert: show('success'),
+    showWarningAlert: show('warning'),
   };
+};
+
+const Alert = () => {
+  const setAlert = useSetAlert();
+  return useMemo(() => createAlert(setAlert), [setAlert]);
 };
 
 export default Alert;

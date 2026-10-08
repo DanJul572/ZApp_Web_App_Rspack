@@ -15,8 +15,6 @@ import Slider from '@/components/input/Slider';
 import Time from '@/components/input/Time';
 import Toggle from '@/components/input/Toggle';
 import EInputType from '@/enums/EInputType';
-import FormData from '@/hooks/FormData';
-import UIStore from '@/hooks/UIStore';
 import ScriptEngine from '../script/ScriptEngine';
 
 const PLACEHOLDER_OPTIONS = [
@@ -29,8 +27,9 @@ const FieldControlRenderer = (props) => {
   const { isBuilder, type, properties } = props;
 
   const scriptEngine = ScriptEngine({ isBuilder });
-  const formData = FormData();
-  const uiStore = UIStore();
+  // Dibaca lewat ScriptEngine agar field hanya re-render saat nilainya
+  // sendiri berubah, bukan setiap kali field lain diketik
+  const { formData, uiStore } = scriptEngine.zcore;
 
   const name = properties.name;
   const color = properties.color ? properties.color.name : 'primary';

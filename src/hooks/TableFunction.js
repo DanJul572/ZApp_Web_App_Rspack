@@ -1,9 +1,9 @@
 import { useQuery } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
-import { useAlert } from '@/contexts/AlertProvider';
+import { useSetAlert } from '@/contexts/AlertProvider';
 import { useConfig } from '@/contexts/ConfigProvider';
-import { useLoading } from '@/contexts/LoadingProvider';
+import { useSetLoading } from '@/contexts/LoadingProvider';
 import EActionType from '@/enums/EActionType';
 import Request from '@/hooks/Request';
 
@@ -12,8 +12,8 @@ const TableFunction = (props) => {
 
   const request = Request();
 
-  const { setAlert } = useAlert();
-  const { setLoading } = useLoading();
+  const setAlert = useSetAlert();
+  const setLoading = useSetLoading();
   const { config } = useConfig();
 
   const navigate = useNavigate();

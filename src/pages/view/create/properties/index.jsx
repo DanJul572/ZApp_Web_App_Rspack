@@ -4,14 +4,18 @@ import Tab from '@mui/material/Tab';
 import Tabs from '@mui/material/Tabs';
 import PropTypes from 'prop-types';
 import { useEffect, useState } from 'react';
-import { v4 as uuidv4 } from 'uuid';
 import EmptyState from '@/components/page/EmptyState';
-import EComponentGroupType from '@/enums/EComponentGroupType';
-import EContainerType from '@/enums/EContainerType';
 import EProperties from '@/enums/EProperties';
 import Translator from '@/hooks/Translator';
 import { TOPBAR_HEIGHT } from '@/layouts/main/constants';
 import { PANEL_WIDTH } from '../constants';
+import {
+  cloneComponent,
+  deleteComponent as deleteTreeComponent,
+  findComponent,
+  insertComponent,
+  updateComponent,
+} from '../dnd/tree';
 import CodeForm from './common/CodeForm';
 import { PropertySection } from './common/PropertyUI';
 import ShortTextForm from './common/ShortTextForm';
@@ -85,90 +89,28 @@ const Properties = (props) => {
     if (selected) setValue(1);
   }, [selected?.id]);
 
-  const changeComponentID = (component) => {
-    const id = uuidv4();
-    component.id = id;
-    if (component.group.value === EComponentGroupType.container.value) {
-      for (let y = 0; y < component.section.length; y++) {
-        const section = component.section[y];
-        for (let x = 0; x < section.length; x++) {
-          const childComponent = section[x];
-          changeComponentID(childComponent);
-        }
-      }
-    }
-    return component;
-  };
+  // Semua perubahan content dibuat immutable: canvas di-memo per objek
+  // komponen, jadi mutasi langsung tidak akan tampil
 
-  const duplicateProcess = (content, duplicateComponent) => {
-    for (let x = 0; x < content.length; x++) {
-      const component = content[x];
-      if (component.id === selected.id) {
-        content.splice(x, 0, duplicateComponent);
-        return content;
-      }
-      if (component.group.value === EComponentGroupType.container.value) {
-        for (let y = 0; y < component.section.length; y++) {
-          const section = component.section[y];
-          duplicateProcess(section, duplicateComponent);
-        }
-      }
-    }
-    return content;
-  };
-
+  // Salinan (beserta isinya, dengan id baru) disisipkan sebelum komponen
   const duplicateComponent = () => {
-    const cloneComponent = { ...selected };
-    const newComponent = changeComponentID(cloneComponent);
-    const newContent = duplicateProcess(content, newComponent);
-    setContent([...newContent]);
+    const newContent = insertComponent(content, cloneComponent(selected), {
+      beforeId: selected.id,
+    });
+    if (newContent) setContent(newContent);
   };
 
-  const deleteComponent = (content) => {
-    for (let i = 0; i < content.length; i++) {
-      const component = content[i];
-      if (component.id === selected.id) {
-        content.splice(i, 1);
-        return content;
-      }
-      if (component.group.value === EComponentGroupType.container.value) {
-        for (let x = 0; x < component.section.length; x++) {
-          const section = component.section[x];
-          deleteComponent(section);
-        }
-        // Kolom grid dan panel tab bersifat posisional: section kosong tetap
-        // dipertahankan agar komponen di section berikutnya tidak bergeser
-        const isPositional = [
-          EContainerType.grid.value,
-          EContainerType.tab.value,
-        ].includes(component.type.value);
-        if (!isPositional) {
-          component.section = component.section.filter(
-            (section) => section.length > 0,
-          );
-        }
-      }
-    }
-    return content;
-  };
+  const deleteComponent = (content) =>
+    deleteTreeComponent(content, selected.id);
 
+  // Mengembalikan content baru; `selected` ikut diganti dengan versi baru
   const editComponent = (key, value, content) => {
-    const newSelected = selected;
-    newSelected.properties[key] = value;
-    for (let x = 0; x < content.length; x++) {
-      const component = content[x];
-      if (component.id === newSelected.id) {
-        content.splice(x, 1, newSelected);
-        return content;
-      }
-      if (component.group.value === EComponentGroupType.container.value) {
-        for (let y = 0; y < component.section.length; y++) {
-          const section = component.section[y];
-          editComponent(key, value, section);
-        }
-      }
-    }
-    return content;
+    const newContent = updateComponent(content, selected.id, (component) => ({
+      ...component,
+      properties: { ...component.properties, [key]: value },
+    }));
+    setSelected(findComponent(newContent, selected.id));
+    return newContent;
   };
 
   const compProps = {

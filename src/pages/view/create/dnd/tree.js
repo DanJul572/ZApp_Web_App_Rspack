@@ -1,5 +1,6 @@
 import { v4 as uuidv4 } from 'uuid';
 import EComponentGroupType from '@/enums/EComponentGroupType';
+import EContainerType from '@/enums/EContainerType';
 
 /**
  * Helper immutable untuk pohon `content` view builder.
@@ -8,7 +9,8 @@ import EComponentGroupType from '@/enums/EComponentGroupType';
  *
  * Target drop berbentuk salah satu dari:
  * - `{ beforeId }` / `{ afterId }`: sisipkan relatif terhadap komponen lain
- * - `{ containerId, colIndex }`: tambahkan di akhir section (null = root)
+ * - `{ containerId, colIndex, index? }`: sisipkan di posisi `index`
+ *   section (default di akhir; containerId null = root)
  */
 
 const hasSection = (component) => Array.isArray(component.section);
@@ -117,7 +119,15 @@ export const updateComponent = (list, id, updater) => {
   return list;
 };
 
-const removeComponent = (list, id) => {
+// Kolom grid dan panel tab bersifat posisional: section kosong tetap
+// dipertahankan agar komponen di section berikutnya tidak bergeser
+const POSITIONAL_TYPES = [EContainerType.grid.value, EContainerType.tab.value];
+
+/**
+ * Keluarkan komponen `id`. Jika `dropEmpty`, section yang menjadi kosong
+ * di container non-posisional ikut dihapus.
+ */
+const removeComponent = (list, id, dropEmpty = false) => {
   const index = list.findIndex((component) => component.id === id);
   if (index !== -1) {
     return {
@@ -130,16 +140,68 @@ const removeComponent = (list, id) => {
     const component = list[i];
     if (!hasSection(component)) continue;
     for (let s = 0; s < component.section.length; s++) {
-      const result = removeComponent(component.section[s], id);
-      if (result.removed) {
-        return {
-          list: replaceSection(list, i, s, result.list),
-          removed: result.removed,
-        };
-      }
+      const result = removeComponent(component.section[s], id, dropEmpty);
+      if (!result.removed) continue;
+
+      const dropSection =
+        dropEmpty &&
+        result.list.length === 0 &&
+        !POSITIONAL_TYPES.includes(component.type?.value);
+
+      return {
+        list: dropSection
+          ? replaceAt(list, i, {
+              ...component,
+              section: component.section.filter((_, index) => index !== s),
+            })
+          : replaceSection(list, i, s, result.list),
+        removed: result.removed,
+      };
     }
   }
   return { list, removed: null };
+};
+
+/** Hapus komponen `id`; `list` sama jika tidak ditemukan. */
+export const deleteComponent = (list, id) =>
+  removeComponent(list, id, true).list;
+
+/** Salinan komponen beserta seluruh isinya dengan id baru. */
+export const cloneComponent = (component) => {
+  // Konfigurasi view berupa JSON murni (disimpan sebagai JSON)
+  const clone = JSON.parse(JSON.stringify(component));
+
+  const renew = (item) => {
+    item.id = uuidv4();
+    if (!hasSection(item)) return;
+    for (const section of item.section) section.forEach(renew);
+  };
+  renew(clone);
+
+  return clone;
+};
+
+/**
+ * Tukar komponen `id` dengan tetangganya di section yang sama
+ * (`offset` -1 = naik, 1 = turun). `list` sama jika tidak bisa digeser.
+ */
+export const shiftComponent = (list, id, offset) => {
+  const location = findLocation(list, id);
+  if (!location) return list;
+
+  const section =
+    location.containerId === null
+      ? list
+      : findComponent(list, location.containerId).section[location.colIndex];
+  const target = location.index + offset;
+  if (target < 0 || target >= section.length) return list;
+
+  return updateSection(list, location.containerId, location.colIndex, () => {
+    const next = [...section];
+    next[location.index] = section[target];
+    next[target] = section[location.index];
+    return next;
+  });
 };
 
 /** Mengembalikan content baru, atau null jika target tidak ditemukan. */
@@ -162,7 +224,7 @@ export const insertComponent = (list, component, target) => {
       list,
       target.containerId ?? null,
       target.colIndex ?? 0,
-      (section) => [...section, component],
+      (section) => insertAt(section, target.index ?? section.length, component),
     );
   }
 

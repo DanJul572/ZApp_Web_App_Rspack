@@ -2,16 +2,12 @@ import ContentLoader from '@/components/loading/ContentLoader';
 import ComponentRenderer from './ComponentRenderer';
 import PageLifecycle from './layout/PageLifecycle';
 
+/**
+ * Seleksi komponen di mode builder disediakan oleh BuilderSelectionProvider
+ * (lihat layout/BuilderSelection), bukan lewat props.
+ */
 const Interpreter = (props) => {
-  const {
-    isPreview,
-    isBuilder,
-    isLoading,
-    content,
-    page,
-    selected,
-    setSelected,
-  } = props;
+  const { isPreview, isBuilder, isLoading, content, page } = props;
 
   if (isLoading) {
     return <ContentLoader />;
@@ -24,8 +20,6 @@ const Interpreter = (props) => {
             <ComponentRenderer
               key={component.id}
               component={component}
-              selected={selected}
-              setSelected={setSelected}
               isBuilder={isBuilder}
             />
           ))

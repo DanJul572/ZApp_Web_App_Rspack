@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import EComponentGroupType from '@/enums/EComponentGroupType';
 import ComponentFrame from './layout/ComponentFrame';
 import ButtonRenderer from './renderers/ButtonRenderer';
@@ -21,8 +22,13 @@ const RENDERER_BY_GROUP = {
 /**
  * Render satu komponen dari konfigurasi view: pilih renderer sesuai group,
  * lalu bungkus dengan ComponentFrame (untuk seleksi di mode builder).
+ *
+ * Di-memo per objek `component`. Content diubah secara immutable (lihat
+ * pages/view/create/dnd/tree), jadi hanya komponen yang berubah beserta
+ * container di atasnya yang re-render. Jangan mutasi objek komponen secara
+ * langsung: perubahan seperti itu tidak akan tampil di canvas.
  */
-const ComponentRenderer = ({ component, selected, setSelected, isBuilder }) => {
+const ComponentRenderer = memo(({ component, isBuilder }) => {
   const group = component.group.value;
   const type = component.type.value;
 
@@ -30,23 +36,16 @@ const ComponentRenderer = ({ component, selected, setSelected, isBuilder }) => {
   if (!Renderer) return null;
 
   return (
-    <ComponentFrame
-      component={component}
-      isBuilder={isBuilder}
-      selected={selected}
-      setSelected={setSelected}
-    >
+    <ComponentFrame component={component} isBuilder={isBuilder}>
       <Renderer
         componentId={component.id}
         type={type}
         properties={component.properties}
         isBuilder={isBuilder}
         section={component.section}
-        selected={selected}
-        setSelected={setSelected}
       />
     </ComponentFrame>
   );
-};
+});
 
 export default ComponentRenderer;

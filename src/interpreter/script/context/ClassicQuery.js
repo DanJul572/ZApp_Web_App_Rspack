@@ -1,16 +1,7 @@
-import { useFile } from '@/contexts/FileProvider';
-
-import CoreContext from './CoreContext';
-import Crud from './Crud';
-
 /**
  * Diekspos ke script user sebagai `zbuilder.classicQuery`.
  */
-const ClassicQuery = () => {
-  const zcore = CoreContext();
-  const crud = Crud();
-  const file = useFile();
-
+const ClassicQuery = ({ zcore, crud, latest }) => {
   // Error dari Request berupa body response ({ message }) atau string
   const showError = (err) => {
     zcore.alert.showErrorAlert(err?.message || err);
@@ -37,7 +28,7 @@ const ClassicQuery = () => {
         zcore.alert.showSuccessAlert(res?.message);
         zcore.formData.removeAll();
         zcore.loader.hideLoading();
-        file.setFile([]);
+        latest.current.setFile([]);
 
         if (path) {
           zcore.redirect.internal(path);

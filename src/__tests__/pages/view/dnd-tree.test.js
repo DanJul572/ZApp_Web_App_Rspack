@@ -1,8 +1,11 @@
 import {
+  cloneComponent,
   createComponent,
+  deleteComponent,
   findComponent,
   insertComponent,
   moveComponent,
+  shiftComponent,
   updateComponent,
 } from '@/pages/view/create/dnd/tree';
 
@@ -130,5 +133,74 @@ describe('view builder updateComponent', () => {
     expect(next[1].section[0]).toBe(content[1].section[0]);
     expect(next[1].section[1][0].properties).toEqual({ label: 'B' });
     expect(updateComponent(content, 'missing', (c) => c)).toBe(content);
+  });
+});
+
+describe('view builder properties helpers', () => {
+  const CARD = { value: 2 };
+  const GRID = { value: 1 };
+  const card = (id, section) => ({
+    id,
+    group: CONTAINER,
+    type: CARD,
+    properties: {},
+    section,
+  });
+
+  it('deletes a component and drops the emptied section of a card', () => {
+    const untouched = leaf('x');
+    const content = [untouched, card('c', [[leaf('a')], [leaf('b')]])];
+
+    const next = deleteComponent(content, 'a');
+
+    expect(next[0]).toBe(untouched);
+    expect(next[1].section).toHaveLength(1);
+    expect(ids(next[1].section[0])).toEqual(['b']);
+    // Content lama tidak dimutasi
+    expect(content[1].section).toHaveLength(2);
+    expect(deleteComponent(content, 'missing')).toBe(content);
+  });
+
+  it('keeps the emptied column of a grid', () => {
+    const content = [{ ...grid('g', [[leaf('a')], [leaf('b')]]), type: GRID }];
+
+    const next = deleteComponent(content, 'a');
+
+    expect(next[0].section).toHaveLength(2);
+    expect(next[0].section[0]).toEqual([]);
+  });
+
+  it('clones a container deeply with new ids', () => {
+    const original = card('c', [[leaf('a')]]);
+
+    const clone = cloneComponent(original);
+
+    expect(clone.id).not.toBe('c');
+    expect(clone.section[0][0].id).not.toBe('a');
+    expect(clone.section[0]).not.toBe(original.section[0]);
+    expect(original.section[0][0].id).toBe('a');
+  });
+
+  it('shifts a component within its section', () => {
+    const content = [grid('g', [[leaf('a'), leaf('b')]])];
+
+    const down = shiftComponent(content, 'a', 1);
+    expect(ids(down[0].section[0])).toEqual(['b', 'a']);
+    expect(ids(content[0].section[0])).toEqual(['a', 'b']);
+
+    expect(shiftComponent(content, 'a', -1)).toBe(content);
+    expect(shiftComponent(content, 'missing', 1)).toBe(content);
+  });
+
+  it('inserts at an index of a container section', () => {
+    const content = [grid('g', [[leaf('a'), leaf('b')]])];
+
+    const next = insertComponent(content, leaf('n'), {
+      containerId: 'g',
+      colIndex: 0,
+      index: 1,
+    });
+
+    expect(ids(next[0].section[0])).toEqual(['a', 'n', 'b']);
   });
 });

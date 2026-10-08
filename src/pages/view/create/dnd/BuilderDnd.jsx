@@ -319,8 +319,8 @@ const BuilderDnd = (props) => {
         if (next === content) return;
 
         setContent(next);
-        // Properties mengedit objek `selected` secara langsung; segarkan
-        // referensinya agar perubahan ini tidak tertimpa versi lama
+        // Panel Properties membaca dan mengedit dari objek `selected`;
+        // segarkan referensinya agar edit berikutnya tidak memakai versi lama
         setSelected((prev) => (prev && findComponent(next, prev.id)) || prev);
       },
     }),

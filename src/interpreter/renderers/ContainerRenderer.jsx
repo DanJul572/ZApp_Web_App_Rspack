@@ -17,16 +17,26 @@ import GridLayout from '../layout/GridLayout';
 import PageLifecycle from '../layout/PageLifecycle';
 import ScriptEngine from '../script/ScriptEngine';
 
+/**
+ * Container berisi view lain (`viewID`). Dipisah agar query konfigurasi
+ * view hanya dijalankan oleh container bertipe view, bukan semua container.
+ */
+const ViewContainer = (props) => {
+  const { viewID, renderComponents } = props;
+
+  const { content, page } = Content({ id: viewID, isBuilder: false });
+
+  return (
+    <PageLifecycle isBuilder={false} page={page}>
+      {content && content.length > 0 && Array.isArray(content)
+        ? renderComponents(content)
+        : content}
+    </PageLifecycle>
+  );
+};
+
 const ContainerRenderer = (props) => {
-  const {
-    componentId,
-    type,
-    section,
-    properties,
-    isBuilder,
-    selected,
-    setSelected,
-  } = props;
+  const { componentId, type, section, properties, isBuilder } = props;
 
   const scriptEngine = ScriptEngine({ isBuilder });
   const translator = Translator();
@@ -45,18 +55,11 @@ const ContainerRenderer = (props) => {
   const isEmpty =
     isBuilder && !section?.some((components) => components.length > 0);
 
-  const { content, page } = Content({
-    params: { id: viewID },
-    isBuilder: isBuilder,
-  });
-
   const renderComponents = (components) =>
     components.map((component) => (
       <ComponentRenderer
         key={component.id}
         component={component}
-        selected={selected}
-        setSelected={setSelected}
         isBuilder={isBuilder}
       />
     ));
@@ -177,11 +180,7 @@ const ContainerRenderer = (props) => {
         );
       }
       return (
-        <PageLifecycle isBuilder={isBuilder} page={page}>
-          {content && content.length > 0 && Array.isArray(content)
-            ? renderComponents(content)
-            : content}
-        </PageLifecycle>
+        <ViewContainer viewID={viewID} renderComponents={renderComponents} />
       );
 
     default:

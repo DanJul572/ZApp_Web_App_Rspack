@@ -11,8 +11,8 @@ import Grid from '@mui/material/Grid';
 import { useEffect, useState } from 'react';
 import NumberField from '@/components/input/NumberField';
 import ShortText from '@/components/input/ShortText';
-import EComponentGroupType from '@/enums/EComponentGroupType';
 import Translator from '@/hooks/Translator';
+import { insertComponent, shiftComponent } from '../../dnd/tree';
 import { PropertyRow, RowAction } from '../common/PropertyUI';
 
 const Position = (props) => {
@@ -25,75 +25,35 @@ const Position = (props) => {
   const [rowIndex, setRowIndex] = useState(null);
   const [open, setOpen] = useState(false);
 
-  const changePosition = (content) => {
+  const onApply = () => {
     const rowIndexInt = Number.parseInt(rowIndex, 10);
     const columnIndexInt = Number.parseInt(columnIndex, 10);
 
-    if (!containerID) {
-      content.splice(rowIndexInt, 0, selected);
-    } else {
-      for (let x = 0; x < content.length; x++) {
-        const component = content[x];
-        const id = component.id.toString();
-        if (id === containerID) {
-          const column = Number.isNaN(columnIndexInt) ? 0 : columnIndexInt;
-          // Buat kolom kosong di antaranya agar komponen masuk ke kolom yang dituju
-          while (component.section.length <= column) component.section.push([]);
-          component.section[column].splice(rowIndexInt || 0, 0, selected);
-        }
-        if (component.group.value === EComponentGroupType.container.value) {
-          for (let y = 0; y < component.section.length; y++) {
-            const section = component.section[y];
-            changePosition(section);
-          }
-        }
-      }
+    // Kolom yang belum ada dibuat kosong agar komponen masuk ke kolom tujuan
+    const newContent = insertComponent(deleteComponent(content), selected, {
+      containerId: containerID || null,
+      colIndex:
+        containerID && !Number.isNaN(columnIndexInt) ? columnIndexInt : 0,
+      index: Number.isNaN(rowIndexInt) ? 0 : rowIndexInt,
+    });
+
+    // Container tujuan tidak ditemukan: biarkan komponen di tempatnya
+    if (newContent) {
+      setContent(newContent);
+      setSelected(null);
     }
-    return content;
-  };
-
-  const changePositionWithArrow = (arr, selectedId, direction) => {
-    const index = arr.findIndex((item) => item.id === selectedId);
-
-    if (index !== -1) {
-      if (direction === 'up' && index > 0) {
-        [arr[index - 1], arr[index]] = [arr[index], arr[index - 1]];
-      } else if (direction === 'down' && index < arr.length - 1) {
-        [arr[index + 1], arr[index]] = [arr[index], arr[index + 1]];
-      }
-      return true;
-    }
-
-    for (const item of arr) {
-      if (item.section) {
-        for (const section of item.section) {
-          if (changePositionWithArrow(section, selectedId, direction))
-            return true;
-        }
-      }
-    }
-
-    return false;
-  };
-
-  const onApply = () => {
-    let newContent = deleteComponent(content);
-    newContent = changePosition(newContent);
-
-    setContent([...newContent]);
-    setSelected(null);
     setOpen(false);
   };
 
   const onClickArrow = (direction) => {
     if (!selected) return;
 
-    const selectedId = selected.id;
-    const newContent = [...content];
-
-    if (changePositionWithArrow(newContent, selectedId, direction)) {
-      setContent(newContent);
-    }
+    const newContent = shiftComponent(
+      content,
+      selected.id,
+      direction === 'up' ? -1 : 1,
+    );
+    if (newContent !== content) setContent(newContent);
   };
 
   useEffect(() => {

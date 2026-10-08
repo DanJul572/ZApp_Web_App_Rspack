@@ -13,6 +13,7 @@ import { LoadingProvider } from '@/contexts/LoadingProvider';
 import { ToastProvider } from '@/contexts/ToastProvider';
 import { UIStoreProvider } from '@/contexts/UIStoreProvider';
 import { UserDataProvider } from '@/contexts/UserDataProvider';
+import { ScriptRuntimeProvider } from '@/interpreter/script/ScriptRuntime';
 import { version } from '../../package.json';
 
 const queryClient = new QueryClient();
@@ -43,7 +44,9 @@ export default function Layout() {
                       <JSReportProvider>
                         <AuthProvider>
                           <ExpandedMenuProvider>
-                            <Outlet />
+                            <ScriptRuntimeProvider>
+                              <Outlet />
+                            </ScriptRuntimeProvider>
                           </ExpandedMenuProvider>
                         </AuthProvider>
                       </JSReportProvider>

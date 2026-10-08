@@ -1,30 +1,18 @@
+import { useMemo } from 'react';
 import { useNavigate } from 'react-router';
+
+export const createRedirect = (navigate) => ({
+  external: (path) => {
+    window.location.href = path;
+  },
+  externalNewTab: (path) => window.open(path, '_blank'),
+  internal: (path) => navigate(path),
+  prev: () => navigate(-1),
+});
 
 const Redirect = () => {
   const navigate = useNavigate();
-
-  const internal = (path) => {
-    return navigate(path);
-  };
-
-  const external = (path) => {
-    window.location.href = path;
-  };
-
-  const externalNewTab = (path) => {
-    return window.open(path, '_blank');
-  };
-
-  const prev = () => {
-    return navigate(-1);
-  };
-
-  return {
-    external,
-    externalNewTab,
-    internal,
-    prev,
-  };
+  return useMemo(() => createRedirect(navigate), [navigate]);
 };
 
 export default Redirect;

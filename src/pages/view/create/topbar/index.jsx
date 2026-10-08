@@ -20,8 +20,8 @@ import Confirm from '@/components/dialog/Confirm';
 import List from '@/components/dialog/List';
 import IconTile from '@/components/page/IconTile';
 import { useConfig } from '@/contexts/ConfigProvider';
-import { useLoading } from '@/contexts/LoadingProvider';
-import { useToast } from '@/contexts/ToastProvider';
+import { useSetLoading } from '@/contexts/LoadingProvider';
+import { useSetToast } from '@/contexts/ToastProvider';
 import EActionType from '@/enums/EActionType';
 import { downloadJsonFile } from '@/helpers/downloadFile';
 import { decrypt, encrypt } from '@/helpers/encryption';
@@ -54,8 +54,8 @@ const TopBar = (props) => {
 
   const navigate = useNavigate();
 
-  const { setLoading } = useLoading();
-  const { setToast } = useToast();
+  const setLoading = useSetLoading();
+  const setToast = useSetToast();
   const { config } = useConfig();
 
   const generateTypeList = [EActionType.insert, EActionType.update];

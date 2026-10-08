@@ -1,32 +1,20 @@
-import { useUIStore } from '@/contexts/UIStoreProvider';
+import { useMemo } from 'react';
+import { useUIStoreStore } from '@/contexts/UIStoreProvider';
+import { readState } from '@/helpers/createStore';
 
+/** API UI store di atas store. Lihat createFormData untuk `read`. */
+export const createUIStore = (store, read = readState) => ({
+  get: (name) => read(store, (state) => (state ? state[name] : null)),
+  removeAll: () => store.setState(null),
+  set: (name, value) =>
+    store.setState((state) => ({ ...state, [name]: value })),
+  setAll: (obj) => store.setState(obj),
+});
+
+/** Tidak reaktif: tidak me-render ulang komponen saat UI store berubah. */
 const UIStore = () => {
-  const { store, setStore } = useUIStore({});
-
-  const removeAll = () => {
-    setStore(null);
-  };
-
-  const setAll = (obj) => {
-    setStore(obj);
-  };
-
-  const set = (name, value) => {
-    const newStore = { ...store };
-    newStore[name] = value;
-    setStore(newStore);
-  };
-
-  const get = (name) => {
-    return store ? store[name] : null;
-  };
-
-  return {
-    get,
-    removeAll,
-    set,
-    setAll,
-  };
+  const store = useUIStoreStore();
+  return useMemo(() => createUIStore(store), [store]);
 };
 
 export default UIStore;

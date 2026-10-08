@@ -6,8 +6,13 @@ import { decrypt } from '@/helpers/encryption';
 import Request from './Request';
 import Translator from './Translator';
 
-const Content = ({ isBuilder }) => {
+/**
+ * Ambil konfigurasi view `id`, atau view dari URL (`/main/:id`) jika
+ * `id` tidak diisi.
+ */
+const Content = ({ id, isBuilder }) => {
   const params = useParams();
+  const viewId = id ?? params.id;
 
   const request = Request();
   const translator = Translator();
@@ -15,7 +20,7 @@ const Content = ({ isBuilder }) => {
   const { config } = useConfig();
 
   const fetchContent = async () => {
-    const param = { moduleId: CModuleID.views, rowId: params.id };
+    const param = { moduleId: CModuleID.views, rowId: viewId };
     const res = await request.get(config.api.common.detail, param);
     if (res) {
       return {
@@ -34,9 +39,9 @@ const Content = ({ isBuilder }) => {
     error,
     isLoading,
   } = useQuery({
-    queryKey: ['view-json-content', params.id],
+    queryKey: ['view-json-content', viewId],
     queryFn: fetchContent,
-    enabled: !isBuilder && !!params.id,
+    enabled: !isBuilder && !!viewId,
     retry: 0,
     refetchOnMount: false,
   });

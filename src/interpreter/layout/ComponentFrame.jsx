@@ -3,9 +3,10 @@ import MoreHoriz from '@mui/icons-material/MoreHoriz';
 import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
+import { useBuilderSelection } from './BuilderSelection';
 
 const BuilderFrame = (props) => {
-  const { children, component, selected, setSelected } = props;
+  const { children, component } = props;
 
   const { isDragging, listeners, setNodeRef } = useDraggable({
     id: component.id,
@@ -16,7 +17,7 @@ const BuilderFrame = (props) => {
     },
   });
 
-  const isSelected = selected && component.id === selected.id;
+  const { isSelected, select } = useBuilderSelection(component.id);
 
   return (
     <Box
@@ -48,7 +49,7 @@ const BuilderFrame = (props) => {
       {children}
       <Tooltip arrow title={component.type.label} placement="left">
         <IconButton
-          onClick={() => setSelected(component)}
+          onClick={() => select?.(component)}
           sx={{ cursor: 'grab', padding: 0 }}
         >
           <MoreHoriz />
