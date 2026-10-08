@@ -11,18 +11,35 @@ import IconButton from '@mui/material/IconButton';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import Datetime from '@/components/input/Datetime';
+import { useConfig } from '@/contexts/ConfigProvider';
+import formatDateTime from '@/helpers/formatDateTime';
 
 const TYPES = [
-  { label: 'Days', value: 'days', icon: <TodayIcon fontSize="small" /> },
-  { label: 'Month', value: 'month', icon: <DateRangeIcon fontSize="small" /> },
+  {
+    label: 'Days',
+    value: 'days',
+    summary: 'daily',
+    icon: <TodayIcon fontSize="small" />,
+  },
+  {
+    label: 'Month',
+    value: 'month',
+    summary: 'monthly',
+    icon: <DateRangeIcon fontSize="small" />,
+  },
   {
     label: 'Year',
     value: 'year',
+    summary: 'yearly',
     icon: <CalendarMonthIcon fontSize="small" />,
   },
 ];
 
 const SchedulerDrawer = ({ open, onClose, value, onChange }) => {
+  const { config } = useConfig();
+  const formatTime = (time) =>
+    formatDateTime(time, config.format.datetime.display);
+
   const handleStartTime = (val) => onChange({ ...value, startTime: val });
   const handleEndTime = (val) => onChange({ ...value, endTime: val });
   const handleType = (type) => onChange({ ...value, type });
@@ -114,9 +131,12 @@ const SchedulerDrawer = ({ open, onClose, value, onChange }) => {
               SCHEDULE SUMMARY
             </Typography>
             <Typography variant="body2" sx={{ mt: 0.5 }}>
-              Runs every <strong>{value.type}</strong> from{' '}
-              <strong>{value.startTime}</strong> to{' '}
-              <strong>{value.endTime}</strong>
+              Runs{' '}
+              <strong>
+                {TYPES.find((t) => t.value === value.type)?.summary}
+              </strong>{' '}
+              from <strong>{formatTime(value.startTime)}</strong> to{' '}
+              <strong>{formatTime(value.endTime)}</strong>
             </Typography>
           </Box>
         )}

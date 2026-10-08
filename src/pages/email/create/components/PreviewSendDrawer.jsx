@@ -1,6 +1,7 @@
 import CheckCircleOutlined from '@mui/icons-material/CheckCircleOutlined';
 import CloseIcon from '@mui/icons-material/Close';
 import DesktopWindowsIcon from '@mui/icons-material/DesktopWindows';
+import ErrorOutlineIcon from '@mui/icons-material/ErrorOutlineOutlined';
 import SendIcon from '@mui/icons-material/Send';
 import SmartphoneIcon from '@mui/icons-material/Smartphone';
 import Box from '@mui/material/Box';
@@ -72,11 +73,13 @@ const PreviewSendDrawer = ({
       anchor="right"
       open={open}
       onClose={onClose}
-      PaperProps={{
-        sx: {
-          width: viewMode === 'desktop' && tab === 0 ? '70vw' : 500,
-          p: 0,
-          transition: 'width 0.3s ease',
+      slotProps={{
+        paper: {
+          sx: {
+            width: viewMode === 'desktop' && tab === 0 ? '70vw' : 500,
+            p: 0,
+            transition: 'width 0.3s ease',
+          },
         },
       }}
     >
@@ -213,7 +216,7 @@ const PreviewSendDrawer = ({
                 }}
               >
                 <Typography color="textDisabled" variant="body2">
-                  Email content is not available. Please click "Save" first.
+                  The email is empty. Add some content in the editor first.
                 </Typography>
               </Box>
             )}

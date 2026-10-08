@@ -22,7 +22,12 @@
       "update": "/common/update"
     },
     "email": {
-      "save": "/email/save"
+      "attachment": "/email/attachment",
+      "create": "/email/create",
+      "delete": "/email/delete",
+      "detail": "/email/detail",
+      "rows": "/email/rows",
+      "update": "/email/update"
     },
     "export": {
       "csv": "/export/csv"

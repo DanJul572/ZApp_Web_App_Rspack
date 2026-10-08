@@ -92,17 +92,19 @@ const EmailChipInput = ({ label, description, emails, onAdd, onRemove }) => {
         error={!!error}
         helperText={error || 'Press Enter or comma to add'}
         slotProps={{
-          endAdornment: (
-            <InputAdornment position="end">
-              <IconButton
-                size="small"
-                onClick={handleAdd}
-                disabled={!input.trim()}
-              >
-                <AddIcon fontSize="small" />
-              </IconButton>
-            </InputAdornment>
-          ),
+          input: {
+            endAdornment: (
+              <InputAdornment position="end">
+                <IconButton
+                  size="small"
+                  onClick={handleAdd}
+                  disabled={!input.trim()}
+                >
+                  <AddIcon fontSize="small" />
+                </IconButton>
+              </InputAdornment>
+            ),
+          },
         }}
       />
     </Box>

@@ -18,17 +18,19 @@ import Stack from '@mui/material/Stack';
 import Switch from '@mui/material/Switch';
 import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { MuiFileInput } from 'mui-file-input';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import EmailEditor from 'react-email-editor';
-import { useNavigate } from 'react-router';
+import { useNavigate, useSearchParams } from 'react-router';
 import LongText from '@/components/input/LongText';
 import ShortText from '@/components/input/ShortText';
+import ContentLoader from '@/components/loading/ContentLoader';
 import PageHeader from '@/components/page/PageHeader';
 import { useConfig } from '@/contexts/ConfigProvider';
 import Request from '@/hooks/Request';
 import Toaster from '@/hooks/Toaster';
+import getErrorMessage from '../getErrorMessage';
 import CcBccDrawer from './components/CcBccDrawer';
 import EmailSettingsDrawer from './components/EmailSettingsDrawer';
 import MergeTagsDrawer from './components/MergeTagsDrawer';
@@ -38,13 +40,56 @@ import PrimarySourceDrawer from './components/PrimarySourceDrawer';
 import SchedulerDrawer from './components/SchedulerDrawer';
 import ToolbarBtn from './components/ToolbarBtn';
 
+const SCHEDULER_LABELS = {
+  days: 'Daily',
+  month: 'Monthly',
+  year: 'Yearly',
+};
+
+const DEFAULT_SCHEDULER = {
+  startTime: null,
+  endTime: null,
+  type: 'days',
+};
+
+const DEFAULT_SETTINGS = {
+  priority: 'normal',
+  openTracking: false,
+  clickTracking: false,
+  unsubscribeLink: false,
+};
+
+// Attachments are either files picked in this session (`file`) or files
+// already stored on the server (`id`).
+const toNewAttachment = (file) => ({
+  key: `new_${file.name}_${file.size}`,
+  file,
+  name: file.name,
+  size: file.size,
+});
+
+const toSavedAttachment = (attachment) => ({
+  key: `saved_${attachment.id}`,
+  id: attachment.id,
+  name: attachment.fileName,
+  size: attachment.fileSize,
+});
+
 const EmailBuilder = () => {
   const emailEditorRef = useRef(null);
+  const designLoadedRef = useRef(false);
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
+  const [searchParams] = useSearchParams();
 
   const request = Request();
   const { config } = useConfig();
   const toaster = Toaster();
+
+  const emailId = searchParams.get('id');
+  const isEdit = !!emailId;
+
+  const [editorReady, setEditorReady] = useState(false);
 
   const [emailName, setEmailName] = useState('');
   const [emailDescription, setEmailDescription] = useState('');
@@ -66,11 +111,7 @@ const EmailBuilder = () => {
   const [optionalOpen, setOptionalOpen] = useState(false);
 
   const [useScheduler, setUseScheduler] = useState(false);
-  const [scheduler, setScheduler] = useState({
-    startTime: null,
-    endTime: null,
-    type: 'days',
-  });
+  const [scheduler, setScheduler] = useState(DEFAULT_SCHEDULER);
   const [schedulerOpen, setSchedulerOpen] = useState(false);
 
   const [mergeTags, setMergeTags] = useState([]);
@@ -78,36 +119,116 @@ const EmailBuilder = () => {
 
   const [previewOpen, setPreviewOpen] = useState(false);
 
-  const [emailSettings, setEmailSettings] = useState({
-    priority: 'normal',
-    openTracking: false,
-    clickTracking: false,
-    unsubscribeLink: false,
-  });
+  const [emailSettings, setEmailSettings] = useState(DEFAULT_SETTINGS);
   const [settingsOpen, setSettingsOpen] = useState(false);
 
-  const saveEmailTemplate = () => {
-    request.post(config.api.email.save, {
-      emailName,
-      emailDescription,
-      emailTo,
-      emailSubject,
-      ccBcc,
-      attachments,
-      primarySource,
-      optionalSources,
-      mergeTags,
+  const {
+    data: detail,
+    isLoading,
+    isError,
+    error,
+  } = useQuery({
+    queryKey: ['email-detail', emailId],
+    queryFn: async () => {
+      const res = await request.get(config.api.email.detail, { id: emailId });
+      return res.data;
+    },
+    enabled: isEdit,
+    retry: 0,
+  });
+
+  useEffect(() => {
+    if (!detail) return;
+
+    setEmailName(detail.name ?? '');
+    setEmailDescription(detail.description ?? '');
+    setEmailTo(detail.to ?? '');
+    setEmailSubject(detail.subject ?? '');
+    setCcBcc({ cc: detail.cc, bcc: detail.bcc });
+    setPrimarySource(detail.primarySource);
+    setOptionalSources(detail.optionalSources);
+    setMergeTags(detail.mergeTags);
+    setUseScheduler(detail.useScheduler);
+    setScheduler(detail.scheduler ?? DEFAULT_SCHEDULER);
+    setEmailSettings(detail.settings);
+    setAttachments(detail.attachments.map(toSavedAttachment));
+  }, [detail]);
+
+  useEffect(() => {
+    if (isError) toaster.showErrorToast(getErrorMessage(error));
+  }, [isError]);
+
+  // The editor and the detail load independently; the design is applied once
+  // both are there.
+  useEffect(() => {
+    if (!editorReady || !detail?.design || designLoadedRef.current) return;
+    emailEditorRef.current?.editor?.loadDesign(detail.design);
+    designLoadedRef.current = true;
+  }, [editorReady, detail]);
+
+  const exportEditor = () =>
+    new Promise((resolve) => {
+      const editor = emailEditorRef.current?.editor;
+      if (!editor) {
+        resolve({ html: '', design: null });
+        return;
+      }
+      editor.exportHtml((data) =>
+        resolve({ html: data.html, design: data.design }),
+      );
     });
+
+  const saveEmailTemplate = async () => {
+    const { html, design } = await exportEditor();
+
+    const payload = {
+      name: emailName,
+      description: emailDescription,
+      to: emailTo,
+      subject: emailSubject,
+      body: html,
+      design,
+      cc: ccBcc.cc,
+      bcc: ccBcc.bcc,
+      primarySource,
+      // Cards left completely empty in the drawers are not sent.
+      optionalSources: optionalSources.filter(
+        (source) => source.name.trim() || source.sql.trim(),
+      ),
+      mergeTags: mergeTags.filter((tag) => tag.tag.trim() || tag.column.trim()),
+      useScheduler,
+      scheduler: useScheduler ? scheduler : null,
+      settings: emailSettings,
+    };
+
+    if (isEdit) {
+      payload.id = Number(emailId);
+      payload.keepAttachmentIds = attachments
+        .filter((attachment) => attachment.id)
+        .map((attachment) => attachment.id);
+    }
+
+    const files = attachments
+      .filter((attachment) => attachment.file)
+      .map((attachment) => ({ file: attachment.file, id: attachment.name }));
+
+    const url = isEdit ? config.api.email.update : config.api.email.create;
+    return request.post(url, payload, files, false);
   };
 
   const mutation = useMutation({
     mutationFn: saveEmailTemplate,
     mutationKey: ['save-email-template'],
     onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['emails'] });
+      queryClient.removeQueries({ queryKey: ['email-detail'] });
       toaster.showSuccessToast('Email template saved successfully');
+      navigate('/email');
     },
     onError: (err) => {
-      toaster.showErrorToast(err.message);
+      toaster.showErrorToast(
+        getErrorMessage(err, 'Failed to save email template'),
+      );
     },
   });
 
@@ -118,13 +239,15 @@ const EmailBuilder = () => {
       const existingKeys = new Set(prev.map((f) => `${f.name}_${f.size}`));
       return [
         ...prev,
-        ...incoming.filter((f) => !existingKeys.has(`${f.name}_${f.size}`)),
+        ...incoming
+          .filter((f) => !existingKeys.has(`${f.name}_${f.size}`))
+          .map(toNewAttachment),
       ];
     });
   };
 
-  const removeAttachment = (index) =>
-    setAttachments((prev) => prev.filter((_, i) => i !== index));
+  const removeAttachment = (key) =>
+    setAttachments((prev) => prev.filter((f) => f.key !== key));
 
   const handleOpenPreview = () => {
     const editor = emailEditorRef.current?.editor;
@@ -138,7 +261,11 @@ const EmailBuilder = () => {
     }
   };
 
-  const onReady = () => toaster.showSuccessToast('Editor is ready');
+  const onReady = () => setEditorReady(true);
+
+  if (isEdit && isLoading) {
+    return <ContentLoader />;
+  }
 
   const hasPrimary = !!(primarySource.name || primarySource.sql);
   const hasOptional = optionalSources.length > 0;
@@ -158,7 +285,7 @@ const EmailBuilder = () => {
         sticky
         onBack={() => navigate('/email')}
         icon={<EmailIcon />}
-        title="Email Builder"
+        title={isEdit ? 'Edit Email' : 'Email Builder'}
         subtitle="Compose the template, connect data sources and schedule delivery"
         actions={
           <>
@@ -172,7 +299,7 @@ const EmailBuilder = () => {
             <Button
               variant="contained"
               startIcon={<SaveIcon />}
-              onClick={mutation.mutate}
+              onClick={() => mutation.mutate()}
               loading={mutation.isPending}
               disabled={mutation.isPending}
             >
@@ -313,7 +440,7 @@ const EmailBuilder = () => {
                 fontWeight: hasScheduler ? 600 : 400,
               }}
             >
-              {hasScheduler ? `Every ${scheduler.type}` : 'Scheduler'}
+              {hasScheduler ? SCHEDULER_LABELS[scheduler.type] : 'Scheduler'}
             </Typography>
             <Tooltip title={useScheduler ? 'Disable' : 'Enable'}>
               <Switch
@@ -382,16 +509,23 @@ const EmailBuilder = () => {
           </Box>
           {attachments.length > 0 && (
             <Stack direction="row" sx={{ flexWrap: 'wrap', gap: 1, mt: 1.5 }}>
-              {attachments.map((file, index) => {
-                const key = `${file.name}_${Date.now()}`;
+              {attachments.map((attachment) => {
+                const savedFileProps = attachment.id
+                  ? {
+                      component: 'a',
+                      href: `${config.api.base}${config.api.email.attachment}?id=${attachment.id}`,
+                      clickable: true,
+                    }
+                  : {};
                 return (
                   <Chip
-                    key={key}
+                    key={attachment.key}
+                    {...savedFileProps}
                     icon={<AttachFileIcon />}
-                    label={`${file.name} · ${(file.size / 1024).toFixed(1)} KB`}
+                    label={`${attachment.name} · ${(attachment.size / 1024).toFixed(1)} KB`}
                     size="small"
                     variant="outlined"
-                    onDelete={() => removeAttachment(index)}
+                    onDelete={() => removeAttachment(attachment.key)}
                     deleteIcon={<CloseIcon fontSize="small" />}
                     sx={{ maxWidth: 280 }}
                   />

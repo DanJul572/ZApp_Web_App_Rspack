@@ -292,28 +292,30 @@ const MergeTagsDrawer = ({
                         )
                       }
                       slotProps={{
-                        startAdornment: (
-                          <InputAdornment
-                            position="start"
-                            sx={{
-                              fontFamily: 'monospace',
-                              color: 'text.secondary',
-                            }}
-                          >
-                            {'{{'}{' '}
-                          </InputAdornment>
-                        ),
-                        endAdornment: (
-                          <InputAdornment
-                            position="end"
-                            sx={{
-                              fontFamily: 'monospace',
-                              color: 'text.secondary',
-                            }}
-                          >
-                            {'}}'}
-                          </InputAdornment>
-                        ),
+                        input: {
+                          startAdornment: (
+                            <InputAdornment
+                              position="start"
+                              sx={{
+                                fontFamily: 'monospace',
+                                color: 'text.secondary',
+                              }}
+                            >
+                              {'{{'}{' '}
+                            </InputAdornment>
+                          ),
+                          endAdornment: (
+                            <InputAdornment
+                              position="end"
+                              sx={{
+                                fontFamily: 'monospace',
+                                color: 'text.secondary',
+                              }}
+                            >
+                              {'}}'}
+                            </InputAdornment>
+                          ),
+                        },
                       }}
                     />
                     <TextField
