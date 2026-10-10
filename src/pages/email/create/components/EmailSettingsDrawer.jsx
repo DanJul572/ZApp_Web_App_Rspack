@@ -19,7 +19,8 @@ const PRIORITIES = [
   {
     value: 'high',
     label: 'High',
-    description: 'Mark as urgent. Appears at the top of the inbox.',
+    description:
+      'Marked as important in mail clients that show it (e.g. Outlook).',
     color: 'error',
   },
   {
@@ -149,7 +150,7 @@ const EmailSettingsDrawer = ({ open, onClose, value, onChange }) => {
             color="textSecondary"
             sx={{ display: 'block', mb: 1.5 }}
           >
-            Sets the X-Priority header on sent emails.
+            Sets the X-Priority and Importance headers. Gmail ignores them.
           </Typography>
           <Stack direction="row" spacing={1}>
             {PRIORITIES.map((p) => (
@@ -213,7 +214,7 @@ const EmailSettingsDrawer = ({ open, onClose, value, onChange }) => {
             <SettingRow
               icon={<VisibilityIcon fontSize="small" sx={{ color: 'white' }} />}
               title="Open Tracking"
-              description="Track who opened this email and when."
+              description="Track who opened this email and when. Mail clients that block images or preload them (Apple Mail) make this approximate."
               checked={openTracking}
               onChange={(val) => set('openTracking', val)}
             />
@@ -221,7 +222,7 @@ const EmailSettingsDrawer = ({ open, onClose, value, onChange }) => {
             <SettingRow
               icon={<MouseIcon fontSize="small" sx={{ color: 'white' }} />}
               title="Click Tracking"
-              description="Track which link was clicked by the recipient."
+              description="Track which link was clicked by the recipient. Links are sent through the API, then redirected."
               checked={clickTracking}
               onChange={(val) => set('clickTracking', val)}
             />
@@ -241,12 +242,12 @@ const EmailSettingsDrawer = ({ open, onClose, value, onChange }) => {
           <SettingRow
             icon={<LinkOffIcon fontSize="small" sx={{ color: 'white' }} />}
             title="Unsubscribe Link"
-            description="Automatically add unsubscribe footer (recommended for newsletters & marketing. Required for CAN-SPAM / GDPR compliance)."
+            description="Automatically add an unsubscribe footer and one-click unsubscribe header (recommended for newsletters & marketing. Required for CAN-SPAM / GDPR compliance). Recipients who unsubscribe are skipped on the next sends of this template."
             checked={unsubscribeLink}
             onChange={(val) => set('unsubscribeLink', val)}
           />
 
-          {unsubscribeLink && (
+          {activeCount > 0 && (
             <Box
               sx={{
                 mt: 1.5,
@@ -258,8 +259,9 @@ const EmailSettingsDrawer = ({ open, onClose, value, onChange }) => {
               }}
             >
               <Typography variant="caption" sx={{ color: 'warning.dark' }}>
-                ⚠️ Make sure the unsubscribe endpoint is configured on the
-                backend side before sending emails to the public.
+                ⚠️ Tracking and unsubscribe links point to the API&apos;s
+                EMAIL_PUBLIC_URL. It must be reachable from the recipients&apos;
+                mail clients before sending emails to the public.
               </Typography>
             </Box>
           )}

@@ -1,5 +1,6 @@
 import ErrorOutline from '@mui/icons-material/ErrorOutlineOutlined';
 import InfoOutlined from '@mui/icons-material/InfoOutlined';
+import Insights from '@mui/icons-material/Insights';
 import MarkEmailRead from '@mui/icons-material/MarkEmailRead';
 import Preview from '@mui/icons-material/Preview';
 import Replay from '@mui/icons-material/Replay';
@@ -108,6 +109,27 @@ const Page = () => {
     { label: 'Last Updated', value: formatTime(log.updatedAt) },
   ];
 
+  const timesLabel = (count) => `${count} time${count === 1 ? '' : 's'}`;
+
+  // Without a click the pixel counted the opens; a click alone also marks the
+  // email as opened, for mail clients that block images.
+  const openedValue =
+    log.openedAt &&
+    (log.openCount > 0
+      ? `${formatTime(log.openedAt)} · ${timesLabel(log.openCount)}`
+      : `${formatTime(log.openedAt)} · from a click`);
+
+  const tracking = [
+    { label: 'First Opened', value: openedValue },
+    {
+      label: 'First Clicked',
+      value:
+        log.clickedAt &&
+        `${formatTime(log.clickedAt)} · ${timesLabel(log.clickCount)}`,
+    },
+    { label: 'Unsubscribed', value: formatTime(log.unsubscribedAt) },
+  ];
+
   const canRetry = log.status !== EMAIL_STATUS.success.value && !!log.to;
 
   return (
@@ -134,6 +156,51 @@ const Page = () => {
       <SectionCard icon={<InfoOutlined />} title="Email">
         <DetailList items={information} />
       </SectionCard>
+
+      {log.trackingId && (
+        <SectionCard
+          icon={<Insights />}
+          title="Tracking"
+          subtitle="Opens, clicks and unsubscribes of this email"
+        >
+          <DetailList items={tracking} />
+          {log.clicks?.length > 0 && (
+            <Box sx={{ mt: 2.5 }}>
+              <Typography variant="caption" color="textSecondary">
+                Clicked Links
+              </Typography>
+              {log.clicks.map((item) => (
+                <Box
+                  key={item.url}
+                  sx={{
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    gap: 2,
+                    py: 0.75,
+                    borderBottom: '1px solid',
+                    borderColor: 'divider',
+                  }}
+                >
+                  <Typography
+                    variant="body2"
+                    sx={{ minWidth: 0, wordBreak: 'break-all' }}
+                  >
+                    {item.url}
+                  </Typography>
+                  <Typography
+                    variant="body2"
+                    color="textSecondary"
+                    sx={{ whiteSpace: 'nowrap' }}
+                  >
+                    {timesLabel(item.count)} · last{' '}
+                    {formatTime(item.lastClickedAt)}
+                  </Typography>
+                </Box>
+              ))}
+            </Box>
+          )}
+        </SectionCard>
+      )}
 
       {log.errorMessage && (
         <SectionCard icon={<ErrorOutline />} title="Error">
