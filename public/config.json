@@ -51,6 +51,9 @@
       "delete": "/module/delete",
       "detail": "/module/detail"
     },
+    "report": {
+      "render": "/report/render"
+    },
     "script": {
       "run": "/script/run"
     },

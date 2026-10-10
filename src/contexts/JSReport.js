@@ -1,44 +1,53 @@
-import jsreport from '@jsreport/browser-client';
 import { createContext, useContext, useState } from 'react';
+import { downloadFileFromBuffer } from '@/helpers/downloadFile';
+import Request from '@/hooks/Request';
 import { useConfig } from './ConfigProvider';
 
 const JSReportContext = createContext();
 
+// Reports are rendered by the API, which returns the file. The browser never talks to jsreport.
 export const JSReportProvider = ({ children }) => {
   const { config } = useConfig();
+  const { postFile } = Request();
 
   const [loading, setLoading] = useState(false);
 
-  const url = config?.report?.jsreport?.url;
-  const user = process.env.REACT_APP_JSREPORT_USER;
-  const password = process.env.REACT_APP_JSREPORT_PASSWORD;
+  const render = async (template, data) => {
+    setLoading(true);
+    try {
+      return await postFile(config.api.report.render, { template, data });
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const download = async (name, template, data = {}) => {
-    setLoading(true);
-    jsreport.serverUrl = url;
-    jsreport.headers.Authorization = `Basic ${btoa(`${user}:${password}`)}`;
-    const report = await jsreport.render({
-      template: {
-        name: template,
-      },
-      data: data,
-    });
-    report.download(name);
-    setLoading(false);
+    const report = await render(template, data);
+    downloadFileFromBuffer(report, name, report.type);
   };
 
   const open = async (name, template, data = {}) => {
-    setLoading(true);
-    jsreport.serverUrl = config.report.jsreport.url;
-    jsreport.headers.Authorization = `Basic ${btoa(`${user}:${password}`)}`;
-    const report = await jsreport.render({
-      template: {
-        name: template,
-      },
-      data: data,
-    });
-    report.openInWindow(name);
-    setLoading(false);
+    const report = await render(template, data);
+    const url = URL.createObjectURL(report);
+
+    // An iframe in a new window keeps `name` as the window title.
+    const reportWindow = window.open();
+    if (!reportWindow) {
+      URL.revokeObjectURL(url);
+      return;
+    }
+
+    reportWindow.document.title = name;
+    reportWindow.document.body.style.margin = '0';
+
+    const frame = reportWindow.document.createElement('iframe');
+    frame.src = url;
+    frame.style.cssText = 'border: 0; width: 100vw; height: 100vh;';
+    reportWindow.document.body.appendChild(frame);
+
+    reportWindow.addEventListener('beforeunload', () =>
+      URL.revokeObjectURL(url),
+    );
   };
 
   return (
