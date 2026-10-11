@@ -1,10 +1,10 @@
 import KeyboardArrowDown from '@mui/icons-material/KeyboardArrowDown';
-import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
 import ButtonBase from '@mui/material/ButtonBase';
 import Chip from '@mui/material/Chip';
 import Typography from '@mui/material/Typography';
 import { useState } from 'react';
+import UserAvatar from '@/components/page/UserAvatar';
 import { useAuth } from '@/contexts/AuthProvider';
 import { useConfig } from '@/contexts/ConfigProvider';
 import { useExpandedMenu } from '@/contexts/ExpandedMenuProvider';
@@ -97,16 +97,7 @@ const Topbar = () => {
             '&:hover': { borderColor: 'primary.main' },
           }}
         >
-          <Avatar
-            sx={{
-              width: 30,
-              height: 30,
-              fontSize: 14,
-              bgcolor: 'primary.main',
-            }}
-          >
-            {avatarLabel}
-          </Avatar>
+          <UserAvatar size={30} fontSize={14} />
           <Typography
             variant="body2"
             noWrap

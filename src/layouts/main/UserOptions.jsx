@@ -1,7 +1,7 @@
+import AccountCircleOutlined from '@mui/icons-material/AccountCircleOutlined';
 import Logout from '@mui/icons-material/Logout';
 import Settings from '@mui/icons-material/Settings';
 import Timer from '@mui/icons-material/Timer';
-import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
 import ListItemIcon from '@mui/material/ListItemIcon';
@@ -10,6 +10,7 @@ import MenuItem from '@mui/material/MenuItem';
 import Typography from '@mui/material/Typography';
 import { useId } from 'react';
 import { useNavigate } from 'react-router';
+import UserAvatar from '@/components/page/UserAvatar';
 import { useUserData } from '@/contexts/UserDataProvider';
 import CountdownSession from '@/hooks/CountdownSession';
 
@@ -42,9 +43,7 @@ const UserOptions = (props) => {
       <Box
         sx={{ px: 2, py: 1.5, display: 'flex', alignItems: 'center', gap: 1.5 }}
       >
-        <Avatar sx={{ width: 40, height: 40, bgcolor: 'primary.main' }}>
-          {userData?.userName?.trim().charAt(0).toUpperCase()}
-        </Avatar>
+        <UserAvatar size={40} />
         <Box sx={{ minWidth: 0 }}>
           <Typography variant="subtitle2" noWrap>
             {userData?.userName}
@@ -64,6 +63,16 @@ const UserOptions = (props) => {
       </Box>
       <Divider sx={{ my: 0.5 }} />
 
+      <MenuItem
+        onClick={() => {
+          navigate('/profile');
+        }}
+      >
+        <ListItemIcon>
+          <AccountCircleOutlined fontSize="small" />
+        </ListItemIcon>
+        Profile
+      </MenuItem>
       <MenuItem
         onClick={() => {
           navigate('/setting');

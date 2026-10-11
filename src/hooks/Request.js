@@ -87,12 +87,18 @@ const Request = () => {
   };
 
   // Returns the response body as a Blob, for endpoints that send back a file.
+  const getFile = async (url, params = {}) => {
+    const { data } = await api.get(url, { params, responseType: 'blob' });
+    return data;
+  };
+
+  // Returns the response body as a Blob, for endpoints that send back a file.
   const postFile = async (url, body) => {
     const { data } = await api.post(url, body, { responseType: 'blob' });
     return data;
   };
 
-  return { get, post, postFile };
+  return { get, getFile, post, postFile };
 };
 
 export default Request;

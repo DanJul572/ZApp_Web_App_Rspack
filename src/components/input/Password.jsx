@@ -1,6 +1,7 @@
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import FormControl from '@mui/material/FormControl';
+import FormHelperText from '@mui/material/FormHelperText';
 import IconButton from '@mui/material/IconButton';
 import InputAdornment from '@mui/material/InputAdornment';
 import OutlinedInput from '@mui/material/OutlinedInput';
@@ -8,7 +9,17 @@ import Typography from '@mui/material/Typography';
 import { useState } from 'react';
 
 const Password = (props) => {
-  const { label, onChange, value, name, disabled, onBlur } = props;
+  const {
+    label,
+    onChange,
+    value,
+    name,
+    disabled,
+    onBlur,
+    error,
+    helperText,
+    autoComplete = 'on',
+  } = props;
 
   const [showPassword, setShowPassword] = useState(false);
 
@@ -33,7 +44,7 @@ const Password = (props) => {
   };
 
   return (
-    <FormControl variant="outlined" fullWidth>
+    <FormControl variant="outlined" fullWidth error={!!error}>
       <Typography
         variant="body2"
         sx={{ fontWeight: 500, mb: label ? 0.75 : 0 }}
@@ -41,7 +52,7 @@ const Password = (props) => {
         {label}
       </Typography>
       <OutlinedInput
-        autoComplete="on"
+        autoComplete={autoComplete}
         disabled={disabled}
         endAdornment={
           <InputAdornment position="end">
@@ -63,6 +74,9 @@ const Password = (props) => {
         value={value || ''}
         variant="outlined"
       />
+      {helperText && (
+        <FormHelperText sx={{ mx: 0 }}>{helperText}</FormHelperText>
+      )}
     </FormControl>
   );
 };

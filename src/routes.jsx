@@ -22,6 +22,7 @@ import MenuPage from '@/pages/menu';
 import CreateMenuPage from '@/pages/menu/create';
 import ModulePage from '@/pages/module';
 import CreateModulePage from '@/pages/module/create';
+import ProfilePage from '@/pages/profile';
 import RegisterPage from '@/pages/register';
 import SettingPage from '@/pages/setting';
 import UploadPage from '@/pages/upload';
@@ -124,6 +125,16 @@ const routes = createBrowserRouter([
           <AuthenticatedGuard>
             <MainLayout>
               <MainPage />
+            </MainLayout>
+          </AuthenticatedGuard>
+        ),
+      },
+      {
+        path: '/profile',
+        Component: () => (
+          <AuthenticatedGuard>
+            <MainLayout>
+              <ProfilePage />
             </MainLayout>
           </AuthenticatedGuard>
         ),

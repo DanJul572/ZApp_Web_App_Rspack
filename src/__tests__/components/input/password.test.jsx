@@ -110,4 +110,11 @@ describe('Password Input Component', () => {
     const input = document.getElementsByClassName('MuiOutlinedInput-input')[0];
     expect(input).toBeDisabled();
   });
+  it('shows the helper text and marks the field as invalid on error', () => {
+    render(
+      <Password label="Password" helperText="Passwords do not match" error />,
+    );
+
+    expect(screen.getByText('Passwords do not match')).toHaveClass('Mui-error');
+  });
 });

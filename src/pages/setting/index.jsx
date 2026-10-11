@@ -1,11 +1,13 @@
 import AppsOutlined from '@mui/icons-material/AppsOutlined';
 import PersonOutline from '@mui/icons-material/PersonOutlined';
 import Settings from '@mui/icons-material/Settings';
-import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
+import { useNavigate } from 'react-router';
 import PageHeader from '@/components/page/PageHeader';
 import SectionCard from '@/components/page/SectionCard';
+import UserAvatar from '@/components/page/UserAvatar';
 import { useConfig } from '@/contexts/ConfigProvider';
 import { useUserData } from '@/contexts/UserDataProvider';
 import CountdownSession from '@/hooks/CountdownSession';
@@ -37,6 +39,7 @@ const Setting = () => {
   const { config } = useConfig();
   const { userData } = useUserData();
   const timeLeft = CountdownSession();
+  const navigate = useNavigate();
 
   const userName = userData?.userName;
 
@@ -55,18 +58,18 @@ const Setting = () => {
           alignItems: 'start',
         }}
       >
-        <SectionCard icon={<PersonOutline />} title="Account" sx={{ mb: 0 }}>
+        <SectionCard
+          icon={<PersonOutline />}
+          title="Account"
+          actions={
+            <Button size="small" onClick={() => navigate('/profile')}>
+              Edit profile
+            </Button>
+          }
+          sx={{ mb: 0 }}
+        >
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 2 }}>
-            <Avatar
-              sx={{
-                width: 56,
-                height: 56,
-                fontSize: 22,
-                bgcolor: 'primary.main',
-              }}
-            >
-              {userName?.trim().charAt(0).toUpperCase()}
-            </Avatar>
+            <UserAvatar size={56} fontSize={22} />
             <Box>
               <Typography variant="h6">{userName || '—'}</Typography>
               <Typography variant="body2" color="textSecondary">
@@ -75,6 +78,7 @@ const Setting = () => {
             </Box>
           </Box>
           <InfoRow label="User name" value={userName} />
+          <InfoRow label="Email" value={userData?.email} />
           <InfoRow label="Session remaining" value={timeLeft} />
         </SectionCard>
 

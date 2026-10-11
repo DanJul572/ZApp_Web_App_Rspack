@@ -51,6 +51,12 @@
       "delete": "/module/delete",
       "detail": "/module/detail"
     },
+    "profile": {
+      "changePassword": "/profile/change-password",
+      "detail": "/profile",
+      "picture": "/profile/picture",
+      "update": "/profile/update"
+    },
     "report": {
       "render": "/report/render"
     },
