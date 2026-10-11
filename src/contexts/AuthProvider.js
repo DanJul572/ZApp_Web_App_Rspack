@@ -1,5 +1,5 @@
 import { useMutation, useQuery } from '@tanstack/react-query';
-import { createContext, useContext, useEffect } from 'react';
+import { createContext, useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
 import { clearLocalStorage } from '@/helpers/clearLocalStorage';
 import Request from '@/hooks/Request';
@@ -13,6 +13,10 @@ export const AuthProvider = ({ children }) => {
 
   const { setUserData } = useUserData(null);
   const { config } = useConfig();
+
+  // False until the first session check against the API has finished, so the
+  // guards don't treat "not fetched yet" as "not logged in" on a page refresh.
+  const [isAuthChecked, setIsAuthChecked] = useState(false);
 
   const { get } = Request();
 
@@ -41,14 +45,21 @@ export const AuthProvider = ({ children }) => {
   const isReady = !isLoading && !isFetching;
 
   useEffect(() => {
-    if (userResponse && isReady) {
+    if (!isReady) {
+      return;
+    }
+
+    if (userResponse) {
       setUserData(userResponse.data);
     }
+
+    setIsAuthChecked(true);
   }, [userResponse, isReady]);
 
   const value = {
     isLoading,
     isReady,
+    isAuthChecked,
     logout,
     refetch,
   };
