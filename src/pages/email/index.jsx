@@ -104,7 +104,7 @@ const EmailViewPage = () => {
   const sendMutation = useMutation({
     mutationFn: (id) => request.post(config.api.email.send, { id }),
     onSuccess: (res) => {
-      toaster.showSuccessToast(`${res.message}. Track them in the Email Log.`);
+      toaster.showSuccessToast(`${res.message}. Track it in the Email Log.`);
     },
     onError: (err) => {
       toaster.showErrorToast(getErrorMessage(err, 'Failed to send the email'));

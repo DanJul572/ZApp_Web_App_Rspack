@@ -316,8 +316,9 @@ const PreviewSendDrawer = ({
                   Test email queued!
                 </Typography>
                 <Typography variant="caption" color="textSecondary">
-                  It arrives at <strong>{testEmail}</strong> shortly. Its status
-                  is shown in the Email Log.
+                  It arrives at <strong>{testEmail}</strong> shortly. Its
+                  status, or the reason it was not sent, is shown in the Email
+                  Log.
                 </Typography>
               </Box>
             </Box>
