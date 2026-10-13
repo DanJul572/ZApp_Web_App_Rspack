@@ -11,6 +11,6 @@ export const EMAIL_TRIGGER = {
   test: 'Test',
 };
 
-// While emails are on queue the log refreshes itself to show the worker's
+// While emails are on queue the log refreshes itself to show the email sender's
 // progress.
 export const REFRESH_INTERVAL_MS = 5000;
