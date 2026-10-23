@@ -11,7 +11,6 @@ import PageHeader from '@/components/page/PageHeader';
 import SectionCard from '@/components/page/SectionCard';
 import CFieldID from '@/configs/CFieldID';
 import { useConfig } from '@/contexts/ConfigProvider';
-import { useFile } from '@/contexts/FileProvider';
 import Alert from '@/hooks/Alert';
 import Request from '@/hooks/Request';
 
@@ -48,21 +47,25 @@ const UploadPage = () => {
   const request = Request();
 
   const { config } = useConfig();
-  const { file, setFile } = useFile();
-
   const [moduleId, setModuleId] = useState();
-  const [fileName, setFileName] = useState();
+  const [file, setFile] = useState(null);
 
+  // API membaca file dari part bernama `file`
   const upload = () => {
     const url = `${config.api.import.excel}?id=${moduleId}`;
-    return request.post(url, null, file);
+    return request.post(
+      url,
+      null,
+      file ? [{ field: 'file', file }] : [],
+      false,
+    );
   };
 
   const mutation = useMutation({
     mutationFn: upload,
     mutationKey: ['upload-data', moduleId],
     onSuccess: (res) => {
-      setFile([]);
+      setFile(null);
       alert.showSuccessAlert(res.message);
     },
     onError: (err) => {
@@ -71,7 +74,7 @@ const UploadPage = () => {
   });
 
   const onFileChange = (value) => {
-    setFileName(value);
+    setFile(value);
   };
 
   const onModuleChange = (value) => {
@@ -105,11 +108,7 @@ const UploadPage = () => {
               />
             </Step>
             <Step number={2} title="Upload the Excel file">
-              <File
-                label="Excel File"
-                onChange={onFileChange}
-                name={fileName}
-              />
+              <File label="Excel File" onChange={onFileChange} value={file} />
             </Step>
           </Box>
           <Box

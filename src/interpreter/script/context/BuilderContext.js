@@ -9,7 +9,7 @@ const BuilderContext = ({ zcore, latest }) => {
   const crud = Crud(latest);
 
   return {
-    classicQuery: ClassicQuery({ zcore, crud, latest }),
+    classicQuery: ClassicQuery({ zcore, crud }),
     crud,
   };
 };

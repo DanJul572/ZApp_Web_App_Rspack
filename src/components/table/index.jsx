@@ -113,7 +113,7 @@ const Table = (props) => {
   const formattedColumns = columns.map((column) => {
     column.Cell = function OrderItems({ cell }) {
       if (column.type === EInputType.file.value) {
-        return <Download label={cell.getValue()} />;
+        return <Download file={cell.getValue()} />;
       }
       return cell.getValue();
     };

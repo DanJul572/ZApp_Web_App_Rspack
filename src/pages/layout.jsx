@@ -6,7 +6,6 @@ import { AlertProvider } from '@/contexts/AlertProvider';
 import { AuthProvider } from '@/contexts/AuthProvider';
 import { useConfig } from '@/contexts/ConfigProvider';
 import { ExpandedMenuProvider } from '@/contexts/ExpandedMenuProvider';
-import { FileProvider } from '@/contexts/FileProvider';
 import { FormDataProvider } from '@/contexts/FormDataProvider';
 import { JSReportProvider } from '@/contexts/JSReport';
 import { LoadingProvider } from '@/contexts/LoadingProvider';
@@ -39,19 +38,17 @@ export default function Layout() {
             <AlertProvider>
               <ToastProvider>
                 <FormDataProvider>
-                  <FileProvider>
-                    <UIStoreProvider>
-                      <JSReportProvider>
-                        <AuthProvider>
-                          <ExpandedMenuProvider>
-                            <ScriptRuntimeProvider>
-                              <Outlet />
-                            </ScriptRuntimeProvider>
-                          </ExpandedMenuProvider>
-                        </AuthProvider>
-                      </JSReportProvider>
-                    </UIStoreProvider>
-                  </FileProvider>
+                  <UIStoreProvider>
+                    <JSReportProvider>
+                      <AuthProvider>
+                        <ExpandedMenuProvider>
+                          <ScriptRuntimeProvider>
+                            <Outlet />
+                          </ScriptRuntimeProvider>
+                        </ExpandedMenuProvider>
+                      </AuthProvider>
+                    </JSReportProvider>
+                  </UIStoreProvider>
                 </FormDataProvider>
               </ToastProvider>
             </AlertProvider>

@@ -1,37 +1,36 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import { useQuery } from '@tanstack/react-query';
+import { MuiFileInput } from 'mui-file-input';
 import File from '@/components/input/File';
-import { useFile } from '@/contexts/FileProvider';
 import { downloadFile } from '@/helpers/downloadFile';
-import { getFileFromBuffer } from '@/helpers/readFile';
 
-const mockFile = new Blob(['file content'], { type: 'text/plain' });
-mockFile.name = 'test-file.txt';
-
-let fileState = [];
-const setFileMock = jest.fn((updater) => {
-  if (typeof updater === 'function') {
-    fileState = updater(fileState);
-  } else {
-    fileState = updater;
-  }
+const mockFile = new globalThis.File(['file content'], 'test-file.txt', {
+  type: 'text/plain',
 });
+
+const savedFileId = '2b17f189-dd7b-408f-9570-c412899aadd1';
+const savedFile = {
+  id: savedFileId,
+  name: 'photo.png',
+  path: `uploads/products/photo/${savedFileId}.png`,
+  type: 'image/png',
+};
 
 const config = {
   api: {
     file: {
-      download: '/file/download',
+      detail: '/file/detail',
+      host: 'http://localhost:8080',
     },
   },
 };
 
-jest.mock('@/contexts/FileProvider', () => ({
-  useFile: jest.fn(),
-}));
-
 jest.mock('@/helpers/downloadFile', () => ({
   downloadFile: jest.fn(),
+  getFileUrl: jest.fn(
+    (config, filePath) => `${config.api.file.host}/${filePath}`,
+  ),
 }));
 
 jest.mock('mui-file-input', () => ({
@@ -53,11 +52,6 @@ jest.mock('mui-file-input', () => ({
 
 jest.mock('@/hooks/Translator', () => () => (key) => key);
 
-let counter = 0;
-jest.mock('uuid', () => ({
-  v4: () => `mock-uuid-${counter++}`,
-}));
-
 jest.mock('@/hooks/Request', () => ({
   __esModule: true,
   default: jest.fn(() => ({
@@ -70,10 +64,6 @@ jest.mock('@tanstack/react-query', () => ({
   useQuery: jest.fn(),
 }));
 
-jest.mock('@/helpers/readFile', () => ({
-  getFileFromBuffer: jest.fn(),
-}));
-
 jest.mock('@/contexts/ConfigProvider', () => ({
   useConfig: () => {
     return {
@@ -82,15 +72,11 @@ jest.mock('@/contexts/ConfigProvider', () => ({
   },
 }));
 
+const getDisplayedFile = () => MuiFileInput.mock.calls.at(-1)[0].value;
+
 describe('File Input Component', () => {
   beforeEach(() => {
-    fileState = [];
     jest.clearAllMocks();
-
-    useFile.mockReturnValue({
-      file: fileState,
-      setFile: setFileMock,
-    });
 
     useQuery.mockReturnValue({
       data: null,
@@ -99,186 +85,73 @@ describe('File Input Component', () => {
   });
 
   it('renders the component with label', () => {
-    render(<File label="Test Label" name="test" />);
+    render(<File label="Test Label" />);
     expect(screen.getByText('Test Label')).toBeInTheDocument();
   });
 
-  it('handles file upload', () => {
-    render(<File label="Test Label" name="test" />);
-
-    const input = screen.getByTestId('mui-file-input-mock');
-
-    fireEvent.change(input, { target: { files: [mockFile] } });
-
-    expect(setFileMock).toHaveBeenCalled();
-  });
-
-  it('handles file removal', () => {
-    useFile.mockReturnValue({
-      file: [{ name: 'test', file: mockFile }],
-      setFile: setFileMock,
-    });
-
-    render(<File label="Test Label" name="test" />);
-    const input = screen.getByTestId('mui-file-input-mock');
-
-    fireEvent.change(input);
-
-    expect(setFileMock).toHaveBeenCalled();
-  });
-
-  it('handles file download', () => {
-    useFile.mockReturnValue({
-      file: [{ id: 'test', name: 'test', file: mockFile }],
-      setFile: setFileMock,
-    });
-
-    render(<File label="Test Label" name="test" />);
-    const downloadButton = screen.getAllByRole('button')[1];
-
-    fireEvent.click(downloadButton);
-
-    expect(downloadFile).toHaveBeenCalledWith(mockFile);
-  });
-
-  it('handles file fetched from API', () => {
-    const apiFile = new Blob(['from api'], { type: 'text/plain' });
-
-    getFileFromBuffer.mockReturnValue(apiFile);
-
-    useQuery.mockReturnValue({
-      data: { data: 'buffer-data' },
-      isLoading: false,
-      isError: false,
-    });
-
-    render(<File label="Test Label" name="test" value="server-file.txt" />);
-
-    expect(getFileFromBuffer).toHaveBeenCalled();
-    expect(setFileMock).toHaveBeenCalled();
-  });
-
-  it('shows loading state', () => {
-    useQuery.mockReturnValue({
-      data: null,
-      isLoading: true,
-      isError: false,
-    });
-
-    render(<File label="Test Label" name="test" value="file.txt" />);
-
-    expect(screen.getByText('Loading...')).toBeInTheDocument();
-  });
-
-  it('shows error message', () => {
-    useQuery.mockReturnValue({
-      data: null,
-      isLoading: false,
-      isError: true,
-      error: { message: 'Download failed' },
-    });
-
-    render(<File label="Test Label" name="test" value="file.txt" />);
-
-    expect(screen.getByText('Download failed')).toBeInTheDocument();
-  });
-
-  it('adds a new file when it does not exist', () => {
-    render(<File label="Test Label" name="test" />);
-
-    const input = screen.getByTestId('mui-file-input-mock');
-    fireEvent.change(input);
-
-    expect(fileState).toHaveLength(1);
-    expect(fileState[0].name).toBe('test');
-  });
-
-  it('replaces an existing file with the same name', () => {
-    fileState = [{ id: 'old-id', name: 'test', file: new Blob(['old']) }];
-
-    useFile.mockReturnValue({
-      file: fileState,
-      setFile: setFileMock,
-    });
-
-    render(<File label="Test Label" name="test" />);
-
-    const input = screen.getByTestId('mui-file-input-mock');
-    fireEvent.change(input);
-
-    expect(fileState).toHaveLength(1);
-    expect(fileState[0].id).not.toBe('old-id');
-  });
-
-  it('removes file when cleared', () => {
-    fileState = [{ id: '1', name: 'test', file: mockFile }];
-
-    useFile.mockReturnValue({
-      file: fileState,
-      setFile: setFileMock,
-    });
-
-    render(<File label="Test Label" name="test" />);
-
-    fireEvent.click(screen.getByTestId('clear'));
-
-    expect(fileState).toHaveLength(0);
-  });
-
-  it('calls onChange with id when file is added', () => {
+  it('calls onChange with the picked file', () => {
     const onChangeMock = jest.fn();
 
-    render(<File label="Test Label" name="test" onChange={onChangeMock} />);
-
+    render(<File label="Test Label" onChange={onChangeMock} />);
     fireEvent.change(screen.getByTestId('mui-file-input-mock'));
 
-    expect(onChangeMock).toHaveBeenCalledWith(
-      expect.stringContaining('mock-uuid'),
-    );
+    expect(onChangeMock).toHaveBeenCalledWith(mockFile);
   });
 
-  it('returns prevFiles when removing a file that does not exist', () => {
-    fileState = [{ id: '1', name: 'other', file: mockFile }];
-
-    useFile.mockReturnValue({
-      file: fileState,
-      setFile: setFileMock,
-    });
-
+  it('calls onChange with null when the file is cleared', () => {
     const onChangeMock = jest.fn();
 
     render(
-      <File
-        label="Test Label"
-        name="test" // does NOT exist
-        onChange={onChangeMock}
-      />,
+      <File label="Test Label" value={mockFile} onChange={onChangeMock} />,
     );
-
-    fireEvent.click(screen.getByTestId('clear'));
-
-    expect(fileState).toHaveLength(1); // unchanged
-  });
-
-  it('calls onChange with null when file is removed', () => {
-    fileState = [{ id: '1', name: 'test', file: mockFile }];
-
-    useFile.mockReturnValue({
-      file: fileState,
-      setFile: setFileMock,
-    });
-
-    const onChangeMock = jest.fn();
-
-    render(<File label="Test Label" name="test" onChange={onChangeMock} />);
-
     fireEvent.click(screen.getByTestId('clear'));
 
     expect(onChangeMock).toHaveBeenCalledWith(null);
   });
 
-  it('calls request.get inside getFile', async () => {
-    const getMock = jest.fn().mockResolvedValue({ data: 'file' });
+  it('shows a picked file without fetching it', () => {
+    render(<File label="Test Label" value={mockFile} />);
+
+    expect(getDisplayedFile()).toBe(mockFile);
+    expect(useQuery).toHaveBeenCalledWith(
+      expect.objectContaining({ enabled: false }),
+    );
+  });
+
+  it('downloads a picked file from memory', () => {
+    render(<File label="Test Label" value={mockFile} />);
+
+    fireEvent.click(screen.getAllByRole('button')[1]);
+
+    expect(downloadFile).toHaveBeenCalledWith(mockFile);
+  });
+
+  it('shows the name of a saved file', () => {
+    useQuery.mockReturnValue({ data: savedFile, isLoading: false });
+
+    render(<File label="Test Label" value={savedFileId} />);
+
+    expect(getDisplayedFile().name).toBe('photo.png');
+  });
+
+  it('opens a saved file from its public url', () => {
+    const openSpy = jest.spyOn(window, 'open').mockImplementation(() => null);
+    useQuery.mockReturnValue({ data: savedFile, isLoading: false });
+
+    render(<File label="Test Label" value={savedFileId} />);
+    fireEvent.click(screen.getAllByRole('button')[1]);
+
+    expect(openSpy).toHaveBeenCalledWith(
+      `http://localhost:8080/${savedFile.path}`,
+      '_blank',
+      'noopener',
+    );
+    expect(downloadFile).not.toHaveBeenCalled();
+    openSpy.mockRestore();
+  });
+
+  it('fetches the details of a saved file by id', async () => {
+    const getMock = jest.fn().mockResolvedValue({ data: savedFile });
 
     require('@/hooks/Request').default.mockReturnValue({
       get: getMock,
@@ -295,12 +168,36 @@ describe('File Input Component', () => {
       };
     });
 
-    render(<File label="Test Label" name="test" value="server-file.txt" />);
+    render(<File label="Test Label" value={savedFileId} />);
 
-    await queryFn();
-
-    expect(getMock).toHaveBeenCalledWith(expect.anything(), {
-      name: 'server-file.txt',
+    await expect(queryFn()).resolves.toEqual(savedFile);
+    expect(getMock).toHaveBeenCalledWith(config.api.file.detail, {
+      id: savedFileId,
     });
+  });
+
+  it('shows loading state', () => {
+    useQuery.mockReturnValue({
+      data: null,
+      isLoading: true,
+      isError: false,
+    });
+
+    render(<File label="Test Label" value={savedFileId} />);
+
+    expect(screen.getByText('Loading...')).toBeInTheDocument();
+  });
+
+  it('shows error message', () => {
+    useQuery.mockReturnValue({
+      data: null,
+      isLoading: false,
+      isError: true,
+      error: { message: 'File not found' },
+    });
+
+    render(<File label="Test Label" value={savedFileId} />);
+
+    expect(screen.getByText('File not found')).toBeInTheDocument();
   });
 });

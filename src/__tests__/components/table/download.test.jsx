@@ -1,32 +1,13 @@
-import { fireEvent, render, waitFor } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import Download from '@/components/table/Download';
 
 const config = {
   api: {
-    base: 'http://localhost:8080/api',
     file: {
-      download: '/api/download',
+      host: 'http://localhost:8080',
     },
   },
 };
-
-jest.mock('@/contexts/ConfigProvider', () => ({
-  useConfig: jest.fn(),
-}));
-
-jest.mock('@/helpers/downloadFile', () => ({
-  downloadFileFromBuffer: jest.fn(),
-}));
-
-jest.mock('@/helpers/readFile', () => ({
-  extractFileNames: jest.fn((label) => `extracted-${label}`),
-}));
-
-jest.mock('@/hooks/Request', () => {
-  return jest.fn(() => ({
-    get: jest.fn(),
-  }));
-});
 
 jest.mock('@/contexts/ConfigProvider', () => ({
   useConfig: () => {
@@ -36,75 +17,27 @@ jest.mock('@/contexts/ConfigProvider', () => ({
   },
 }));
 
-const mockRequest = require('@/hooks/Request');
-const mockDownloadFileFromBuffer =
-  require('@/helpers/downloadFile').downloadFileFromBuffer;
-const mockExtractFileNames = require('@/helpers/readFile').extractFileNames;
+const file = {
+  id: '2b17f189-dd7b-408f-9570-c412899aadd1',
+  name: 'report.pdf',
+  path: 'uploads/products/manual/2b17f189-dd7b-408f-9570-c412899aadd1.pdf',
+};
 
 describe('Download Table Component', () => {
-  const mockGet = jest.fn();
-  let consoleSpy;
+  test('renders the file name and a link to its public url', () => {
+    const { getByRole, getByText } = render(<Download file={file} />);
 
-  beforeEach(() => {
-    jest.clearAllMocks();
-    mockRequest.mockReturnValue({ get: mockGet });
-    consoleSpy = jest.spyOn(console, 'log').mockImplementation(() => {});
+    expect(getByText('report.pdf')).toBeInTheDocument();
+    expect(getByRole('link')).toHaveAttribute(
+      'href',
+      `http://localhost:8080/${file.path}`,
+    );
+    expect(getByRole('link')).toHaveAttribute('target', '_blank');
   });
 
-  afterEach(() => {
-    consoleSpy.mockRestore();
-  });
+  test('renders nothing when the row has no file', () => {
+    const { container } = render(<Download file={null} />);
 
-  test('renders IconButton and file name when label is provided', () => {
-    const { getByRole, getByText } = render(<Download label="test-file.pdf" />);
-    expect(getByRole('button')).toBeInTheDocument();
-    expect(getByText('extracted-test-file.pdf')).toBeInTheDocument();
-    expect(mockExtractFileNames).toHaveBeenCalledWith('test-file.pdf');
-  });
-
-  test('does not render IconButton when label is not provided', () => {
-    const { queryByRole, getByText } = render(<Download />);
-    expect(queryByRole('button')).not.toBeInTheDocument();
-    expect(getByText('extracted-undefined')).toBeInTheDocument();
-  });
-
-  test('triggers download on button click and handles success', async () => {
-    const mockResponse = {
-      data: {
-        data: { data: [1, 2, 3] },
-        type: 'application/pdf',
-      },
-    };
-    mockGet.mockResolvedValue(mockResponse);
-
-    const { getByRole } = render(<Download label="test-file.pdf" />);
-    fireEvent.click(getByRole('button'));
-
-    await waitFor(() => {
-      expect(mockGet).toHaveBeenCalledWith('/api/download', {
-        name: 'test-file.pdf',
-      });
-      expect(mockDownloadFileFromBuffer).toHaveBeenCalledWith(
-        new Uint8Array([1, 2, 3]),
-        'extracted-test-file.pdf',
-        'application/pdf',
-      );
-    });
-  });
-
-  test('logs error on download failure', async () => {
-    const mockError = new Error('Download failed');
-    mockGet.mockRejectedValueOnce(mockError);
-
-    const { getByRole } = render(<Download label="test-file.pdf" />);
-    fireEvent.click(getByRole('button'));
-
-    await waitFor(() => {
-      expect(mockGet).toHaveBeenCalledWith(config.api.file.download, {
-        name: 'test-file.pdf',
-      });
-      expect(consoleSpy).toHaveBeenCalledWith(mockError);
-      expect(mockDownloadFileFromBuffer).not.toHaveBeenCalled();
-    });
+    expect(container).toBeEmptyDOMElement();
   });
 });

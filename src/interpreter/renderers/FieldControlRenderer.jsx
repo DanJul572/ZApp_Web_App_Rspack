@@ -29,7 +29,7 @@ const FieldControlRenderer = (props) => {
   const scriptEngine = ScriptEngine({ isBuilder });
   // Dibaca lewat ScriptEngine agar field hanya re-render saat nilainya
   // sendiri berubah, bukan setiap kali field lain diketik
-  const { formData, uiStore } = scriptEngine.zcore;
+  const { formData } = scriptEngine.zcore;
 
   const name = properties.name;
   const color = properties.color ? properties.color.name : 'primary';
@@ -80,10 +80,8 @@ const FieldControlRenderer = (props) => {
     case EInputType.time.value:
       return <Time {...inputProps} />;
 
-    case EInputType.file.value: {
-      const tempFileName = uiStore.get('tempData')?.[name] || null;
-      return <File {...inputProps} name={name} value={tempFileName} />;
-    }
+    case EInputType.file.value:
+      return <File {...inputProps} />;
 
     case EInputType.richText.value:
       return <RichText {...inputProps} />;

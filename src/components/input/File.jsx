@@ -5,92 +5,66 @@ import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import { useQuery } from '@tanstack/react-query';
 import { MuiFileInput } from 'mui-file-input';
-import { useEffect } from 'react';
-import { v4 as uuidv4 } from 'uuid';
+import { useMemo } from 'react';
 import { useConfig } from '@/contexts/ConfigProvider';
-import { useFile } from '@/contexts/FileProvider';
-import { downloadFile } from '@/helpers/downloadFile';
-import { getFileFromBuffer } from '@/helpers/readFile';
+import { downloadFile, getFileUrl } from '@/helpers/downloadFile';
 import Request from '@/hooks/Request';
 import Translator from '@/hooks/Translator';
 
+/**
+ * Value berupa File yang baru dipilih, id file yang sudah tersimpan di
+ * server, atau null. File baru ikut terkirim saat form disimpan.
+ */
 const File = (props) => {
-  const { label, onChange, name, disabled, value } = props;
+  const { label, onChange, disabled, value } = props;
 
   const request = Request();
   const translator = Translator();
 
-  const { file, setFile } = useFile();
   const { config } = useConfig();
 
-  const fileContent =
-    file && file.length > 0 ? file.find((file) => file.id === name) : null;
-
-  const handleChange = (file) => {
-    if (file) {
-      const id = `${uuidv4()}_${file.name}`;
-      const newFile = {
-        id: id,
-        name: name,
-        file: file,
-      };
-      setFile((prevFiles) => {
-        const existingFileIndex = prevFiles.findIndex(
-          (file) => file.name === newFile.name,
-        );
-        if (existingFileIndex !== -1) {
-          const updatedFiles = [...prevFiles];
-          updatedFiles[existingFileIndex] = newFile;
-          return updatedFiles;
-        }
-        return [...prevFiles, newFile];
-      });
-      if (onChange) {
-        onChange(id);
-      }
-    } else {
-      setFile((prevFiles) => {
-        const existingFileIndex = prevFiles.findIndex(
-          (file) => file.name === name,
-        );
-        if (existingFileIndex !== -1) {
-          const updatedFiles = [...prevFiles];
-          updatedFiles.splice(existingFileIndex, 1);
-          return updatedFiles;
-        }
-        return prevFiles;
-      });
-      if (onChange) {
-        onChange(null);
-      }
-    }
-  };
-
-  const handleDownload = () => {
-    downloadFile(fileContent.file);
-  };
+  const savedFileId = typeof value === 'string' ? value : null;
 
   const getFile = async () => {
-    return await request.get(config.api.file.download, { name: value });
+    const response = await request.get(config.api.file.detail, {
+      id: savedFileId,
+    });
+    return response.data;
   };
 
   const {
-    data: response,
+    data: savedFile,
     isLoading,
     error,
     isError,
   } = useQuery({
-    queryKey: ['file-input', value],
+    queryKey: ['file-input', savedFileId],
     queryFn: getFile,
-    enabled: !!value,
+    enabled: !!savedFileId,
     retry: 0,
   });
 
-  useEffect(() => {
-    if (response) {
-      handleChange(getFileFromBuffer(response.data));
+  // MuiFileInput hanya bisa menampilkan File, jadi file yang tersimpan
+  // ditampilkan lewat File kosong dengan nama yang sama
+  const displayedFile = useMemo(() => {
+    if (value && !savedFileId) return value;
+    if (savedFileId && savedFile) {
+      return new globalThis.File([], savedFile.name, { type: savedFile.type });
     }
-  }, [response]);
+    return null;
+  }, [value, savedFileId, savedFile]);
+
+  const handleChange = (file) => {
+    onChange?.(file || null);
+  };
+
+  const handleDownload = () => {
+    if (savedFileId) {
+      window.open(getFileUrl(config, savedFile.path), '_blank', 'noopener');
+    } else {
+      downloadFile(value);
+    }
+  };
 
   if (isLoading) {
     return <Typography>Loading...</Typography>;
@@ -126,14 +100,14 @@ const File = (props) => {
             fullWidth
             multiple={false}
             onChange={handleChange}
-            value={fileContent?.file ? fileContent.file : null}
+            value={displayedFile}
             clearIconButtonProps={{
               title: translator('delete'),
               children: <Close />,
             }}
           />
         </Box>
-        {fileContent && (
+        {displayedFile && (
           <IconButton onClick={handleDownload}>
             <Download />
           </IconButton>

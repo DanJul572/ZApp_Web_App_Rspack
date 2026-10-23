@@ -20,24 +20,4 @@ const readJSONFile = (event) => {
   });
 };
 
-const extractFileNames = (fileName) => {
-  if (fileName) {
-    const underscoreIndex = fileName.indexOf('_');
-    if (underscoreIndex !== -1) {
-      return fileName.substring(underscoreIndex + 1);
-    }
-    return fileName;
-  }
-  return '';
-};
-
-const getFileFromBuffer = (data) => {
-  const bufferFormat = new Uint8Array(data.data.data);
-  const blob = new Blob([bufferFormat], { type: data.type });
-  const file = new File([blob], extractFileNames(data.name), {
-    type: data.type,
-  });
-  return file;
-};
-
-export { extractFileNames, getFileFromBuffer, readJSONFile };
+export { readJSONFile };

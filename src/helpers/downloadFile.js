@@ -45,4 +45,7 @@ function downloadFile(file) {
   URL.revokeObjectURL(url);
 }
 
-export { downloadFile, downloadFileFromBuffer, downloadJsonFile };
+// File modul disajikan langsung oleh API di uploads/<module>/<field>/<file>
+const getFileUrl = (config, filePath) => `${config.api.file.host}/${filePath}`;
+
+export { downloadFile, downloadFileFromBuffer, downloadJsonFile, getFileUrl };

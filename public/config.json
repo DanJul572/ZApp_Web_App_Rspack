@@ -41,7 +41,8 @@
       "rows": "/field/rows"
     },
     "file": {
-      "download": "/file/download"
+      "detail": "/file/detail",
+      "host": "http://localhost:8080"
     },
     "import": {
       "excel": "/import/excel"

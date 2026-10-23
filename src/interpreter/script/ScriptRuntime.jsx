@@ -9,7 +9,6 @@ import {
 import { useNavigate, useSearchParams } from 'react-router';
 import { useSetAlert } from '@/contexts/AlertProvider';
 import { useConfig } from '@/contexts/ConfigProvider';
-import { useFile } from '@/contexts/FileProvider';
 import { useFormDataStore } from '@/contexts/FormDataProvider';
 import { useJSReport } from '@/contexts/JSReport';
 import { useSetLoading } from '@/contexts/LoadingProvider';
@@ -72,7 +71,6 @@ export const ScriptRuntimeProvider = ({ children }) => {
   const setAlert = useSetAlert();
   const setLoading = useSetLoading();
   const setToast = useSetToast();
-  const { file, setFile } = useFile();
   const { config } = useConfig();
   const navigate = useNavigate();
   const request = Request();
@@ -83,12 +81,10 @@ export const ScriptRuntimeProvider = ({ children }) => {
   const latest = useRef(null);
   latest.current = {
     config,
-    file,
     navigate,
     report,
     request,
     setAlert,
-    setFile,
     setLoading,
     setToast,
     translator,

@@ -2,30 +2,13 @@ import FileDownload from '@mui/icons-material/FileDownload';
 import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
 import { useConfig } from '@/contexts/ConfigProvider';
-import { downloadFileFromBuffer } from '@/helpers/downloadFile';
-import { extractFileNames } from '@/helpers/readFile';
-import Request from '@/hooks/Request';
+import { getFileUrl } from '@/helpers/downloadFile';
 
-const Download = ({ label }) => {
-  const request = Request();
-
+// `file` berisi { id, name, path } dari kolom file pada rows
+const Download = ({ file }) => {
   const { config } = useConfig();
 
-  const onDownload = () => {
-    request
-      .get(config.api.file.download, { name: label })
-      .then((res) => {
-        const bufferFormat = new Uint8Array(res.data.data.data);
-        downloadFileFromBuffer(
-          bufferFormat,
-          extractFileNames(label),
-          res.data.type,
-        );
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
+  if (!file) return null;
 
   return (
     <Box
@@ -34,12 +17,15 @@ const Download = ({ label }) => {
         alignItems: 'center',
       }}
     >
-      {label && (
-        <IconButton onClick={onDownload}>
-          <FileDownload />
-        </IconButton>
-      )}
-      {extractFileNames(label)}
+      <IconButton
+        component="a"
+        href={getFileUrl(config, file.path)}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <FileDownload />
+      </IconButton>
+      {file.name}
     </Box>
   );
 };

@@ -1,7 +1,7 @@
 /**
  * Diekspos ke script user sebagai `zbuilder.classicQuery`.
  */
-const ClassicQuery = ({ zcore, crud, latest }) => {
+const ClassicQuery = ({ zcore, crud }) => {
   // Error dari Request berupa body response ({ message }) atau string
   const showError = (err) => {
     zcore.alert.showErrorAlert(err?.message || err);
@@ -28,7 +28,6 @@ const ClassicQuery = ({ zcore, crud, latest }) => {
         zcore.alert.showSuccessAlert(res?.message);
         zcore.formData.removeAll();
         zcore.loader.hideLoading();
-        latest.current.setFile([]);
 
         if (path) {
           zcore.redirect.internal(path);
@@ -57,7 +56,6 @@ const ClassicQuery = ({ zcore, crud, latest }) => {
         row[key] = undefined;
 
         zcore.formData.setAll(row);
-        zcore.uiStore.set('tempData', row);
       })
       .catch((err) => {
         showError(err);

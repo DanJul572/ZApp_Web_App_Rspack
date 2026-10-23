@@ -62,8 +62,13 @@ const Request = () => {
     if (!isJsonBody) {
       const formData = new FormData();
 
+      // `field` menentukan nama part; tanpa itu semua file dikirim sebagai `files`
       files.forEach((file) => {
-        formData.append('files', file.file, file.id);
+        formData.append(
+          file.field || 'files',
+          file.file,
+          file.id || file.file.name,
+        );
       });
 
       formData.append('data', JSON.stringify(body));
