@@ -81,7 +81,7 @@ pnpm lint
 - **Internationalization:** [i18next](https://www.i18next.com/)
 - **Data Export:** `export-to-csv`, `jspdf`, `jspdf-autotable`
 - **Utilities:** `uuid`, `dayjs`, `crypto-js`, `prop-types`
-- **Development Tools:** `Biome`, `dotenv-webpack`, `Husky`
+- **Development Tools:** `Biome`, `Husky`
 
 ---
 

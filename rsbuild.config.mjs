@@ -1,21 +1,27 @@
-import { defineConfig } from '@rsbuild/core';
+import { defineConfig, loadEnv } from '@rsbuild/core';
 import { pluginReact } from '@rsbuild/plugin-react';
-import Dotenv from 'dotenv-webpack';
 
-export default defineConfig({
-  html: {
-    favicon: './public/favicon.ico',
-  },
-  plugins: [pluginReact()],
-  tools: {
-    rspack: {
-      plugins: [new Dotenv()],
+export default defineConfig(({ envMode, command }) => {
+  // Loads .env, .env.local, .env.<mode> and .env.<mode>.local (later files win, shell variables
+  // win over all). The mode is --env-mode, else development for `dev` and production otherwise.
+  const { publicVars } = loadEnv({
+    mode: envMode || (command === 'dev' ? 'development' : 'production'),
+    prefixes: ['REACT_APP_'],
+  });
+
+  return {
+    html: {
+      favicon: './public/favicon.ico',
     },
-  },
-  resolve: {
-    alias: {
-      '@': './src',
-      '@configs': './src/configs',
+    plugins: [pluginReact()],
+    source: {
+      define: publicVars,
     },
-  },
+    resolve: {
+      alias: {
+        '@': './src',
+        '@configs': './src/configs',
+      },
+    },
+  };
 });

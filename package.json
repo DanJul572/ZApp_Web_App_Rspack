@@ -11,11 +11,17 @@
   "homepage": "./",
   "scripts": {
     "build": "rsbuild build",
+    "build:dev": "rsbuild build --env-mode development",
+    "build:stage": "rsbuild build --env-mode stage",
+    "build:prod": "rsbuild build --env-mode production",
     "dev": "rsbuild dev",
     "format": "biome check --write",
     "check": "biome check",
     "prepare": "husky",
     "start": "rsbuild preview",
+    "start:dev": "rsbuild dev --env-mode development",
+    "start:stage": "rsbuild build --env-mode stage && rsbuild preview",
+    "start:prod": "rsbuild build --env-mode production && rsbuild preview",
     "test": "jest",
     "test:coverage": "jest --coverage",
     "icons:generate": "node scripts/generate-icon-names.mjs"
@@ -76,7 +82,6 @@
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^16.3.2",
     "@testing-library/user-event": "^14.6.1",
-    "dotenv-webpack": "^9.0.0",
     "husky": "^9.1.7",
     "jest": "^30.3.0",
     "jest-environment-jsdom": "^30.3.0"
